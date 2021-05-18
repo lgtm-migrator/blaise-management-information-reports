@@ -3,6 +3,7 @@ import {DefaultErrorBoundary} from "./Components/ErrorHandling/DefaultErrorBound
 import {Route, Switch, Link} from "react-router-dom";
 import {ErrorBoundary} from "./Components/ErrorHandling/ErrorBoundary";
 import {BetaBanner, Footer, Header, ONSPanel} from "blaise-design-system-react-components";
+import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 
 const divStyle = {
     minHeight: "calc(67vh)"
@@ -19,9 +20,7 @@ function App(): ReactElement {
                     <DefaultErrorBoundary>
                         <Switch>
                             <Route path="/interviewer-call-history">
-                                interviewer id<br />
-                                start date<br />
-                                end date
+                                <InterviewerCallHistory/>
                             </Route>
                             <Route path="/">
 
