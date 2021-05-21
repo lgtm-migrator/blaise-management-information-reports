@@ -4,6 +4,7 @@ import ejs from "ejs";
 import dotenv from "dotenv";
 import {getEnvironmentVariables} from "./Config";
 import createLogger from "./pino";
+import {SendAPIRequest} from "./SendRequest";
 
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({path: __dirname + "/../../.env"});
@@ -28,6 +29,13 @@ server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static
 server.get("/health_check", async function (req: Request, res: Response) {
     console.log("Heath Check endpoint called");
     res.status(200).json({status: 200});
+});
+
+server.post("/api/reports/interviewer-call-history", async function (req: Request, res: Response) {
+    console.log("interviewer-call-history endpoint called");
+    logger(req, res);
+    const [status, result] = await SendAPIRequest(logger, req, res, "https://dev-matt02-bert.social-surveys.gcp.onsdigital.uk", "GET");
+    res.status(status).json(result);
 });
 
 server.get("*", function (req: Request, res: Response) {

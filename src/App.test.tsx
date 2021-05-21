@@ -13,7 +13,7 @@ describe("React homepage", () => {
         mock_server_request_Return_JSON(200, "blah");
     });
 
-    it("view instrument page matches Snapshot", async () => {
+    it("view page matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
@@ -38,16 +38,14 @@ describe("React homepage", () => {
             </Router>
         );
 
-        expect(queryByText(/Loading/i)).toBeInTheDocument();
+        expect(queryByText(/Interviewer Call History/i)).toBeInTheDocument();
 
         await waitFor(() => {
             expect(getByText(/Management Information Reports/i)).toBeDefined();
-            expect(queryByText(/Loading/i)).not.toBeInTheDocument();
         });
 
         await waitFor(() => {
             expect(getByText(/Management Information Reports/i)).toBeDefined();
-            expect(queryByText(/Loading/i)).not.toBeInTheDocument();
         });
 
     });
