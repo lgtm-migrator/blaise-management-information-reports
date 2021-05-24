@@ -33,7 +33,7 @@ function App(): ReactElement {
 
                                 <ONSPanel>
                                     <p>
-                                        Data in these could be up to 24 hours out of date.
+                                        Data in these reports could be up to 24 hours out of date.
                                         <br />
                                         <br />
                                         These reports only go back to the last 12 months.
