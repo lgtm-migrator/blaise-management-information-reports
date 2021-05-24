@@ -8,6 +8,8 @@ import {SendAPIRequest} from "./SendRequest";
 import multer from "multer";
 const upload = multer();
 
+console.log(__dirname);
+
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({path: __dirname + "/../.env"});
 }
@@ -23,10 +25,12 @@ const buildFolder = "../../build";
 const {BERT_URL} = getEnvironmentVariables();
 
 // treat the index.html as a template and substitute the values at runtime
-server.set("views", path.join(__dirname, buildFolder));
+//server.set("views", path.join(__dirname, buildFolder));
+server.set("views", "/build");
 console.log("__dirname, buildFolder: " + path.join(__dirname, buildFolder));
 server.engine("html", ejs.renderFile);
-server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
+//server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
+server.use("/static", express.static("/build/static"));
 
 // Health Check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {
@@ -52,7 +56,7 @@ server.get("*", function (req: Request, res: Response) {
 server.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
     logger(req, res);
     req.log.error(err, err.message);
-    res.render("../views/500.html", {});
+    res.render("/views/500.html", {});
 });
 
 export default server;
