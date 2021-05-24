@@ -9,8 +9,8 @@ async function getReport(formData: any) {
     return new Promise((resolve: (object: getReportResponse) => void) => {
 
         requestPromiseJson("POST", url, formData).then(([status, data]) => {
+
             console.log(`Response: Status ${status}, data ${data}`);
-            console.log(formData);
             if (status === 200) {
                 resolve([true, data]);
             } else {

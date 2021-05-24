@@ -6,26 +6,25 @@ describe("Config setup", () => {
         jest.resetModules();
     });
 
-
     it("should return the correct environment variables", () => {
-        const {PROJECT_ID, ENV_NAME, GIT_BRANCH} = getEnvironmentVariables();
+        const {PROJECT_ID, ENV_NAME, BERT_URL} = getEnvironmentVariables();
 
-        expect(PROJECT_ID).toBe("a-project-name");
-        expect(ENV_NAME).toBe("mock-env");
-        expect(GIT_BRANCH).toBe("mock-branch");
+        expect(PROJECT_ID).toBe("mock-project-id");
+        expect(ENV_NAME).toBe("mock-env-name");
+        expect(BERT_URL).toBe("mock-bert-url");
     });
 
     it("should return variables with default string if variables are not defined", () => {
         process.env = Object.assign({
             PROJECT_ID: undefined,
             ENV_NAME: undefined,
-            GIT_BRANCH: undefined,
+            BERT_URL: undefined,
         });
 
-        const {PROJECT_ID, ENV_NAME, GIT_BRANCH} = getEnvironmentVariables();
+        const {PROJECT_ID, ENV_NAME, BERT_URL} = getEnvironmentVariables();
 
         expect(PROJECT_ID).toBe("ENV_VAR_NOT_SET");
         expect(ENV_NAME).toBe("ENV_VAR_NOT_SET");
-        expect(GIT_BRANCH).toBe("ENV_VAR_NOT_SET");
+        expect(BERT_URL).toBe("ENV_VAR_NOT_SET");
     });
 });

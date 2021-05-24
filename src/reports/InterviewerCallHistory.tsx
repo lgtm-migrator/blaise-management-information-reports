@@ -25,12 +25,11 @@ function InterviewerCallHistory(): ReactElement {
         const [success, list] = await getReport(formData);
 
         if (!success) {
-            setMessage("err");
+            setMessage("Error running report");
             return;
         }
 
         console.log(list);
-
         setListReportData(list);
 
     }
@@ -45,20 +44,20 @@ function InterviewerCallHistory(): ReactElement {
                 {message}
             </ONSPanel>
             <Form onSubmit={(data) => runReport(data)}>
-                <FormTextInput
-                    name="interviewer_id"
-                    validators={[requiredValidator]}
-                    label={"Interviewer ID"}
-                />
-                <FormTextInput
-                    name="start_date"
-                    validators={[requiredValidator]}
+                <p>
+                    <FormTextInput
+                        name="interviewer"
+                        validators={[requiredValidator]}
+                        label={"Interviewer ID"}
+                    />
+                </p>
+                <ONSDateInput
                     label={"Start Date"}
                 />
-                <FormTextInput
-                    name="end_date"
-                    validators={[requiredValidator]}
+                <ONSDateInput
                     label={"End Date"}
+                    date={endDate}
+                    onChange={(date) => setEndDate(date)}
                 />
                 <br />
                 <ONSButton
@@ -75,14 +74,28 @@ function InterviewerCallHistory(): ReactElement {
                         <table id="batches-table" className="table ">
                             <thead className="table__head u-mt-m">
                             <tr className="table__row">
+                                {/*
                                 <th scope="col" className="table__header ">
-                                    <span>Survey</span>
+                                    <span>Interviewer ID</span>
+                                </th>
+                                */}
+                                <th scope="col" className="table__header ">
+                                    <span>Questionnaire</span>
                                 </th>
                                 <th scope="col" className="table__header ">
-                                    <span>Data delivery run time</span>
+                                    <span>Serial Number</span>
                                 </th>
                                 <th scope="col" className="table__header ">
-                                    <span>View run status</span>
+                                    <span>Call Start Time</span>
+                                </th>
+                                <th scope="col" className="table__header ">
+                                    <span>Call Length</span>
+                                </th>
+                                <th scope="col" className="table__header ">
+                                    <span>Interviews</span>
+                                </th>
+                                <th scope="col" className="table__header ">
+                                    <span>Call Result</span>
                                 </th>
                             </tr>
                             </thead>
@@ -92,11 +105,25 @@ function InterviewerCallHistory(): ReactElement {
                                     return (
                                         <tr className="table__row" key={batch.name}
                                             data-testid={"batches-table-row"}>
+                                            {/*
+                                            <td className="table__cell ">
+                                                {batch.interviewer}
+                                            </td>
+                                            */}
                                             <td className="table__cell ">
                                                 {batch.questionnaire_name}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.interviewer}
+                                                {batch.serial_number}
+                                            </td>
+                                            <td className="table__cell ">
+                                                {batch.call_start_time}
+                                            </td>
+                                            <td className="table__cell ">
+                                                {batch.dial_secs}
+                                            </td>
+                                            <td className="table__cell ">
+                                                {batch.number_of_interviews}
                                             </td>
                                             <td className="table__cell ">
                                                 {batch.call_result}

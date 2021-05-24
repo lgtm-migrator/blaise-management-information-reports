@@ -31,6 +31,17 @@ function App(): ReactElement {
                                     </ONSPanel>
                                 }
 
+                                <ONSPanel>
+                                    <p>
+                                        Data in these could be up to 24 hours out of date.
+                                        <br />
+                                        <br />
+                                        These reports only go back to the last 12 months.
+                                    </p>
+                                </ONSPanel>
+
+                                <br />
+
                                 <ErrorBoundary errorMessageText={""}>
                                     <Link to="/interviewer-call-history" id="interviewer-call-history">
                                         Interviewer Call History

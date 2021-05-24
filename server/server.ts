@@ -34,9 +34,13 @@ server.get("/health_check", async function (req: Request, res: Response) {
 server.post("/api/reports/interviewer-call-history", async function (req: Request, res: Response) {
     console.log("interviewer-call-history endpoint called");
     logger(req, res);
-    const [status, result] = await SendAPIRequest(logger, req, res, "https://dev-matt02-bert.social-surveys.gcp.onsdigital.uk", "GET");
+    console.log(req.body);
+    const {interviewer} = req.body;
+    const url = `${BERT_URL}/find?interviewer=${interviewer}`;
+    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET");
     res.status(status).json(result);
 });
+
 
 server.get("*", function (req: Request, res: Response) {
     res.render("index.html");

@@ -7,7 +7,7 @@ vpc_access_connector:
 env_variables:
   PROJECT_ID: _PROJECT_ID
   ENV_NAME: _ENV_NAME
-  GIT_BRANCH: _GIT_BRANCH
+  BERT_URL: _BERT_URL
 
 basic_scaling:
   idle_timeout: 1m
