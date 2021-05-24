@@ -24,6 +24,7 @@ const {BERT_URL} = getEnvironmentVariables();
 
 // treat the index.html as a template and substitute the values at runtime
 server.set("views", path.join(__dirname, buildFolder));
+console.log("__dirname, buildFolder: " + path.join(__dirname, buildFolder));
 server.engine("html", ejs.renderFile);
 server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
 
