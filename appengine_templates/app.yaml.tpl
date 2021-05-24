@@ -6,7 +6,6 @@ vpc_access_connector:
 
 env_variables:
   PROJECT_ID: _PROJECT_ID
-  ENV_NAME: _ENV_NAME
   BERT_URL: _BERT_URL
 
 basic_scaling:

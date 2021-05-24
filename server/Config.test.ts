@@ -7,24 +7,21 @@ describe("Config setup", () => {
     });
 
     it("should return the correct environment variables", () => {
-        const {PROJECT_ID, ENV_NAME, BERT_URL} = getEnvironmentVariables();
+        const {PROJECT_ID, BERT_URL} = getEnvironmentVariables();
 
         expect(PROJECT_ID).toBe("mock-project-id");
-        expect(ENV_NAME).toBe("mock-env-name");
         expect(BERT_URL).toBe("mock-bert-url");
     });
 
     it("should return variables with default string if variables are not defined", () => {
         process.env = Object.assign({
             PROJECT_ID: undefined,
-            ENV_NAME: undefined,
             BERT_URL: undefined,
         });
 
-        const {PROJECT_ID, ENV_NAME, BERT_URL} = getEnvironmentVariables();
+        const {PROJECT_ID, BERT_URL} = getEnvironmentVariables();
 
         expect(PROJECT_ID).toBe("ENV_VAR_NOT_SET");
-        expect(ENV_NAME).toBe("ENV_VAR_NOT_SET");
         expect(BERT_URL).toBe("ENV_VAR_NOT_SET");
     });
 });
