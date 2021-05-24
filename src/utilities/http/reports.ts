@@ -2,9 +2,14 @@ import {requestPromiseJson} from "./requestPromise";
 
 type getReportResponse = [boolean, any[]]
 
-async function getReport(formData: any) {
+function getReport(form: any) {
 
     const url = "/api/reports/interviewer-call-history";
+
+    const formData = new FormData();
+    formData.append("interviewer", form.interviewer);
+    formData.append("start_date", form.start_date);
+    formData.append("end_date", form.end_date);
 
     return new Promise((resolve: (object: getReportResponse) => void) => {
 

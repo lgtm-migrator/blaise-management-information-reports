@@ -5,20 +5,22 @@ import dotenv from "dotenv";
 import {getEnvironmentVariables} from "./Config";
 import createLogger from "./pino";
 import {SendAPIRequest} from "./SendRequest";
+import multer from "multer";
+const upload = multer();
 
 if (process.env.NODE_ENV !== "production") {
-    dotenv.config({path: __dirname + "/../../.env"});
+    dotenv.config({path: __dirname + "/../.env"});
 }
 
 const server = express();
 const logger = createLogger();
 server.use(logger);
-
+server.use(upload.any());
 // where ever the react built package is
 const buildFolder = "../../build";
 
 // load the .env variables in the server
-const environmentVariables = getEnvironmentVariables();
+const {BERT_URL} = getEnvironmentVariables();
 
 // treat the index.html as a template and substitute the values at runtime
 server.set("views", path.join(__dirname, buildFolder));
@@ -27,7 +29,7 @@ server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static
 
 // Health Check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {
-    console.log("Heath Check endpoint called");
+    console.log("Heath Check endpoint` called");
     res.status(200).json({status: 200});
 });
 

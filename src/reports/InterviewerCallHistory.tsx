@@ -6,21 +6,25 @@ import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
 import {getReport} from "../utilities/http";
 import {ErrorBoundary} from "../Components/ErrorHandling/ErrorBoundary";
+import {ONSDateInput} from "../Components/ONSDesignSystem/ONSDateInput";
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [startDate, setStartDate] = useState<string>("");
-    const [endDate, setEndDate] = useState<string>("");
+    const [startDate, setStartDate] = useState<Date>(new Date());
+    const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [listReportData, setListReportData] = useState<any[]>([]);
     const [redirect, setRedirect] = useState<boolean>(false);
     const [listError, setListError] = useState<string>("");
 
     async function runReport(formData: any) {
-        setInterviewerID(formData.interviewer_id);
-        setStartDate(formData.start_date);
-        setEndDate(formData.end_date);
+        console.log(formData);
+        setInterviewerID(formData.interviewer);
+        formData.start_date = startDate;
+        formData.end_date = endDate;
+
+        console.log(`runReport ${formData}`);
 
         const [success, list] = await getReport(formData);
 
@@ -53,6 +57,8 @@ function InterviewerCallHistory(): ReactElement {
                 </p>
                 <ONSDateInput
                     label={"Start Date"}
+                    date={startDate}
+                    onChange={(date) => setStartDate(date)}
                 />
                 <ONSDateInput
                     label={"End Date"}
