@@ -55,17 +55,21 @@ function InterviewerCallHistory(): ReactElement {
                         label={"Interviewer ID"}
                     />
                 </p>
-                <ONSDateInput
-                    label={"Start Date"}
-                    date={startDate}
-                    onChange={(date) => setStartDate(date)}
-                />
-                <ONSDateInput
-                    label={"End Date"}
-                    date={endDate}
-                    onChange={(date) => setEndDate(date)}
-                />
-                <br />
+                <p>
+                    <ONSDateInput
+                        label={"Start Date"}
+                        date={startDate}
+                        onChange={(date) => setStartDate(date)}
+                    />
+                </p>
+                <p>
+                    <ONSDateInput
+                        label={"End Date"}
+                        date={endDate}
+                        onChange={(date) => setEndDate(date)}
+                    />
+                </p>
+                <br/>
                 <ONSButton
                     label={"Run"}
                     primary={true}
