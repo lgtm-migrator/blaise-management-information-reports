@@ -20,7 +20,7 @@ server.use(logger);
 server.use(upload.any());
 
 // where ever the react built package is
-const buildFolder = "../../build";
+const buildFolder = "../build";
 
 // load the .env variables in the server
 const {BERT_URL} = getEnvironmentVariables();
