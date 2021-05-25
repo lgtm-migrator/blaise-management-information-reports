@@ -8,8 +8,6 @@ import {SendAPIRequest} from "./SendRequest";
 import multer from "multer";
 const upload = multer();
 
-console.log(__dirname);
-
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({path: __dirname + "/../.env"});
 }
@@ -30,18 +28,23 @@ server.set("views", path.join(__dirname, buildFolder));
 server.engine("html", ejs.renderFile);
 server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
 
-// Health Check endpoint
+// health_check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {
     console.log("health_check endpoint` called");
     res.status(200).json({status: 200});
 });
 
+// interviewer-call-history report endpoint
 server.post("/api/reports/interviewer-call-history", async function (req: Request, res: Response) {
     console.log("interviewer-call-history endpoint called");
     logger(req, res);
     console.log(req.body);
     const {interviewer} = req.body;
-    const url = `${BERT_URL}/find?interviewer=${interviewer}`;
+    const {start_date} = req.body;
+    const {end_date} = req.body;
+    // const url = `${BERT_URL}/find?interviewer=${interviewer}`;
+    // const url = `${BERT_URL}/api/reports/call-history/${interviewer}?start-date=${start_date}?end_date=${end_date}`;
+    const url = `${BERT_URL}/api/reports/call-history/${interviewer}`;
     const [status, result] = await SendAPIRequest(logger, req, res, url, "GET");
     res.status(status).json(result);
 });
