@@ -18,6 +18,7 @@ const server = express();
 const logger = createLogger();
 server.use(logger);
 server.use(upload.any());
+
 // where ever the react built package is
 const buildFolder = "../../build";
 
@@ -25,16 +26,13 @@ const buildFolder = "../../build";
 const {BERT_URL} = getEnvironmentVariables();
 
 // treat the index.html as a template and substitute the values at runtime
-//server.set("views", path.join(__dirname, buildFolder));
-server.set("views", "/build");
-console.log("__dirname, buildFolder: " + path.join(__dirname, buildFolder));
+server.set("views", path.join(__dirname, buildFolder));
 server.engine("html", ejs.renderFile);
-//server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
-server.use("/static", express.static("/build/static"));
+server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
 
 // Health Check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {
-    console.log("Heath Check endpoint` called");
+    console.log("health_check endpoint` called");
     res.status(200).json({status: 200});
 });
 
@@ -48,7 +46,6 @@ server.post("/api/reports/interviewer-call-history", async function (req: Reques
     res.status(status).json(result);
 });
 
-
 server.get("*", function (req: Request, res: Response) {
     res.render("index.html");
 });
@@ -56,7 +53,7 @@ server.get("*", function (req: Request, res: Response) {
 server.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
     logger(req, res);
     req.log.error(err, err.message);
-    res.render("/views/500.html", {});
+    res.render("../views/500.html", {});
 });
 
 export default server;
