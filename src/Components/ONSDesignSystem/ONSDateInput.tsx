@@ -1,6 +1,5 @@
 import React, {forwardRef} from "react";
 import DatePicker from "react-datepicker";
-import "./ONSDateInput.css";
 import {ONSTextInput} from "blaise-design-system-react-components";
 
 interface Props {
