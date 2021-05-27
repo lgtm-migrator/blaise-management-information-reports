@@ -1,5 +1,5 @@
-import React, {ChangeEvent, ReactElement, useState} from "react";
-import {Link, Redirect} from "react-router-dom";
+import React, {ReactElement, useState} from "react";
+import {Link} from "react-router-dom";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
@@ -15,8 +15,6 @@ function InterviewerCallHistory(): ReactElement {
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [listReportData, setListReportData] = useState<any[]>([]);
-    const [redirect, setRedirect] = useState<boolean>(false);
-    const [listError, setListError] = useState<string>("");
 
     async function runReport(formData: any) {
         console.log(formData);
@@ -55,20 +53,18 @@ function InterviewerCallHistory(): ReactElement {
                         label={"Interviewer ID"}
                     />
                 </p>
-                <p>
-                    <ONSDateInput
-                        label={"Start Date"}
-                        date={startDate}
-                        onChange={(date) => setStartDate(date)}
-                    />
-                </p>
-                <p>
-                    <ONSDateInput
-                        label={"End Date"}
-                        date={endDate}
-                        onChange={(date) => setEndDate(date)}
-                    />
-                </p>
+                <ONSDateInput
+                    label={"Start Date"}
+                    date={startDate}
+                    onChange={(date) => setStartDate(date)}
+                />
+                <br/>
+                <ONSDateInput
+                    label={"End Date"}
+                    date={endDate}
+                    onChange={(date) => setEndDate(date)}
+                />
+                <br/>
                 <br/>
                 <ONSButton
                     label={"Run"}
@@ -76,6 +72,7 @@ function InterviewerCallHistory(): ReactElement {
                     loading={buttonLoading}
                     submit={true}/>
             </Form>
+            <br/>
 
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
@@ -145,7 +142,7 @@ function InterviewerCallHistory(): ReactElement {
                             </tbody>
                         </table>
                         :
-                        <ONSPanel>{listError}</ONSPanel>
+                        <br/>
                 }
             </ErrorBoundary>
 
