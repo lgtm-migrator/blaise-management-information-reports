@@ -65,7 +65,7 @@ Object {
                     <img
                       alt="Office for National Statistics logo"
                       class="header__logo"
-                      src="https://ons-design-system.netlify.app/img/ons-logo-neg-en.svg"
+                      src="https://cdn.ons.gov.uk/sdc/design-system/31.4.0/img/ons-logo-neg-en.svg"
                     />
                   </picture>
                 </a>
@@ -107,7 +107,7 @@ Object {
             class="panel panel--info panel--no-title  u-mt-m"
           >
             <div
-              class="panel__body"
+              class="panel__body "
             >
               <p>
                 Data in these reports could be up to 24 hours out of date.
@@ -218,7 +218,7 @@ Object {
                   <img
                     alt="Office for National Statistics logo"
                     class="header__logo"
-                    src="https://ons-design-system.netlify.app/img/ons-logo-neg-en.svg"
+                    src="https://cdn.ons.gov.uk/sdc/design-system/31.4.0/img/ons-logo-neg-en.svg"
                   />
                 </picture>
               </a>
@@ -260,7 +260,7 @@ Object {
           class="panel panel--info panel--no-title  u-mt-m"
         >
           <div
-            class="panel__body"
+            class="panel__body "
           >
             <p>
               Data in these reports could be up to 24 hours out of date.
