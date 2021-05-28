@@ -133,7 +133,7 @@ function InterviewerCallHistory(): ReactElement {
                                                 {batch.number_of_interviews}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.call_result}
+                                                {(batch.call_result === null ? "Unknown" : batch.call_result)}
                                             </td>
                                         </tr>
                                     );
