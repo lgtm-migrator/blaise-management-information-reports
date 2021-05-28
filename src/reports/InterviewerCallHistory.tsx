@@ -120,7 +120,7 @@ function InterviewerCallHistory(): ReactElement {
                             {
                                 listReportData.map((batch: any) => {
                                     return (
-                                        <tr className="table__row" key={batch.name}
+                                        <tr className="table__row" key={batch.call_start_time}
                                             data-testid={"batches-table-row"}>
                                             {/*
                                             <td className="table__cell ">
