@@ -1,10 +1,10 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {getInterviewerCallHistoryReport} from "../utilities/http";
+import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
 import {ErrorBoundary} from "../Components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../Components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
@@ -16,14 +16,17 @@ function InterviewerCallHistory(): ReactElement {
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [listReportData, setListReportData] = useState<any[]>([]);
+    const [reportStatus, setReportStatus] = useState<Date | null>(null);
 
     async function runInterviewerCallHistoryReport(formData: any) {
+        setButtonLoading(true);
         console.log(formData);
         setInterviewerID(formData.interviewer);
         formData.start_date = startDate;
         formData.end_date = endDate;
 
         const [success, list] = await getInterviewerCallHistoryReport(formData);
+        setButtonLoading(false);
 
         if (!success) {
             setMessage("Error running report");
@@ -32,8 +35,16 @@ function InterviewerCallHistory(): ReactElement {
 
         console.log(list);
         setListReportData(list);
-
     }
+
+    useEffect(() => {
+        getInterviewerCallHistoryStatus().then(([success, last_updated]) => {
+            if (!success) {
+                return;
+            }
+            setReportStatus(new Date(last_updated.last_updated));
+        });
+    }, []);
 
     return (
         <>
@@ -44,6 +55,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
+            <p className="u-fs-s">{(reportStatus && "Report data last updated:  " + dateFormatter(reportStatus).format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput

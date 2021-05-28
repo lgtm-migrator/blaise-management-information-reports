@@ -49,6 +49,14 @@ server.post("/api/reports/interviewer-call-history", async function (req: Reques
     res.status(status).json(result);
 });
 
+server.get("/api/reports/call-history-status", async function (req: Request, res: Response) {
+    console.log("call-history-status endpoint called");
+    logger(req, res);
+    const url = `${BERT_URL}/api/reports/call-history-status`;
+    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET");
+    res.status(status).json(result);
+});
+
 server.get("*", function (req: Request, res: Response) {
     res.render("index.html");
 });
