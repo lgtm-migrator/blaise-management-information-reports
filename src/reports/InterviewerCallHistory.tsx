@@ -4,9 +4,10 @@ import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {getReport} from "../utilities/http";
+import {getInterviewerCallHistoryReport} from "../utilities/http";
 import {ErrorBoundary} from "../Components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../Components/ONSDesignSystem/ONSDateInput";
+import dateFormatter from "dayjs";
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -16,15 +17,13 @@ function InterviewerCallHistory(): ReactElement {
     const [message, setMessage] = useState<string>("");
     const [listReportData, setListReportData] = useState<any[]>([]);
 
-    async function runReport(formData: any) {
+    async function runInterviewerCallHistoryReport(formData: any) {
         console.log(formData);
         setInterviewerID(formData.interviewer);
         formData.start_date = startDate;
         formData.end_date = endDate;
 
-        console.log(`runReport ${formData}`);
-
-        const [success, list] = await getReport(formData);
+        const [success, list] = await getInterviewerCallHistoryReport(formData);
 
         if (!success) {
             setMessage("Error running report");
@@ -45,7 +44,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <Form onSubmit={(data) => runReport(data)}>
+            <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
                         name="interviewer"
@@ -73,7 +72,6 @@ function InterviewerCallHistory(): ReactElement {
                     submit={true}/>
             </Form>
             <br/>
-
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
                     listReportData && listReportData.length > 0
@@ -124,10 +122,12 @@ function InterviewerCallHistory(): ReactElement {
                                                 {batch.serial_number}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.call_start_time}
+                                                {dateFormatter(batch.call_start_time).format("YYYY-MM-DD HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.dial_secs}
+                                                {("0" + Math.floor(batch.dial_secs / 60)).slice(-2)}
+                                                {":"}
+                                                {("0" + (batch.dial_secs - Math.floor(batch.dial_secs / 60) * 60)).slice(-2)}
                                             </td>
                                             <td className="table__cell ">
                                                 {batch.number_of_interviews}

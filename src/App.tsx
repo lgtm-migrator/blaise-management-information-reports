@@ -10,7 +10,6 @@ const divStyle = {
 };
 
 function App(): ReactElement {
-
     return (
         <>
             <BetaBanner/>
@@ -23,14 +22,12 @@ function App(): ReactElement {
                                 <InterviewerCallHistory/>
                             </Route>
                             <Route path="/">
-
                                 {
                                     status !== "" &&
                                     <ONSPanel status={status?.includes("success") ? "success" : "error"}>
                                         <p>{status}</p>
                                     </ONSPanel>
                                 }
-
                                 <ONSPanel>
                                     <p>
                                         Data in these reports could be up to 24 hours out of date.
@@ -39,9 +36,7 @@ function App(): ReactElement {
                                         These reports only go back to the last 12 months.
                                     </p>
                                 </ONSPanel>
-
                                 <br />
-
                                 <ErrorBoundary errorMessageText={""}>
                                     <Link to="/interviewer-call-history" id="interviewer-call-history">
                                         Interviewer Call History

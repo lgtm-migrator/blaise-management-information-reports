@@ -10,7 +10,7 @@ import {Router} from "react-router";
 describe("React homepage", () => {
 
     beforeAll(() => {
-        mock_server_request_Return_JSON(200, "blah");
+        mock_server_request_Return_JSON(200, "data");
     });
 
     it("view page matches snapshot", async () => {
