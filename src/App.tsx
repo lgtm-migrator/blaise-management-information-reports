@@ -47,7 +47,7 @@ function App(): ReactElement {
                                                         Interviewer Call History
                                                     </Link>
                                                 </h2>
-                                                <p id="interviewer-call-history-text">Generate report TR15 - Interviewer Call History.
+                                                <p id="interviewer-call-history-text">Generate report TR15 interviewer call history.
                                                     Compliments TR9B for the assessing training needs.</p>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@ function App(): ReactElement {
                                         {/*                Interviewer Pattern*/}
                                         {/*            </Link>*/}
                                         {/*        </h2>*/}
-                                        {/*        <p id="interviewer-pattern-text">Generate TR9B - Interviewer Pattern.*/}
+                                        {/*        <p id="interviewer-pattern-text">Generate TR9B interviewer pattern.*/}
                                         {/*            Analyse productivity of interviewers to support identification of training needs.</p>*/}
                                         {/*    </div>*/}
                                         {/*</div>*/}

@@ -38,7 +38,7 @@ describe("React homepage", () => {
             </Router>
         );
 
-        expect(queryByText(/Interviewer Call History/i)).toBeInTheDocument();
+        expect(queryByText(/Interviewer Call History/)).toBeInTheDocument();
 
         await waitFor(() => {
             expect(getByText(/Management Information Reports/i)).toBeDefined();

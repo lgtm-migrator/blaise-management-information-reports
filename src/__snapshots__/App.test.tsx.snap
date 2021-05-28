@@ -118,12 +118,39 @@ Object {
             </div>
           </div>
           <br />
-          <a
-            href="/interviewer-call-history"
-            id="interviewer-call-history"
+          <div
+            class="container"
           >
-            Interviewer Call History
-          </a>
+            <div
+              class="grid grid--column@xxs@s"
+            >
+              <div
+                class="grid__col col-6@m"
+              >
+                <div
+                  aria-describedby="interviewer-call-history-text"
+                  aria-labelledby="interviewer-call-history"
+                  class="card"
+                >
+                  <h2
+                    class="u-fs-m"
+                    id="interviewer-call-history"
+                  >
+                    <a
+                      href="/interviewer-call-history"
+                    >
+                      Interviewer Call History
+                    </a>
+                  </h2>
+                  <p
+                    id="interviewer-call-history-text"
+                  >
+                    Generate report TR15 interviewer call history. Compliments TR9B for the assessing training needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </main>
       </div>
       <footer
@@ -271,12 +298,39 @@ Object {
           </div>
         </div>
         <br />
-        <a
-          href="/interviewer-call-history"
-          id="interviewer-call-history"
+        <div
+          class="container"
         >
-          Interviewer Call History
-        </a>
+          <div
+            class="grid grid--column@xxs@s"
+          >
+            <div
+              class="grid__col col-6@m"
+            >
+              <div
+                aria-describedby="interviewer-call-history-text"
+                aria-labelledby="interviewer-call-history"
+                class="card"
+              >
+                <h2
+                  class="u-fs-m"
+                  id="interviewer-call-history"
+                >
+                  <a
+                    href="/interviewer-call-history"
+                  >
+                    Interviewer Call History
+                  </a>
+                </h2>
+                <p
+                  id="interviewer-call-history-text"
+                >
+                  Generate report TR15 interviewer call history. Compliments TR9B for the assessing training needs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
     <footer
