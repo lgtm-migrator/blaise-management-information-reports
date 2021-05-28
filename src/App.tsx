@@ -37,11 +37,34 @@ function App(): ReactElement {
                                     </p>
                                 </ONSPanel>
                                 <br />
-                                <ErrorBoundary errorMessageText={""}>
-                                    <Link to="/interviewer-call-history" id="interviewer-call-history">
-                                        Interviewer Call History
-                                    </Link>
-                                </ErrorBoundary>
+
+                                <div className="container">
+                                    <div className="grid grid--column@xxs@s">
+                                        <div className="grid__col col-6@m">
+                                            <div className="card" aria-labelledBy="interviewer-call-history" aria-describedBy="interviewer-call-history-text">
+                                                <h2 className="u-fs-m" id="interviewer-call-history">
+                                                    <Link to="/interviewer-call-history" >
+                                                        Interviewer Call History
+                                                    </Link>
+                                                </h2>
+                                                <p id="interviewer-call-history-text">Generate report TR15 - Interviewer Call History.
+                                                    Compliments TR9B for the assessing training needs.</p>
+                                            </div>
+                                        </div>
+                                        {/* TODO: Removed as the report does not exist yet, to add back in */}
+                                        {/*<div className="grid__col col-6@m">*/}
+                                        {/*    <div className="card" aria-labelledBy="interviewer-pattern" aria-describedBy="interviewer-pattern-text">*/}
+                                        {/*        <h2 className="u-fs-m" id="interviewer-pattern">*/}
+                                        {/*            <Link to="/interviewer-pattern" >*/}
+                                        {/*                Interviewer Pattern*/}
+                                        {/*            </Link>*/}
+                                        {/*        </h2>*/}
+                                        {/*        <p id="interviewer-pattern-text">Generate TR9B - Interviewer Pattern.*/}
+                                        {/*            Analyse productivity of interviewers to support identification of training needs.</p>*/}
+                                        {/*    </div>*/}
+                                        {/*</div>*/}
+                                    </div>
+                                </div>
                             </Route>
                         </Switch>
                     </DefaultErrorBoundary>
