@@ -4,10 +4,23 @@ import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
+import {
+    convertSecondsToMinutesAndSeconds,
+    getInterviewerCallHistoryReport,
+    getInterviewerCallHistoryStatus
+} from "../utilities/http";
 import {ErrorBoundary} from "../Components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../Components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
+
+interface ReportData {
+    questionnaire_name: string
+    serial_number: string
+    call_start_time: string
+    dial_secs: string
+    number_of_interviews: string
+    call_result: string
+}
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -15,7 +28,7 @@ function InterviewerCallHistory(): ReactElement {
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
-    const [listReportData, setListReportData] = useState<any[]>([]);
+    const [listReportData, setListReportData] = useState<ReportData[]>([]);
     const [reportStatus, setReportStatus] = useState<Date | null>(null);
 
     async function runInterviewerCallHistoryReport(formData: any) {
@@ -55,7 +68,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated:  " + dateFormatter(reportStatus).format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
@@ -137,9 +150,7 @@ function InterviewerCallHistory(): ReactElement {
                                                 {dateFormatter(batch.call_start_time).format("YYYY-MM-DD HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
-                                                {("0" + Math.floor(batch.dial_secs / 60)).slice(-2)}
-                                                {":"}
-                                                {("0" + (batch.dial_secs - Math.floor(batch.dial_secs / 60) * 60)).slice(-2)}
+                                                {convertSecondsToMinutesAndSeconds(batch.dial_secs)}
                                             </td>
                                             <td className="table__cell ">
                                                 {batch.number_of_interviews}

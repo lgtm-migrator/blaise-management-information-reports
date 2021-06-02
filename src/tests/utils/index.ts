@@ -2,7 +2,7 @@
 // @ts-ignore
 const flushPromises = () => new Promise(setTimeout);
 
-export function mock_server_request_Return_JSON(returnedStatus: number, returnedJSON: unknown): void {
+export function mock_server_request_return_json(returnedStatus: number, returnedJSON: unknown): void {
     global.fetch = jest.fn().mockImplementation(() =>
         Promise.resolve({
             status: returnedStatus,

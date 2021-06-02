@@ -47,8 +47,11 @@ function App(): ReactElement {
                                                         Interviewer Call History
                                                     </Link>
                                                 </h2>
+                                                {/* removing this for now as I don't think we should refer to the old reports */}
+                                                {/*
                                                 <p id="interviewer-call-history-text">Generate report TR15 interviewer call history.
                                                     Compliments TR9B for the assessing training needs.</p>
+                                                    */}
                                             </div>
                                         </div>
                                         {/* TODO: Removed as the report does not exist yet, to add back in */}

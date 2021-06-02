@@ -1,5 +1,11 @@
 import {requestPromiseJson} from "./requestPromise";
 
+function convertSecondsToMinutesAndSeconds(seconds: any){
+    const convertedMinutes = ("0" + Math.floor(seconds / 60)).slice(-2);
+    const convertedSeconds = ("0" + (seconds - Math.floor(seconds / 60) * 60)).slice(-2);
+    return convertedMinutes + ":" + convertedSeconds;
+}
+
 type getReportResponse = [boolean, any[]]
 
 function getInterviewerCallHistoryReport(form: any): Promise<getReportResponse> {
@@ -42,4 +48,4 @@ function getInterviewerCallHistoryStatus(): Promise<getReportStatusResponse> {
     });
 }
 
-export {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus};
+export {convertSecondsToMinutesAndSeconds, getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus};
