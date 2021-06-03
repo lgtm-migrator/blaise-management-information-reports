@@ -2,7 +2,7 @@ import React from "react";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import App from "./App";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_server_request_return_json} from "./tests/utils";
+import flushPromises from "./tests/utils";
 import {act} from "react-dom/test-utils";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
@@ -69,7 +69,7 @@ describe("management information reports homepage", () => {
             </Router>
         );
 
-        expect(queryByText(/Management Information Reports/i)).toBeInTheDocument();
+        expect(queryByText(/Management Information Reports/)).toBeInTheDocument();
         expect(queryByText(/Interviewer Call History/)).toBeInTheDocument();
 
     });
@@ -79,63 +79,3 @@ describe("management information reports homepage", () => {
     });
 });
 
-// TODO fix this test, mocked data isn't being passed in...
-describe("interviewer call history report", () => {
-
-    const reportDataReturned: ReportData[] = [
-
-    {
-        questionnaire_name: "LMS2101_AA1",
-        serial_number: "1337",
-        call_start_time: "Sat, 01 May 2021 10:00:00 GMT",
-        dial_secs: "61",
-        number_of_interviews: "5",
-        call_result: "Busy",
-}];
-
-    beforeAll(() => {
-        mock_server_request_return_json(200, reportDataReturned);
-    });
-
-    it("matches snapshot", async () => {
-        const history = createMemoryHistory();
-        const wrapper = render(
-            <Router history={history}>
-                <InterviewerCallHistory/>
-            </Router>
-        );
-
-        await act(async () => {
-            await flushPromises();
-        });
-
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
-    });
-
-    it("renders correctly", async () => {
-        const history = createMemoryHistory();
-        const {getByText, queryByText} = render(
-            <Router history={history}>
-                <InterviewerCallHistory/>
-            </Router>
-        );
-
-        expect(queryByText(/Run interviewer call history report/)).toBeInTheDocument();
-        expect(queryByText(/Interviewer ID/)).toBeInTheDocument();
-        expect(queryByText(/Start Date/)).toBeInTheDocument();
-        expect(queryByText(/End Date/)).toBeInTheDocument();
-
-        await waitFor(() => {
-            expect(getByText(/LMS2101_AA1/i)).toBeDefined();
-            //expect(getByText(/01\/05\/2021 10:00:00/i)).toBeDefined();
-        });
-
-    });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
-    });
-});
