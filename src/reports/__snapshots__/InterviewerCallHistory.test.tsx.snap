@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interviewer call history report matches snapshot 1`] = `
+exports[`interviewer call history report with data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -28,7 +28,7 @@ Object {
       <p
         class="u-fs-s"
       >
-        Report data last updated: 28/05/2021 11:00:00
+        Report data last updated: 01/06/2021 11:00:00
       </p>
       <form
         class="u-mt-m"
@@ -127,6 +127,14 @@ Object {
         </button>
       </form>
       <br />
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+        hidden=""
+      >
+        <div
+          class="panel__body "
+        />
+      </div>
       <br />
     </div>
   </body>,
@@ -154,7 +162,7 @@ Object {
     <p
       class="u-fs-s"
     >
-      Report data last updated: 28/05/2021 11:00:00
+      Report data last updated: 01/06/2021 11:00:00
     </p>
     <form
       class="u-mt-m"
@@ -253,6 +261,339 @@ Object {
       </button>
     </form>
     <br />
+    <div
+      class="panel panel--info panel--no-title  u-mt-m"
+      hidden=""
+    >
+      <div
+        class="panel__body "
+      />
+    </div>
+    <br />
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`interviewer call history report without data matches snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <p
+        class="u-mt-m"
+      >
+        <a
+          href="/"
+        >
+          Previous
+        </a>
+      </p>
+      <h1>
+        Run interviewer call history report
+      </h1>
+      <div
+        class="panel panel--error panel--no-title  u-mt-m"
+        hidden=""
+      >
+        <div
+          class="panel__body "
+        />
+      </div>
+      <p
+        class="u-fs-s"
+      >
+        Report data last updated: Invalid Date
+      </p>
+      <form
+        class="u-mt-m"
+      >
+        <p>
+          <div
+            class="field"
+          >
+            <div
+              class=""
+            >
+              <div
+                class=""
+              >
+                <label
+                  class="label"
+                  for="interviewer"
+                >
+                  Interviewer ID
+                </label>
+                <input
+                  class="input input--text input-type__input u-mt-xs"
+                  id="interviewer"
+                  name="interviewer"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+        </p>
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <p
+              class="field"
+            >
+              <label
+                class="label"
+                for="start-date"
+              >
+                Start Date
+              </label>
+              <input
+                class="input input--text input-type__input "
+                data-testid="text-input"
+                id="start-date"
+                placeholder="Select Date"
+                type="text"
+                value="10/10/2012"
+              />
+            </p>
+          </div>
+        </div>
+        <br />
+        <div
+          class="react-datepicker-wrapper"
+        >
+          <div
+            class="react-datepicker__input-container"
+          >
+            <p
+              class="field"
+            >
+              <label
+                class="label"
+                for="end-date"
+              >
+                End Date
+              </label>
+              <input
+                class="input input--text input-type__input "
+                data-testid="text-input"
+                id="end-date"
+                placeholder="Select Date"
+                type="text"
+                value="10/10/2012"
+              />
+            </p>
+          </div>
+        </div>
+        <br />
+        <br />
+        <button
+          class="btn "
+          data-testid="submit-call-history-form-button"
+          type="submit"
+        >
+          <span
+            class="btn__inner"
+          >
+            Run
+          </span>
+        </button>
+      </form>
+      <br />
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+        hidden=""
+      >
+        <div
+          class="panel__body "
+        />
+      </div>
+      <br />
+    </div>
+  </body>,
+  "container": <div>
+    <p
+      class="u-mt-m"
+    >
+      <a
+        href="/"
+      >
+        Previous
+      </a>
+    </p>
+    <h1>
+      Run interviewer call history report
+    </h1>
+    <div
+      class="panel panel--error panel--no-title  u-mt-m"
+      hidden=""
+    >
+      <div
+        class="panel__body "
+      />
+    </div>
+    <p
+      class="u-fs-s"
+    >
+      Report data last updated: Invalid Date
+    </p>
+    <form
+      class="u-mt-m"
+    >
+      <p>
+        <div
+          class="field"
+        >
+          <div
+            class=""
+          >
+            <div
+              class=""
+            >
+              <label
+                class="label"
+                for="interviewer"
+              >
+                Interviewer ID
+              </label>
+              <input
+                class="input input--text input-type__input u-mt-xs"
+                id="interviewer"
+                name="interviewer"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
+      </p>
+      <div
+        class="react-datepicker-wrapper"
+      >
+        <div
+          class="react-datepicker__input-container"
+        >
+          <p
+            class="field"
+          >
+            <label
+              class="label"
+              for="start-date"
+            >
+              Start Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              data-testid="text-input"
+              id="start-date"
+              placeholder="Select Date"
+              type="text"
+              value="10/10/2012"
+            />
+          </p>
+        </div>
+      </div>
+      <br />
+      <div
+        class="react-datepicker-wrapper"
+      >
+        <div
+          class="react-datepicker__input-container"
+        >
+          <p
+            class="field"
+          >
+            <label
+              class="label"
+              for="end-date"
+            >
+              End Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              data-testid="text-input"
+              id="end-date"
+              placeholder="Select Date"
+              type="text"
+              value="10/10/2012"
+            />
+          </p>
+        </div>
+      </div>
+      <br />
+      <br />
+      <button
+        class="btn "
+        data-testid="submit-call-history-form-button"
+        type="submit"
+      >
+        <span
+          class="btn__inner"
+        >
+          Run
+        </span>
+      </button>
+    </form>
+    <br />
+    <div
+      class="panel panel--info panel--no-title  u-mt-m"
+      hidden=""
+    >
+      <div
+        class="panel__body "
+      />
+    </div>
     <br />
   </div>,
   "debug": [Function],

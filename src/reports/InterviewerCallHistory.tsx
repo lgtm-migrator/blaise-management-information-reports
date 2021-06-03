@@ -20,10 +20,12 @@ function InterviewerCallHistory(): ReactElement {
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
+    const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<ReportData[]>([]);
     const [reportStatus, setReportStatus] = useState<Date | null>(null);
 
     async function runInterviewerCallHistoryReport(formData: any) {
+        setReportData([]);
         setButtonLoading(true);
         console.log(formData);
         setInterviewerID(formData.interviewer);
@@ -35,6 +37,11 @@ function InterviewerCallHistory(): ReactElement {
 
         if (!success) {
             setMessage("Error running report");
+            return;
+        }
+
+        if (data.length == 0) {
+            setMessageNoData("No data found for parameters given.");
             return;
         }
 
@@ -160,10 +167,10 @@ function InterviewerCallHistory(): ReactElement {
                             </tbody>
                         </table>
                         :
-                        <br/>
+                        <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                 }
+                <br/>
             </ErrorBoundary>
-
         </>
     );
 }
