@@ -13,6 +13,11 @@ import {ReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+dateFormatter.extend(utc);
+dateFormatter.extend(timezone);
+
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -67,7 +72,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London", true).format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
@@ -149,7 +154,7 @@ function InterviewerCallHistory(): ReactElement {
                                                 {data.serial_number}
                                             </td>
                                             <td className="table__cell ">
-                                                {dateFormatter(data.call_start_time).format("DD/MM/YYYY HH:mm:ss")}
+                                                {dateFormatter(data.call_start_time).tz("Europe/London", true).format("DD/MM/YYYY HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
                                                 {convertSecondsToMinutesAndSeconds(data.dial_secs)}
