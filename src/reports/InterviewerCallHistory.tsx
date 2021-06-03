@@ -5,10 +5,10 @@ import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
 import {
-    convertSecondsToMinutesAndSeconds,
     getInterviewerCallHistoryReport,
     getInterviewerCallHistoryStatus
 } from "../utilities/http";
+import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
 import {ReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
@@ -72,17 +72,20 @@ function InterviewerCallHistory(): ReactElement {
                 <ONSDateInput
                     label={"Start Date"}
                     date={startDate}
+                    id={"start-date"}
                     onChange={(date) => setStartDate(date)}
                 />
                 <br/>
                 <ONSDateInput
                     label={"End Date"}
                     date={endDate}
+                    id={"end-date"}
                     onChange={(date) => setEndDate(date)}
                 />
                 <br/>
                 <br/>
                 <ONSButton
+                    testid={"submit-call-history-form"}
                     label={"Run"}
                     primary={true}
                     loading={buttonLoading}
@@ -139,7 +142,7 @@ function InterviewerCallHistory(): ReactElement {
                                                 {data.serial_number}
                                             </td>
                                             <td className="table__cell ">
-                                                {dateFormatter(data.call_start_time).format("YYYY-MM-DD HH:mm:ss")}
+                                                {dateFormatter(data.call_start_time).format("DD/MM/YYYY HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
                                                 {convertSecondsToMinutesAndSeconds(data.dial_secs)}
