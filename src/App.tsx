@@ -1,7 +1,6 @@
 import React, {ReactElement} from "react";
-import {DefaultErrorBoundary} from "./Components/ErrorHandling/DefaultErrorBoundary";
+import {DefaultErrorBoundary} from "./components/ErrorHandling/DefaultErrorBoundary";
 import {Route, Switch, Link} from "react-router-dom";
-import {ErrorBoundary} from "./Components/ErrorHandling/ErrorBoundary";
 import {BetaBanner, Footer, Header, ONSPanel} from "blaise-design-system-react-components";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 

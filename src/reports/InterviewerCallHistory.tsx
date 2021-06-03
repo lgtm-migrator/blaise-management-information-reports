@@ -9,18 +9,10 @@ import {
     getInterviewerCallHistoryReport,
     getInterviewerCallHistoryStatus
 } from "../utilities/http";
-import {ErrorBoundary} from "../Components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../Components/ONSDesignSystem/ONSDateInput";
+import {ReportData} from "../interfaces";
+import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
+import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
-
-interface ReportData {
-    questionnaire_name: string
-    serial_number: string
-    call_start_time: string
-    dial_secs: string
-    number_of_interviews: string
-    call_result: string
-}
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -28,7 +20,7 @@ function InterviewerCallHistory(): ReactElement {
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
-    const [listReportData, setListReportData] = useState<ReportData[]>([]);
+    const [reportData, setReportData] = useState<ReportData[]>([]);
     const [reportStatus, setReportStatus] = useState<Date | null>(null);
 
     async function runInterviewerCallHistoryReport(formData: any) {
@@ -38,7 +30,7 @@ function InterviewerCallHistory(): ReactElement {
         formData.start_date = startDate;
         formData.end_date = endDate;
 
-        const [success, list] = await getInterviewerCallHistoryReport(formData);
+        const [success, data] = await getInterviewerCallHistoryReport(formData);
         setButtonLoading(false);
 
         if (!success) {
@@ -46,8 +38,8 @@ function InterviewerCallHistory(): ReactElement {
             return;
         }
 
-        console.log(list);
-        setListReportData(list);
+        console.log(data);
+        setReportData(data);
     }
 
     useEffect(() => {
@@ -99,9 +91,9 @@ function InterviewerCallHistory(): ReactElement {
             <br/>
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
-                    listReportData && listReportData.length > 0
+                    reportData && reportData.length > 0
                         ?
-                        <table id="batches-table" className="table ">
+                        <table id="report-table" className="table ">
                             <thead className="table__head u-mt-m">
                             <tr className="table__row">
                                 {/*
@@ -131,32 +123,32 @@ function InterviewerCallHistory(): ReactElement {
                             </thead>
                             <tbody className="table__body">
                             {
-                                listReportData.map((batch: any) => {
+                                reportData.map((data: any) => {
                                     return (
-                                        <tr className="table__row" key={batch.call_start_time}
-                                            data-testid={"batches-table-row"}>
+                                        <tr className="table__row" key={data.call_start_time}
+                                            data-testid={"report-table-row"}>
                                             {/*
                                             <td className="table__cell ">
-                                                {batch.interviewer}
+                                                {data.interviewer}
                                             </td>
                                             */}
                                             <td className="table__cell ">
-                                                {batch.questionnaire_name}
+                                                {data.questionnaire_name}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.serial_number}
+                                                {data.serial_number}
                                             </td>
                                             <td className="table__cell ">
-                                                {dateFormatter(batch.call_start_time).format("YYYY-MM-DD HH:mm:ss")}
+                                                {dateFormatter(data.call_start_time).format("YYYY-MM-DD HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
-                                                {convertSecondsToMinutesAndSeconds(batch.dial_secs)}
+                                                {convertSecondsToMinutesAndSeconds(data.dial_secs)}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.number_of_interviews}
+                                                {data.number_of_interviews}
                                             </td>
                                             <td className="table__cell ">
-                                                {(batch.call_result === null ? "Unknown" : batch.call_result)}
+                                                {(data.call_result === null ? "Unknown" : data.call_result)}
                                             </td>
                                         </tr>
                                     );

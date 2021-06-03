@@ -8,6 +8,7 @@ import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import {convertSecondsToMinutesAndSeconds} from "./utilities/http";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
+import {ReportData} from "./interfaces";
 
 test("test 60 seconds is converted to 01:00", () => {
     expect(convertSecondsToMinutesAndSeconds(60)).toBe("01:00");
@@ -78,15 +79,6 @@ describe("management information reports homepage", () => {
     });
 });
 
-interface ReportData {
-    questionnaire_name: string
-    serial_number: string
-    call_start_time: string
-    dial_secs: string
-    number_of_interviews: string
-    call_result: string
-}
-
 // TODO fix this test, mocked data isn't being passed in...
 describe("interviewer call history report", () => {
 
@@ -136,7 +128,7 @@ describe("interviewer call history report", () => {
         expect(queryByText(/End Date/)).toBeInTheDocument();
 
         await waitFor(() => {
-            //expect(getByText(/LMS2101_AA1/i)).toBeDefined();
+            expect(getByText(/LMS2101_AA1/i)).toBeDefined();
             //expect(getByText(/01\/05\/2021 10:00:00/i)).toBeDefined();
         });
 
