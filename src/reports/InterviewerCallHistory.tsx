@@ -72,7 +72,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London", true).format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
@@ -154,7 +154,7 @@ function InterviewerCallHistory(): ReactElement {
                                                 {data.serial_number}
                                             </td>
                                             <td className="table__cell ">
-                                                {dateFormatter(data.call_start_time).tz("Europe/London", true).format("DD/MM/YYYY HH:mm:ss")}
+                                                {dateFormatter(data.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
                                                 {convertSecondsToMinutesAndSeconds(data.dial_secs)}
