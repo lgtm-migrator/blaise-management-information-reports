@@ -8,4 +8,4 @@
 [![Github contributors](https://img.shields.io/github/contributors/ONSdigital/blaise-management-information-reports.svg)](https://github.com/ONSdigital/blaise-management-information-reports/graphs/contributors)
 
 
-![Ernie from sesame street](https://media1.tenor.com/images/f6aa5871607b1c8f9f05b99b53dab74c/tenor.gif)
+![Ernie from sesame street](https://user-images.githubusercontent.com/38406765/120772485-44daa980-c518-11eb-8e4d-8aacc6628d53.png)
