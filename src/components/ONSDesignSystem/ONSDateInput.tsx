@@ -14,7 +14,7 @@ export const ONSDateInput = (props: Props) => {
     const ref = React.createRef();
     // eslint-disable-next-line react/display-name
     const CustomDateInput = forwardRef(({onClick, value}: any, ref) => (
-        <ONSTextInput label={props.label} value={value} onClick={onClick} placeholder={"Select Date"}/>
+        <ONSTextInput id={props.id} label={props.label} value={value} onClick={onClick} placeholder={"Select Date"}/>
     ));
 
     return (

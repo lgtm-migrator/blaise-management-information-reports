@@ -8,3 +8,4 @@ module.exports = {
     "\\.(css)$": "<rootDir>/__mocks__/styleMock.js",
   }
 };
+

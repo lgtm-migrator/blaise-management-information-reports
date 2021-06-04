@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`React homepage view page matches snapshot 1`] = `
+exports[`management information reports homepage matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -142,11 +142,6 @@ Object {
                       Interviewer Call History
                     </a>
                   </h2>
-                  <p
-                    id="interviewer-call-history-text"
-                  >
-                    Generate report TR15 interviewer call history. Compliments TR9B for the assessing training needs.
-                  </p>
                 </div>
               </div>
             </div>
@@ -322,11 +317,6 @@ Object {
                     Interviewer Call History
                   </a>
                 </h2>
-                <p
-                  id="interviewer-call-history-text"
-                >
-                  Generate report TR15 interviewer call history. Compliments TR9B for the assessing training needs.
-                </p>
               </div>
             </div>
           </div>

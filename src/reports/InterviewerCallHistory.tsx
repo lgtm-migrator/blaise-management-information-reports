@@ -4,10 +4,20 @@ import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
-import {ErrorBoundary} from "../Components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../Components/ONSDesignSystem/ONSDateInput";
+import {
+    getInterviewerCallHistoryReport,
+    getInterviewerCallHistoryStatus
+} from "../utilities/http";
+import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
+import {ReportData} from "../interfaces";
+import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
+import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+dateFormatter.extend(utc);
+dateFormatter.extend(timezone);
+
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -15,17 +25,19 @@ function InterviewerCallHistory(): ReactElement {
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
-    const [listReportData, setListReportData] = useState<any[]>([]);
+    const [messageNoData, setMessageNoData] = useState<string>("");
+    const [reportData, setReportData] = useState<ReportData[]>([]);
     const [reportStatus, setReportStatus] = useState<Date | null>(null);
 
     async function runInterviewerCallHistoryReport(formData: any) {
+        setReportData([]);
         setButtonLoading(true);
         console.log(formData);
         setInterviewerID(formData.interviewer);
         formData.start_date = startDate;
         formData.end_date = endDate;
 
-        const [success, list] = await getInterviewerCallHistoryReport(formData);
+        const [success, data] = await getInterviewerCallHistoryReport(formData);
         setButtonLoading(false);
 
         if (!success) {
@@ -33,8 +45,13 @@ function InterviewerCallHistory(): ReactElement {
             return;
         }
 
-        console.log(list);
-        setListReportData(list);
+        if (data.length == 0) {
+            setMessageNoData("No data found for parameters given.");
+            return;
+        }
+
+        console.log(data);
+        setReportData(data);
     }
 
     useEffect(() => {
@@ -55,7 +72,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated:  " + dateFormatter(reportStatus).format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
@@ -67,17 +84,20 @@ function InterviewerCallHistory(): ReactElement {
                 <ONSDateInput
                     label={"Start Date"}
                     date={startDate}
+                    id={"start-date"}
                     onChange={(date) => setStartDate(date)}
                 />
                 <br/>
                 <ONSDateInput
                     label={"End Date"}
                     date={endDate}
+                    id={"end-date"}
                     onChange={(date) => setEndDate(date)}
                 />
                 <br/>
                 <br/>
                 <ONSButton
+                    testid={"submit-call-history-form"}
                     label={"Run"}
                     primary={true}
                     loading={buttonLoading}
@@ -86,9 +106,9 @@ function InterviewerCallHistory(): ReactElement {
             <br/>
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
-                    listReportData && listReportData.length > 0
+                    reportData && reportData.length > 0
                         ?
-                        <table id="batches-table" className="table ">
+                        <table id="report-table" className="table ">
                             <thead className="table__head u-mt-m">
                             <tr className="table__row">
                                 {/*
@@ -118,34 +138,32 @@ function InterviewerCallHistory(): ReactElement {
                             </thead>
                             <tbody className="table__body">
                             {
-                                listReportData.map((batch: any) => {
+                                reportData.map((data: any) => {
                                     return (
-                                        <tr className="table__row" key={batch.call_start_time}
-                                            data-testid={"batches-table-row"}>
+                                        <tr className="table__row" key={data.call_start_time}
+                                            data-testid={"report-table-row"}>
                                             {/*
                                             <td className="table__cell ">
-                                                {batch.interviewer}
+                                                {data.interviewer}
                                             </td>
                                             */}
                                             <td className="table__cell ">
-                                                {batch.questionnaire_name}
+                                                {data.questionnaire_name}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.serial_number}
+                                                {data.serial_number}
                                             </td>
                                             <td className="table__cell ">
-                                                {dateFormatter(batch.call_start_time).format("YYYY-MM-DD HH:mm:ss")}
+                                                {dateFormatter(data.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss")}
                                             </td>
                                             <td className="table__cell ">
-                                                {("0" + Math.floor(batch.dial_secs / 60)).slice(-2)}
-                                                {":"}
-                                                {("0" + (batch.dial_secs - Math.floor(batch.dial_secs / 60) * 60)).slice(-2)}
+                                                {convertSecondsToMinutesAndSeconds(data.dial_secs)}
                                             </td>
                                             <td className="table__cell ">
-                                                {batch.number_of_interviews}
+                                                {data.number_of_interviews}
                                             </td>
                                             <td className="table__cell ">
-                                                {(batch.call_result === null ? "Unknown" : batch.call_result)}
+                                                {(data.call_result === null ? "Unknown" : data.call_result)}
                                             </td>
                                         </tr>
                                     );
@@ -154,10 +172,10 @@ function InterviewerCallHistory(): ReactElement {
                             </tbody>
                         </table>
                         :
-                        <br/>
+                        <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                 }
+                <br/>
             </ErrorBoundary>
-
         </>
     );
 }
