@@ -1,5 +1,12 @@
 # Blaise Management Information Reports ![Ernie](.github/ernie.png)
 
+[![codecov](https://codecov.io/gh/ONSdigital/blaise-management-information-reports/branch/main/graph/badge.svg)](https://codecov.io/gh/ONSdigital/blaise-management-information-reports)
+[![CI status](https://github.com/ONSdigital/blaise-management-information-reports/workflows/Test%20coverage%20report/badge.svg)](https://github.com/ONSdigital/blaise-management-information-reports/workflows/Test%20coverage%20report/badge.svg)
+<img src="https://img.shields.io/github/release/ONSdigital/blaise-management-information-reports.svg?style=flat-square">
+[![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/ONSdigital/blaise-management-information-reports.svg)](https://github.com/ONSdigital/blaise-management-information-reports/pulls)
+[![Github last commit](https://img.shields.io/github/last-commit/ONSdigital/blaise-management-information-reports.svg)](https://github.com/ONSdigital/blaise-management-information-reports/commits)
+[![Github contributors](https://img.shields.io/github/contributors/ONSdigital/blaise-management-information-reports.svg)](https://github.com/ONSdigital/blaise-management-information-reports/graphs/contributors)
+
 Web-based user interface for running and viewing management information reports.
 
 ![UI](.github/ui.png)
