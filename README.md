@@ -33,8 +33,10 @@ Create an .env file in the root of the project and add the following variables:
 
 | Variable | Description | Example |
 | --- | --- | --- |
+| PROJECT_ID | | blah |
 | BERT_URL | The base URL the application will use to formulate URLs for API calls. | https://dev-bert.social-surveys.gcp.onsdigital.uk |
-| PROJECT_ID | is this needed? | blah |
+| BERT_CLIENT_ID | | blah |
+
 
 Install the project dependencies:
 
