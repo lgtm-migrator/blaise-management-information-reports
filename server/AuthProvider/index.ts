@@ -23,10 +23,10 @@ export default class AuthProvider {
         }
         const decodedToken = jwt.decode(this.token, {json: true});
         if (decodedToken === null) {
-            console.log("Failed to decode token, Calling for new Google auth Token");
+            console.log("Failed to decode token, calling for new token");
             return false;
         } else if (AuthProvider.hasTokenExpired(decodedToken["exp"])) {
-            console.log("Auth Token Expired, Calling for new Google auth Token");
+            console.log("Token expired, calling for new token");
 
             return false;
         }
