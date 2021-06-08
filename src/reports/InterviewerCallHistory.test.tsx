@@ -112,7 +112,6 @@ describe("interviewer call history report with data", () => {
         await waitFor(() => {
             expect(screen.getByText(/LMS2101_AA1/)).toBeDefined();
             expect(screen.getByText(/1337/)).toBeDefined();
-            // TODO: Timezones are terrible
             expect(screen.getByText("01/05/2021 11:00:00")).toBeDefined();
             expect(screen.getByText(/01:01/)).toBeDefined();
             expect(screen.getByText(/42/)).toBeDefined();
