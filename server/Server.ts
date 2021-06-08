@@ -7,6 +7,7 @@ import createLogger from "./pino";
 import {SendAPIRequest} from "./SendRequest";
 import multer from "multer";
 import dateFormatter from "dayjs";
+import AuthProvider from "./AuthProvider";
 
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({path: __dirname + "/../.env"});
@@ -22,7 +23,9 @@ server.use(upload.any());
 const buildFolder = "../build";
 
 // load the .env variables in the server
-const {BERT_URL} = getEnvironmentVariables();
+const {BERT_URL, BERT_CLIENT_ID} = getEnvironmentVariables();
+
+const authProvider = new AuthProvider(BERT_CLIENT_ID);
 
 // treat the index.html as a template and substitute the values at runtime
 server.set("views", path.join(__dirname, buildFolder));
@@ -38,6 +41,7 @@ server.get("/health_check", async function (req: Request, res: Response) {
 // interviewer-call-history report endpoint
 server.post("/api/reports/interviewer-call-history", async function (req: Request, res: Response) {
     console.log("interviewer-call-history endpoint called");
+    const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
     const {interviewer, start_date, end_date} = req.body;
@@ -45,15 +49,16 @@ server.post("/api/reports/interviewer-call-history", async function (req: Reques
     const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
     const url = `${BERT_URL}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}`;
     console.log(url);
-    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET");
+    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
     res.status(status).json(result);
 });
 
 server.get("/api/reports/call-history-status", async function (req: Request, res: Response) {
     console.log("call-history-status endpoint called");
+    const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     const url = `${BERT_URL}/api/reports/call-history-status`;
-    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET");
+    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
     res.status(status).json(result);
 });
 
