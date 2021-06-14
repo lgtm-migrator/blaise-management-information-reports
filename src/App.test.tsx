@@ -2,18 +2,14 @@ import React from "react";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import App from "./App";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_server_request_Return_JSON} from "./tests/utils";
+import flushPromises from "./tests/utils";
 import {act} from "react-dom/test-utils";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 
-describe("React homepage", () => {
+describe("management information reports homepage", () => {
 
-    beforeAll(() => {
-        mock_server_request_Return_JSON(200, "data");
-    });
-
-    it("view page matches snapshot", async () => {
+    it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
@@ -30,28 +26,21 @@ describe("React homepage", () => {
         });
     });
 
-    it("should render correctly", async () => {
+    it("renders correctly", async () => {
         const history = createMemoryHistory();
-        const {getByText, queryByText} = render(
+        const {queryByText} = render(
             <Router history={history}>
                 <App/>
             </Router>
         );
 
+        expect(queryByText(/Management Information Reports/)).toBeInTheDocument();
         expect(queryByText(/Interviewer Call History/)).toBeInTheDocument();
-
-        await waitFor(() => {
-            expect(getByText(/Management Information Reports/i)).toBeDefined();
-        });
-
-        await waitFor(() => {
-            expect(getByText(/Management Information Reports/i)).toBeDefined();
-        });
 
     });
 
     afterAll(() => {
-        jest.clearAllMocks();
         cleanup();
     });
 });
+
