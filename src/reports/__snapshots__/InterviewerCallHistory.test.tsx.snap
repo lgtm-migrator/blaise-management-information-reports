@@ -128,7 +128,7 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history--15-06-2021-16-00-47"
+        download="interviewer-call-history-"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
         target="_self"
@@ -270,7 +270,7 @@ Object {
     </form>
     <br />
     <a
-      download="interviewer-call-history--15-06-2021-16-00-47"
+      download="interviewer-call-history-"
       hidden=""
       href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
       target="_self"
@@ -469,7 +469,7 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history--15-06-2021-16-00-47"
+        download="interviewer-call-history-"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
         target="_self"
@@ -611,7 +611,7 @@ Object {
     </form>
     <br />
     <a
-      download="interviewer-call-history--15-06-2021-16-00-47"
+      download="interviewer-call-history-"
       hidden=""
       href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
       target="_self"

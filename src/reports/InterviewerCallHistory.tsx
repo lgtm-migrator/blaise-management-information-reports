@@ -126,7 +126,7 @@ function InterviewerCallHistory(): ReactElement {
                      data={reportData}
                      headers={reportExportHeaders}
                      target="_blank"
-                     filename={`interviewer-call-history-${interviewerID}-${dateFormatter().format("DD-MM-YYYY-HH-mm-ss")}`}>
+                     filename={`interviewer-call-history-${interviewerID}`}>
                 Export report as Comma-Separated Values (CSV) file
             </CSVLink>
 
