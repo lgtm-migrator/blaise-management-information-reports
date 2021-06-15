@@ -12,6 +12,8 @@ import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
 import {ReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
+import {CSVLink} from "react-csv";
+
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -28,6 +30,21 @@ function InterviewerCallHistory(): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<ReportData[]>([]);
     const [reportStatus, setReportStatus] = useState<Date | null>(null);
+
+    const reportExportHeaders = [
+        {label: "Questionnaire", key: "questionnaire_name"},
+        {label: "Survey", key: "survey"},
+        {label: "Wave", key: "wave"},
+        {label: "Call Result", key: "call_result"},
+        {label: "Call start time", key: "call_start_time"},
+        {label: "Cohort", key: "cohort"},
+        {label: "Call length (In seconds)", key: "dial_secs"},
+        {label: "Interviewer", key: "interviewer"},
+        {label: "Number of interviews", key: "number_of_interviews"},
+        {label: "Outcome code", key: "outcome_code"},
+        {label: "Serial number", key: "serial_number"},
+        {label: "Status", key: "status"}
+    ];
 
     async function runInterviewerCallHistoryReport(formData: any) {
         setReportData([]);
@@ -104,11 +121,20 @@ function InterviewerCallHistory(): ReactElement {
                     submit={true}/>
             </Form>
             <br/>
+
+            <CSVLink hidden={reportData === null || reportData.length === 0}
+                     data={reportData}
+                     headers={reportExportHeaders}
+                     target="_blank"
+                     filename={`interviewer-call-history-${interviewerID}`}>
+                Export report as Comma-Separated Values (CSV) file
+            </CSVLink>
+
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
                     reportData && reportData.length > 0
                         ?
-                        <table id="report-table" className="table ">
+                        <table id="report-table" className="table u-mt-s">
                             <thead className="table__head u-mt-m">
                             <tr className="table__row">
                                 {/*
