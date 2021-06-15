@@ -119,33 +119,37 @@ Object {
           </div>
           <br />
           <div
-            class="container"
+            class="grid grid--column@xxs@s u-mt-m"
           >
             <div
-              class="grid grid--column@xxs@s"
+              class="grid__col col-6@m"
             >
               <div
-                class="grid__col col-6@m"
+                aria-describedby="interviewer-call-history-text"
+                aria-labelledby="interviewer-call-history"
+                class="card"
               >
-                <div
-                  aria-describedby="interviewer-call-history-text"
-                  aria-labelledby="interviewer-call-history"
-                  class="card"
+                <h2
+                  class="u-fs-m"
+                  id="interviewer-call-history"
                 >
-                  <h2
-                    class="u-fs-m"
-                    id="interviewer-call-history"
+                  <a
+                    href="/interviewer-call-history"
                   >
-                    <a
-                      href="/interviewer-call-history"
-                    >
-                      Interviewer Call History
-                    </a>
-                  </h2>
-                </div>
+                    Interviewer Call History
+                  </a>
+                </h2>
+                <p
+                  id="interviewer-call-history-text"
+                >
+                  Generate report to see telephone operator activity for individual interviewers with a specified date period
+                </p>
               </div>
             </div>
           </div>
+          <div
+            class="grid grid--column@xxs@s  u-mt-m"
+          />
         </main>
       </div>
       <footer
@@ -294,33 +298,37 @@ Object {
         </div>
         <br />
         <div
-          class="container"
+          class="grid grid--column@xxs@s u-mt-m"
         >
           <div
-            class="grid grid--column@xxs@s"
+            class="grid__col col-6@m"
           >
             <div
-              class="grid__col col-6@m"
+              aria-describedby="interviewer-call-history-text"
+              aria-labelledby="interviewer-call-history"
+              class="card"
             >
-              <div
-                aria-describedby="interviewer-call-history-text"
-                aria-labelledby="interviewer-call-history"
-                class="card"
+              <h2
+                class="u-fs-m"
+                id="interviewer-call-history"
               >
-                <h2
-                  class="u-fs-m"
-                  id="interviewer-call-history"
+                <a
+                  href="/interviewer-call-history"
                 >
-                  <a
-                    href="/interviewer-call-history"
-                  >
-                    Interviewer Call History
-                  </a>
-                </h2>
-              </div>
+                  Interviewer Call History
+                </a>
+              </h2>
+              <p
+                id="interviewer-call-history-text"
+              >
+                Generate report to see telephone operator activity for individual interviewers with a specified date period
+              </p>
             </div>
           </div>
         </div>
+        <div
+          class="grid grid--column@xxs@s  u-mt-m"
+        />
       </main>
     </div>
     <footer
