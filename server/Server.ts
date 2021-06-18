@@ -38,6 +38,16 @@ server.get("/health_check", async function (req: Request, res: Response) {
     res.status(200).json({status: 200});
 });
 
+// call-history-status endpoint
+server.get("/api/reports/call-history-status", async function (req: Request, res: Response) {
+    console.log("call-history-status endpoint called");
+    const authHeader = await authProvider.getAuthHeader();
+    logger(req, res);
+    const url = `${BERT_URL}/api/reports/call-history-status`;
+    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
+    res.status(status).json(result);
+});
+
 // interviewer-call-history report endpoint
 server.post("/api/reports/interviewer-call-history", async function (req: Request, res: Response) {
     console.log("interviewer-call-history endpoint called");
@@ -53,11 +63,17 @@ server.post("/api/reports/interviewer-call-history", async function (req: Reques
     res.status(status).json(result);
 });
 
-server.get("/api/reports/call-history-status", async function (req: Request, res: Response) {
-    console.log("call-history-status endpoint called");
+// interviewer-call-pattern report endpoint
+server.post("/api/reports/interviewer-call-pattern", async function (req: Request, res: Response) {
+    console.log("interviewer-call-pattern endpoint called");
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
-    const url = `${BERT_URL}/api/reports/call-history-status`;
+    console.log(req.body);
+    const {interviewer, start_date, end_date} = req.body;
+    const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
+    const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
+    const url = `${BERT_URL}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}`;
+    console.log(url);
     const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
     res.status(status).json(result);
 });

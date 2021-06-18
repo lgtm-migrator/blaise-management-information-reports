@@ -22,7 +22,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body "
+          class="panel__body"
         />
       </div>
       <p
@@ -130,7 +130,7 @@ Object {
       <a
         download="interviewer-call-history-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
+        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
@@ -140,7 +140,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body "
+          class="panel__body"
         />
       </div>
       <br />
@@ -164,7 +164,7 @@ Object {
       hidden=""
     >
       <div
-        class="panel__body "
+        class="panel__body"
       />
     </div>
     <p
@@ -272,7 +272,7 @@ Object {
     <a
       download="interviewer-call-history-"
       hidden=""
-      href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
+      href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
       target="_self"
     >
       Export report as Comma-Separated Values (CSV) file
@@ -282,7 +282,7 @@ Object {
       hidden=""
     >
       <div
-        class="panel__body "
+        class="panel__body"
       />
     </div>
     <br />
@@ -363,7 +363,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body "
+          class="panel__body"
         />
       </div>
       <p
@@ -471,7 +471,7 @@ Object {
       <a
         download="interviewer-call-history-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
+        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
@@ -481,7 +481,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body "
+          class="panel__body"
         />
       </div>
       <br />
@@ -505,7 +505,7 @@ Object {
       hidden=""
     >
       <div
-        class="panel__body "
+        class="panel__body"
       />
     </div>
     <p
@@ -613,7 +613,7 @@ Object {
     <a
       download="interviewer-call-history-"
       hidden=""
-      href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Survey\\",\\"Wave\\",\\"Call Result\\",\\"Call start time\\",\\"Cohort\\",\\"Call length (In seconds)\\",\\"Interviewer\\",\\"Number of interviews\\",\\"Outcome code\\",\\"Serial number\\",\\"Status\\""
+      href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
       target="_self"
     >
       Export report as Comma-Separated Values (CSV) file
@@ -623,7 +623,7 @@ Object {
       hidden=""
     >
       <div
-        class="panel__body "
+        class="panel__body"
       />
     </div>
     <br />

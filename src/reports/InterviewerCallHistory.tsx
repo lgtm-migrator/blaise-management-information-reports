@@ -4,22 +4,18 @@ import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {
-    getInterviewerCallHistoryReport,
-    getInterviewerCallHistoryStatus
-} from "../utilities/http";
+import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
 import {ReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import {CSVLink} from "react-csv";
-
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
-
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -30,20 +26,14 @@ function InterviewerCallHistory(): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<ReportData[]>([]);
     const [reportStatus, setReportStatus] = useState<Date | null>(null);
-
     const reportExportHeaders = [
-        {label: "Questionnaire", key: "questionnaire_name"},
-        {label: "Survey", key: "survey"},
-        {label: "Wave", key: "wave"},
-        {label: "Call Result", key: "call_result"},
-        {label: "Call start time", key: "call_start_time"},
-        {label: "Cohort", key: "cohort"},
-        {label: "Call length (In seconds)", key: "dial_secs"},
         {label: "Interviewer", key: "interviewer"},
-        {label: "Number of interviews", key: "number_of_interviews"},
-        {label: "Outcome code", key: "outcome_code"},
-        {label: "Serial number", key: "serial_number"},
-        {label: "Status", key: "status"}
+        {label: "Questionnaire", key: "questionnaire_name"},
+        {label: "Serial Number", key: "serial_number"},
+        {label: "Call Start Time", key: "call_start_time"},
+        {label: "Call Length (Seconds)", key: "dial_secs"},
+        {label: "Interviews", key: "number_of_interviews"},
+        {label: "Call Result", key: "call_result"}
     ];
 
     async function runInterviewerCallHistoryReport(formData: any) {
