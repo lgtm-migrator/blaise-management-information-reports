@@ -50,7 +50,7 @@ function InterviewerCallPattern(): ReactElement {
         setReportData(data);
     }
 
-    function convertDataToTable(object: any) {
+    function convertJsonToTable(object: any) {
         const elementList: ReactElement[] = [];
         const entries: [string, (string | null | number)][] = Object.entries(object);
         for (const [field, data] of entries) {
@@ -73,6 +73,32 @@ function InterviewerCallPattern(): ReactElement {
             return element;
         }));
     }
+
+
+
+
+    function convertJsonToCsv(object: any) {
+        const arrData = typeof object !== "object" ? JSON.parse(object) : object;
+        let CSV = "";
+        let row = "";
+        for (const index in arrData[0]) {
+            row += index + ",";
+        }
+        row = row.slice(0, -1);
+        CSV += row + "\r\n";
+        for (let i = 0; i < arrData.length; i++) {
+            let row = "";
+            for (const index in arrData[i]) {
+                row += "\"" + arrData[i][index] + "\",";
+            }
+            row.slice(0, row.length - 1);
+            CSV += row + "\r\n";
+        }
+        return CSV;
+    }
+
+
+
 
     useEffect(() => {
         getInterviewerCallHistoryStatus().then(([success, last_updated]) => {
@@ -125,14 +151,15 @@ function InterviewerCallPattern(): ReactElement {
             </Form>
             <br/>
 
-{/*
+
             <CSVLink hidden={reportData === null}
-                     data={JSON.stringify(reportData)}
+                //data={JSON.stringify(reportData)}
+                     data={convertJsonToCsv(reportData)}
                      target="_blank"
                      filename={`interviewer-call-pattern-${interviewerID}`}>
                 Export report as Comma-Separated Values (CSV) file
             </CSVLink>
-*/}
+
 
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
@@ -140,7 +167,7 @@ function InterviewerCallPattern(): ReactElement {
                         ?
                         <table id="report-table" className="table u-mt-s">
                             {
-                                convertDataToTable(reportData)
+                                convertJsonToTable(reportData)
                             }
                         </table>
                         :

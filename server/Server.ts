@@ -34,7 +34,7 @@ server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static
 
 // health_check endpoint
 server.get("/health_check", async function (req: Request, res: Response) {
-    console.log("health_check endpoint` called");
+    console.log("health_check endpoint called");
     res.status(200).json({status: 200});
 });
 
