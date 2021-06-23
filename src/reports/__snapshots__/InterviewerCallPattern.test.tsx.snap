@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interviewer call history report with data matches snapshot 1`] = `
+exports[`interviewer call pattern report with data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -15,7 +15,7 @@ Object {
         </a>
       </p>
       <h1>
-        Run interviewer call history report
+        Run interviewer call pattern report
       </h1>
       <div
         class="panel panel--error panel--no-title  u-mt-m"
@@ -118,7 +118,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-form-button"
+          data-testid="submit-call-pattern-form-button"
           type="submit"
         >
           <span
@@ -130,20 +130,25 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-pattern-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+        href="data:text/csv;charset=utf-8,﻿
+"
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
       </a>
       <div
-        class="panel panel--info panel--no-title  u-mt-m"
-        hidden=""
+        class="summary"
       >
         <div
-          class="panel__body "
-        />
+          class="summary__group"
+        >
+          <table
+            class="summary__items u-mt-s"
+            id="report-table"
+          />
+        </div>
       </div>
       <br />
     </div>
@@ -159,7 +164,7 @@ Object {
       </a>
     </p>
     <h1>
-      Run interviewer call history report
+      Run interviewer call pattern report
     </h1>
     <div
       class="panel panel--error panel--no-title  u-mt-m"
@@ -262,7 +267,7 @@ Object {
       <br />
       <button
         class="btn "
-        data-testid="submit-call-history-form-button"
+        data-testid="submit-call-pattern-form-button"
         type="submit"
       >
         <span
@@ -274,20 +279,25 @@ Object {
     </form>
     <br />
     <a
-      download="interviewer-call-history-"
+      download="interviewer-call-pattern-"
       hidden=""
-      href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+      href="data:text/csv;charset=utf-8,﻿
+"
       target="_self"
     >
       Export report as Comma-Separated Values (CSV) file
     </a>
     <div
-      class="panel panel--info panel--no-title  u-mt-m"
-      hidden=""
+      class="summary"
     >
       <div
-        class="panel__body "
-      />
+        class="summary__group"
+      >
+        <table
+          class="summary__items u-mt-s"
+          id="report-table"
+        />
+      </div>
     </div>
     <br />
   </div>,
@@ -345,7 +355,7 @@ Object {
 }
 `;
 
-exports[`interviewer call history report without data matches snapshot 1`] = `
+exports[`interviewer call pattern report without data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -360,7 +370,7 @@ Object {
         </a>
       </p>
       <h1>
-        Run interviewer call history report
+        Run interviewer call pattern report
       </h1>
       <div
         class="panel panel--error panel--no-title  u-mt-m"
@@ -463,7 +473,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-form-button"
+          data-testid="submit-call-pattern-form-button"
           type="submit"
         >
           <span
@@ -475,20 +485,25 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-pattern-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+        href="data:text/csv;charset=utf-8,﻿
+"
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
       </a>
       <div
-        class="panel panel--info panel--no-title  u-mt-m"
-        hidden=""
+        class="summary"
       >
         <div
-          class="panel__body "
-        />
+          class="summary__group"
+        >
+          <table
+            class="summary__items u-mt-s"
+            id="report-table"
+          />
+        </div>
       </div>
       <br />
     </div>
@@ -504,7 +519,7 @@ Object {
       </a>
     </p>
     <h1>
-      Run interviewer call history report
+      Run interviewer call pattern report
     </h1>
     <div
       class="panel panel--error panel--no-title  u-mt-m"
@@ -607,7 +622,7 @@ Object {
       <br />
       <button
         class="btn "
-        data-testid="submit-call-history-form-button"
+        data-testid="submit-call-pattern-form-button"
         type="submit"
       >
         <span
@@ -619,20 +634,25 @@ Object {
     </form>
     <br />
     <a
-      download="interviewer-call-history-"
+      download="interviewer-call-pattern-"
       hidden=""
-      href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+      href="data:text/csv;charset=utf-8,﻿
+"
       target="_self"
     >
       Export report as Comma-Separated Values (CSV) file
     </a>
     <div
-      class="panel panel--info panel--no-title  u-mt-m"
-      hidden=""
+      class="summary"
     >
       <div
-        class="panel__body "
-      />
+        class="summary__group"
+      >
+        <table
+          class="summary__items u-mt-s"
+          id="report-table"
+        />
+      </div>
     </div>
     <br />
   </div>,

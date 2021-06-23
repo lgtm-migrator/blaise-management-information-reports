@@ -99,7 +99,6 @@ function InterviewerCallPattern(): ReactElement {
 
 
 
-
     useEffect(() => {
         getInterviewerCallHistoryStatus().then(([success, last_updated]) => {
             if (!success) {
@@ -114,11 +113,20 @@ function InterviewerCallPattern(): ReactElement {
             <p className="u-mt-m">
                 <Link to={"/"}>Previous</Link>
             </p>
+            <ONSPanel>
+                <p>
+                    Data in this report maybe inaccurate.
+                    <br/>
+                    <br/>
+                    Calls without end dates are disregarded.
+                </p>
+            </ONSPanel>
+            <br/>
             <h1>Run interviewer call pattern report</h1>
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{"Report data last updated: " + (reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
                 <p>
                     <FormTextInput

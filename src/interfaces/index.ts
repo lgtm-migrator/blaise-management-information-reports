@@ -1,4 +1,4 @@
-interface ReportData {
+interface InterviewerCallHistoryReportData {
     questionnaire_name: string
     serial_number: string
     call_start_time: string
@@ -7,4 +7,4 @@ interface ReportData {
     call_result: string
 }
 
-export type {ReportData};
+export type {InterviewerCallHistoryReportData};

@@ -1,4 +1,4 @@
-import {ReportData} from "../interfaces";
+import {InterviewerCallHistoryReportData} from "../interfaces";
 import "@testing-library/jest-dom";
 import flushPromises, {mock_fetch_requests} from "../tests/utils";
 import {createMemoryHistory} from "history";
@@ -9,7 +9,7 @@ import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
 import React from "react";
 
-const reportDataReturned: ReportData[] = [
+const reportDataReturned: InterviewerCallHistoryReportData[] = [
 
     {
         questionnaire_name: "LMS2101_AA1",
@@ -17,7 +17,7 @@ const reportDataReturned: ReportData[] = [
         call_start_time: "Sat, 01 May 2021 10:00:00 GMT",
         dial_secs: "61",
         number_of_interviews: "42",
-        call_result: "Busy",
+        call_result: "Busy"
     }];
 
 const mock_server_responses_with_data = (url: string) => {
@@ -60,7 +60,7 @@ describe("interviewer call history report with data", () => {
         const history = createMemoryHistory();
 
         jest.useFakeTimers("modern");
-        jest.setSystemTime(new Date("2012-10-10"));
+        jest.setSystemTime(new Date("2021-01-01"));
 
         const wrapper = render(
             <Router history={history}>
@@ -90,11 +90,11 @@ describe("interviewer call history report with data", () => {
             );
         });
 
-        expect(screen.queryByText("Report data last updated: 01/06/2021 11:00:00")).toBeInTheDocument();
-        expect(screen.queryByText(/Run interviewer call history report/)).toBeInTheDocument();
-        expect(screen.queryByText(/Interviewer ID/)).toBeInTheDocument();
-        expect(screen.queryByText(/Start Date/)).toBeInTheDocument();
-        expect(screen.queryByText(/End Date/)).toBeInTheDocument();
+        expect(screen.queryByText("Report data last updated: 01/06/2021 11:00:00")).toBeVisible();
+        expect(screen.queryByText("Run interviewer call history report")).toBeVisible();
+        expect(screen.queryByText("Interviewer ID")).toBeVisible();
+        expect(screen.queryByText("Start Date")).toBeVisible();
+        expect(screen.queryByText("End Date")).toBeVisible();
 
         fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
             target: {
@@ -110,12 +110,13 @@ describe("interviewer call history report with data", () => {
         });
 
         await waitFor(() => {
-            expect(screen.getByText(/LMS2101_AA1/)).toBeDefined();
-            expect(screen.getByText(/1337/)).toBeDefined();
-            expect(screen.getByText("01/05/2021 11:00:00")).toBeDefined();
-            expect(screen.getByText(/01:01/)).toBeDefined();
-            expect(screen.getByText(/42/)).toBeDefined();
-            expect(screen.getByText(/Busy/)).toBeDefined();
+            expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
+            expect(screen.getByText("LMS2101_AA1")).toBeVisible();
+            expect(screen.getByText("1337")).toBeVisible();
+            expect(screen.getByText("01/05/2021 11:00:00")).toBeVisible();
+            expect(screen.getByText("01:01")).toBeVisible();
+            expect(screen.getByText("42")).toBeVisible();
+            expect(screen.getByText("Busy")).toBeVisible();
         });
 
     });
@@ -136,7 +137,7 @@ describe("interviewer call history report without data", () => {
         const history = createMemoryHistory();
 
         jest.useFakeTimers("modern");
-        jest.setSystemTime(new Date("2012-10-10"));
+        jest.setSystemTime(new Date("2021-01-01"));
 
         const wrapper = render(
             <Router history={history}>
@@ -166,10 +167,10 @@ describe("interviewer call history report without data", () => {
             );
         });
 
-        expect(screen.queryByText(/Run interviewer call history report/)).toBeInTheDocument();
-        expect(screen.queryByText(/Interviewer ID/)).toBeInTheDocument();
-        expect(screen.queryByText(/Start Date/)).toBeInTheDocument();
-        expect(screen.queryByText(/End Date/)).toBeInTheDocument();
+        expect(screen.queryByText("Run interviewer call history report")).toBeVisible();
+        expect(screen.queryByText("Interviewer ID")).toBeVisible();
+        expect(screen.queryByText("Start Date")).toBeVisible();
+        expect(screen.queryByText("End Date")).toBeVisible();
 
         fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
             target: {
@@ -185,7 +186,8 @@ describe("interviewer call history report without data", () => {
         });
 
         await waitFor(() => {
-            expect(screen.queryByText(/No data found for parameters given./)).toBeInTheDocument();
+            expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
+            expect(screen.queryByText("No data found for parameters given.")).toBeVisible();
         });
 
     });

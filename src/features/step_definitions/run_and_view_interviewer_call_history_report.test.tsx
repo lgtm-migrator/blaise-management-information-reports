@@ -7,14 +7,14 @@ import React from "react";
 import {fireEvent} from "@testing-library/dom";
 import {act} from "react-dom/test-utils";
 import flushPromises, {mock_fetch_requests} from "../../tests/utils";
-import {ReportData} from "../../interfaces";
+import {InterviewerCallHistoryReportData} from "../../interfaces";
 
 const feature = loadFeature(
     "./src/features/run_and_view_interviewer_call_history_report.feature",
     {tagFilter: "not @server and not @integration"}
 );
 
-const reportDataReturned: ReportData[] = [
+const reportDataReturned: InterviewerCallHistoryReportData[] = [
 
     {
         questionnaire_name: "LMS2101_AA1",

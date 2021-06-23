@@ -6,7 +6,7 @@ import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
 import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
-import {ReportData} from "../interfaces";
+import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import {CSVLink} from "react-csv";
@@ -24,8 +24,8 @@ function InterviewerCallHistory(): ReactElement {
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportData, setReportData] = useState<ReportData[]>([]);
-    const [reportStatus, setReportStatus] = useState<Date | null>(null);
+    const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
+    const [reportStatus, setReportStatus] = useState<Date | "">("");
     const reportExportHeaders = [
         {label: "Interviewer", key: "interviewer"},
         {label: "Questionnaire", key: "questionnaire_name"},
@@ -79,7 +79,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{"Report data last updated: " + (reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
