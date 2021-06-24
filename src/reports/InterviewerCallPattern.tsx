@@ -41,7 +41,7 @@ function InterviewerCallPattern(): ReactElement {
             return;
         }
 
-        if (data.length == 0) {
+        if (Object.keys(data).length === 0) {
             setMessageNoData("No data found for parameters given.");
             return;
         }
@@ -115,10 +115,13 @@ function InterviewerCallPattern(): ReactElement {
             </p>
             <ONSPanel>
                 <p>
-                    Data in this report maybe inaccurate.
+                    Incomplete data is removed from this report. This will impact the accuracy of the report.
                     <br/>
                     <br/>
-                    Calls without end dates are disregarded.
+                    The <b>discounted_invalid_records</b> entry if shown will advise how many records have been removed.
+                    <br/>
+                    <br/>
+                    The <b>invalid_fields</b> entry if shown will advise which fields were incomplete.
                 </p>
             </ONSPanel>
             <br/>
@@ -159,7 +162,6 @@ function InterviewerCallPattern(): ReactElement {
             </Form>
             <br/>
 
-
             <CSVLink hidden={reportData === null}
                 //data={JSON.stringify(reportData)}
                      data={convertJsonToCsv(reportData)}
@@ -167,7 +169,6 @@ function InterviewerCallPattern(): ReactElement {
                      filename={`interviewer-call-pattern-${interviewerID}`}>
                 Export report as Comma-Separated Values (CSV) file
             </CSVLink>
-
 
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
