@@ -22,8 +22,8 @@ function InterviewerCallPattern(): ReactElement {
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportData, setReportData] = useState<any>([]);
-    const [reportStatus, setReportStatus] = useState<Date | null>(null);
+    const [reportData, setReportData] = useState<any>({});
+    const [reportStatus, setReportStatus] = useState<Date | "">("");
 
     async function runInterviewerCallPatternReport(formData: any) {
         setReportData([]);
@@ -73,31 +73,6 @@ function InterviewerCallPattern(): ReactElement {
             return element;
         }));
     }
-
-
-
-
-    function convertJsonToCsv(object: any) {
-        const arrData = typeof object !== "object" ? JSON.parse(object) : object;
-        let CSV = "";
-        let row = "";
-        for (const index in arrData[0]) {
-            row += index + ",";
-        }
-        row = row.slice(0, -1);
-        CSV += row + "\r\n";
-        for (let i = 0; i < arrData.length; i++) {
-            let row = "";
-            for (const index in arrData[i]) {
-                row += "\"" + arrData[i][index] + "\",";
-            }
-            row.slice(0, row.length - 1);
-            CSV += row + "\r\n";
-        }
-        return CSV;
-    }
-
-
 
     useEffect(() => {
         getInterviewerCallHistoryStatus().then(([success, last_updated]) => {
@@ -162,9 +137,8 @@ function InterviewerCallPattern(): ReactElement {
             </Form>
             <br/>
 
-            <CSVLink hidden={reportData === null}
-                //data={JSON.stringify(reportData)}
-                     data={convertJsonToCsv(reportData)}
+            <CSVLink hidden={Object.entries(reportData).length === 0}
+                     data={[reportData]}
                      target="_blank"
                      filename={`interviewer-call-pattern-${interviewerID}`}>
                 Export report as Comma-Separated Values (CSV) file
@@ -172,13 +146,17 @@ function InterviewerCallPattern(): ReactElement {
 
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
-                    reportData
+                    Object.entries(reportData).length > 0
                         ?
-                        <table id="report-table" className="table u-mt-s">
-                            {
-                                convertJsonToTable(reportData)
-                            }
-                        </table>
+                        <div className="summary">
+                            <div className="summary__group">
+                                <table id="report-table" className="summary__items u-mt-s">
+                                    {
+                                        convertJsonToTable(reportData)
+                                    }
+                                </table>
+                            </div>
+                        </div>
                         :
                         <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                 }
