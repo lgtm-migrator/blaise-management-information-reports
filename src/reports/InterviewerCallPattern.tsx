@@ -93,10 +93,10 @@ function InterviewerCallPattern(): ReactElement {
                     Incomplete data is removed from this report. This will impact the accuracy of the report.
                     <br/>
                     <br/>
-                    The <b>discounted_invalid_records</b> entry if shown will advise how many records have been removed.
+                    The <b>discounted_invalid_records</b> entry will advise how many records have been removed.
                     <br/>
                     <br/>
-                    The <b>invalid_fields</b> entry if shown will advise which fields were incomplete.
+                    The <b>invalid_fields</b> entry will advise which fields were incomplete.
                 </p>
             </ONSPanel>
             <br/>
