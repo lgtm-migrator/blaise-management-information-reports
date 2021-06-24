@@ -14,6 +14,32 @@ Object {
           Previous
         </a>
       </p>
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+      >
+        <div
+          class="panel__body "
+        >
+          <p>
+            Incomplete data is removed from this report. This will impact the accuracy of the report.
+            <br />
+            <br />
+            The 
+            <b>
+              discounted_invalid_records
+            </b>
+             entry if shown will advise how many records have been removed.
+            <br />
+            <br />
+            The 
+            <b>
+              invalid_fields
+            </b>
+             entry if shown will advise which fields were incomplete.
+          </p>
+        </div>
+      </div>
+      <br />
       <h1>
         Run interviewer call pattern report
       </h1>
@@ -139,16 +165,12 @@ Object {
         Export report as Comma-Separated Values (CSV) file
       </a>
       <div
-        class="summary"
+        class="panel panel--info panel--no-title  u-mt-m"
+        hidden=""
       >
         <div
-          class="summary__group"
-        >
-          <table
-            class="summary__items u-mt-s"
-            id="report-table"
-          />
-        </div>
+          class="panel__body "
+        />
       </div>
       <br />
     </div>
@@ -163,6 +185,32 @@ Object {
         Previous
       </a>
     </p>
+    <div
+      class="panel panel--info panel--no-title  u-mt-m"
+    >
+      <div
+        class="panel__body "
+      >
+        <p>
+          Incomplete data is removed from this report. This will impact the accuracy of the report.
+          <br />
+          <br />
+          The 
+          <b>
+            discounted_invalid_records
+          </b>
+           entry if shown will advise how many records have been removed.
+          <br />
+          <br />
+          The 
+          <b>
+            invalid_fields
+          </b>
+           entry if shown will advise which fields were incomplete.
+        </p>
+      </div>
+    </div>
+    <br />
     <h1>
       Run interviewer call pattern report
     </h1>
@@ -288,16 +336,12 @@ Object {
       Export report as Comma-Separated Values (CSV) file
     </a>
     <div
-      class="summary"
+      class="panel panel--info panel--no-title  u-mt-m"
+      hidden=""
     >
       <div
-        class="summary__group"
-      >
-        <table
-          class="summary__items u-mt-s"
-          id="report-table"
-        />
-      </div>
+        class="panel__body "
+      />
     </div>
     <br />
   </div>,
@@ -369,6 +413,32 @@ Object {
           Previous
         </a>
       </p>
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+      >
+        <div
+          class="panel__body "
+        >
+          <p>
+            Incomplete data is removed from this report. This will impact the accuracy of the report.
+            <br />
+            <br />
+            The 
+            <b>
+              discounted_invalid_records
+            </b>
+             entry if shown will advise how many records have been removed.
+            <br />
+            <br />
+            The 
+            <b>
+              invalid_fields
+            </b>
+             entry if shown will advise which fields were incomplete.
+          </p>
+        </div>
+      </div>
+      <br />
       <h1>
         Run interviewer call pattern report
       </h1>
@@ -494,16 +564,12 @@ Object {
         Export report as Comma-Separated Values (CSV) file
       </a>
       <div
-        class="summary"
+        class="panel panel--info panel--no-title  u-mt-m"
+        hidden=""
       >
         <div
-          class="summary__group"
-        >
-          <table
-            class="summary__items u-mt-s"
-            id="report-table"
-          />
-        </div>
+          class="panel__body "
+        />
       </div>
       <br />
     </div>
@@ -518,6 +584,32 @@ Object {
         Previous
       </a>
     </p>
+    <div
+      class="panel panel--info panel--no-title  u-mt-m"
+    >
+      <div
+        class="panel__body "
+      >
+        <p>
+          Incomplete data is removed from this report. This will impact the accuracy of the report.
+          <br />
+          <br />
+          The 
+          <b>
+            discounted_invalid_records
+          </b>
+           entry if shown will advise how many records have been removed.
+          <br />
+          <br />
+          The 
+          <b>
+            invalid_fields
+          </b>
+           entry if shown will advise which fields were incomplete.
+        </p>
+      </div>
+    </div>
+    <br />
     <h1>
       Run interviewer call pattern report
     </h1>
@@ -643,16 +735,12 @@ Object {
       Export report as Comma-Separated Values (CSV) file
     </a>
     <div
-      class="summary"
+      class="panel panel--info panel--no-title  u-mt-m"
+      hidden=""
     >
       <div
-        class="summary__group"
-      >
-        <table
-          class="summary__items u-mt-s"
-          id="report-table"
-        />
-      </div>
+        class="panel__body "
+      />
     </div>
     <br />
   </div>,

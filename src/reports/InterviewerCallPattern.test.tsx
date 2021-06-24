@@ -199,8 +199,7 @@ describe("interviewer call pattern report without data", () => {
 
         await waitFor(() => {
             expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
-            // TODO: BERT currently gives 500 for this report if no data found
-            //expect(screen.queryByText("No data found for parameters given.")).toBeVisible();
+            expect(screen.queryByText("No data found for parameters given.")).toBeVisible();
         });
 
     });
