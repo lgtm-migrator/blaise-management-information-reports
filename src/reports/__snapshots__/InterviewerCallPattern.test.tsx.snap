@@ -28,14 +28,14 @@ Object {
             <b>
               discounted_invalid_records
             </b>
-             entry if shown will advise how many records have been removed.
+             entry will advise how many records have been removed.
             <br />
             <br />
             The 
             <b>
               invalid_fields
             </b>
-             entry if shown will advise which fields were incomplete.
+             entry will advise which fields were incomplete.
           </p>
         </div>
       </div>
@@ -199,14 +199,14 @@ Object {
           <b>
             discounted_invalid_records
           </b>
-           entry if shown will advise how many records have been removed.
+           entry will advise how many records have been removed.
           <br />
           <br />
           The 
           <b>
             invalid_fields
           </b>
-           entry if shown will advise which fields were incomplete.
+           entry will advise which fields were incomplete.
         </p>
       </div>
     </div>
@@ -427,14 +427,14 @@ Object {
             <b>
               discounted_invalid_records
             </b>
-             entry if shown will advise how many records have been removed.
+             entry will advise how many records have been removed.
             <br />
             <br />
             The 
             <b>
               invalid_fields
             </b>
-             entry if shown will advise which fields were incomplete.
+             entry will advise which fields were incomplete.
           </p>
         </div>
       </div>
@@ -598,14 +598,14 @@ Object {
           <b>
             discounted_invalid_records
           </b>
-           entry if shown will advise how many records have been removed.
+           entry will advise how many records have been removed.
           <br />
           <br />
           The 
           <b>
             invalid_fields
           </b>
-           entry if shown will advise which fields were incomplete.
+           entry will advise which fields were incomplete.
         </p>
       </div>
     </div>
