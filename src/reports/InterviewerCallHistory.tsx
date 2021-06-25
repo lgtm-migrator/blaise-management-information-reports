@@ -37,6 +37,7 @@ function InterviewerCallHistory(): ReactElement {
     ];
 
     async function runInterviewerCallHistoryReport(formData: any) {
+        setMessageNoData("");
         setReportData([]);
         setButtonLoading(true);
         console.log(formData);

@@ -26,6 +26,7 @@ function InterviewerCallPattern(): ReactElement {
     const [reportStatus, setReportStatus] = useState<Date | "">("");
 
     async function runInterviewerCallPatternReport(formData: any) {
+        setMessageNoData("");
         setReportData([]);
         setButtonLoading(true);
         console.log(formData);
