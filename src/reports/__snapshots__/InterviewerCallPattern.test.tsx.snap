@@ -105,6 +105,7 @@ Object {
                 data-testid="text-input"
                 id="start-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="01/01/2021"
               />
@@ -132,6 +133,7 @@ Object {
                 data-testid="text-input"
                 id="end-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="01/01/2021"
               />
@@ -274,6 +276,7 @@ Object {
               data-testid="text-input"
               id="start-date"
               placeholder="Select Date"
+              style="z-index: 0;"
               type="text"
               value="01/01/2021"
             />
@@ -301,6 +304,7 @@ Object {
               data-testid="text-input"
               id="end-date"
               placeholder="Select Date"
+              style="z-index: 0;"
               type="text"
               value="01/01/2021"
             />
@@ -500,6 +504,7 @@ Object {
                 data-testid="text-input"
                 id="start-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="01/01/2021"
               />
@@ -527,6 +532,7 @@ Object {
                 data-testid="text-input"
                 id="end-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="01/01/2021"
               />
@@ -669,6 +675,7 @@ Object {
               data-testid="text-input"
               id="start-date"
               placeholder="Select Date"
+              style="z-index: 0;"
               type="text"
               value="01/01/2021"
             />
@@ -696,6 +703,7 @@ Object {
               data-testid="text-input"
               id="end-date"
               placeholder="Select Date"
+              style="z-index: 0;"
               type="text"
               value="01/01/2021"
             />
