@@ -1,28 +1,28 @@
-import {InterviewerCallHistoryReportData} from "../interfaces";
 import "@testing-library/jest-dom";
+import React from "react";
 import flushPromises, {mock_fetch_requests} from "../tests/utils";
 import {createMemoryHistory} from "history";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";
-import InterviewerCallHistory from "./InterviewerCallHistory";
 import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
-import React from "react";
+import InterviewerCallPattern from "./InterviewerCallPattern";
 
-const reportDataReturned: InterviewerCallHistoryReportData[] = [
-
-    {
-        questionnaire_name: "LMS2101_AA1",
-        serial_number: "1337",
-        call_start_time: "Sat, 01 May 2021 10:00:00 GMT",
-        dial_secs: "61",
-        number_of_interviews: "42",
-        call_result: "Busy"
-    }];
+const reportDataReturned: any = {
+    "hours_worked": "13:37:00",
+    "call_time": "1:56:00",
+    "hours_on_calls_percentage": "42%",
+    "average_calls_per_hour": 3.14,
+    "respondents_interviewed": 666,
+    "households_completed_successfully": 911,
+    "average_respondents_interviewed_per_hour": 420,
+    "no_contacts_percentage": "10.10%",
+    "appointments_for_contacts_percentage": "13.0%"
+};
 
 const mock_server_responses_with_data = (url: string) => {
     console.log(url);
-    if (url.includes("/api/reports/interviewer-call-history")) {
+    if (url.includes("/api/reports/interviewer-call-pattern")) {
         return Promise.resolve({
             status: 200,
             json: () => Promise.resolve(reportDataReturned),
@@ -37,7 +37,7 @@ const mock_server_responses_with_data = (url: string) => {
 
 const mock_server_responses_without_data = (url: string) => {
     console.log(url);
-    if (url.includes("/api/reports/interviewer-call-history")) {
+    if (url.includes("/api/reports/interviewer-call-pattern")) {
         return Promise.resolve({
             status: 200,
             json: () => Promise.resolve(""),
@@ -50,7 +50,7 @@ const mock_server_responses_without_data = (url: string) => {
     }
 };
 
-describe("interviewer call history report with data", () => {
+describe("interviewer call pattern report with data", () => {
 
     beforeEach(() => {
         mock_fetch_requests(mock_server_responses_with_data);
@@ -64,7 +64,7 @@ describe("interviewer call history report with data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallHistory/>
+                <InterviewerCallPattern/>
             </Router>
         );
 
@@ -85,13 +85,13 @@ describe("interviewer call history report with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallHistory/>
+                    <InterviewerCallPattern/>
                 </Router>
             );
         });
 
         expect(screen.queryByText("Report data last updated: 01/06/2021 11:00:00")).toBeVisible();
-        expect(screen.queryByText("Run interviewer call history report")).toBeVisible();
+        expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start Date")).toBeVisible();
         expect(screen.queryByText("End Date")).toBeVisible();
@@ -103,7 +103,7 @@ describe("interviewer call history report with data", () => {
             }
         });
 
-        await fireEvent.click(screen.getByTestId(/submit-call-history-form-button/i));
+        await fireEvent.click(screen.getByTestId(/submit-call-pattern-form-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -111,12 +111,24 @@ describe("interviewer call history report with data", () => {
 
         await waitFor(() => {
             expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
-            expect(screen.getByText("LMS2101_AA1")).toBeVisible();
-            expect(screen.getByText("1337")).toBeVisible();
-            expect(screen.getByText("01/05/2021 11:00:00")).toBeVisible();
-            expect(screen.getByText("01:01")).toBeVisible();
-            expect(screen.getByText("42")).toBeVisible();
-            expect(screen.getByText("Busy")).toBeVisible();
+            expect(screen.getByText("hours_worked")).toBeVisible();
+            expect(screen.getByText("13:37:00")).toBeVisible();
+            expect(screen.getByText("call_time")).toBeVisible();
+            expect(screen.getByText("1:56:00")).toBeVisible();
+            expect(screen.getByText("hours_on_calls_percentage")).toBeVisible();
+            expect(screen.getByText("42%")).toBeVisible();
+            expect(screen.getByText("average_calls_per_hour")).toBeVisible();
+            expect(screen.getByText("3.14")).toBeVisible();
+            expect(screen.getByText("respondents_interviewed")).toBeVisible();
+            expect(screen.getByText("666")).toBeVisible();
+            expect(screen.getByText("households_completed_successfully")).toBeVisible();
+            expect(screen.getByText("911")).toBeVisible();
+            expect(screen.getByText("average_respondents_interviewed_per_hour")).toBeVisible();
+            expect(screen.getByText("420")).toBeVisible();
+            expect(screen.getByText("no_contacts_percentage")).toBeVisible();
+            expect(screen.getByText("10.10%")).toBeVisible();
+            expect(screen.getByText("appointments_for_contacts_percentage")).toBeVisible();
+            expect(screen.getByText("13.0%")).toBeVisible();
         });
 
     });
@@ -127,7 +139,7 @@ describe("interviewer call history report with data", () => {
     });
 });
 
-describe("interviewer call history report without data", () => {
+describe("interviewer call pattern report without data", () => {
 
     beforeEach(() => {
         mock_fetch_requests(mock_server_responses_without_data);
@@ -141,7 +153,7 @@ describe("interviewer call history report without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallHistory/>
+                <InterviewerCallPattern/>
             </Router>
         );
 
@@ -162,12 +174,12 @@ describe("interviewer call history report without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallHistory/>
+                    <InterviewerCallPattern/>
                 </Router>
             );
         });
 
-        expect(screen.queryByText("Run interviewer call history report")).toBeVisible();
+        expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start Date")).toBeVisible();
         expect(screen.queryByText("End Date")).toBeVisible();
@@ -179,7 +191,7 @@ describe("interviewer call history report without data", () => {
             }
         });
 
-        await fireEvent.click(screen.getByTestId(/submit-call-history-form-button/i));
+        await fireEvent.click(screen.getByTestId(/submit-call-pattern-form-button/i));
 
         await act(async () => {
             await flushPromises();

@@ -142,7 +142,32 @@ Object {
                 <p
                   id="interviewer-call-history-text"
                 >
-                  Generate report to see telephone operator activity for individual interviewers with a specified date period
+                  Generate report to see an interviewers call history over a given date range.
+                </p>
+              </div>
+            </div>
+            <div
+              class="grid__col col-6@m"
+            >
+              <div
+                aria-describedby="interviewer-call-pattern-text"
+                aria-labelledby="interviewer-call-pattern"
+                class="card"
+              >
+                <h2
+                  class="u-fs-m"
+                  id="interviewer-call-pattern"
+                >
+                  <a
+                    href="/interviewer-call-pattern"
+                  >
+                    Interviewer Call Pattern
+                  </a>
+                </h2>
+                <p
+                  id="interviewer-call-pattern-text"
+                >
+                  Generate report to analyse productivity of an interviewer over a given date range.
                 </p>
               </div>
             </div>
@@ -321,7 +346,32 @@ Object {
               <p
                 id="interviewer-call-history-text"
               >
-                Generate report to see telephone operator activity for individual interviewers with a specified date period
+                Generate report to see an interviewers call history over a given date range.
+              </p>
+            </div>
+          </div>
+          <div
+            class="grid__col col-6@m"
+          >
+            <div
+              aria-describedby="interviewer-call-pattern-text"
+              aria-labelledby="interviewer-call-pattern"
+              class="card"
+            >
+              <h2
+                class="u-fs-m"
+                id="interviewer-call-pattern"
+              >
+                <a
+                  href="/interviewer-call-pattern"
+                >
+                  Interviewer Call Pattern
+                </a>
+              </h2>
+              <p
+                id="interviewer-call-pattern-text"
+              >
+                Generate report to analyse productivity of an interviewer over a given date range.
               </p>
             </div>
           </div>
