@@ -1,8 +1,9 @@
 import React, {ReactElement} from "react";
 import {DefaultErrorBoundary} from "./components/ErrorHandling/DefaultErrorBoundary";
-import {Route, Switch, Link} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import {BetaBanner, Footer, Header, ONSPanel} from "blaise-design-system-react-components";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
+import InterviewerCallPattern from "./reports/InterviewerCallPattern";
 
 const divStyle = {
     minHeight: "calc(67vh)"
@@ -20,6 +21,9 @@ function App(): ReactElement {
                             <Route path="/interviewer-call-history">
                                 <InterviewerCallHistory/>
                             </Route>
+                            <Route path="/interviewer-call-pattern">
+                                <InterviewerCallPattern/>
+                            </Route>
                             <Route path="/">
                                 {
                                     status !== "" &&
@@ -36,7 +40,6 @@ function App(): ReactElement {
                                     </p>
                                 </ONSPanel>
                                 <br/>
-
                                 <div className="grid grid--column@xxs@s u-mt-m">
                                     <div className="grid__col col-6@m">
                                         <div className="card" aria-labelledBy="interviewer-call-history"
@@ -46,25 +49,22 @@ function App(): ReactElement {
                                                     Interviewer Call History
                                                 </Link>
                                             </h2>
-                                            <p id="interviewer-call-history-text">Generate report to see telephone
-                                                operator activity for individual interviewers with a specified date
-                                                period</p>
+                                            <p id="interviewer-call-history-text">Generate report to see an interviewers
+                                                call history over a given date range.</p>
                                         </div>
                                     </div>
-                                    {/* TODO: Removed as the report does not exist yet, to add back in */}
-                                    {/*<div className="grid__col col-6@m">*/}
-                                    {/*    <div className="card" aria-labelledBy="interviewer-pattern"*/}
-                                    {/*         aria-describedBy="interviewer-pattern-text">*/}
-                                    {/*        <h2 className="u-fs-m" id="interviewer-pattern">*/}
-                                    {/*            <Link to="/interviewer-pattern">*/}
-                                    {/*                Interviewer Pattern*/}
-                                    {/*            </Link>*/}
-                                    {/*        </h2>*/}
-                                    {/*        <p id="interviewer-pattern-text">*/}
-                                    {/*            Analyse productivity of interviewers to support identification of*/}
-                                    {/*            training needs.</p>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
+                                    <div className="grid__col col-6@m">
+                                        <div className="card" aria-labelledBy="interviewer-call-pattern"
+                                             aria-describedBy="interviewer-call-pattern-text">
+                                            <h2 className="u-fs-m" id="interviewer-call-pattern">
+                                                <Link to="/interviewer-call-pattern">
+                                                    Interviewer Call Pattern
+                                                </Link>
+                                            </h2>
+                                            <p id="interviewer-call-pattern-text">Generate report to analyse
+                                                productivity of an interviewer over a given date range.</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="grid grid--column@xxs@s  u-mt-m">
                                     {/* TODO: Removed as the report does not exist yet, to add back in */}
@@ -77,7 +77,7 @@ function App(): ReactElement {
                                     {/*            </Link>*/}
                                     {/*        </h2>*/}
                                     {/*        <p id="appointment-resource-planning-text">Generate report to view the*/}
-                                    {/*            number of interviews scheduled for a specified date.</p>*/}
+                                    {/*            number of interview appointments scheduled for a specified date.</p>*/}
                                     {/*    </div>*/}
                                     {/*</div>*/}
                                 </div>

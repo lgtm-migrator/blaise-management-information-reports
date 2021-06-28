@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interviewer call history report with data matches snapshot 1`] = `
+exports[`interviewer call pattern report with data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -14,8 +14,34 @@ Object {
           Previous
         </a>
       </p>
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+      >
+        <div
+          class="panel__body "
+        >
+          <p>
+            Incomplete data is removed from this report. This will impact the accuracy of the report.
+            <br />
+            <br />
+            The 
+            <b>
+              discounted_invalid_records
+            </b>
+             entry will advise how many records have been removed.
+            <br />
+            <br />
+            The 
+            <b>
+              invalid_fields
+            </b>
+             entry will advise which fields were incomplete.
+          </p>
+        </div>
+      </div>
+      <br />
       <h1>
-        Run interviewer call history report
+        Run interviewer call pattern report
       </h1>
       <div
         class="panel panel--error panel--no-title  u-mt-m"
@@ -118,7 +144,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-form-button"
+          data-testid="submit-call-pattern-form-button"
           type="submit"
         >
           <span
@@ -130,9 +156,10 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-pattern-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+        href="data:text/csv;charset=utf-8,﻿
+"
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
@@ -158,8 +185,34 @@ Object {
         Previous
       </a>
     </p>
+    <div
+      class="panel panel--info panel--no-title  u-mt-m"
+    >
+      <div
+        class="panel__body "
+      >
+        <p>
+          Incomplete data is removed from this report. This will impact the accuracy of the report.
+          <br />
+          <br />
+          The 
+          <b>
+            discounted_invalid_records
+          </b>
+           entry will advise how many records have been removed.
+          <br />
+          <br />
+          The 
+          <b>
+            invalid_fields
+          </b>
+           entry will advise which fields were incomplete.
+        </p>
+      </div>
+    </div>
+    <br />
     <h1>
-      Run interviewer call history report
+      Run interviewer call pattern report
     </h1>
     <div
       class="panel panel--error panel--no-title  u-mt-m"
@@ -262,7 +315,7 @@ Object {
       <br />
       <button
         class="btn "
-        data-testid="submit-call-history-form-button"
+        data-testid="submit-call-pattern-form-button"
         type="submit"
       >
         <span
@@ -274,9 +327,10 @@ Object {
     </form>
     <br />
     <a
-      download="interviewer-call-history-"
+      download="interviewer-call-pattern-"
       hidden=""
-      href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+      href="data:text/csv;charset=utf-8,﻿
+"
       target="_self"
     >
       Export report as Comma-Separated Values (CSV) file
@@ -345,7 +399,7 @@ Object {
 }
 `;
 
-exports[`interviewer call history report without data matches snapshot 1`] = `
+exports[`interviewer call pattern report without data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -359,8 +413,34 @@ Object {
           Previous
         </a>
       </p>
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+      >
+        <div
+          class="panel__body "
+        >
+          <p>
+            Incomplete data is removed from this report. This will impact the accuracy of the report.
+            <br />
+            <br />
+            The 
+            <b>
+              discounted_invalid_records
+            </b>
+             entry will advise how many records have been removed.
+            <br />
+            <br />
+            The 
+            <b>
+              invalid_fields
+            </b>
+             entry will advise which fields were incomplete.
+          </p>
+        </div>
+      </div>
+      <br />
       <h1>
-        Run interviewer call history report
+        Run interviewer call pattern report
       </h1>
       <div
         class="panel panel--error panel--no-title  u-mt-m"
@@ -463,7 +543,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-form-button"
+          data-testid="submit-call-pattern-form-button"
           type="submit"
         >
           <span
@@ -475,9 +555,10 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-pattern-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+        href="data:text/csv;charset=utf-8,﻿
+"
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
@@ -503,8 +584,34 @@ Object {
         Previous
       </a>
     </p>
+    <div
+      class="panel panel--info panel--no-title  u-mt-m"
+    >
+      <div
+        class="panel__body "
+      >
+        <p>
+          Incomplete data is removed from this report. This will impact the accuracy of the report.
+          <br />
+          <br />
+          The 
+          <b>
+            discounted_invalid_records
+          </b>
+           entry will advise how many records have been removed.
+          <br />
+          <br />
+          The 
+          <b>
+            invalid_fields
+          </b>
+           entry will advise which fields were incomplete.
+        </p>
+      </div>
+    </div>
+    <br />
     <h1>
-      Run interviewer call history report
+      Run interviewer call pattern report
     </h1>
     <div
       class="panel panel--error panel--no-title  u-mt-m"
@@ -607,7 +714,7 @@ Object {
       <br />
       <button
         class="btn "
-        data-testid="submit-call-history-form-button"
+        data-testid="submit-call-pattern-form-button"
         type="submit"
       >
         <span
@@ -619,9 +726,10 @@ Object {
     </form>
     <br />
     <a
-      download="interviewer-call-history-"
+      download="interviewer-call-pattern-"
       hidden=""
-      href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Interviews\\",\\"Call Result\\""
+      href="data:text/csv;charset=utf-8,﻿
+"
       target="_self"
     >
       Export report as Comma-Separated Values (CSV) file
