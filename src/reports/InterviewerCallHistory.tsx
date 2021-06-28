@@ -80,7 +80,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{"Report data last updated: " + (reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">Report data last updated: {(reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
