@@ -4,7 +4,7 @@ const formatText = (text: string): string => {
     return text;
 };
 
-const convertFirstCharacterToUppercase = (stringToConvert: string) => {
+const convertFirstCharacterToUppercase = (stringToConvert: string): string => {
     const firstCharacter = stringToConvert.substring(0, 1);
     const restString = stringToConvert.substring(1);
 
