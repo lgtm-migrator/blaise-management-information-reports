@@ -11,7 +11,8 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
-import formatText from "../utilities/textFormatting/TextFormatting";
+import {formatText} from "../utilities/textFormatting";
+
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
