@@ -1,4 +1,4 @@
-import formatText from "./TextFormatting";
+import {formatText} from "./TextFormatting";
 
 
 describe("Text formatting", () => {
