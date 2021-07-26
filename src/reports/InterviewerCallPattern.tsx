@@ -13,7 +13,6 @@ import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/textFormatting";
 
-
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
