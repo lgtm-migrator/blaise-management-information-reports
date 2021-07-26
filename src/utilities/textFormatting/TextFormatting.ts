@@ -1,6 +1,12 @@
+function replaceUnderscoresWithSpaces(text: string) {
+    const search = "_";
+    const replaceWith = " ";
+    return text.split(search).join(replaceWith);
+}
+
 const formatText = (text: string): string => {
     text = convertFirstCharacterToUppercase(text);
-    text = text.replaceAll("_", " ");
+    text = replaceUnderscoresWithSpaces(text);
     return text;
 };
 
