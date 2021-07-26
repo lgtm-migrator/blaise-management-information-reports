@@ -109,10 +109,22 @@ Object {
             <div
               class="panel__body "
             >
+              <p
+                aria-live="polite"
+              >
+                Data in these reports was last updated: 
+                <b>
+                  <time
+                    datetime="2000-01-01T00:00:00.000Z"
+                    title="2000-01-01 00:00"
+                  >
+                    2 days ago
+                  </time>
+                   (01/01/2000 00:00:00)
+                </b>
+                .
+              </p>
               <p>
-                Data in these reports could be up to 24 hours out of date.
-                <br />
-                <br />
                 These reports only go back to the last 12 months.
               </p>
             </div>
@@ -313,10 +325,22 @@ Object {
           <div
             class="panel__body "
           >
+            <p
+              aria-live="polite"
+            >
+              Data in these reports was last updated: 
+              <b>
+                <time
+                  datetime="2000-01-01T00:00:00.000Z"
+                  title="2000-01-01 00:00"
+                >
+                  2 days ago
+                </time>
+                 (01/01/2000 00:00:00)
+              </b>
+              .
+            </p>
             <p>
-              Data in these reports could be up to 24 hours out of date.
-              <br />
-              <br />
               These reports only go back to the last 12 months.
             </p>
           </div>
