@@ -111,23 +111,23 @@ describe("interviewer call pattern report with data", () => {
 
         await waitFor(() => {
             expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
-            expect(screen.getByText("hours_worked")).toBeVisible();
+            expect(screen.getByText("Hours worked")).toBeVisible();
             expect(screen.getByText("13:37:00")).toBeVisible();
-            expect(screen.getByText("call_time")).toBeVisible();
+            expect(screen.getByText("Call time")).toBeVisible();
             expect(screen.getByText("1:56:00")).toBeVisible();
-            expect(screen.getByText("hours_on_calls_percentage")).toBeVisible();
+            expect(screen.getByText("Hours on calls percentage")).toBeVisible();
             expect(screen.getByText("42%")).toBeVisible();
-            expect(screen.getByText("average_calls_per_hour")).toBeVisible();
+            expect(screen.getByText("Average calls per hour")).toBeVisible();
             expect(screen.getByText("3.14")).toBeVisible();
-            expect(screen.getByText("respondents_interviewed")).toBeVisible();
+            expect(screen.getByText("Respondents interviewed")).toBeVisible();
             expect(screen.getByText("666")).toBeVisible();
-            expect(screen.getByText("households_completed_successfully")).toBeVisible();
+            expect(screen.getByText("Households completed successfully")).toBeVisible();
             expect(screen.getByText("911")).toBeVisible();
-            expect(screen.getByText("average_respondents_interviewed_per_hour")).toBeVisible();
+            expect(screen.getByText("Average respondents interviewed per hour")).toBeVisible();
             expect(screen.getByText("420")).toBeVisible();
-            expect(screen.getByText("no_contacts_percentage")).toBeVisible();
+            expect(screen.getByText("No contacts percentage")).toBeVisible();
             expect(screen.getByText("10.10%")).toBeVisible();
-            expect(screen.getByText("appointments_for_contacts_percentage")).toBeVisible();
+            expect(screen.getByText("Appointments for contacts percentage")).toBeVisible();
             expect(screen.getByText("13.0%")).toBeVisible();
         });
 
