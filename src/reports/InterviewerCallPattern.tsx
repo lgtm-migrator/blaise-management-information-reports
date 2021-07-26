@@ -11,6 +11,7 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
+import {formatText} from "../utilities/textFormatting";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -27,6 +28,7 @@ function InterviewerCallPattern(): ReactElement {
 
     async function runInterviewerCallPatternReport(formData: any) {
         setMessageNoData("");
+        setMessage("");
         setReportData([]);
         setButtonLoading(true);
         console.log(formData);
@@ -60,7 +62,7 @@ function InterviewerCallPattern(): ReactElement {
                 <tr className="summary__row summary__row--has-values">
                     <td className="summary__item-title">
                         <div className="summary__item--text">
-                            {field}
+                            {formatText(field)}
                         </div>
                     </td>
                     <td className="summary__values" colSpan={2}>
