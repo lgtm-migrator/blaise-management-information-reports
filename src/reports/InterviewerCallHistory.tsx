@@ -4,20 +4,18 @@ import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {
-    getInterviewerCallHistoryReport,
-    getInterviewerCallHistoryStatus
-} from "../utilities/http";
+import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
-import {ReportData} from "../interfaces";
+import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
+import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
-
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
@@ -26,10 +24,20 @@ function InterviewerCallHistory(): ReactElement {
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportData, setReportData] = useState<ReportData[]>([]);
-    const [reportStatus, setReportStatus] = useState<Date | null>(null);
+    const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
+    const [reportStatus, setReportStatus] = useState<Date | "">("");
+    const reportExportHeaders = [
+        {label: "Interviewer", key: "interviewer"},
+        {label: "Questionnaire", key: "questionnaire_name"},
+        {label: "Serial Number", key: "serial_number"},
+        {label: "Call Start Time", key: "call_start_time"},
+        {label: "Call Length (Seconds)", key: "dial_secs"},
+        {label: "Interviews", key: "number_of_interviews"},
+        {label: "Call Result", key: "call_result"}
+    ];
 
     async function runInterviewerCallHistoryReport(formData: any) {
+        setMessageNoData("");
         setReportData([]);
         setButtonLoading(true);
         console.log(formData);
@@ -72,7 +80,7 @@ function InterviewerCallHistory(): ReactElement {
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{(reportStatus && "Report data last updated: " + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
+            <p className="u-fs-s">{"Report data last updated: " + (reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
             <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                 <p>
                     <FormTextInput
@@ -104,11 +112,20 @@ function InterviewerCallHistory(): ReactElement {
                     submit={true}/>
             </Form>
             <br/>
+
+            <CSVLink hidden={reportData === null || reportData.length === 0}
+                     data={reportData}
+                     headers={reportExportHeaders}
+                     target="_blank"
+                     filename={`interviewer-call-history-${interviewerID}`}>
+                Export report as Comma-Separated Values (CSV) file
+            </CSVLink>
+
             <ErrorBoundary errorMessageText={"Failed to load"}>
                 {
                     reportData && reportData.length > 0
                         ?
-                        <table id="report-table" className="table ">
+                        <table id="report-table" className="table u-mt-s">
                             <thead className="table__head u-mt-m">
                             <tr className="table__row">
                                 {/*
