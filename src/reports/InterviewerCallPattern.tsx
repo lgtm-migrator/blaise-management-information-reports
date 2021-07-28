@@ -11,7 +11,6 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/textFormatting";
-import TimeAgo from "react-timeago";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 
@@ -26,7 +25,6 @@ function InterviewerCallPattern(): ReactElement {
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<any>({});
-    const [reportStatus, setReportStatus] = useState<Date | "">("");
 
     async function runInterviewerCallPatternReport(formData: any) {
         setMessageNoData("");
@@ -78,15 +76,6 @@ function InterviewerCallPattern(): ReactElement {
             return element;
         }));
     }
-
-    useEffect(() => {
-        getInterviewerCallHistoryStatus().then(([success, last_updated]) => {
-            if (!success) {
-                return;
-            }
-            setReportStatus(new Date(last_updated.last_updated));
-        });
-    }, []);
 
     return (
         <>
