@@ -103,7 +103,7 @@ Object {
       </header>
       <div
         class="page__container container"
-        style="min-height: calc(67vh);"
+        style="min-height: calc(72vh);"
       >
         <main
           class="page__main u-mt-no"
@@ -303,7 +303,7 @@ Object {
     </header>
     <div
       class="page__container container"
-      style="min-height: calc(67vh);"
+      style="min-height: calc(72vh);"
     >
       <main
         class="page__main u-mt-no"

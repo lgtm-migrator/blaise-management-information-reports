@@ -6,7 +6,7 @@ import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 import InterviewerCallPattern from "./reports/InterviewerCallPattern";
 
 const divStyle = {
-    minHeight: "calc(67vh)"
+    minHeight: "calc(72vh)"
 };
 
 function App(): ReactElement {
@@ -16,16 +16,16 @@ function App(): ReactElement {
             <BetaBanner/>
             <Header title={"Management Information Reports"}/>
             <div style={divStyle} className="page__container container">
-                    <DefaultErrorBoundary>
-                        <Switch>
-                            <Route path="/interviewer-call-history">
-                                <InterviewerCallHistory/>
-                            </Route>
-                            <Route path="/interviewer-call-pattern">
-                                <InterviewerCallPattern/>
-                            </Route>
-                            <Route path="/">
-                                <main id="main-content" className="page__main u-mt-no">
+                <DefaultErrorBoundary>
+                    <Switch>
+                        <Route path="/interviewer-call-history">
+                            <InterviewerCallHistory/>
+                        </Route>
+                        <Route path="/interviewer-call-pattern">
+                            <InterviewerCallPattern/>
+                        </Route>
+                        <Route path="/">
+                            <main id="main-content" className="page__main u-mt-no">
                                 <h1 className="u-mt-m">Reports</h1>
                                 <div className="grid grid--column@xxs@s u-mt-m">
                                     <div className="grid__col col-6@m">
@@ -68,10 +68,10 @@ function App(): ReactElement {
                                     {/*    </div>*/}
                                     {/*</div>*/}
                                 </div>
-                                </main>
-                            </Route>
-                        </Switch>
-                    </DefaultErrorBoundary>
+                            </main>
+                        </Route>
+                    </Switch>
+                </DefaultErrorBoundary>
             </div>
             <Footer/>
         </>
