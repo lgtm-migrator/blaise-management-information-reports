@@ -59,12 +59,11 @@ Object {
             </time>
              (01/01/2000 10:00:00)
           </b>
-          .
         </p>
         <p
           class="u-fs-s"
         >
-          This report only go back to the last 12 months.
+          Data in this report only goes back to the last 12 months.
         </p>
         <div
           class="u-mb-m"
@@ -278,12 +277,11 @@ Object {
           </time>
            (01/01/2000 10:00:00)
         </b>
-        .
       </p>
       <p
         class="u-fs-s"
       >
-        This report only go back to the last 12 months.
+        Data in this report only goes back to the last 12 months.
       </p>
       <div
         class="u-mb-m"
@@ -548,12 +546,11 @@ Object {
           <b>
             Invalid Date
           </b>
-          .
         </p>
         <p
           class="u-fs-s"
         >
-          This report only go back to the last 12 months.
+          Data in this report only goes back to the last 12 months.
         </p>
         <div
           class="u-mb-m"
@@ -761,12 +758,11 @@ Object {
         <b>
           Invalid Date
         </b>
-        .
       </p>
       <p
         class="u-fs-s"
       >
-        This report only go back to the last 12 months.
+        Data in this report only goes back to the last 12 months.
       </p>
       <div
         class="u-mb-m"
