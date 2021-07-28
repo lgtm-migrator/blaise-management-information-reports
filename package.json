@@ -73,11 +73,11 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.16.1",
     "axios-mock-adapter": "^1.19.0",
-    "mockdate": "^3.0.5",
     "cross-env": "^7.0.2",
     "eslint": "^7.21.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "mockdate": "^3.0.5",
     "pino-pretty": "^4.7.1",
     "supertest": "^6.1.3"
   },
