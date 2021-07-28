@@ -14,6 +14,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import TimeAgo from "react-timeago";
 import Breadcrumbs from "../components/Breadcrumbs";
+import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -26,7 +27,6 @@ function InterviewerCallHistory(): ReactElement {
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
-    const [reportStatus, setReportStatus] = useState<Date | "">("");
     const reportExportHeaders = [
         {label: "Interviewer", key: "interviewer"},
         {label: "Questionnaire", key: "questionnaire_name"},
@@ -63,15 +63,6 @@ function InterviewerCallHistory(): ReactElement {
         setReportData(data);
     }
 
-    useEffect(() => {
-        getInterviewerCallHistoryStatus().then(([success, last_updated]) => {
-            if (!success) {
-                return;
-            }
-            setReportStatus(new Date(last_updated.last_updated));
-        });
-    }, []);
-
     return (
         <>
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
@@ -80,14 +71,7 @@ function InterviewerCallHistory(): ReactElement {
                 <ONSPanel hidden={(message === "")} status="error">
                     {message}
                 </ONSPanel>
-                <p className="u-fs-s u-mt-s" aria-live="polite">
-                    Data in this report was last updated: <b>
-                    {<TimeAgo live={false} date={reportStatus}/>}
-                    {(reportStatus ? "" + dateFormatter(reportStatus).tz("Europe/London").format(" (DD/MM/YYYY HH:mm:ss)") : "Loading")}</b>.
-                </p>
-                <p className="u-fs-s">
-                    This report only go back to the last 12 months.
-                </p>
+                <CallHistoryLastUpdatedStatus/>
                 <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                     <p>
                         <FormTextInput
