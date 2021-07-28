@@ -26,9 +26,25 @@ Object {
         />
       </div>
       <p
+        aria-live="polite"
         class="u-fs-s"
       >
-        Report data last updated: 01/06/2021 11:00:00
+        Data in this report was last updated: 
+        <b>
+          <time
+            datetime="2000-01-01T10:00:00.000Z"
+            title="2000-01-01 10:00"
+          >
+            2 days ago
+          </time>
+           (01/01/2000 10:00:00)
+        </b>
+        .
+      </p>
+      <p
+        class="u-fs-s"
+      >
+        This report only go back to the last 12 months.
       </p>
       <form
         class="u-mt-m"
@@ -170,9 +186,25 @@ Object {
       />
     </div>
     <p
+      aria-live="polite"
       class="u-fs-s"
     >
-      Report data last updated: 01/06/2021 11:00:00
+      Data in this report was last updated: 
+      <b>
+        <time
+          datetime="2000-01-01T10:00:00.000Z"
+          title="2000-01-01 10:00"
+        >
+          2 days ago
+        </time>
+         (01/01/2000 10:00:00)
+      </b>
+      .
+    </p>
+    <p
+      class="u-fs-s"
+    >
+      This report only go back to the last 12 months.
     </p>
     <form
       class="u-mt-m"
@@ -371,9 +403,19 @@ Object {
         />
       </div>
       <p
+        aria-live="polite"
         class="u-fs-s"
       >
-        Report data last updated: Invalid Date
+        Data in this report was last updated: 
+        <b>
+          Invalid Date
+        </b>
+        .
+      </p>
+      <p
+        class="u-fs-s"
+      >
+        This report only go back to the last 12 months.
       </p>
       <form
         class="u-mt-m"
@@ -426,7 +468,7 @@ Object {
                 placeholder="Select Date"
                 style="z-index: 0;"
                 type="text"
-                value="01/01/2021"
+                value="03/01/2000"
               />
             </p>
           </div>
@@ -454,7 +496,7 @@ Object {
                 placeholder="Select Date"
                 style="z-index: 0;"
                 type="text"
-                value="01/01/2021"
+                value="03/01/2000"
               />
             </p>
           </div>
@@ -515,9 +557,19 @@ Object {
       />
     </div>
     <p
+      aria-live="polite"
       class="u-fs-s"
     >
-      Report data last updated: Invalid Date
+      Data in this report was last updated: 
+      <b>
+        Invalid Date
+      </b>
+      .
+    </p>
+    <p
+      class="u-fs-s"
+    >
+      This report only go back to the last 12 months.
     </p>
     <form
       class="u-mt-m"
@@ -570,7 +622,7 @@ Object {
               placeholder="Select Date"
               style="z-index: 0;"
               type="text"
-              value="01/01/2021"
+              value="03/01/2000"
             />
           </p>
         </div>
@@ -598,7 +650,7 @@ Object {
               placeholder="Select Date"
               style="z-index: 0;"
               type="text"
-              value="01/01/2021"
+              value="03/01/2000"
             />
           </p>
         </div>

@@ -1,12 +1,13 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import flushPromises, {mock_fetch_requests} from "../tests/utils";
+import flushPromises, {mock_fetch_requests, mock_server_request_return_json} from "../tests/utils";
 import {createMemoryHistory} from "history";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";
 import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
 import InterviewerCallPattern from "./InterviewerCallPattern";
+import MockDate from "mockdate";
 
 const reportDataReturned: any = {
     "hours_worked": "13:37:00",
@@ -30,7 +31,7 @@ const mock_server_responses_with_data = (url: string) => {
     } else if (url.includes("/api/reports/call-history-status")) {
         return Promise.resolve({
             status: 200,
-            json: () => Promise.resolve({"last_updated": "Tue, 01 June 2021 10:00:00 GMT"}),
+            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
         });
     }
 };
@@ -50,25 +51,26 @@ const mock_server_responses_without_data = (url: string) => {
     }
 };
 
+const threeDaysFromTheNewMillennium = "2000-01-03";
+
 describe("interviewer call pattern report with data", () => {
+    afterEach(() => {
+        MockDate.reset();
+    });
 
     beforeEach(() => {
         mock_fetch_requests(mock_server_responses_with_data);
+        MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
-
-        jest.useFakeTimers("modern");
-        jest.setSystemTime(new Date("2021-01-01"));
 
         const wrapper = render(
             <Router history={history}>
                 <InterviewerCallPattern/>
             </Router>
         );
-
-        jest.useRealTimers();
 
         await act(async () => {
             await flushPromises();
@@ -90,7 +92,8 @@ describe("interviewer call pattern report with data", () => {
             );
         });
 
-        expect(screen.queryByText("Report data last updated: 01/06/2021 11:00:00")).toBeVisible();
+        expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.queryByText(/2 days ago/i)).toBeVisible();
         expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start Date")).toBeVisible();
@@ -140,24 +143,23 @@ describe("interviewer call pattern report with data", () => {
 });
 
 describe("interviewer call pattern report without data", () => {
+    afterEach(() => {
+        MockDate.reset();
+    });
 
     beforeEach(() => {
         mock_fetch_requests(mock_server_responses_without_data);
+        MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
-
-        jest.useFakeTimers("modern");
-        jest.setSystemTime(new Date("2021-01-01"));
 
         const wrapper = render(
             <Router history={history}>
                 <InterviewerCallPattern/>
             </Router>
         );
-
-        jest.useRealTimers();
 
         await act(async () => {
             await flushPromises();

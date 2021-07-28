@@ -103,33 +103,9 @@ Object {
           class="page__main"
           id="main-content"
         >
-          <div
-            class="panel panel--info panel--no-title  u-mt-m"
-          >
-            <div
-              class="panel__body "
-            >
-              <p
-                aria-live="polite"
-              >
-                Data in these reports was last updated: 
-                <b>
-                  <time
-                    datetime="2000-01-01T00:00:00.000Z"
-                    title="2000-01-01 00:00"
-                  >
-                    2 days ago
-                  </time>
-                   (01/01/2000 00:00:00)
-                </b>
-                .
-              </p>
-              <p>
-                These reports only go back to the last 12 months.
-              </p>
-            </div>
-          </div>
-          <br />
+          <h1>
+            Reports
+          </h1>
           <div
             class="grid grid--column@xxs@s u-mt-m"
           >
@@ -148,7 +124,7 @@ Object {
                   <a
                     href="/interviewer-call-history"
                   >
-                    Interviewer Call History
+                    Interviewer call history
                   </a>
                 </h2>
                 <p
@@ -173,7 +149,7 @@ Object {
                   <a
                     href="/interviewer-call-pattern"
                   >
-                    Interviewer Call Pattern
+                    Interviewer call pattern
                   </a>
                 </h2>
                 <p
@@ -319,33 +295,9 @@ Object {
         class="page__main"
         id="main-content"
       >
-        <div
-          class="panel panel--info panel--no-title  u-mt-m"
-        >
-          <div
-            class="panel__body "
-          >
-            <p
-              aria-live="polite"
-            >
-              Data in these reports was last updated: 
-              <b>
-                <time
-                  datetime="2000-01-01T00:00:00.000Z"
-                  title="2000-01-01 00:00"
-                >
-                  2 days ago
-                </time>
-                 (01/01/2000 00:00:00)
-              </b>
-              .
-            </p>
-            <p>
-              These reports only go back to the last 12 months.
-            </p>
-          </div>
-        </div>
-        <br />
+        <h1>
+          Reports
+        </h1>
         <div
           class="grid grid--column@xxs@s u-mt-m"
         >
@@ -364,7 +316,7 @@ Object {
                 <a
                   href="/interviewer-call-history"
                 >
-                  Interviewer Call History
+                  Interviewer call history
                 </a>
               </h2>
               <p
@@ -389,7 +341,7 @@ Object {
                 <a
                   href="/interviewer-call-pattern"
                 >
-                  Interviewer Call Pattern
+                  Interviewer call pattern
                 </a>
               </h2>
               <p

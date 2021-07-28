@@ -25,6 +25,7 @@ function App(): ReactElement {
                                 <InterviewerCallPattern/>
                             </Route>
                             <Route path="/">
+                                <h1>Reports</h1>
                                 <div className="grid grid--column@xxs@s u-mt-m">
                                     <div className="grid__col col-6@m">
                                         <div className="card" aria-labelledby="interviewer-call-history"
