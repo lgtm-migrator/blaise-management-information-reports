@@ -12,6 +12,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/textFormatting";
+import TimeAgo from "react-timeago";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -58,7 +59,7 @@ function InterviewerCallPattern(): ReactElement {
         const entries: [string, (string | null | number)][] = Object.entries(object);
         for (const [field, data] of entries) {
             elementList.push(
-                <tbody className="summary__item">
+                <tbody className="summary__item" key={field}>
                 <tr className="summary__row summary__row--has-values">
                     <td className="summary__item-title">
                         <div className="summary__item--text">
@@ -91,23 +92,33 @@ function InterviewerCallPattern(): ReactElement {
             <p className="u-mt-m">
                 <Link to={"/"}>Previous</Link>
             </p>
-            <ONSPanel>
-                <p>
-                    Incomplete data is removed from this report. This will impact the accuracy of the report.
-                    <br/>
-                    <br/>
-                    The <b>discounted_invalid_records</b> entry will advise how many records have been removed.
-                    <br/>
-                    <br/>
-                    The <b>invalid_fields</b> entry will advise which fields were incomplete.
-                </p>
-            </ONSPanel>
-            <br/>
             <h1>Run interviewer call pattern report</h1>
+            <p className="u-fs-s" aria-live="polite">
+                Data in this report was last updated: <b>
+                {<TimeAgo live={false} date={reportStatus}/>}
+                {(reportStatus ? "" + dateFormatter(reportStatus).tz("Europe/London").format(" (DD/MM/YYYY HH:mm:ss)") : "Loading")}</b>.
+            </p>
+            <p className="u-fs-s">
+                This report only go back to the last 12 months.
+            </p>
+            <div className="u-mb-m">
+                <ONSPanel>
+                    <p>
+                        Incomplete data is removed from this report. This will impact the accuracy of the report.
+                    </p>
+                    <p>
+                        The <b>Discounted invalid records</b> entry will advise how many records have been removed.
+                    </p>
+                    <p>
+                        The <b>Invalid fields</b> entry will advise which fields were incomplete.
+                    </p>
+                </ONSPanel>
+            </div>
+
             <ONSPanel hidden={(message === "")} status="error">
                 {message}
             </ONSPanel>
-            <p className="u-fs-s">{"Report data last updated: " + (reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
+
             <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
                 <p>
                     <FormTextInput
