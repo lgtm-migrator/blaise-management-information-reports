@@ -80,7 +80,7 @@ function InterviewerCallHistory(): ReactElement {
                 <ONSPanel hidden={(message === "")} status="error">
                     {message}
                 </ONSPanel>
-                <p className="u-fs-s" aria-live="polite">
+                <p className="u-fs-s u-mt-s" aria-live="polite">
                     Data in this report was last updated: <b>
                     {<TimeAgo live={false} date={reportStatus}/>}
                     {(reportStatus ? "" + dateFormatter(reportStatus).tz("Europe/London").format(" (DD/MM/YYYY HH:mm:ss)") : "Loading")}</b>.

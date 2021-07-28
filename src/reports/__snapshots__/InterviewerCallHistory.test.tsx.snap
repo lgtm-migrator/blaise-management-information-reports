@@ -55,7 +55,7 @@ Object {
         </div>
         <p
           aria-live="polite"
-          class="u-fs-s"
+          class="u-fs-s u-mt-s"
         >
           Data in this report was last updated: 
           <b>
@@ -244,7 +244,7 @@ Object {
       </div>
       <p
         aria-live="polite"
-        class="u-fs-s"
+        class="u-fs-s u-mt-s"
       >
         Data in this report was last updated: 
         <b>
@@ -490,7 +490,7 @@ Object {
         </div>
         <p
           aria-live="polite"
-          class="u-fs-s"
+          class="u-fs-s u-mt-s"
         >
           Data in this report was last updated: 
           <b>
@@ -673,7 +673,7 @@ Object {
       </div>
       <p
         aria-live="polite"
-        class="u-fs-s"
+        class="u-fs-s u-mt-s"
       >
         Data in this report was last updated: 
         <b>

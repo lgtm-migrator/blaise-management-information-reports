@@ -92,7 +92,7 @@ function InterviewerCallPattern(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run interviewer call pattern report</h1>
-                <p className="u-fs-s" aria-live="polite">
+                <p className="u-fs-s u-mt-s" aria-live="polite">
                     Data in this report was last updated: <b>
                     {<TimeAgo live={false} date={reportStatus}/>}
                     {(reportStatus ? "" + dateFormatter(reportStatus).tz("Europe/London").format(" (DD/MM/YYYY HH:mm:ss)") : "Loading")}</b>.
