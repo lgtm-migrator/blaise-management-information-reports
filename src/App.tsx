@@ -12,10 +12,10 @@ const divStyle = {
 function App(): ReactElement {
     return (
         <>
+            <a className="skip__link" href="#main-content">Skip to main content</a>
             <BetaBanner/>
             <Header title={"Management Information Reports"}/>
             <div style={divStyle} className="page__container container">
-                <main id="main-content" className="page__main">
                     <DefaultErrorBoundary>
                         <Switch>
                             <Route path="/interviewer-call-history">
@@ -25,7 +25,8 @@ function App(): ReactElement {
                                 <InterviewerCallPattern/>
                             </Route>
                             <Route path="/">
-                                <h1>Reports</h1>
+                                <main id="main-content" className="page__main u-mt-no">
+                                <h1 className="u-mt-m">Reports</h1>
                                 <div className="grid grid--column@xxs@s u-mt-m">
                                     <div className="grid__col col-6@m">
                                         <div className="card" aria-labelledby="interviewer-call-history"
@@ -67,10 +68,10 @@ function App(): ReactElement {
                                     {/*    </div>*/}
                                     {/*</div>*/}
                                 </div>
+                                </main>
                             </Route>
                         </Switch>
                     </DefaultErrorBoundary>
-                </main>
             </div>
             <Footer/>
         </>

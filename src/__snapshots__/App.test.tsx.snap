@@ -5,6 +5,12 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <a
+        class="skip__link"
+        href="#main-content"
+      >
+        Skip to main content
+      </a>
       <div
         class="phase-banner"
       >
@@ -100,10 +106,12 @@ Object {
         style="min-height: calc(67vh);"
       >
         <main
-          class="page__main"
+          class="page__main u-mt-no"
           id="main-content"
         >
-          <h1>
+          <h1
+            class="u-mt-m"
+          >
             Reports
           </h1>
           <div
@@ -197,6 +205,12 @@ Object {
     </div>
   </body>,
   "container": <div>
+    <a
+      class="skip__link"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
     <div
       class="phase-banner"
     >
@@ -292,10 +306,12 @@ Object {
       style="min-height: calc(67vh);"
     >
       <main
-        class="page__main"
+        class="page__main u-mt-no"
         id="main-content"
       >
-        <h1>
+        <h1
+          class="u-mt-m"
+        >
           Reports
         </h1>
         <div
