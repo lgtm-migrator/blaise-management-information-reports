@@ -1,52 +1,39 @@
 import React, {ReactElement} from "react";
 import {DefaultErrorBoundary} from "./components/ErrorHandling/DefaultErrorBoundary";
 import {Link, Route, Switch} from "react-router-dom";
-import {BetaBanner, Footer, Header, ONSPanel} from "blaise-design-system-react-components";
+import {BetaBanner, Footer, Header} from "blaise-design-system-react-components";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 import InterviewerCallPattern from "./reports/InterviewerCallPattern";
 
 const divStyle = {
-    minHeight: "calc(67vh)"
+    minHeight: "calc(72vh)"
 };
 
 function App(): ReactElement {
     return (
         <>
+            <a className="skip__link" href="#main-content">Skip to main content</a>
             <BetaBanner/>
             <Header title={"Management Information Reports"}/>
             <div style={divStyle} className="page__container container">
-                <main id="main-content" className="page__main">
-                    <DefaultErrorBoundary>
-                        <Switch>
-                            <Route path="/interviewer-call-history">
-                                <InterviewerCallHistory/>
-                            </Route>
-                            <Route path="/interviewer-call-pattern">
-                                <InterviewerCallPattern/>
-                            </Route>
-                            <Route path="/">
-                                {
-                                    status !== "" &&
-                                    <ONSPanel status={status?.includes("success") ? "success" : "error"}>
-                                        <p>{status}</p>
-                                    </ONSPanel>
-                                }
-                                <ONSPanel>
-                                    <p>
-                                        Data in these reports could be up to 24 hours out of date.
-                                        <br/>
-                                        <br/>
-                                        These reports only go back to the last 12 months.
-                                    </p>
-                                </ONSPanel>
-                                <br/>
+                <DefaultErrorBoundary>
+                    <Switch>
+                        <Route path="/interviewer-call-history">
+                            <InterviewerCallHistory/>
+                        </Route>
+                        <Route path="/interviewer-call-pattern">
+                            <InterviewerCallPattern/>
+                        </Route>
+                        <Route path="/">
+                            <main id="main-content" className="page__main u-mt-no">
+                                <h1 className="u-mt-m">Reports</h1>
                                 <div className="grid grid--column@xxs@s u-mt-m">
                                     <div className="grid__col col-6@m">
-                                        <div className="card" aria-labelledBy="interviewer-call-history"
-                                             aria-describedBy="interviewer-call-history-text">
+                                        <div className="card" aria-labelledby="interviewer-call-history"
+                                             aria-describedby="interviewer-call-history-text">
                                             <h2 className="u-fs-m" id="interviewer-call-history">
                                                 <Link to="/interviewer-call-history">
-                                                    Interviewer Call History
+                                                    Interviewer call history
                                                 </Link>
                                             </h2>
                                             <p id="interviewer-call-history-text">Generate report to see an interviewers
@@ -54,11 +41,11 @@ function App(): ReactElement {
                                         </div>
                                     </div>
                                     <div className="grid__col col-6@m">
-                                        <div className="card" aria-labelledBy="interviewer-call-pattern"
-                                             aria-describedBy="interviewer-call-pattern-text">
+                                        <div className="card" aria-labelledby="interviewer-call-pattern"
+                                             aria-describedby="interviewer-call-pattern-text">
                                             <h2 className="u-fs-m" id="interviewer-call-pattern">
                                                 <Link to="/interviewer-call-pattern">
-                                                    Interviewer Call Pattern
+                                                    Interviewer call pattern
                                                 </Link>
                                             </h2>
                                             <p id="interviewer-call-pattern-text">Generate report to analyse
@@ -69,8 +56,8 @@ function App(): ReactElement {
                                 <div className="grid grid--column@xxs@s  u-mt-m">
                                     {/* TODO: Removed as the report does not exist yet, to add back in */}
                                     {/*<div className="grid__col col-6@m">*/}
-                                    {/*    <div className="card" aria-labelledBy="appointment-resource-planning"*/}
-                                    {/*         aria-describedBy="appointment-resource-planning-text">*/}
+                                    {/*    <div className="card" aria-labelledby="appointment-resource-planning"*/}
+                                    {/*         aria-describedby="appointment-resource-planning-text">*/}
                                     {/*        <h2 className="u-fs-m" id="appointment-resource-planning">*/}
                                     {/*            <Link to="/appointment-resource-planning">*/}
                                     {/*                Daily Appointment Resource Planning*/}
@@ -81,10 +68,10 @@ function App(): ReactElement {
                                     {/*    </div>*/}
                                     {/*</div>*/}
                                 </div>
-                            </Route>
-                        </Switch>
-                    </DefaultErrorBoundary>
-                </main>
+                            </main>
+                        </Route>
+                    </Switch>
+                </DefaultErrorBoundary>
             </div>
             <Footer/>
         </>

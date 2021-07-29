@@ -1,5 +1,4 @@
 import React, {ReactElement, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
@@ -12,6 +11,9 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/textFormatting";
+import TimeAgo from "react-timeago";
+import Breadcrumbs from "../components/Breadcrumbs";
+import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -58,7 +60,7 @@ function InterviewerCallPattern(): ReactElement {
         const entries: [string, (string | null | number)][] = Object.entries(object);
         for (const [field, data] of entries) {
             elementList.push(
-                <tbody className="summary__item">
+                <tbody className="summary__item" key={field}>
                 <tr className="summary__row summary__row--has-values">
                     <td className="summary__item-title">
                         <div className="summary__item--text">
@@ -88,83 +90,86 @@ function InterviewerCallPattern(): ReactElement {
 
     return (
         <>
-            <p className="u-mt-m">
-                <Link to={"/"}>Previous</Link>
-            </p>
-            <ONSPanel>
-                <p>
-                    Incomplete data is removed from this report. This will impact the accuracy of the report.
-                    <br/>
-                    <br/>
-                    The <b>discounted_invalid_records</b> entry will advise how many records have been removed.
-                    <br/>
-                    <br/>
-                    The <b>invalid_fields</b> entry will advise which fields were incomplete.
-                </p>
-            </ONSPanel>
-            <br/>
-            <h1>Run interviewer call pattern report</h1>
-            <ONSPanel hidden={(message === "")} status="error">
-                {message}
-            </ONSPanel>
-            <p className="u-fs-s">{"Report data last updated: " + (reportStatus && "" + dateFormatter(reportStatus).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss"))}</p>
-            <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
-                <p>
-                    <FormTextInput
-                        name="interviewer"
-                        validators={[requiredValidator]}
-                        label={"Interviewer ID"}
+            <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
+            <main id="main-content" className="page__main u-mt-s">
+                <h1 className="u-mb-m">Run interviewer call pattern report</h1>
+                <CallHistoryLastUpdatedStatus/>
+                <div className="u-mb-m">
+                    <ONSPanel>
+                        <p>
+                            Incomplete data is removed from this report. This will impact the accuracy of the report.
+                        </p>
+                        <p>
+                            The <b>Discounted invalid records</b> entry will advise how many records have been removed.
+                        </p>
+                        <p>
+                            The <b>Invalid fields</b> entry will advise which fields were incomplete.
+                        </p>
+                    </ONSPanel>
+                </div>
+
+                <ONSPanel hidden={(message === "")} status="error">
+                    {message}
+                </ONSPanel>
+
+                <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
+                    <p>
+                        <FormTextInput
+                            name="interviewer"
+                            validators={[requiredValidator]}
+                            label={"Interviewer ID"}
+                        />
+                    </p>
+                    <ONSDateInput
+                        label={"Start Date"}
+                        date={startDate}
+                        id={"start-date"}
+                        onChange={(date) => setStartDate(date)}
                     />
-                </p>
-                <ONSDateInput
-                    label={"Start Date"}
-                    date={startDate}
-                    id={"start-date"}
-                    onChange={(date) => setStartDate(date)}
-                />
+                    <br/>
+                    <ONSDateInput
+                        label={"End Date"}
+                        date={endDate}
+                        id={"end-date"}
+                        onChange={(date) => setEndDate(date)}
+                    />
+                    <br/>
+                    <br/>
+                    <ONSButton
+                        testid={"submit-call-pattern-form"}
+                        label={"Run"}
+                        primary={true}
+                        loading={buttonLoading}
+                        submit={true}/>
+                </Form>
                 <br/>
-                <ONSDateInput
-                    label={"End Date"}
-                    date={endDate}
-                    id={"end-date"}
-                    onChange={(date) => setEndDate(date)}
-                />
-                <br/>
-                <br/>
-                <ONSButton
-                    testid={"submit-call-pattern-form"}
-                    label={"Run"}
-                    primary={true}
-                    loading={buttonLoading}
-                    submit={true}/>
-            </Form>
-            <br/>
 
-            <CSVLink hidden={Object.entries(reportData).length === 0}
-                     data={[reportData]}
-                     target="_blank"
-                     filename={`interviewer-call-pattern-${interviewerID}`}>
-                Export report as Comma-Separated Values (CSV) file
-            </CSVLink>
+                <CSVLink hidden={Object.entries(reportData).length === 0}
+                         data={[reportData]}
+                         target="_blank"
+                         filename={`interviewer-call-pattern-${interviewerID}`}>
+                    Export report as Comma-Separated Values (CSV) file
+                </CSVLink>
 
-            <ErrorBoundary errorMessageText={"Failed to load"}>
-                {
-                    Object.entries(reportData).length > 0
-                        ?
-                        <div className="summary">
-                            <div className="summary__group">
-                                <table id="report-table" className="summary__items u-mt-s">
-                                    {
-                                        convertJsonToTable(reportData)
-                                    }
-                                </table>
+                <ErrorBoundary errorMessageText={"Failed to load"}>
+                    {
+                        Object.entries(reportData).length > 0
+                            ?
+                            <div className="summary">
+                                <div className="summary__group">
+                                    <table id="report-table" className="summary__items u-mt-s">
+                                        {
+                                            convertJsonToTable(reportData)
+                                        }
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        :
-                        <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
-                }
-                <br/>
-            </ErrorBoundary>
+                            :
+                            <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
+                    }
+                    <br/>
+                </ErrorBoundary>
+            </main>
         </>
     );
 }
