@@ -1,9 +1,9 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../form/TextInput";
 import Form from "../form";
 import {requiredValidator} from "../form/FormValidators";
-import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
+import {getInterviewerCallHistoryReport} from "../utilities/http";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
 import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
@@ -12,7 +12,6 @@ import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import TimeAgo from "react-timeago";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 
