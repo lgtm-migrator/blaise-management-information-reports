@@ -1,5 +1,5 @@
 import React from "react";
-import {cleanup, render, waitFor} from "@testing-library/react";
+import {render, waitFor} from "@testing-library/react";
 import App from "./App";
 import "@testing-library/jest-dom";
 import flushPromises from "./tests/utils";
@@ -7,8 +7,8 @@ import {act} from "react-dom/test-utils";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 
-describe("management information reports homepage", () => {
 
+describe("management information reports homepage", () => {
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
@@ -35,13 +35,8 @@ describe("management information reports homepage", () => {
         );
 
         expect(queryByText(/Management Information Reports/)).toBeInTheDocument();
-        expect(queryByText(/Interviewer Call History/)).toBeInTheDocument();
-        expect(queryByText(/Interviewer Call Pattern/)).toBeInTheDocument();
-
-    });
-
-    afterAll(() => {
-        cleanup();
+        expect(queryByText(/Interviewer call history/)).toBeInTheDocument();
+        expect(queryByText(/Interviewer call pattern/)).toBeInTheDocument();
     });
 });
 

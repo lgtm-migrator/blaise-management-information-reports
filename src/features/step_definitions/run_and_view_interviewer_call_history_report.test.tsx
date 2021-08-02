@@ -61,7 +61,7 @@ defineFeature(feature, test => {
                 </Router>
             );
 
-            fireEvent.click(screen.getByText("Interviewer Call History"));
+            fireEvent.click(screen.getByText("Interviewer call history"));
 
             await act(async () => {
                 await flushPromises();

@@ -33,9 +33,9 @@ server.engine("html", ejs.renderFile);
 server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static`)));
 
 // health_check endpoint
-server.get("/health_check", async function (req: Request, res: Response) {
+server.get("/mir-ui/:version/health", async function (req: Request, res: Response) {
     console.log("health_check endpoint called");
-    res.status(200).json({status: 200});
+    res.status(200).json({healthy: true});
 });
 
 // call-history-status endpoint

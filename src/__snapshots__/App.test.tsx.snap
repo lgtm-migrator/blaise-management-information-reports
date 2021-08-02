@@ -5,6 +5,12 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
+      <a
+        class="skip__link"
+        href="#main-content"
+      >
+        Skip to main content
+      </a>
       <div
         class="phase-banner"
       >
@@ -97,27 +103,17 @@ Object {
       </header>
       <div
         class="page__container container"
-        style="min-height: calc(67vh);"
+        style="min-height: calc(72vh);"
       >
         <main
-          class="page__main"
+          class="page__main u-mt-no"
           id="main-content"
         >
-          <div
-            class="panel panel--info panel--no-title  u-mt-m"
+          <h1
+            class="u-mt-m"
           >
-            <div
-              class="panel__body "
-            >
-              <p>
-                Data in these reports could be up to 24 hours out of date.
-                <br />
-                <br />
-                These reports only go back to the last 12 months.
-              </p>
-            </div>
-          </div>
-          <br />
+            Reports
+          </h1>
           <div
             class="grid grid--column@xxs@s u-mt-m"
           >
@@ -136,7 +132,7 @@ Object {
                   <a
                     href="/interviewer-call-history"
                   >
-                    Interviewer Call History
+                    Interviewer call history
                   </a>
                 </h2>
                 <p
@@ -161,7 +157,7 @@ Object {
                   <a
                     href="/interviewer-call-pattern"
                   >
-                    Interviewer Call Pattern
+                    Interviewer call pattern
                   </a>
                 </h2>
                 <p
@@ -209,6 +205,12 @@ Object {
     </div>
   </body>,
   "container": <div>
+    <a
+      class="skip__link"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
     <div
       class="phase-banner"
     >
@@ -301,27 +303,17 @@ Object {
     </header>
     <div
       class="page__container container"
-      style="min-height: calc(67vh);"
+      style="min-height: calc(72vh);"
     >
       <main
-        class="page__main"
+        class="page__main u-mt-no"
         id="main-content"
       >
-        <div
-          class="panel panel--info panel--no-title  u-mt-m"
+        <h1
+          class="u-mt-m"
         >
-          <div
-            class="panel__body "
-          >
-            <p>
-              Data in these reports could be up to 24 hours out of date.
-              <br />
-              <br />
-              These reports only go back to the last 12 months.
-            </p>
-          </div>
-        </div>
-        <br />
+          Reports
+        </h1>
         <div
           class="grid grid--column@xxs@s u-mt-m"
         >
@@ -340,7 +332,7 @@ Object {
                 <a
                   href="/interviewer-call-history"
                 >
-                  Interviewer Call History
+                  Interviewer call history
                 </a>
               </h2>
               <p
@@ -365,7 +357,7 @@ Object {
                 <a
                   href="/interviewer-call-pattern"
                 >
-                  Interviewer Call Pattern
+                  Interviewer call pattern
                 </a>
               </h2>
               <p
