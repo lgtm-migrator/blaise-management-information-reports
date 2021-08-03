@@ -72,7 +72,7 @@ Object {
             class="panel panel--info panel--no-title  u-mt-m"
           >
             <div
-              class="panel__body"
+              class="panel__body "
             >
               <p>
                 Incomplete data is removed from this report. This will impact the accuracy of the report.
@@ -99,7 +99,7 @@ Object {
           hidden=""
         >
           <div
-            class="panel__body"
+            class="panel__body "
           />
         </div>
         <form
@@ -151,6 +151,7 @@ Object {
                   data-testid="text-input"
                   id="start-date"
                   placeholder="Select Date"
+                  style="z-index: 0;"
                   type="text"
                   value="03/01/2000"
                 />
@@ -178,6 +179,7 @@ Object {
                   data-testid="text-input"
                   id="end-date"
                   placeholder="Select Date"
+                  style="z-index: 0;"
                   type="text"
                   value="03/01/2000"
                 />
@@ -213,7 +215,7 @@ Object {
           hidden=""
         >
           <div
-            class="panel__body"
+            class="panel__body "
           />
         </div>
         <br />
@@ -288,7 +290,7 @@ Object {
           class="panel panel--info panel--no-title  u-mt-m"
         >
           <div
-            class="panel__body"
+            class="panel__body "
           >
             <p>
               Incomplete data is removed from this report. This will impact the accuracy of the report.
@@ -315,7 +317,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body"
+          class="panel__body "
         />
       </div>
       <form
@@ -367,6 +369,7 @@ Object {
                 data-testid="text-input"
                 id="start-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="03/01/2000"
               />
@@ -394,6 +397,7 @@ Object {
                 data-testid="text-input"
                 id="end-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="03/01/2000"
               />
@@ -429,7 +433,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body"
+          class="panel__body "
         />
       </div>
       <br />
@@ -555,7 +559,7 @@ Object {
             class="panel panel--info panel--no-title  u-mt-m"
           >
             <div
-              class="panel__body"
+              class="panel__body "
             >
               <p>
                 Incomplete data is removed from this report. This will impact the accuracy of the report.
@@ -582,7 +586,7 @@ Object {
           hidden=""
         >
           <div
-            class="panel__body"
+            class="panel__body "
           />
         </div>
         <form
@@ -634,6 +638,7 @@ Object {
                   data-testid="text-input"
                   id="start-date"
                   placeholder="Select Date"
+                  style="z-index: 0;"
                   type="text"
                   value="03/01/2000"
                 />
@@ -661,6 +666,7 @@ Object {
                   data-testid="text-input"
                   id="end-date"
                   placeholder="Select Date"
+                  style="z-index: 0;"
                   type="text"
                   value="03/01/2000"
                 />
@@ -696,7 +702,7 @@ Object {
           hidden=""
         >
           <div
-            class="panel__body"
+            class="panel__body "
           />
         </div>
         <br />
@@ -765,7 +771,7 @@ Object {
           class="panel panel--info panel--no-title  u-mt-m"
         >
           <div
-            class="panel__body"
+            class="panel__body "
           >
             <p>
               Incomplete data is removed from this report. This will impact the accuracy of the report.
@@ -792,7 +798,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body"
+          class="panel__body "
         />
       </div>
       <form
@@ -844,6 +850,7 @@ Object {
                 data-testid="text-input"
                 id="start-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="03/01/2000"
               />
@@ -871,6 +878,7 @@ Object {
                 data-testid="text-input"
                 id="end-date"
                 placeholder="Select Date"
+                style="z-index: 0;"
                 type="text"
                 value="03/01/2000"
               />
@@ -906,7 +914,7 @@ Object {
         hidden=""
       >
         <div
-          class="panel__body"
+          class="panel__body "
         />
       </div>
       <br />
