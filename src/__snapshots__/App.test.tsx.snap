@@ -71,7 +71,7 @@ Object {
                     <img
                       alt="Office for National Statistics logo"
                       class="header__logo"
-                      src="https://cdn.ons.gov.uk/sdc/design-system/31.4.0/img/ons-logo-neg-en.svg"
+                      src="https://ons-design-system.netlify.app/img/ons-logo-neg-en.svg"
                     />
                   </picture>
                 </a>
@@ -170,7 +170,33 @@ Object {
           </div>
           <div
             class="grid grid--column@xxs@s  u-mt-m"
-          />
+          >
+            <div
+              class="grid__col col-6@m"
+            >
+              <div
+                aria-describedby="appointment-resource-planning-text"
+                aria-labelledby="appointment-resource-planning"
+                class="card"
+              >
+                <h2
+                  class="u-fs-m"
+                  id="appointment-resource-planning"
+                >
+                  <a
+                    href="/appointment-resource-planning"
+                  >
+                    Daily Appointment Resource Planning
+                  </a>
+                </h2>
+                <p
+                  id="appointment-resource-planning-text"
+                >
+                  Generate report to view the number of interview appointments scheduled for a given date.
+                </p>
+              </div>
+            </div>
+          </div>
         </main>
       </div>
       <footer
@@ -271,7 +297,7 @@ Object {
                   <img
                     alt="Office for National Statistics logo"
                     class="header__logo"
-                    src="https://cdn.ons.gov.uk/sdc/design-system/31.4.0/img/ons-logo-neg-en.svg"
+                    src="https://ons-design-system.netlify.app/img/ons-logo-neg-en.svg"
                   />
                 </picture>
               </a>
@@ -370,7 +396,33 @@ Object {
         </div>
         <div
           class="grid grid--column@xxs@s  u-mt-m"
-        />
+        >
+          <div
+            class="grid__col col-6@m"
+          >
+            <div
+              aria-describedby="appointment-resource-planning-text"
+              aria-labelledby="appointment-resource-planning"
+              class="card"
+            >
+              <h2
+                class="u-fs-m"
+                id="appointment-resource-planning"
+              >
+                <a
+                  href="/appointment-resource-planning"
+                >
+                  Daily Appointment Resource Planning
+                </a>
+              </h2>
+              <p
+                id="appointment-resource-planning-text"
+              >
+                Generate report to view the number of interview appointments scheduled for a given date.
+              </p>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
     <footer

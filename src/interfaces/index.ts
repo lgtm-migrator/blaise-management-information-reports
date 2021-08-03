@@ -7,4 +7,11 @@ interface InterviewerCallHistoryReportData {
     call_result: string
 }
 
-export type {InterviewerCallHistoryReportData};
+interface AppointmentResourcePlanningReportData {
+    questionnaire_name: string
+    appointment_time: string
+    appointment_language: string
+    total: number
+}
+
+export type {InterviewerCallHistoryReportData, AppointmentResourcePlanningReportData};
