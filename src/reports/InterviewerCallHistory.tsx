@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import FormTextInput from "../components/Form/TextInput";
 import Form from "../components/Form";
