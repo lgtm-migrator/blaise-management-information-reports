@@ -1,7 +1,7 @@
 import React, {ReactElement, useState} from "react";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import Form from "../form";
-import {getAppointmentResourcePlanningReport} from "../utilities/http";
+import Form from "../components/Form";
+import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
@@ -62,7 +62,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     <br/>
                     <br/>
                     <ONSButton
-                        testid={"submit-form"}
+                        testid={"submit-Form"}
                         label={"Run"}
                         primary={true}
                         loading={buttonLoading}

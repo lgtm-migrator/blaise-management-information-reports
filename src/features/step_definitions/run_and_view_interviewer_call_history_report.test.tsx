@@ -6,7 +6,7 @@ import App from "../../App";
 import React from "react";
 import {fireEvent} from "@testing-library/dom";
 import {act} from "react-dom/test-utils";
-import flushPromises, {mock_fetch_requests} from "../../tests/utils";
+import flushPromises, {mock_fetch_requests} from "../../tests/utilities";
 import {InterviewerCallHistoryReportData} from "../../interfaces";
 
 const feature = loadFeature(

@@ -1,10 +1,10 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import FormTextInput from "../form/TextInput";
-import Form from "../form";
-import {requiredValidator} from "../form/FormValidators";
-import {getInterviewerCallHistoryReport, getInterviewerCallHistoryStatus} from "../utilities/http";
-import {convertSecondsToMinutesAndSeconds} from "../utilities/converters";
+import FormTextInput from "../components/Form/TextInput";
+import Form from "../components/Form";
+import {requiredValidator} from "../components/Form/FormValidators";
+import {getInterviewerCallHistoryReport} from "../utilities/HTTP";
+import {convertSecondsToMinutesAndSeconds} from "../utilities/Converters";
 import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
@@ -12,9 +12,8 @@ import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import TimeAgo from "react-timeago";
 import Breadcrumbs from "../components/Breadcrumbs";
-import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
+import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -96,7 +95,7 @@ function InterviewerCallHistory(): ReactElement {
                     <br/>
                     <br/>
                     <ONSButton
-                        testid={"submit-call-history-form"}
+                        testid={"submit-call-history-Form"}
                         label={"Run"}
                         primary={true}
                         loading={buttonLoading}

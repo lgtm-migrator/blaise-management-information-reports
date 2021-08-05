@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import TimeAgo from "react-timeago";
 import dateFormatter from "dayjs";
-import {getInterviewerCallHistoryStatus} from "../utilities/http";
+import {getInterviewerCallHistoryStatus} from "../utilities/HTTP";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const [reportStatus, setReportStatus] = useState<Date | "">("");

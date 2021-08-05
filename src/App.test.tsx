@@ -2,7 +2,7 @@ import React from "react";
 import {render, waitFor} from "@testing-library/react";
 import App from "./App";
 import "@testing-library/jest-dom";
-import flushPromises from "./tests/utils";
+import flushPromises from "./tests/utilities";
 import {act} from "react-dom/test-utils";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";

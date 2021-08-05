@@ -1,6 +1,6 @@
 import {AppointmentResourcePlanningReportData} from "../interfaces";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_fetch_requests} from "../tests/utils";
+import flushPromises, {mock_fetch_requests} from "../tests/utilities";
 import {createMemoryHistory} from "history";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";

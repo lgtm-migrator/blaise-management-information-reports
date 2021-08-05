@@ -1,4 +1,4 @@
-import {requestPromiseJson} from "./requestPromise";
+import {requestPromiseJson} from "./RequestPromise";
 
 type getInterviewerCallHistoryStatusResponse = [boolean, any]
 
