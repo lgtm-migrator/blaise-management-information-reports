@@ -8,7 +8,6 @@ import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
 import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
 import React from "react";
-import MockDate from "mockdate";
 
 const reportDataReturned: AppointmentResourcePlanningReportData[] = [
     {
