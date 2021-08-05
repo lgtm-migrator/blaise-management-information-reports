@@ -37,6 +37,7 @@ describe("management information reports homepage", () => {
         expect(queryByText(/Management Information Reports/)).toBeInTheDocument();
         expect(queryByText(/Interviewer call history/)).toBeInTheDocument();
         expect(queryByText(/Interviewer call pattern/)).toBeInTheDocument();
+        expect(queryByText(/Appointment resource planning/)).toBeInTheDocument();
     });
 });
 
