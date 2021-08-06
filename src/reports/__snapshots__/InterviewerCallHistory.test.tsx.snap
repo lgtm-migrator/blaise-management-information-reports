@@ -161,7 +161,7 @@ Object {
           <br />
           <button
             class="btn "
-            data-testid="submit-call-history-form-button"
+            data-testid="submit-call-history-Form-button"
             type="submit"
           >
             <span
@@ -349,7 +349,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-form-button"
+          data-testid="submit-call-history-Form-button"
           type="submit"
         >
           <span
@@ -588,7 +588,7 @@ Object {
           <br />
           <button
             class="btn "
-            data-testid="submit-call-history-form-button"
+            data-testid="submit-call-history-Form-button"
             type="submit"
           >
             <span
@@ -770,7 +770,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-form-button"
+          data-testid="submit-call-history-Form-button"
           type="submit"
         >
           <span

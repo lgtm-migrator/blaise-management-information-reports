@@ -1,18 +1,19 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import FormTextInput from "../form/TextInput";
-import Form from "../form";
-import {requiredValidator} from "../form/FormValidators";
-import {getInterviewerCallHistoryStatus, getInterviewerCallPatternReport} from "../utilities/http";
+import FormTextInput from "../components/Form/TextInput";
+import Form from "../components/Form";
+import {requiredValidator} from "../components/Form/FormValidators";
+import {getInterviewerCallHistoryStatus, getInterviewerCallPatternReport} from "../utilities/HTTP";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
-import {formatText} from "../utilities/textFormatting";
+import {formatText} from "../utilities/TextFormatting";
+import TimeAgo from "react-timeago";
 import Breadcrumbs from "../components/Breadcrumbs";
-import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
+import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -125,7 +126,7 @@ function InterviewerCallPattern(): ReactElement {
                     <br/>
                     <br/>
                     <ONSButton
-                        testid={"submit-call-pattern-form"}
+                        testid={"submit-call-pattern-Form"}
                         label={"Run"}
                         primary={true}
                         loading={buttonLoading}
