@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interviewer call pattern report with data matches snapshot 1`] = `
+exports[`appointment resource planning report with data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -43,57 +43,8 @@ Object {
         <h1
           class="u-mb-m"
         >
-          Run interviewer call pattern report
+          Run appointment resource planning report
         </h1>
-        <p
-          aria-live="polite"
-          class="u-fs-s u-mt-s"
-        >
-          Data in this report was last updated: 
-          <b>
-            <time
-              datetime="2000-01-01T10:00:00.000Z"
-              title="2000-01-01 10:00"
-            >
-              2 days ago
-            </time>
-             (01/01/2000 10:00:00)
-          </b>
-        </p>
-        <p
-          class="u-fs-s"
-        >
-          Data in this report only goes back to the last 12 months.
-        </p>
-        <div
-          class="u-mb-m"
-        >
-          <div
-            class="panel panel--info panel--no-title  u-mt-m"
-          >
-            <div
-              class="panel__body "
-            >
-              <p>
-                Incomplete data is removed from this report. This will impact the accuracy of the report.
-              </p>
-              <p>
-                The 
-                <b>
-                  Discounted invalid records
-                </b>
-                 entry will advise how many records have been removed.
-              </p>
-              <p>
-                The 
-                <b>
-                  Invalid fields
-                </b>
-                 entry will advise which fields were incomplete.
-              </p>
-            </div>
-          </div>
-        </div>
         <div
           class="panel panel--error panel--no-title  u-mt-m"
           hidden=""
@@ -105,32 +56,6 @@ Object {
         <form
           class="u-mt-m"
         >
-          <p>
-            <div
-              class="field"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class=""
-                >
-                  <label
-                    class="label"
-                    for="interviewer"
-                  >
-                    Interviewer ID
-                  </label>
-                  <input
-                    class="input input--text input-type__input u-mt-xs"
-                    id="interviewer"
-                    name="interviewer"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-          </p>
           <div
             class="react-datepicker-wrapper"
           >
@@ -142,46 +67,18 @@ Object {
               >
                 <label
                   class="label"
-                  for="start-date"
+                  for="date"
                 >
-                  Start Date
+                  Date
                 </label>
                 <input
                   class="input input--text input-type__input "
                   data-testid="text-input"
-                  id="start-date"
+                  id="date"
                   placeholder="Select Date"
                   style="z-index: 0;"
                   type="text"
-                  value="03/01/2000"
-                />
-              </p>
-            </div>
-          </div>
-          <br />
-          <div
-            class="react-datepicker-wrapper"
-          >
-            <div
-              class="react-datepicker__input-container"
-            >
-              <p
-                class="field"
-              >
-                <label
-                  class="label"
-                  for="end-date"
-                >
-                  End Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="end-date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="03/01/2000"
+                  value="05/08/2021"
                 />
               </p>
             </div>
@@ -190,7 +87,7 @@ Object {
           <br />
           <button
             class="btn "
-            data-testid="submit-call-pattern-Form-button"
+            data-testid="submit-Form-button"
             type="submit"
           >
             <span
@@ -201,15 +98,6 @@ Object {
           </button>
         </form>
         <br />
-        <a
-          download="interviewer-call-pattern-"
-          hidden=""
-          href="data:text/csv;charset=utf-8,﻿
-"
-          target="_self"
-        >
-          Export report as Comma-Separated Values (CSV) file
-        </a>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
           hidden=""
@@ -261,57 +149,8 @@ Object {
       <h1
         class="u-mb-m"
       >
-        Run interviewer call pattern report
+        Run appointment resource planning report
       </h1>
-      <p
-        aria-live="polite"
-        class="u-fs-s u-mt-s"
-      >
-        Data in this report was last updated: 
-        <b>
-          <time
-            datetime="2000-01-01T10:00:00.000Z"
-            title="2000-01-01 10:00"
-          >
-            2 days ago
-          </time>
-           (01/01/2000 10:00:00)
-        </b>
-      </p>
-      <p
-        class="u-fs-s"
-      >
-        Data in this report only goes back to the last 12 months.
-      </p>
-      <div
-        class="u-mb-m"
-      >
-        <div
-          class="panel panel--info panel--no-title  u-mt-m"
-        >
-          <div
-            class="panel__body "
-          >
-            <p>
-              Incomplete data is removed from this report. This will impact the accuracy of the report.
-            </p>
-            <p>
-              The 
-              <b>
-                Discounted invalid records
-              </b>
-               entry will advise how many records have been removed.
-            </p>
-            <p>
-              The 
-              <b>
-                Invalid fields
-              </b>
-               entry will advise which fields were incomplete.
-            </p>
-          </div>
-        </div>
-      </div>
       <div
         class="panel panel--error panel--no-title  u-mt-m"
         hidden=""
@@ -323,32 +162,6 @@ Object {
       <form
         class="u-mt-m"
       >
-        <p>
-          <div
-            class="field"
-          >
-            <div
-              class=""
-            >
-              <div
-                class=""
-              >
-                <label
-                  class="label"
-                  for="interviewer"
-                >
-                  Interviewer ID
-                </label>
-                <input
-                  class="input input--text input-type__input u-mt-xs"
-                  id="interviewer"
-                  name="interviewer"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-        </p>
         <div
           class="react-datepicker-wrapper"
         >
@@ -360,46 +173,18 @@ Object {
             >
               <label
                 class="label"
-                for="start-date"
+                for="date"
               >
-                Start Date
+                Date
               </label>
               <input
                 class="input input--text input-type__input "
                 data-testid="text-input"
-                id="start-date"
+                id="date"
                 placeholder="Select Date"
                 style="z-index: 0;"
                 type="text"
-                value="03/01/2000"
-              />
-            </p>
-          </div>
-        </div>
-        <br />
-        <div
-          class="react-datepicker-wrapper"
-        >
-          <div
-            class="react-datepicker__input-container"
-          >
-            <p
-              class="field"
-            >
-              <label
-                class="label"
-                for="end-date"
-              >
-                End Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="end-date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="03/01/2000"
+                value="05/08/2021"
               />
             </p>
           </div>
@@ -408,7 +193,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-pattern-Form-button"
+          data-testid="submit-Form-button"
           type="submit"
         >
           <span
@@ -419,15 +204,6 @@ Object {
         </button>
       </form>
       <br />
-      <a
-        download="interviewer-call-pattern-"
-        hidden=""
-        href="data:text/csv;charset=utf-8,﻿
-"
-        target="_self"
-      >
-        Export report as Comma-Separated Values (CSV) file
-      </a>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
         hidden=""
@@ -493,7 +269,7 @@ Object {
 }
 `;
 
-exports[`interviewer call pattern report without data matches snapshot 1`] = `
+exports[`appointment resource planning report without data matches snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -536,51 +312,8 @@ Object {
         <h1
           class="u-mb-m"
         >
-          Run interviewer call pattern report
+          Run appointment resource planning report
         </h1>
-        <p
-          aria-live="polite"
-          class="u-fs-s u-mt-s"
-        >
-          Data in this report was last updated: 
-          <b>
-            Invalid Date
-          </b>
-        </p>
-        <p
-          class="u-fs-s"
-        >
-          Data in this report only goes back to the last 12 months.
-        </p>
-        <div
-          class="u-mb-m"
-        >
-          <div
-            class="panel panel--info panel--no-title  u-mt-m"
-          >
-            <div
-              class="panel__body "
-            >
-              <p>
-                Incomplete data is removed from this report. This will impact the accuracy of the report.
-              </p>
-              <p>
-                The 
-                <b>
-                  Discounted invalid records
-                </b>
-                 entry will advise how many records have been removed.
-              </p>
-              <p>
-                The 
-                <b>
-                  Invalid fields
-                </b>
-                 entry will advise which fields were incomplete.
-              </p>
-            </div>
-          </div>
-        </div>
         <div
           class="panel panel--error panel--no-title  u-mt-m"
           hidden=""
@@ -592,32 +325,6 @@ Object {
         <form
           class="u-mt-m"
         >
-          <p>
-            <div
-              class="field"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class=""
-                >
-                  <label
-                    class="label"
-                    for="interviewer"
-                  >
-                    Interviewer ID
-                  </label>
-                  <input
-                    class="input input--text input-type__input u-mt-xs"
-                    id="interviewer"
-                    name="interviewer"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-          </p>
           <div
             class="react-datepicker-wrapper"
           >
@@ -629,46 +336,18 @@ Object {
               >
                 <label
                   class="label"
-                  for="start-date"
+                  for="date"
                 >
-                  Start Date
+                  Date
                 </label>
                 <input
                   class="input input--text input-type__input "
                   data-testid="text-input"
-                  id="start-date"
+                  id="date"
                   placeholder="Select Date"
                   style="z-index: 0;"
                   type="text"
-                  value="03/01/2000"
-                />
-              </p>
-            </div>
-          </div>
-          <br />
-          <div
-            class="react-datepicker-wrapper"
-          >
-            <div
-              class="react-datepicker__input-container"
-            >
-              <p
-                class="field"
-              >
-                <label
-                  class="label"
-                  for="end-date"
-                >
-                  End Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="end-date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="03/01/2000"
+                  value="05/08/2021"
                 />
               </p>
             </div>
@@ -677,7 +356,7 @@ Object {
           <br />
           <button
             class="btn "
-            data-testid="submit-call-pattern-Form-button"
+            data-testid="submit-Form-button"
             type="submit"
           >
             <span
@@ -688,15 +367,6 @@ Object {
           </button>
         </form>
         <br />
-        <a
-          download="interviewer-call-pattern-"
-          hidden=""
-          href="data:text/csv;charset=utf-8,﻿
-"
-          target="_self"
-        >
-          Export report as Comma-Separated Values (CSV) file
-        </a>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
           hidden=""
@@ -748,51 +418,8 @@ Object {
       <h1
         class="u-mb-m"
       >
-        Run interviewer call pattern report
+        Run appointment resource planning report
       </h1>
-      <p
-        aria-live="polite"
-        class="u-fs-s u-mt-s"
-      >
-        Data in this report was last updated: 
-        <b>
-          Invalid Date
-        </b>
-      </p>
-      <p
-        class="u-fs-s"
-      >
-        Data in this report only goes back to the last 12 months.
-      </p>
-      <div
-        class="u-mb-m"
-      >
-        <div
-          class="panel panel--info panel--no-title  u-mt-m"
-        >
-          <div
-            class="panel__body "
-          >
-            <p>
-              Incomplete data is removed from this report. This will impact the accuracy of the report.
-            </p>
-            <p>
-              The 
-              <b>
-                Discounted invalid records
-              </b>
-               entry will advise how many records have been removed.
-            </p>
-            <p>
-              The 
-              <b>
-                Invalid fields
-              </b>
-               entry will advise which fields were incomplete.
-            </p>
-          </div>
-        </div>
-      </div>
       <div
         class="panel panel--error panel--no-title  u-mt-m"
         hidden=""
@@ -804,32 +431,6 @@ Object {
       <form
         class="u-mt-m"
       >
-        <p>
-          <div
-            class="field"
-          >
-            <div
-              class=""
-            >
-              <div
-                class=""
-              >
-                <label
-                  class="label"
-                  for="interviewer"
-                >
-                  Interviewer ID
-                </label>
-                <input
-                  class="input input--text input-type__input u-mt-xs"
-                  id="interviewer"
-                  name="interviewer"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-        </p>
         <div
           class="react-datepicker-wrapper"
         >
@@ -841,46 +442,18 @@ Object {
             >
               <label
                 class="label"
-                for="start-date"
+                for="date"
               >
-                Start Date
+                Date
               </label>
               <input
                 class="input input--text input-type__input "
                 data-testid="text-input"
-                id="start-date"
+                id="date"
                 placeholder="Select Date"
                 style="z-index: 0;"
                 type="text"
-                value="03/01/2000"
-              />
-            </p>
-          </div>
-        </div>
-        <br />
-        <div
-          class="react-datepicker-wrapper"
-        >
-          <div
-            class="react-datepicker__input-container"
-          >
-            <p
-              class="field"
-            >
-              <label
-                class="label"
-                for="end-date"
-              >
-                End Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="end-date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="03/01/2000"
+                value="05/08/2021"
               />
             </p>
           </div>
@@ -889,7 +462,7 @@ Object {
         <br />
         <button
           class="btn "
-          data-testid="submit-call-pattern-Form-button"
+          data-testid="submit-Form-button"
           type="submit"
         >
           <span
@@ -900,15 +473,6 @@ Object {
         </button>
       </form>
       <br />
-      <a
-        download="interviewer-call-pattern-"
-        hidden=""
-        href="data:text/csv;charset=utf-8,﻿
-"
-        target="_self"
-      >
-        Export report as Comma-Separated Values (CSV) file
-      </a>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
         hidden=""

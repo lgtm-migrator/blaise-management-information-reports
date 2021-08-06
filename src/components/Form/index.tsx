@@ -41,8 +41,8 @@ const Form = (props: Props) => {
   const validate = () => {
     const { validators } = formState;
 
-    // always reset form errors
-    // in case there was form errors from backend
+    // always reset Form errors
+    // in case there was Form errors from backend
     setFormState(state => ({
       ...state,
       errors: {}

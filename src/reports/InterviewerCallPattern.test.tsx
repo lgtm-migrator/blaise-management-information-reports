@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import flushPromises, {mock_fetch_requests, mock_server_request_return_json} from "../tests/utils";
+import flushPromises, {mock_fetch_requests, mock_server_request_return_json} from "../tests/utilities";
 import {createMemoryHistory} from "history";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";

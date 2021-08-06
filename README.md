@@ -34,7 +34,7 @@ Create an .env file in the root of the project and add the following variables:
 | Variable | Description | Example |
 | --- | --- | --- |
 | PROJECT_ID | The unique GCP project ID. Set to anything when testing locally. | blah |
-| BERT_URL | The base URL the application will use to formulate URLs for API calls. | https://dev-bert.social-surveys.gcp.onsdigital.uk |
+| BERT_URL | The base URL the application will use to formulate URLs for API calls. Consider giving "IAP-secured Web App User" permission to "allUsers" in a sandbox when testing locally. | https://dev-bert.social-surveys.gcp.onsdigital.uk |
 | BERT_CLIENT_ID | For authenticating with BERT in locked down formal environments. Set to anything when testing locally. | blah |
 
 
