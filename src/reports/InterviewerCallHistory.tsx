@@ -20,6 +20,7 @@ dateFormatter.extend(timezone);
 
 function InterviewerCallHistory(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
+    const [surveyTLA, setSurveyTLA] = useState<string>("");
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
@@ -41,6 +42,7 @@ function InterviewerCallHistory(): ReactElement {
         setReportData([]);
         setButtonLoading(true);
         console.log(formData);
+        setSurveyTLA(formData.surveyTLA);
         setInterviewerID(formData.interviewer);
         formData.start_date = startDate;
         formData.end_date = endDate;
@@ -72,6 +74,13 @@ function InterviewerCallHistory(): ReactElement {
                 </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
                 <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
+                    <p>
+                        <FormTextInput
+                            name="surveyTLA"
+                            validators={[requiredValidator]}
+                            label={"Survey TLA"}
+                        />
+                    </p>
                     <p>
                         <FormTextInput
                             name="interviewer"
