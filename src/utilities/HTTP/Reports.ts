@@ -50,6 +50,7 @@ function getInterviewerCallPatternReport(form: any): Promise<getInterviewerCallP
     formData.append("interviewer", form.interviewer);
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
+    formData.append("survey_tla", form.survey_tla);
     return new Promise((resolve: (object: getInterviewerCallPatternReportResponse) => void) => {
         requestPromiseJson("POST", url, formData).then(([status, data]) => {
             console.log(`Response: Status ${status}, data ${data}`);
