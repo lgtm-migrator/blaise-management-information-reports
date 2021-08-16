@@ -11,6 +11,7 @@ interface AppointmentResourcePlanningReportData {
     questionnaire_name: string
     appointment_time: string
     appointment_language: string
+    dial_result: string
     total: number
 }
 
