@@ -95,6 +95,7 @@ describe("interviewer call pattern report with data", () => {
         expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
         expect(screen.queryByText(/2 days ago/i)).toBeVisible();
         expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
+        expect(screen.queryByText("Survey TLA")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start Date")).toBeVisible();
         expect(screen.queryByText("End Date")).toBeVisible();
@@ -182,6 +183,7 @@ describe("interviewer call pattern report without data", () => {
         });
 
         expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
+        expect(screen.queryByText("Survey TLA")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start Date")).toBeVisible();
         expect(screen.queryByText("End Date")).toBeVisible();
