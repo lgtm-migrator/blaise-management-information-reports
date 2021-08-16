@@ -35,7 +35,6 @@ function InterviewerCallPattern(): ReactElement {
         setButtonLoading(true);
         console.log(formData);
         setSurveyTLA(formData.surveyTLA);
-        console.log(`EL! Survey TLA is: ${surveyTLA}`);
         setInterviewerID(formData.interviewer);
         formData.start_date = startDate;
         formData.end_date = endDate;
