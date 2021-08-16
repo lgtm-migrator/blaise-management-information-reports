@@ -100,6 +100,13 @@ describe("interviewer call pattern report with data", () => {
         expect(screen.queryByText("Start Date")).toBeVisible();
         expect(screen.queryByText("End Date")).toBeVisible();
 
+        fireEvent.input(screen.getByLabelText(/Survey TLA/i), {
+            target: {
+                value:
+                    "LMS"
+            }
+        });
+
         fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
             target: {
                 value:
@@ -187,6 +194,13 @@ describe("interviewer call pattern report without data", () => {
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start Date")).toBeVisible();
         expect(screen.queryByText("End Date")).toBeVisible();
+
+        fireEvent.input(screen.getByLabelText(/Survey TLA/i), {
+            target: {
+                value:
+                    "LMS"
+            }
+        });
 
         fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
             target: {
