@@ -78,7 +78,7 @@ Object {
                   placeholder="Select Date"
                   style="z-index: 0;"
                   type="text"
-                  value="06/08/2021"
+                  value="17/08/2021"
                 />
               </p>
             </div>
@@ -184,7 +184,7 @@ Object {
                 placeholder="Select Date"
                 style="z-index: 0;"
                 type="text"
-                value="06/08/2021"
+                value="17/08/2021"
               />
             </p>
           </div>
@@ -347,7 +347,7 @@ Object {
                   placeholder="Select Date"
                   style="z-index: 0;"
                   type="text"
-                  value="06/08/2021"
+                  value="17/08/2021"
                 />
               </p>
             </div>
@@ -453,7 +453,7 @@ Object {
                 placeholder="Select Date"
                 style="z-index: 0;"
                 type="text"
-                value="06/08/2021"
+                value="17/08/2021"
               />
             </p>
           </div>
