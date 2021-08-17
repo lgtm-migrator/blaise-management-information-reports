@@ -108,7 +108,7 @@ function InterviewerCallPattern(): ReactElement {
                     <p>
                         <FormTextInput
                             name="surveyTLA"
-                            validators={[requiredValidator]}
+                            validators={[]}
                             label={"Survey TLA"}
                         />
                     </p>
