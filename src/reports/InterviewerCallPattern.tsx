@@ -1,6 +1,6 @@
 import React, {ReactElement, useState} from "react";
 import {ONSPanel} from "blaise-design-system-react-components";
-import {getInterviewerCallPatternReport} from "../utilities/http";
+import {getInterviewerCallPatternReport} from "../utilities/HTTP";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";

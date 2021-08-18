@@ -1,6 +1,6 @@
 import React, {ReactElement, useState} from "react";
 import {ONSPanel} from "blaise-design-system-react-components";
-import {getInterviewerCallHistoryReport} from "../utilities/http";
+import {getInterviewerCallHistoryReport} from "../utilities/HTTP";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/Converters";
 import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
