@@ -14,18 +14,21 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
         questionnaire_name: "LMS2101_AA1",
         appointment_time: "10:00",
         appointment_language: "English",
+        dial_result: "Appointment",
         total: 42
     },
     {
         questionnaire_name: "LMS2101_BB1",
         appointment_time: "12:30",
         appointment_language: "Welsh",
+        dial_result: "NoAnswer",
         total: 1908
     },
     {
         questionnaire_name: "LMS2101_CC1",
         appointment_time: "15:15",
         appointment_language: "Other",
+        dial_result: "NonRespons",
         total: 408
     }
 ];
@@ -88,18 +91,22 @@ describe("appointment resource planning report with data", () => {
             expect(screen.getByText("Questionnaire")).toBeVisible();
             expect(screen.getByText("Appointment Time")).toBeVisible();
             expect(screen.getByText("Appointment Language")).toBeVisible();
+            expect(screen.getByText("Call Result")).toBeVisible();
             expect(screen.getByText("Total")).toBeVisible();
             expect(screen.getByText("LMS2101_AA1")).toBeVisible();
             expect(screen.getByText("10:00")).toBeVisible();
             expect(screen.getByText("English")).toBeVisible();
+            expect(screen.getByText("Appointment")).toBeVisible();
             expect(screen.getByText("42")).toBeVisible();
             expect(screen.getByText("LMS2101_BB1")).toBeVisible();
             expect(screen.getByText("12:30")).toBeVisible();
             expect(screen.getByText("Welsh")).toBeVisible();
+            expect(screen.getByText("NoAnswer")).toBeVisible();
             expect(screen.getByText("1908")).toBeVisible();
             expect(screen.getByText("LMS2101_CC1")).toBeVisible();
             expect(screen.getByText("15:15")).toBeVisible();
             expect(screen.getByText("Other")).toBeVisible();
+            expect(screen.getByText("NonRespons")).toBeVisible();
             expect(screen.getByText("408")).toBeVisible();
         });
     });
