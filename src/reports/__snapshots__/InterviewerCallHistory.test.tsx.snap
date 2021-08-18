@@ -102,7 +102,7 @@ Object {
                     value="undefined"
                   />
                   <label
-                    class="radio__label "
+                    class="radio__label"
                     for="all"
                     id="all-label"
                   >
@@ -125,7 +125,7 @@ Object {
                     value="lms"
                   />
                   <label
-                    class="radio__label "
+                    class="radio__label"
                     for="lms"
                     id="lms-label"
                   >
@@ -148,7 +148,7 @@ Object {
                     value="opn"
                   />
                   <label
-                    class="radio__label "
+                    class="radio__label"
                     for="opn"
                     id="opn-label"
                   >
@@ -342,7 +342,7 @@ Object {
                   value="undefined"
                 />
                 <label
-                  class="radio__label "
+                  class="radio__label"
                   for="all"
                   id="all-label"
                 >
@@ -365,7 +365,7 @@ Object {
                   value="lms"
                 />
                 <label
-                  class="radio__label "
+                  class="radio__label"
                   for="lms"
                   id="lms-label"
                 >
@@ -388,7 +388,7 @@ Object {
                   value="opn"
                 />
                 <label
-                  class="radio__label "
+                  class="radio__label"
                   for="opn"
                   id="opn-label"
                 >
@@ -633,7 +633,7 @@ Object {
                     value="undefined"
                   />
                   <label
-                    class="radio__label "
+                    class="radio__label"
                     for="all"
                     id="all-label"
                   >
@@ -656,7 +656,7 @@ Object {
                     value="lms"
                   />
                   <label
-                    class="radio__label "
+                    class="radio__label"
                     for="lms"
                     id="lms-label"
                   >
@@ -679,7 +679,7 @@ Object {
                     value="opn"
                   />
                   <label
-                    class="radio__label "
+                    class="radio__label"
                     for="opn"
                     id="opn-label"
                   >
@@ -867,7 +867,7 @@ Object {
                   value="undefined"
                 />
                 <label
-                  class="radio__label "
+                  class="radio__label"
                   for="all"
                   id="all-label"
                 >
@@ -890,7 +890,7 @@ Object {
                   value="lms"
                 />
                 <label
-                  class="radio__label "
+                  class="radio__label"
                   for="lms"
                   id="lms-label"
                 >
@@ -913,7 +913,7 @@ Object {
                   value="opn"
                 />
                 <label
-                  class="radio__label "
+                  class="radio__label"
                   for="opn"
                   id="opn-label"
                 >
