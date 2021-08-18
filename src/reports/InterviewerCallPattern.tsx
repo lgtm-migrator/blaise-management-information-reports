@@ -20,6 +20,7 @@ dateFormatter.extend(timezone);
 
 function InterviewerCallPattern(): ReactElement {
     const [buttonLoading, setButtonLoading] = useState<boolean>(false);
+    const [surveyTLA, setSurveyTLA] = useState<string>("");
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
@@ -33,6 +34,7 @@ function InterviewerCallPattern(): ReactElement {
         setReportData([]);
         setButtonLoading(true);
         console.log(formData);
+        setSurveyTLA(formData.surveyTLA);
         setInterviewerID(formData.interviewer);
         formData.start_date = startDate;
         formData.end_date = endDate;
@@ -103,6 +105,13 @@ function InterviewerCallPattern(): ReactElement {
                 </ONSPanel>
 
                 <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
+                    <p>
+                        <FormTextInput
+                            name="surveyTLA"
+                            validators={[]}
+                            label={"Survey TLA"}
+                        />
+                    </p>
                     <p>
                         <FormTextInput
                             name="interviewer"

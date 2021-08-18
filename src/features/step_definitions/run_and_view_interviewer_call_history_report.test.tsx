@@ -67,6 +67,13 @@ defineFeature(feature, test => {
                 await flushPromises();
             });
 
+            fireEvent.input(screen.getByLabelText(/Survey TLA/i), {
+                target: {
+                    value:
+                        "LMS"
+                }
+            });
+
             fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
                 target: {
                     value:
