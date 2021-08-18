@@ -1,7 +1,7 @@
 import React, {ReactElement, useState} from "react";
 import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
 import Form from "../components/Form";
-import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
+import {getAppointmentResourcePlanningReport} from "../utilities/http";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";

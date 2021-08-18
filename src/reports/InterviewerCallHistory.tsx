@@ -1,13 +1,9 @@
 import React, {ReactElement, useState} from "react";
-import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import FormTextInput from "../components/Form/TextInput";
-import Form from "../components/Form";
-import {requiredValidator} from "../components/Form/FormValidators";
-import {getInterviewerCallHistoryReport} from "../utilities/HTTP";
+import {ONSPanel} from "blaise-design-system-react-components";
+import {getInterviewerCallHistoryReport} from "../utilities/http";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/Converters";
 import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -20,10 +16,7 @@ import InterviewerCallHistoryForm from "./InterviewerCallHistoryForm";
 dateFormatter.extend(timezone);
 
 function InterviewerCallHistory(): ReactElement {
-    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [startDate, setStartDate] = useState<Date>(new Date());
-    const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
@@ -37,30 +30,34 @@ function InterviewerCallHistory(): ReactElement {
         {label: "Call Result", key: "call_result"}
     ];
 
-    async function runInterviewerCallHistoryReport(formData: any) {
+    async function onFormSubmission(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+        console.warn(formValues);
         setMessageNoData("");
+        setMessage("");
         setReportData([]);
-        setButtonLoading(true);
-        console.log(formData);
-        setInterviewerID(formData.interviewer);
-        formData.start_date = startDate;
-        formData.end_date = endDate;
+        setInterviewerID(formValues["Interviewer ID"]);
+        formValues.
+        formValues.interviewer = formValues["Interviewer ID"];
+        formValues.start_date = new Date(formValues["Start date"]);
+        formValues.end_date = new Date(formValues["End date"]);
+        console.warn(formValues);
 
-        const [success, data] = await getInterviewerCallHistoryReport(formData);
-        setButtonLoading(false);
+        const [success, data] = await getInterviewerCallHistoryReport(formValues);
+        setSubmitting(false);
 
         if (!success) {
             setMessage("Error running report");
             return;
         }
 
-        if (data.length == 0) {
+        if (Object.keys(data).length === 0) {
             setMessageNoData("No data found for parameters given.");
             return;
         }
 
         console.log(data);
         setReportData(data);
+        setSubmitting(false);
     }
 
     return (
@@ -73,37 +70,7 @@ function InterviewerCallHistory(): ReactElement {
                 </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
 
-                <InterviewerCallHistoryForm/>
-                <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
-                    <p>
-                        <FormTextInput
-                            name="interviewer"
-                            validators={[requiredValidator]}
-                            label={"Interviewer ID"}
-                        />
-                    </p>
-                    <ONSDateInput
-                        label={"Start Date"}
-                        date={startDate}
-                        id={"start-date"}
-                        onChange={(date) => setStartDate(date)}
-                    />
-                    <br/>
-                    <ONSDateInput
-                        label={"End Date"}
-                        date={endDate}
-                        id={"end-date"}
-                        onChange={(date) => setEndDate(date)}
-                    />
-                    <br/>
-                    <br/>
-                    <ONSButton
-                        testid={"submit-call-history-Form"}
-                        label={"Run"}
-                        primary={true}
-                        loading={buttonLoading}
-                        submit={true}/>
-                </Form>
+                <InterviewerCallHistoryForm onSubmitFunction={onFormSubmission}/>
                 <br/>
 
                 <CSVLink hidden={reportData === null || reportData.length === 0}
