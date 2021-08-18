@@ -39,8 +39,7 @@ const SurveyInterviewerStartEndDateForm = ({onSubmitFunction}: Props): ReactElem
         {
             name: "Interviewer ID",
             type: "text",
-            validate: validateInterviewer,
-            defaultValue: "matpal"
+            validate: validateInterviewer
         },
         {
             name: "Start date",
