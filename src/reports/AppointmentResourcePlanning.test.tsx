@@ -80,10 +80,10 @@ describe("appointment resource planning report with data", () => {
         fireEvent.input(screen.getByLabelText(/Date/i), {
             target: {
                 value:
-                    "01/01/2021"
+                    "2021-01-01"
             }
         });
-        fireEvent.click(screen.getByTestId(/submit-form-button/i));
+        fireEvent.click(screen.getByTestId(/submit-button/i));
         await act(async () => {
             await flushPromises();
         });
@@ -148,10 +148,10 @@ describe("appointment resource planning report without data", () => {
         fireEvent.input(screen.getByLabelText(/Date/i), {
             target: {
                 value:
-                    "01/01/2021"
+                    "2021-01-01"
             }
         });
-        fireEvent.click(screen.getByTestId(/submit-form-button/i));
+        fireEvent.click(screen.getByTestId(/submit-button/i));
         await act(async () => {
             await flushPromises();
         });

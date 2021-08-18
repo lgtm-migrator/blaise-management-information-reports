@@ -54,46 +54,35 @@ Object {
           />
         </div>
         <form
-          class="u-mt-m"
+          action="#"
         >
           <div
-            class="react-datepicker-wrapper"
+            class="field"
           >
-            <div
-              class="react-datepicker__input-container"
+            <label
+              class="label "
+              for="date"
             >
-              <p
-                class="field"
-              >
-                <label
-                  class="label"
-                  for="date"
-                >
-                  Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="18/08/2021"
-                />
-              </p>
-            </div>
+              Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="date"
+              name="date"
+              type="date"
+              value=""
+            />
           </div>
-          <br />
           <br />
           <button
             class="btn "
-            data-testid="submit-Form-button"
+            data-testid="submit-button"
             type="submit"
           >
             <span
               class="btn__inner"
             >
-              Run
+              Save and continue 
             </span>
           </button>
         </form>
@@ -160,46 +149,35 @@ Object {
         />
       </div>
       <form
-        class="u-mt-m"
+        action="#"
       >
         <div
-          class="react-datepicker-wrapper"
+          class="field"
         >
-          <div
-            class="react-datepicker__input-container"
+          <label
+            class="label "
+            for="date"
           >
-            <p
-              class="field"
-            >
-              <label
-                class="label"
-                for="date"
-              >
-                Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="18/08/2021"
-              />
-            </p>
-          </div>
+            Date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="date"
+            name="date"
+            type="date"
+            value=""
+          />
         </div>
-        <br />
         <br />
         <button
           class="btn "
-          data-testid="submit-Form-button"
+          data-testid="submit-button"
           type="submit"
         >
           <span
             class="btn__inner"
           >
-            Run
+            Save and continue 
           </span>
         </button>
       </form>
@@ -323,46 +301,35 @@ Object {
           />
         </div>
         <form
-          class="u-mt-m"
+          action="#"
         >
           <div
-            class="react-datepicker-wrapper"
+            class="field"
           >
-            <div
-              class="react-datepicker__input-container"
+            <label
+              class="label "
+              for="date"
             >
-              <p
-                class="field"
-              >
-                <label
-                  class="label"
-                  for="date"
-                >
-                  Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="18/08/2021"
-                />
-              </p>
-            </div>
+              Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="date"
+              name="date"
+              type="date"
+              value=""
+            />
           </div>
-          <br />
           <br />
           <button
             class="btn "
-            data-testid="submit-Form-button"
+            data-testid="submit-button"
             type="submit"
           >
             <span
               class="btn__inner"
             >
-              Run
+              Save and continue 
             </span>
           </button>
         </form>
@@ -429,46 +396,35 @@ Object {
         />
       </div>
       <form
-        class="u-mt-m"
+        action="#"
       >
         <div
-          class="react-datepicker-wrapper"
+          class="field"
         >
-          <div
-            class="react-datepicker__input-container"
+          <label
+            class="label "
+            for="date"
           >
-            <p
-              class="field"
-            >
-              <label
-                class="label"
-                for="date"
-              >
-                Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="18/08/2021"
-              />
-            </p>
-          </div>
+            Date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="date"
+            name="date"
+            type="date"
+            value=""
+          />
         </div>
-        <br />
         <br />
         <button
           class="btn "
-          data-testid="submit-Form-button"
+          data-testid="submit-button"
           type="submit"
         >
           <span
             class="btn__inner"
           >
-            Run
+            Save and continue 
           </span>
         </button>
       </form>
