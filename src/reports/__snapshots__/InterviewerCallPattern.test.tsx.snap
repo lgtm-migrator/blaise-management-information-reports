@@ -131,7 +131,7 @@ Object {
                     value="undefined"
                   />
                   <label
-                    class="radio__label"
+                    class="radio__label "
                     for="all"
                     id="all-label"
                   >
@@ -154,11 +154,17 @@ Object {
                     value="lms"
                   />
                   <label
-                    class="radio__label"
+                    class="radio__label label--with-description"
                     for="lms"
                     id="lms-label"
                   >
                     LMS
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Labour Market Survey
+                    </span>
                   </label>
                 </span>
               </p>
@@ -177,11 +183,17 @@ Object {
                     value="opn"
                   />
                   <label
-                    class="radio__label"
+                    class="radio__label label--with-description"
                     for="opn"
                     id="opn-label"
                   >
                     OPN
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Opinion and lifestyle Survey
+                    </span>
                   </label>
                 </span>
               </p>
@@ -401,7 +413,7 @@ Object {
                   value="undefined"
                 />
                 <label
-                  class="radio__label"
+                  class="radio__label "
                   for="all"
                   id="all-label"
                 >
@@ -424,11 +436,17 @@ Object {
                   value="lms"
                 />
                 <label
-                  class="radio__label"
+                  class="radio__label label--with-description"
                   for="lms"
                   id="lms-label"
                 >
                   LMS
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Labour Market Survey
+                  </span>
                 </label>
               </span>
             </p>
@@ -447,11 +465,17 @@ Object {
                   value="opn"
                 />
                 <label
-                  class="radio__label"
+                  class="radio__label label--with-description"
                   for="opn"
                   id="opn-label"
                 >
                   OPN
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Opinion and lifestyle Survey
+                  </span>
                 </label>
               </span>
             </p>
@@ -722,7 +746,7 @@ Object {
                     value="undefined"
                   />
                   <label
-                    class="radio__label"
+                    class="radio__label "
                     for="all"
                     id="all-label"
                   >
@@ -745,11 +769,17 @@ Object {
                     value="lms"
                   />
                   <label
-                    class="radio__label"
+                    class="radio__label label--with-description"
                     for="lms"
                     id="lms-label"
                   >
                     LMS
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Labour Market Survey
+                    </span>
                   </label>
                 </span>
               </p>
@@ -768,11 +798,17 @@ Object {
                     value="opn"
                   />
                   <label
-                    class="radio__label"
+                    class="radio__label label--with-description"
                     for="opn"
                     id="opn-label"
                   >
                     OPN
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Opinion and lifestyle Survey
+                    </span>
                   </label>
                 </span>
               </p>
@@ -986,7 +1022,7 @@ Object {
                   value="undefined"
                 />
                 <label
-                  class="radio__label"
+                  class="radio__label "
                   for="all"
                   id="all-label"
                 >
@@ -1009,11 +1045,17 @@ Object {
                   value="lms"
                 />
                 <label
-                  class="radio__label"
+                  class="radio__label label--with-description"
                   for="lms"
                   id="lms-label"
                 >
                   LMS
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Labour Market Survey
+                  </span>
                 </label>
               </span>
             </p>
@@ -1032,11 +1074,17 @@ Object {
                   value="opn"
                 />
                 <label
-                  class="radio__label"
+                  class="radio__label label--with-description"
                   for="opn"
                   id="opn-label"
                 >
                   OPN
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Opinion and lifestyle Survey
+                  </span>
                 </label>
               </span>
             </p>
