@@ -10,9 +10,9 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
-import SurveyInterviewerStartEndDateForm from "./SurveyInterviewerStartEndDateForm";
+import SurveyInterviewerStartEndDateForm from "../components/SurveyInterviewerStartEndDateForm";
 
-    dateFormatter.extend(utc);
+dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallHistory(): ReactElement {

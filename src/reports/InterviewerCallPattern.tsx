@@ -9,7 +9,7 @@ import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/TextFormatting";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
-import SurveyInterviewerStartEndDateForm from "./SurveyInterviewerStartEndDateForm";
+import SurveyInterviewerStartEndDateForm from "../components/SurveyInterviewerStartEndDateForm";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
