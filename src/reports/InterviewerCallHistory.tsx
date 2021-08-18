@@ -14,8 +14,9 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
+import InterviewerCallHistoryForm from "./InterviewerCallHistoryForm";
 
-dateFormatter.extend(utc);
+    dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallHistory(): ReactElement {
@@ -71,6 +72,8 @@ function InterviewerCallHistory(): ReactElement {
                     {message}
                 </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
+
+                <InterviewerCallHistoryForm/>
                 <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
                     <p>
                         <FormTextInput
