@@ -100,12 +100,7 @@ describe("interviewer call pattern report with data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.input(screen.getByLabelText(/Select survey/i), {
-            target: {
-                value:
-                    "LMS"
-            }
-        });
+        fireEvent.click(screen.getByText("LMS"));
 
         fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
             target: {
