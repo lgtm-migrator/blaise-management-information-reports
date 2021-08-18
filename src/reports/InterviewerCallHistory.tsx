@@ -10,7 +10,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
-import InterviewerCallHistoryForm from "./InterviewerCallHistoryForm";
+import SurveyInterviewerStartEndDateForm from "./SurveyInterviewerStartEndDateForm";
 
     dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -30,13 +30,12 @@ function InterviewerCallHistory(): ReactElement {
         {label: "Call Result", key: "call_result"}
     ];
 
-    async function onFormSubmission(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+    async function runInterviewerCallHistoryReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         console.warn(formValues);
         setMessageNoData("");
         setMessage("");
         setReportData([]);
         setInterviewerID(formValues["Interviewer ID"]);
-        formValues.
         formValues.interviewer = formValues["Interviewer ID"];
         formValues.start_date = new Date(formValues["Start date"]);
         formValues.end_date = new Date(formValues["End date"]);
@@ -70,7 +69,7 @@ function InterviewerCallHistory(): ReactElement {
                 </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
 
-                <InterviewerCallHistoryForm onSubmitFunction={onFormSubmission}/>
+                <SurveyInterviewerStartEndDateForm onSubmitFunction={runInterviewerCallHistoryReport}/>
                 <br/>
 
                 <CSVLink hidden={reportData === null || reportData.length === 0}

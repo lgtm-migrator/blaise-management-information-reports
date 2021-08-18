@@ -1,11 +1,7 @@
 import React, {ReactElement, useState} from "react";
-import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import FormTextInput from "../components/Form/TextInput";
-import Form from "../components/Form";
-import {requiredValidator} from "../components/Form/FormValidators";
+import {ONSPanel} from "blaise-design-system-react-components";
 import {getInterviewerCallPatternReport} from "../utilities/http";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -13,33 +9,28 @@ import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/textFormatting";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
+import SurveyInterviewerStartEndDateForm from "./SurveyInterviewerStartEndDateForm";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallPattern(): ReactElement {
-    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
-    const [surveyTLA, setSurveyTLA] = useState<string>("");
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [startDate, setStartDate] = useState<Date>(new Date());
-    const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<any>({});
 
-    async function runInterviewerCallPatternReport(formData: any) {
+    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
         setMessage("");
         setReportData([]);
-        setButtonLoading(true);
-        console.log(formData);
-        setSurveyTLA(formData.surveyTLA);
-        setInterviewerID(formData.interviewer);
-        formData.start_date = startDate;
-        formData.end_date = endDate;
+        setInterviewerID(formValues["Interviewer ID"]);
+        formValues.interviewer = formValues["Interviewer ID"];
+        formValues.start_date = new Date(formValues["Start date"]);
+        formValues.end_date = new Date(formValues["End date"]);
 
-        const [success, data] = await getInterviewerCallPatternReport(formData);
-        setButtonLoading(false);
+        const [success, data] = await getInterviewerCallPatternReport(formValues);
+        setSubmitting(false);
 
         if (!success) {
             setMessage("Error running report");
@@ -103,43 +94,7 @@ function InterviewerCallPattern(): ReactElement {
                     {message}
                 </ONSPanel>
 
-                <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
-                    <p>
-                        <FormTextInput
-                            name="surveyTLA"
-                            validators={[]}
-                            label={"Survey TLA"}
-                        />
-                    </p>
-                    <p>
-                        <FormTextInput
-                            name="interviewer"
-                            validators={[requiredValidator]}
-                            label={"Interviewer ID"}
-                        />
-                    </p>
-                    <ONSDateInput
-                        label={"Start Date"}
-                        date={startDate}
-                        id={"start-date"}
-                        onChange={(date) => setStartDate(date)}
-                    />
-                    <br/>
-                    <ONSDateInput
-                        label={"End Date"}
-                        date={endDate}
-                        id={"end-date"}
-                        onChange={(date) => setEndDate(date)}
-                    />
-                    <br/>
-                    <br/>
-                    <ONSButton
-                        testid={"submit-call-pattern-Form"}
-                        label={"Run"}
-                        primary={true}
-                        loading={buttonLoading}
-                        submit={true}/>
-                </Form>
+                <SurveyInterviewerStartEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
                 <br/>
 
                 <CSVLink hidden={Object.entries(reportData).length === 0}
