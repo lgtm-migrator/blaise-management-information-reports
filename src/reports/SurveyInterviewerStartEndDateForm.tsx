@@ -45,12 +45,12 @@ const SurveyInterviewerStartEndDateForm = ({onSubmitFunction}: Props): ReactElem
         {
             name: "Start date",
             type: "date",
-            validate: validateDate
+            // validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            validate: validateDate
+            // validate: validateDate
         }
     ];
 

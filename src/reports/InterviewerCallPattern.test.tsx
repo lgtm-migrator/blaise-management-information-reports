@@ -95,12 +95,12 @@ describe("interviewer call pattern report with data", () => {
         expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
         expect(screen.queryByText(/2 days ago/i)).toBeVisible();
         expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
-        expect(screen.queryByText("Survey TLA")).toBeVisible();
+        expect(screen.queryByText("Select survey")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
-        expect(screen.queryByText("Start Date")).toBeVisible();
-        expect(screen.queryByText("End Date")).toBeVisible();
+        expect(screen.queryByText("Start date")).toBeVisible();
+        expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.input(screen.getByLabelText(/Survey TLA/i), {
+        fireEvent.input(screen.getByLabelText(/Select survey/i), {
             target: {
                 value:
                     "LMS"
@@ -114,7 +114,7 @@ describe("interviewer call pattern report with data", () => {
             }
         });
 
-        await fireEvent.click(screen.getByTestId(/submit-call-pattern-form-button/i));
+        await fireEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -190,17 +190,12 @@ describe("interviewer call pattern report without data", () => {
         });
 
         expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
-        expect(screen.queryByText("Survey TLA")).toBeVisible();
+        expect(screen.queryByText("Select survey")).toBeVisible();
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
-        expect(screen.queryByText("Start Date")).toBeVisible();
-        expect(screen.queryByText("End Date")).toBeVisible();
+        expect(screen.queryByText("Start date")).toBeVisible();
+        expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.input(screen.getByLabelText(/Survey TLA/i), {
-            target: {
-                value:
-                    "LMS"
-            }
-        });
+        fireEvent.click(screen.getByText("LMS"));
 
         fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
             target: {
@@ -209,7 +204,7 @@ describe("interviewer call pattern report without data", () => {
             }
         });
 
-        await fireEvent.click(screen.getByTestId(/submit-call-pattern-form-button/i));
+        await fireEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
