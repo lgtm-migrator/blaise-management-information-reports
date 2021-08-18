@@ -6,7 +6,7 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
-import {formatText} from "../utilities/textFormatting";
+import {formatText} from "../utilities/TextFormatting";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartEndDateForm from "./SurveyInterviewerStartEndDateForm";
