@@ -32,8 +32,8 @@ const SurveyInterviewerStartEndDateForm = ({onSubmitFunction}: Props): ReactElem
             type: "radio",
             radioOptions: [
                 {id: "all", value: "undefined", label: "Show all surveys"},
-                {id: "lms", value: "lms", label: "LMS"},
-                {id: "opn", value: "opn", label: "OPN"}
+                {id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey"},
+                {id: "opn", value: "opn", label: "OPN", description: "Opinion and lifestyle Survey"}
             ]
         },
         {

@@ -3628,9 +3628,9 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
-"blaise-design-system-react-components@git+https://github.com/ONSdigital/blaise-design-system-react-components#v0.5.2":
+"blaise-design-system-react-components@git+https://github.com/ONSdigital/blaise-design-system-react-components#v0.6.0":
   version "1.0.0"
-  resolved "git+https://github.com/ONSdigital/blaise-design-system-react-components#ae0d0212a4951d050ac3b47c79b744713a9f0a3b"
+  resolved "git+https://github.com/ONSdigital/blaise-design-system-react-components#acf8d62bb07e35ca1c2b3f34a9fe688ce487fbf8"
   dependencies:
     formik "^2.2.9"
     react "^17.0.1"
