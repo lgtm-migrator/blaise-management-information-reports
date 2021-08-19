@@ -31,15 +31,15 @@ function InterviewerCallHistory(): ReactElement {
     ];
 
     async function runInterviewerCallHistoryReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
-        console.warn(formValues);
         setMessageNoData("");
         setMessage("");
         setReportData([]);
         setInterviewerID(formValues["Interviewer ID"]);
+        formValues.survey_tla = formValues["Survey TLA"];
         formValues.interviewer = formValues["Interviewer ID"];
         formValues.start_date = new Date(formValues["Start date"]);
         formValues.end_date = new Date(formValues["End date"]);
-        console.warn(formValues);
+        console.log(formValues);
 
         const [success, data] = await getInterviewerCallHistoryReport(formValues);
         setSubmitting(false);

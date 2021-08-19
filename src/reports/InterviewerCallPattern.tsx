@@ -25,6 +25,7 @@ function InterviewerCallPattern(): ReactElement {
         setMessage("");
         setReportData([]);
         setInterviewerID(formValues["Interviewer ID"]);
+        formValues.survey_tla = formValues["Survey TLA"];
         formValues.interviewer = formValues["Interviewer ID"];
         formValues.start_date = new Date(formValues["Start date"]);
         formValues.end_date = new Date(formValues["End date"]);
