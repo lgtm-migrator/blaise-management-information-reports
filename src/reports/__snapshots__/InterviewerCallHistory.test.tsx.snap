@@ -74,126 +74,164 @@ Object {
           Data in this report only goes back to the last 12 months.
         </p>
         <form
-          class="u-mt-m"
+          action="#"
         >
-          <p>
-            <div
-              class="field"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class=""
-                >
-                  <label
-                    class="label"
-                    for="surveyTLA"
-                  >
-                    Survey TLA
-                  </label>
-                  <input
-                    class="input input--text input-type__input u-mt-xs"
-                    id="surveyTLA"
-                    name="surveyTLA"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-          </p>
-          <p>
-            <div
-              class="field"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class=""
-                >
-                  <label
-                    class="label"
-                    for="interviewer"
-                  >
-                    Interviewer ID
-                  </label>
-                  <input
-                    class="input input--text input-type__input u-mt-xs"
-                    id="interviewer"
-                    name="interviewer"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-          </p>
-          <div
-            class="react-datepicker-wrapper"
+          <fieldset
+            class="fieldset"
           >
+            <legend
+              class="fieldset__legend"
+            >
+              Select survey
+            </legend>
             <div
-              class="react-datepicker__input-container"
+              class="radios__items"
+              id="Survey TLA"
             >
               <p
-                class="field"
+                class="radios__item"
               >
-                <label
-                  class="label"
-                  for="start-date"
+                <span
+                  class="radio"
                 >
-                  Start Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="start-date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="01/01/2021"
-                />
+                  <input
+                    class="radio__input js-radio"
+                    id="all"
+                    name="Survey TLA"
+                    type="radio"
+                    value="undefined"
+                  />
+                  <label
+                    class="radio__label "
+                    for="all"
+                    id="all-label"
+                  >
+                    Show all surveys
+                  </label>
+                </span>
               </p>
-            </div>
-          </div>
-          <br />
-          <div
-            class="react-datepicker-wrapper"
-          >
-            <div
-              class="react-datepicker__input-container"
-            >
+              <br />
               <p
-                class="field"
+                class="radios__item"
               >
-                <label
-                  class="label"
-                  for="end-date"
+                <span
+                  class="radio"
                 >
-                  End Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="end-date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="01/01/2021"
-                />
+                  <input
+                    class="radio__input js-radio"
+                    id="lms"
+                    name="Survey TLA"
+                    type="radio"
+                    value="lms"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="lms"
+                    id="lms-label"
+                  >
+                    LMS
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Labour Market Survey
+                    </span>
+                  </label>
+                </span>
               </p>
+              <br />
+              <p
+                class="radios__item"
+              >
+                <span
+                  class="radio"
+                >
+                  <input
+                    class="radio__input js-radio"
+                    id="opn"
+                    name="Survey TLA"
+                    type="radio"
+                    value="opn"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="opn"
+                    id="opn-label"
+                  >
+                    OPN
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Opinions and Lifestyle Survey
+                    </span>
+                  </label>
+                </span>
+              </p>
+              <br />
             </div>
+          </fieldset>
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="Interviewer ID"
+            >
+              Interviewer ID
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="Interviewer ID"
+              name="Interviewer ID"
+              type="text"
+              value=""
+            />
           </div>
-          <br />
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="Start date"
+            >
+              Start date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="Start date"
+              name="Start date"
+              type="date"
+              value=""
+            />
+          </div>
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="End date"
+            >
+              End date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="End date"
+              name="End date"
+              type="date"
+              value=""
+            />
+          </div>
           <br />
           <button
             class="btn "
-            data-testid="submit-call-history-Form-button"
+            data-testid="submit-button"
             type="submit"
           >
             <span
               class="btn__inner"
             >
-              Run
+              Save and continue 
             </span>
           </button>
         </form>
@@ -288,126 +326,164 @@ Object {
         Data in this report only goes back to the last 12 months.
       </p>
       <form
-        class="u-mt-m"
+        action="#"
       >
-        <p>
-          <div
-            class="field"
-          >
-            <div
-              class=""
-            >
-              <div
-                class=""
-              >
-                <label
-                  class="label"
-                  for="surveyTLA"
-                >
-                  Survey TLA
-                </label>
-                <input
-                  class="input input--text input-type__input u-mt-xs"
-                  id="surveyTLA"
-                  name="surveyTLA"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-        </p>
-        <p>
-          <div
-            class="field"
-          >
-            <div
-              class=""
-            >
-              <div
-                class=""
-              >
-                <label
-                  class="label"
-                  for="interviewer"
-                >
-                  Interviewer ID
-                </label>
-                <input
-                  class="input input--text input-type__input u-mt-xs"
-                  id="interviewer"
-                  name="interviewer"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-        </p>
-        <div
-          class="react-datepicker-wrapper"
+        <fieldset
+          class="fieldset"
         >
+          <legend
+            class="fieldset__legend"
+          >
+            Select survey
+          </legend>
           <div
-            class="react-datepicker__input-container"
+            class="radios__items"
+            id="Survey TLA"
           >
             <p
-              class="field"
+              class="radios__item"
             >
-              <label
-                class="label"
-                for="start-date"
+              <span
+                class="radio"
               >
-                Start Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="start-date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="01/01/2021"
-              />
+                <input
+                  class="radio__input js-radio"
+                  id="all"
+                  name="Survey TLA"
+                  type="radio"
+                  value="undefined"
+                />
+                <label
+                  class="radio__label "
+                  for="all"
+                  id="all-label"
+                >
+                  Show all surveys
+                </label>
+              </span>
             </p>
-          </div>
-        </div>
-        <br />
-        <div
-          class="react-datepicker-wrapper"
-        >
-          <div
-            class="react-datepicker__input-container"
-          >
+            <br />
             <p
-              class="field"
+              class="radios__item"
             >
-              <label
-                class="label"
-                for="end-date"
+              <span
+                class="radio"
               >
-                End Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="end-date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="01/01/2021"
-              />
+                <input
+                  class="radio__input js-radio"
+                  id="lms"
+                  name="Survey TLA"
+                  type="radio"
+                  value="lms"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="lms"
+                  id="lms-label"
+                >
+                  LMS
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Labour Market Survey
+                  </span>
+                </label>
+              </span>
             </p>
+            <br />
+            <p
+              class="radios__item"
+            >
+              <span
+                class="radio"
+              >
+                <input
+                  class="radio__input js-radio"
+                  id="opn"
+                  name="Survey TLA"
+                  type="radio"
+                  value="opn"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="opn"
+                  id="opn-label"
+                >
+                  OPN
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Opinions and Lifestyle Survey
+                  </span>
+                </label>
+              </span>
+            </p>
+            <br />
           </div>
+        </fieldset>
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="Interviewer ID"
+          >
+            Interviewer ID
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="Interviewer ID"
+            name="Interviewer ID"
+            type="text"
+            value=""
+          />
         </div>
-        <br />
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="Start date"
+          >
+            Start date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="Start date"
+            name="Start date"
+            type="date"
+            value=""
+          />
+        </div>
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="End date"
+          >
+            End date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="End date"
+            name="End date"
+            type="date"
+            value=""
+          />
+        </div>
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-Form-button"
+          data-testid="submit-button"
           type="submit"
         >
           <span
             class="btn__inner"
           >
-            Run
+            Save and continue 
           </span>
         </button>
       </form>
@@ -553,126 +629,164 @@ Object {
           Data in this report only goes back to the last 12 months.
         </p>
         <form
-          class="u-mt-m"
+          action="#"
         >
-          <p>
-            <div
-              class="field"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class=""
-                >
-                  <label
-                    class="label"
-                    for="surveyTLA"
-                  >
-                    Survey TLA
-                  </label>
-                  <input
-                    class="input input--text input-type__input u-mt-xs"
-                    id="surveyTLA"
-                    name="surveyTLA"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-          </p>
-          <p>
-            <div
-              class="field"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class=""
-                >
-                  <label
-                    class="label"
-                    for="interviewer"
-                  >
-                    Interviewer ID
-                  </label>
-                  <input
-                    class="input input--text input-type__input u-mt-xs"
-                    id="interviewer"
-                    name="interviewer"
-                    type="text"
-                  />
-                </div>
-              </div>
-            </div>
-          </p>
-          <div
-            class="react-datepicker-wrapper"
+          <fieldset
+            class="fieldset"
           >
+            <legend
+              class="fieldset__legend"
+            >
+              Select survey
+            </legend>
             <div
-              class="react-datepicker__input-container"
+              class="radios__items"
+              id="Survey TLA"
             >
               <p
-                class="field"
+                class="radios__item"
               >
-                <label
-                  class="label"
-                  for="start-date"
+                <span
+                  class="radio"
                 >
-                  Start Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="start-date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="03/01/2000"
-                />
+                  <input
+                    class="radio__input js-radio"
+                    id="all"
+                    name="Survey TLA"
+                    type="radio"
+                    value="undefined"
+                  />
+                  <label
+                    class="radio__label "
+                    for="all"
+                    id="all-label"
+                  >
+                    Show all surveys
+                  </label>
+                </span>
               </p>
-            </div>
-          </div>
-          <br />
-          <div
-            class="react-datepicker-wrapper"
-          >
-            <div
-              class="react-datepicker__input-container"
-            >
+              <br />
               <p
-                class="field"
+                class="radios__item"
               >
-                <label
-                  class="label"
-                  for="end-date"
+                <span
+                  class="radio"
                 >
-                  End Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="end-date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="03/01/2000"
-                />
+                  <input
+                    class="radio__input js-radio"
+                    id="lms"
+                    name="Survey TLA"
+                    type="radio"
+                    value="lms"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="lms"
+                    id="lms-label"
+                  >
+                    LMS
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Labour Market Survey
+                    </span>
+                  </label>
+                </span>
               </p>
+              <br />
+              <p
+                class="radios__item"
+              >
+                <span
+                  class="radio"
+                >
+                  <input
+                    class="radio__input js-radio"
+                    id="opn"
+                    name="Survey TLA"
+                    type="radio"
+                    value="opn"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="opn"
+                    id="opn-label"
+                  >
+                    OPN
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Opinions and Lifestyle Survey
+                    </span>
+                  </label>
+                </span>
+              </p>
+              <br />
             </div>
+          </fieldset>
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="Interviewer ID"
+            >
+              Interviewer ID
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="Interviewer ID"
+              name="Interviewer ID"
+              type="text"
+              value=""
+            />
           </div>
-          <br />
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="Start date"
+            >
+              Start date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="Start date"
+              name="Start date"
+              type="date"
+              value=""
+            />
+          </div>
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="End date"
+            >
+              End date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="End date"
+              name="End date"
+              type="date"
+              value=""
+            />
+          </div>
           <br />
           <button
             class="btn "
-            data-testid="submit-call-history-Form-button"
+            data-testid="submit-button"
             type="submit"
           >
             <span
               class="btn__inner"
             >
-              Run
+              Save and continue 
             </span>
           </button>
         </form>
@@ -761,126 +875,164 @@ Object {
         Data in this report only goes back to the last 12 months.
       </p>
       <form
-        class="u-mt-m"
+        action="#"
       >
-        <p>
-          <div
-            class="field"
-          >
-            <div
-              class=""
-            >
-              <div
-                class=""
-              >
-                <label
-                  class="label"
-                  for="surveyTLA"
-                >
-                  Survey TLA
-                </label>
-                <input
-                  class="input input--text input-type__input u-mt-xs"
-                  id="surveyTLA"
-                  name="surveyTLA"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-        </p>
-        <p>
-          <div
-            class="field"
-          >
-            <div
-              class=""
-            >
-              <div
-                class=""
-              >
-                <label
-                  class="label"
-                  for="interviewer"
-                >
-                  Interviewer ID
-                </label>
-                <input
-                  class="input input--text input-type__input u-mt-xs"
-                  id="interviewer"
-                  name="interviewer"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-        </p>
-        <div
-          class="react-datepicker-wrapper"
+        <fieldset
+          class="fieldset"
         >
+          <legend
+            class="fieldset__legend"
+          >
+            Select survey
+          </legend>
           <div
-            class="react-datepicker__input-container"
+            class="radios__items"
+            id="Survey TLA"
           >
             <p
-              class="field"
+              class="radios__item"
             >
-              <label
-                class="label"
-                for="start-date"
+              <span
+                class="radio"
               >
-                Start Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="start-date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="03/01/2000"
-              />
+                <input
+                  class="radio__input js-radio"
+                  id="all"
+                  name="Survey TLA"
+                  type="radio"
+                  value="undefined"
+                />
+                <label
+                  class="radio__label "
+                  for="all"
+                  id="all-label"
+                >
+                  Show all surveys
+                </label>
+              </span>
             </p>
-          </div>
-        </div>
-        <br />
-        <div
-          class="react-datepicker-wrapper"
-        >
-          <div
-            class="react-datepicker__input-container"
-          >
+            <br />
             <p
-              class="field"
+              class="radios__item"
             >
-              <label
-                class="label"
-                for="end-date"
+              <span
+                class="radio"
               >
-                End Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="end-date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="03/01/2000"
-              />
+                <input
+                  class="radio__input js-radio"
+                  id="lms"
+                  name="Survey TLA"
+                  type="radio"
+                  value="lms"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="lms"
+                  id="lms-label"
+                >
+                  LMS
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Labour Market Survey
+                  </span>
+                </label>
+              </span>
             </p>
+            <br />
+            <p
+              class="radios__item"
+            >
+              <span
+                class="radio"
+              >
+                <input
+                  class="radio__input js-radio"
+                  id="opn"
+                  name="Survey TLA"
+                  type="radio"
+                  value="opn"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="opn"
+                  id="opn-label"
+                >
+                  OPN
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Opinions and Lifestyle Survey
+                  </span>
+                </label>
+              </span>
+            </p>
+            <br />
           </div>
+        </fieldset>
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="Interviewer ID"
+          >
+            Interviewer ID
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="Interviewer ID"
+            name="Interviewer ID"
+            type="text"
+            value=""
+          />
         </div>
-        <br />
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="Start date"
+          >
+            Start date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="Start date"
+            name="Start date"
+            type="date"
+            value=""
+          />
+        </div>
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="End date"
+          >
+            End date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="End date"
+            name="End date"
+            type="date"
+            value=""
+          />
+        </div>
         <br />
         <button
           class="btn "
-          data-testid="submit-call-history-Form-button"
+          data-testid="submit-button"
           type="submit"
         >
           <span
             class="btn__inner"
           >
-            Run
+            Save and continue 
           </span>
         </button>
       </form>

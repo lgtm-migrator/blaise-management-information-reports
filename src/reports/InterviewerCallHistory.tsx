@@ -1,29 +1,22 @@
 import React, {ReactElement, useState} from "react";
-import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import FormTextInput from "../components/Form/TextInput";
-import Form from "../components/Form";
-import {requiredValidator} from "../components/Form/FormValidators";
+import {ONSPanel} from "blaise-design-system-react-components";
 import {getInterviewerCallHistoryReport} from "../utilities/HTTP";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/Converters";
 import {InterviewerCallHistoryReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
+import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallHistory(): ReactElement {
-    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
-    const [surveyTLA, setSurveyTLA] = useState<string>("");
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [startDate, setStartDate] = useState<Date>(new Date());
-    const [endDate, setEndDate] = useState<Date>(new Date());
     const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
@@ -37,31 +30,33 @@ function InterviewerCallHistory(): ReactElement {
         {label: "Call Result", key: "call_result"}
     ];
 
-    async function runInterviewerCallHistoryReport(formData: any) {
+    async function runInterviewerCallHistoryReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
+        setMessage("");
         setReportData([]);
-        setButtonLoading(true);
-        console.log(formData);
-        setSurveyTLA(formData.surveyTLA);
-        setInterviewerID(formData.interviewer);
-        formData.start_date = startDate;
-        formData.end_date = endDate;
+        setInterviewerID(formValues["Interviewer ID"]);
+        formValues.survey_tla = formValues["Survey TLA"];
+        formValues.interviewer = formValues["Interviewer ID"];
+        formValues.start_date = new Date(formValues["Start date"]);
+        formValues.end_date = new Date(formValues["End date"]);
+        console.log(formValues);
 
-        const [success, data] = await getInterviewerCallHistoryReport(formData);
-        setButtonLoading(false);
+        const [success, data] = await getInterviewerCallHistoryReport(formValues);
+        setSubmitting(false);
 
         if (!success) {
             setMessage("Error running report");
             return;
         }
 
-        if (data.length == 0) {
+        if (Object.keys(data).length === 0) {
             setMessageNoData("No data found for parameters given.");
             return;
         }
 
         console.log(data);
         setReportData(data);
+        setSubmitting(false);
     }
 
     return (
@@ -73,45 +68,8 @@ function InterviewerCallHistory(): ReactElement {
                     {message}
                 </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
-                <Form onSubmit={(data) => runInterviewerCallHistoryReport(data)}>
-                    <p>
-                        <FormTextInput
-                            name="surveyTLA"
-                            validators={[]}
-                            label={"Survey TLA"}
-                        />
-                    </p>
-                    <p>
-                        <FormTextInput
-                            name="interviewer"
-                            validators={[requiredValidator]}
-                            label={"Interviewer ID"}
-                        />
-                    </p>
-                    <ONSDateInput
-                        label={"Start Date"}
-                        date={startDate}
-                        id={"start-date"}
-                        onChange={(date) => setStartDate(date)}
-                    />
-                    <br/>
-                    <ONSDateInput
-                        label={"End Date"}
-                        date={endDate}
-                        id={"end-date"}
-                        onChange={(date) => setEndDate(date)}
-                    />
-                    <br/>
-                    <br/>
-                    <ONSButton
-                        testid={"submit-call-history-Form"}
-                        label={"Run"}
-                        primary={true}
-                        loading={buttonLoading}
-                        submit={true}/>
-                </Form>
+                <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallHistoryReport}/>
                 <br/>
-
                 <CSVLink hidden={reportData === null || reportData.length === 0}
                          data={reportData}
                          headers={reportExportHeaders}
@@ -119,7 +77,6 @@ function InterviewerCallHistory(): ReactElement {
                          filename={`interviewer-call-history-${interviewerID}`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
-
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         reportData && reportData.length > 0
@@ -127,11 +84,6 @@ function InterviewerCallHistory(): ReactElement {
                             <table id="report-table" className="table u-mt-s">
                                 <thead className="table__head u-mt-m">
                                 <tr className="table__row">
-                                    {/*
-                                <th scope="col" className="table__header ">
-                                    <span>Interviewer ID</span>
-                                </th>
-                                */}
                                     <th scope="col" className="table__header ">
                                         <span>Questionnaire</span>
                                     </th>
@@ -158,11 +110,6 @@ function InterviewerCallHistory(): ReactElement {
                                         return (
                                             <tr className="table__row" key={data.call_start_time}
                                                 data-testid={"report-table-row"}>
-                                                {/*
-                                            <td className="table__cell ">
-                                                {data.interviewer}
-                                            </td>
-                                            */}
                                                 <td className="table__cell ">
                                                     {data.questionnaire_name}
                                                 </td>
