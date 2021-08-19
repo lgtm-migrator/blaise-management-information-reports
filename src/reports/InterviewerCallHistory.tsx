@@ -10,7 +10,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
-import SurveyInterviewerStartEndDateForm from "../components/SurveyInterviewerStartEndDateForm";
+import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -68,10 +68,8 @@ function InterviewerCallHistory(): ReactElement {
                     {message}
                 </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
-
-                <SurveyInterviewerStartEndDateForm onSubmitFunction={runInterviewerCallHistoryReport}/>
+                <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallHistoryReport}/>
                 <br/>
-
                 <CSVLink hidden={reportData === null || reportData.length === 0}
                          data={reportData}
                          headers={reportExportHeaders}
@@ -79,7 +77,6 @@ function InterviewerCallHistory(): ReactElement {
                          filename={`interviewer-call-history-${interviewerID}`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
-
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         reportData && reportData.length > 0
@@ -87,11 +84,6 @@ function InterviewerCallHistory(): ReactElement {
                             <table id="report-table" className="table u-mt-s">
                                 <thead className="table__head u-mt-m">
                                 <tr className="table__row">
-                                    {/*
-                                <th scope="col" className="table__header ">
-                                    <span>Interviewer ID</span>
-                                </th>
-                                */}
                                     <th scope="col" className="table__header ">
                                         <span>Questionnaire</span>
                                     </th>
@@ -118,11 +110,6 @@ function InterviewerCallHistory(): ReactElement {
                                         return (
                                             <tr className="table__row" key={data.call_start_time}
                                                 data-testid={"report-table-row"}>
-                                                {/*
-                                            <td className="table__cell ">
-                                                {data.interviewer}
-                                            </td>
-                                            */}
                                                 <td className="table__cell ">
                                                     {data.questionnaire_name}
                                                 </td>

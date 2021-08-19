@@ -5,20 +5,18 @@ interface Props {
     onSubmitFunction: any;
 }
 
-const SurveyInterviewerStartEndDateForm = ({onSubmitFunction}: Props): ReactElement => {
+const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): ReactElement => {
 
     const validateInterviewer = (value: string) => {
         let error;
-
         if (value === "") {
-            error = "Enter interviewer ID";
+            error = "Enter a valid interviewer ID";
         }
         return error;
     };
 
     const validateDate = (value: string) => {
         let error;
-
         if (value === "") {
             error = "Enter a valid date";
         }
@@ -27,7 +25,7 @@ const SurveyInterviewerStartEndDateForm = ({onSubmitFunction}: Props): ReactElem
 
     const fields = [
         {
-            name: "surveyTLA",
+            name: "Survey TLA",
             description: "Select survey",
             type: "radio",
             radioOptions: [
@@ -60,4 +58,4 @@ const SurveyInterviewerStartEndDateForm = ({onSubmitFunction}: Props): ReactElem
     );
 };
 
-export default SurveyInterviewerStartEndDateForm;
+export default SurveyInterviewerStartDateEndDateForm;

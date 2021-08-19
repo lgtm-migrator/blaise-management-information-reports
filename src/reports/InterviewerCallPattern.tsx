@@ -9,7 +9,7 @@ import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/TextFormatting";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
-import SurveyInterviewerStartEndDateForm from "../components/SurveyInterviewerStartEndDateForm";
+import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -89,21 +89,17 @@ function InterviewerCallPattern(): ReactElement {
                         </p>
                     </ONSPanel>
                 </div>
-
                 <ONSPanel hidden={(message === "")} status="error">
                     {message}
                 </ONSPanel>
-
-                <SurveyInterviewerStartEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
+                <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
                 <br/>
-
                 <CSVLink hidden={Object.entries(reportData).length === 0}
                          data={[reportData]}
                          target="_blank"
                          filename={`interviewer-call-pattern-${interviewerID}`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
-
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         Object.entries(reportData).length > 0

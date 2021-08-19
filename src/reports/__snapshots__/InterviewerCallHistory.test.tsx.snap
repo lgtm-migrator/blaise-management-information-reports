@@ -86,7 +86,7 @@ Object {
             </legend>
             <div
               class="radios__items"
-              id="surveyTLA"
+              id="Survey TLA"
             >
               <p
                 class="radios__item"
@@ -97,7 +97,7 @@ Object {
                   <input
                     class="radio__input js-radio"
                     id="all"
-                    name="surveyTLA"
+                    name="Survey TLA"
                     type="radio"
                     value="undefined"
                   />
@@ -120,7 +120,7 @@ Object {
                   <input
                     class="radio__input js-radio"
                     id="lms"
-                    name="surveyTLA"
+                    name="Survey TLA"
                     type="radio"
                     value="lms"
                   />
@@ -149,7 +149,7 @@ Object {
                   <input
                     class="radio__input js-radio"
                     id="opn"
-                    name="surveyTLA"
+                    name="Survey TLA"
                     type="radio"
                     value="opn"
                   />
@@ -338,7 +338,7 @@ Object {
           </legend>
           <div
             class="radios__items"
-            id="surveyTLA"
+            id="Survey TLA"
           >
             <p
               class="radios__item"
@@ -349,7 +349,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="all"
-                  name="surveyTLA"
+                  name="Survey TLA"
                   type="radio"
                   value="undefined"
                 />
@@ -372,7 +372,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="lms"
-                  name="surveyTLA"
+                  name="Survey TLA"
                   type="radio"
                   value="lms"
                 />
@@ -401,7 +401,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="opn"
-                  name="surveyTLA"
+                  name="Survey TLA"
                   type="radio"
                   value="opn"
                 />
@@ -641,7 +641,7 @@ Object {
             </legend>
             <div
               class="radios__items"
-              id="surveyTLA"
+              id="Survey TLA"
             >
               <p
                 class="radios__item"
@@ -652,7 +652,7 @@ Object {
                   <input
                     class="radio__input js-radio"
                     id="all"
-                    name="surveyTLA"
+                    name="Survey TLA"
                     type="radio"
                     value="undefined"
                   />
@@ -675,7 +675,7 @@ Object {
                   <input
                     class="radio__input js-radio"
                     id="lms"
-                    name="surveyTLA"
+                    name="Survey TLA"
                     type="radio"
                     value="lms"
                   />
@@ -704,7 +704,7 @@ Object {
                   <input
                     class="radio__input js-radio"
                     id="opn"
-                    name="surveyTLA"
+                    name="Survey TLA"
                     type="radio"
                     value="opn"
                   />
@@ -887,7 +887,7 @@ Object {
           </legend>
           <div
             class="radios__items"
-            id="surveyTLA"
+            id="Survey TLA"
           >
             <p
               class="radios__item"
@@ -898,7 +898,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="all"
-                  name="surveyTLA"
+                  name="Survey TLA"
                   type="radio"
                   value="undefined"
                 />
@@ -921,7 +921,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="lms"
-                  name="surveyTLA"
+                  name="Survey TLA"
                   type="radio"
                   value="lms"
                 />
@@ -950,7 +950,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="opn"
-                  name="surveyTLA"
+                  name="Survey TLA"
                   type="radio"
                   value="opn"
                 />
