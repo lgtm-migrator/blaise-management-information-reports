@@ -11,15 +11,16 @@ import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
+import ReportErrorPanel from "../components/ReportErrorPanel";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallHistory(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
     const reportExportHeaders = [
         {label: "Interviewer", key: "interviewer"},
         {label: "Questionnaire", key: "questionnaire_name"},
@@ -30,9 +31,10 @@ function InterviewerCallHistory(): ReactElement {
         {label: "Call Result", key: "call_result"}
     ];
 
+
     async function runInterviewerCallHistoryReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
-        setMessage("");
+        setReportFailed(false);
         setReportData([]);
         setInterviewerID(formValues["Interviewer ID"]);
         formValues.survey_tla = formValues["Survey TLA"];
@@ -45,7 +47,7 @@ function InterviewerCallHistory(): ReactElement {
         setSubmitting(false);
 
         if (!success) {
-            setMessage("Error running report");
+            setReportFailed(true);
             return;
         }
 
@@ -64,9 +66,7 @@ function InterviewerCallHistory(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run interviewer call history report</h1>
-                <ONSPanel hidden={(message === "")} status="error">
-                    {message}
-                </ONSPanel>
+                <ReportErrorPanel error={reportFailed}/>
                 <CallHistoryLastUpdatedStatus/>
                 <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallHistoryReport}/>
                 <br/>
