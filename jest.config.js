@@ -5,8 +5,9 @@ process.env = Object.assign(process.env, {
 });
 
 module.exports = {
-  moduleNameMapper: {
-    "\\.(css)$": "<rootDir>/__mocks__/styleMock.js",
-  }
+    moduleNameMapper: {
+        "\\.(css|less|scss)$": "identity-obj-proxy",
+        "\\.(jpg)$": "identity-obj-proxy"
+    }
 };
 

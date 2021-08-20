@@ -7,25 +7,27 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
+import ReportErrorPanel from "../components/ReportErrorPanel";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function AppointmentResourcePlanning(): ReactElement {
-    const [message, setMessage] = useState<string>("");
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
 
     async function runAppointmentResourcePlanningReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
         setReportData([]);
+        setReportFailed(false);
         console.log(formValues);
 
         const [success, data] = await getAppointmentResourcePlanningReport(formValues);
         setSubmitting(false);
 
         if (!success) {
-            setMessage("Error running report");
+            setReportFailed(true);
             return;
         }
 
@@ -51,11 +53,11 @@ function AppointmentResourcePlanning(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run appointment resource planning report</h1>
-                <ONSPanel hidden={(message === "")} status="error">
-                    {message}
-                </ONSPanel>
-
-                <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport} submitLabel={"Run"}/>
+                <ReportErrorPanel error={reportFailed}/>
+                <div className="u-mt-s">
+                    <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport}
+                                submitLabel={"Run"}/>
+                </div>
 
                 <br/>
 

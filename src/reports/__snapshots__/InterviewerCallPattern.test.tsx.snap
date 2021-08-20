@@ -94,14 +94,6 @@ Object {
             </div>
           </div>
         </div>
-        <div
-          class="panel panel--error panel--no-title  u-mt-m"
-          hidden=""
-        >
-          <div
-            class="panel__body "
-          />
-        </div>
         <form
           action="#"
         >
@@ -381,14 +373,6 @@ Object {
             </p>
           </div>
         </div>
-      </div>
-      <div
-        class="panel panel--error panel--no-title  u-mt-m"
-        hidden=""
-      >
-        <div
-          class="panel__body "
-        />
       </div>
       <form
         action="#"
@@ -721,14 +705,6 @@ Object {
             </div>
           </div>
         </div>
-        <div
-          class="panel panel--error panel--no-title  u-mt-m"
-          hidden=""
-        >
-          <div
-            class="panel__body "
-          />
-        </div>
         <form
           action="#"
         >
@@ -1002,14 +978,6 @@ Object {
             </p>
           </div>
         </div>
-      </div>
-      <div
-        class="panel panel--error panel--no-title  u-mt-m"
-        hidden=""
-      >
-        <div
-          class="panel__body "
-        />
       </div>
       <form
         action="#"

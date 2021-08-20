@@ -10,19 +10,21 @@ import {formatText} from "../utilities/TextFormatting";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
+import ReportErrorPanel from "../components/ReportErrorPanel";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallPattern(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<any>({});
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
+
 
     async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
-        setMessage("");
+        setReportFailed(false);
         setReportData([]);
         setInterviewerID(formValues["Interviewer ID"]);
         formValues.survey_tla = formValues["Survey TLA"];
@@ -34,7 +36,7 @@ function InterviewerCallPattern(): ReactElement {
         setSubmitting(false);
 
         if (!success) {
-            setMessage("Error running report");
+            setReportFailed(true);
             return;
         }
 
@@ -76,6 +78,7 @@ function InterviewerCallPattern(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run interviewer call pattern report</h1>
+                <ReportErrorPanel error={reportFailed}/>
                 <CallHistoryLastUpdatedStatus/>
                 <div className="u-mb-m">
                     <ONSPanel>
@@ -90,9 +93,6 @@ function InterviewerCallPattern(): ReactElement {
                         </p>
                     </ONSPanel>
                 </div>
-                <ONSPanel hidden={(message === "")} status="error">
-                    {message}
-                </ONSPanel>
                 <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
                 <br/>
                 <CSVLink hidden={Object.entries(reportData).length === 0}

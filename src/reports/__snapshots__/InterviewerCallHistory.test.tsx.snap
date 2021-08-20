@@ -45,14 +45,6 @@ Object {
         >
           Run interviewer call history report
         </h1>
-        <div
-          class="panel panel--error panel--no-title  u-mt-m"
-          hidden=""
-        >
-          <div
-            class="panel__body "
-          />
-        </div>
         <p
           aria-live="polite"
           class="u-fs-s u-mt-s"
@@ -303,14 +295,6 @@ Object {
       >
         Run interviewer call history report
       </h1>
-      <div
-        class="panel panel--error panel--no-title  u-mt-m"
-        hidden=""
-      >
-        <div
-          class="panel__body "
-        />
-      </div>
       <p
         aria-live="polite"
         class="u-fs-s u-mt-s"
@@ -618,14 +602,6 @@ Object {
         >
           Run interviewer call history report
         </h1>
-        <div
-          class="panel panel--error panel--no-title  u-mt-m"
-          hidden=""
-        >
-          <div
-            class="panel__body "
-          />
-        </div>
         <p
           aria-live="polite"
           class="u-fs-s u-mt-s"
@@ -870,14 +846,6 @@ Object {
       >
         Run interviewer call history report
       </h1>
-      <div
-        class="panel panel--error panel--no-title  u-mt-m"
-        hidden=""
-      >
-        <div
-          class="panel__body "
-        />
-      </div>
       <p
         aria-live="polite"
         class="u-fs-s u-mt-s"
