@@ -55,7 +55,9 @@ function AppointmentResourcePlanning(): ReactElement {
                     {message}
                 </ONSPanel>
 
-                <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport} submitLabel={"Run"}/>
+                <div className="u-mt-s">
+                    <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport} submitLabel={"Run"}/>
+                </div>
 
                 <br/>
 

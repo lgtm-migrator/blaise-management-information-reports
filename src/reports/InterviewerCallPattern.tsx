@@ -76,6 +76,9 @@ function InterviewerCallPattern(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run interviewer call pattern report</h1>
+                <ONSPanel hidden={(message === "")} status="error">
+                    {message}
+                </ONSPanel>
                 <CallHistoryLastUpdatedStatus/>
                 <div className="u-mb-m">
                     <ONSPanel>
@@ -90,9 +93,6 @@ function InterviewerCallPattern(): ReactElement {
                         </p>
                     </ONSPanel>
                 </div>
-                <ONSPanel hidden={(message === "")} status="error">
-                    {message}
-                </ONSPanel>
                 <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
                 <br/>
                 <CSVLink hidden={Object.entries(reportData).length === 0}
