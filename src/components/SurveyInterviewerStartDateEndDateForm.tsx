@@ -1,5 +1,6 @@
 import React, {ReactElement} from "react";
 import {StyledForm} from "blaise-design-system-react-components";
+import dateFormatter from "dayjs";
 
 interface Props {
     onSubmitFunction: any;
@@ -17,7 +18,7 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
 
     const validateDate = (value: string) => {
         let error;
-        if (value === "") {
+        if (value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/)?.length===1) {
             error = "Enter a valid date";
         }
         return error;
@@ -28,6 +29,7 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
             name: "Survey TLA",
             description: "Select survey",
             type: "radio",
+            initial_value: "undefined",
             radioOptions: [
                 {id: "all", value: "undefined", label: "Show all surveys"},
                 {id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey"},
@@ -42,18 +44,20 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
         {
             name: "Start date",
             type: "date",
-            // validate: validateDate
+            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
+            validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            // validate: validateDate
+            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
+            validate: validateDate
         }
     ];
 
     return (
         <>
-            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction}/>
+            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Run"}/>
         </>
     );
 };

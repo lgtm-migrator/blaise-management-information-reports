@@ -27,8 +27,10 @@ Object {
                 class="radio"
               >
                 <input
+                  checked=""
                   class="radio__input js-radio"
                   id="all"
+                  initial_value="undefined"
                   name="Survey TLA"
                   type="radio"
                   value="undefined"
@@ -52,6 +54,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="lms"
+                  initial_value="undefined"
                   name="Survey TLA"
                   type="radio"
                   value="lms"
@@ -81,6 +84,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="opn"
+                  initial_value="undefined"
                   name="Survey TLA"
                   type="radio"
                   value="opn"
@@ -132,9 +136,10 @@ Object {
           <input
             class="input input--text input-type__input "
             id="Start date"
+            initial_value="2021-08-20"
             name="Start date"
             type="date"
-            value=""
+            value="2021-08-20"
           />
         </div>
         <div
@@ -149,9 +154,10 @@ Object {
           <input
             class="input input--text input-type__input "
             id="End date"
+            initial_value="2021-08-20"
             name="End date"
             type="date"
-            value=""
+            value="2021-08-20"
           />
         </div>
         <br />
@@ -163,7 +169,7 @@ Object {
           <span
             class="btn__inner"
           >
-            Save and continue 
+            Run
           </span>
         </button>
       </form>
@@ -192,8 +198,10 @@ Object {
               class="radio"
             >
               <input
+                checked=""
                 class="radio__input js-radio"
                 id="all"
+                initial_value="undefined"
                 name="Survey TLA"
                 type="radio"
                 value="undefined"
@@ -217,6 +225,7 @@ Object {
               <input
                 class="radio__input js-radio"
                 id="lms"
+                initial_value="undefined"
                 name="Survey TLA"
                 type="radio"
                 value="lms"
@@ -246,6 +255,7 @@ Object {
               <input
                 class="radio__input js-radio"
                 id="opn"
+                initial_value="undefined"
                 name="Survey TLA"
                 type="radio"
                 value="opn"
@@ -297,9 +307,10 @@ Object {
         <input
           class="input input--text input-type__input "
           id="Start date"
+          initial_value="2021-08-20"
           name="Start date"
           type="date"
-          value=""
+          value="2021-08-20"
         />
       </div>
       <div
@@ -314,9 +325,10 @@ Object {
         <input
           class="input input--text input-type__input "
           id="End date"
+          initial_value="2021-08-20"
           name="End date"
           type="date"
-          value=""
+          value="2021-08-20"
         />
       </div>
       <br />
@@ -328,7 +340,7 @@ Object {
         <span
           class="btn__inner"
         >
-          Save and continue 
+          Run
         </span>
       </button>
     </form>
