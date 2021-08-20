@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from "react";
-import {ONSErrorPanel, ONSPanel, StyledForm} from "blaise-design-system-react-components";
+import {ONSPanel, StyledForm} from "blaise-design-system-react-components";
 import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
