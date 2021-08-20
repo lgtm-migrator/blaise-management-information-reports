@@ -41,7 +41,8 @@ function AppointmentResourcePlanning(): ReactElement {
     const fields = [
         {
             name: "date",
-            type: "date"
+            type: "date",
+            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD")
         }
     ];
 
@@ -54,7 +55,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     {message}
                 </ONSPanel>
 
-                <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport}/>
+                <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport} submitLabel={"Run"}/>
 
                 <br/>
 

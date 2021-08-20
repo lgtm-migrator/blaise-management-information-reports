@@ -1,5 +1,6 @@
 import React, {ReactElement} from "react";
 import {StyledForm} from "blaise-design-system-react-components";
+import dateFormatter from "dayjs";
 
 interface Props {
     onSubmitFunction: any;
@@ -9,15 +10,20 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
 
     const validateInterviewer = (value: string) => {
         let error;
-        if (value === "") {
-            error = "Enter a valid interviewer ID";
+        if (value === "" || value === undefined) {
+            error = "Enter a interviewer ID";
         }
         return error;
     };
 
     const validateDate = (value: string) => {
         let error;
-        if (value === "") {
+        if (value === "" || value === undefined) {
+            error = "Enter a date";
+            return error;
+        }
+
+        if (value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
             error = "Enter a valid date";
         }
         return error;
@@ -28,6 +34,7 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
             name: "Survey TLA",
             description: "Select survey",
             type: "radio",
+            initial_value: "undefined",
             radioOptions: [
                 {id: "all", value: "undefined", label: "Show all surveys"},
                 {id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey"},
@@ -42,18 +49,20 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
         {
             name: "Start date",
             type: "date",
-            // validate: validateDate
+            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
+            validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            // validate: validateDate
+            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
+            validate: validateDate
         }
     ];
 
     return (
         <>
-            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction}/>
+            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Run"}/>
         </>
     );
 };
