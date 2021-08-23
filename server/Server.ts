@@ -54,10 +54,10 @@ server.post("/api/reports/interviewer-call-history", async function (req: Reques
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
-    const {interviewer, start_date, end_date} = req.body;
+    const {interviewer, start_date, end_date, survey_tla} = req.body;
     const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
     const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
-    const url = `${BERT_URL}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}`;
+    const url = `${BERT_URL}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
     console.log(url);
     const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
     res.status(status).json(result);
@@ -69,10 +69,10 @@ server.post("/api/reports/interviewer-call-pattern", async function (req: Reques
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
-    const {interviewer, start_date, end_date} = req.body;
+    const {interviewer, start_date, end_date, survey_tla} = req.body;
     const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
     const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
-    const url = `${BERT_URL}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}`;
+    const url = `${BERT_URL}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
     console.log(url);
     const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
     res.status(status).json(result);

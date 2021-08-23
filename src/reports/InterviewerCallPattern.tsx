@@ -1,47 +1,42 @@
-import React, {ReactElement, useEffect, useState} from "react";
-import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import FormTextInput from "../components/Form/TextInput";
-import Form from "../components/Form";
-import {requiredValidator} from "../components/Form/FormValidators";
-import {getInterviewerCallHistoryStatus, getInterviewerCallPatternReport} from "../utilities/HTTP";
+import React, {ReactElement, useState} from "react";
+import {ONSPanel} from "blaise-design-system-react-components";
+import {getInterviewerCallPatternReport} from "../utilities/HTTP";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
 import {formatText} from "../utilities/TextFormatting";
-import TimeAgo from "react-timeago";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
+import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
+import ReportErrorPanel from "../components/ReportErrorPanel";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function InterviewerCallPattern(): ReactElement {
-    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [startDate, setStartDate] = useState<Date>(new Date());
-    const [endDate, setEndDate] = useState<Date>(new Date());
-    const [message, setMessage] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<any>({});
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
 
-    async function runInterviewerCallPatternReport(formData: any) {
+
+    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
-        setMessage("");
+        setReportFailed(false);
         setReportData([]);
-        setButtonLoading(true);
-        console.log(formData);
-        setInterviewerID(formData.interviewer);
-        formData.start_date = startDate;
-        formData.end_date = endDate;
+        setInterviewerID(formValues["Interviewer ID"]);
+        formValues.survey_tla = formValues["Survey TLA"];
+        formValues.interviewer = formValues["Interviewer ID"];
+        formValues.start_date = new Date(formValues["Start date"]);
+        formValues.end_date = new Date(formValues["End date"]);
 
-        const [success, data] = await getInterviewerCallPatternReport(formData);
-        setButtonLoading(false);
+        const [success, data] = await getInterviewerCallPatternReport(formValues);
+        setSubmitting(false);
 
         if (!success) {
-            setMessage("Error running report");
+            setReportFailed(true);
             return;
         }
 
@@ -83,6 +78,7 @@ function InterviewerCallPattern(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run interviewer call pattern report</h1>
+                <ReportErrorPanel error={reportFailed}/>
                 <CallHistoryLastUpdatedStatus/>
                 <div className="u-mb-m">
                     <ONSPanel>
@@ -97,50 +93,14 @@ function InterviewerCallPattern(): ReactElement {
                         </p>
                     </ONSPanel>
                 </div>
-
-                <ONSPanel hidden={(message === "")} status="error">
-                    {message}
-                </ONSPanel>
-
-                <Form onSubmit={(data) => runInterviewerCallPatternReport(data)}>
-                    <p>
-                        <FormTextInput
-                            name="interviewer"
-                            validators={[requiredValidator]}
-                            label={"Interviewer ID"}
-                        />
-                    </p>
-                    <ONSDateInput
-                        label={"Start Date"}
-                        date={startDate}
-                        id={"start-date"}
-                        onChange={(date) => setStartDate(date)}
-                    />
-                    <br/>
-                    <ONSDateInput
-                        label={"End Date"}
-                        date={endDate}
-                        id={"end-date"}
-                        onChange={(date) => setEndDate(date)}
-                    />
-                    <br/>
-                    <br/>
-                    <ONSButton
-                        testid={"submit-call-pattern-Form"}
-                        label={"Run"}
-                        primary={true}
-                        loading={buttonLoading}
-                        submit={true}/>
-                </Form>
+                <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
                 <br/>
-
                 <CSVLink hidden={Object.entries(reportData).length === 0}
                          data={[reportData]}
                          target="_blank"
                          filename={`interviewer-call-pattern-${interviewerID}`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
-
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         Object.entries(reportData).length > 0

@@ -1,37 +1,33 @@
 import React, {ReactElement, useState} from "react";
-import {ONSButton, ONSPanel} from "blaise-design-system-react-components";
-import Form from "../components/Form";
+import {ONSPanel, StyledForm} from "blaise-design-system-react-components";
 import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
 import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
-import {ONSDateInput} from "../components/ONSDesignSystem/ONSDateInput";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
+import ReportErrorPanel from "../components/ReportErrorPanel";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function AppointmentResourcePlanning(): ReactElement {
-    const [buttonLoading, setButtonLoading] = useState<boolean>(false);
-    const [date, setDate] = useState<Date>(new Date());
-    const [message, setMessage] = useState<string>("");
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
 
-    async function runAppointmentResourcePlanningReport(formData: any) {
+    async function runAppointmentResourcePlanningReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
         setReportData([]);
-        setButtonLoading(true);
-        console.log(formData);
-        formData.date = date;
+        setReportFailed(false);
+        console.log(formValues);
 
-        const [success, data] = await getAppointmentResourcePlanningReport(formData);
-        setButtonLoading(false);
+        const [success, data] = await getAppointmentResourcePlanningReport(formValues);
+        setSubmitting(false);
 
         if (!success) {
-            setMessage("Error running report");
+            setReportFailed(true);
             return;
         }
 
@@ -44,30 +40,25 @@ function AppointmentResourcePlanning(): ReactElement {
         setReportData(data);
     }
 
+    const fields = [
+        {
+            name: "date",
+            type: "date",
+            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD")
+        }
+    ];
+
     return (
         <>
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run appointment resource planning report</h1>
-                <ONSPanel hidden={(message === "")} status="error">
-                    {message}
-                </ONSPanel>
-                <Form onSubmit={(data) => runAppointmentResourcePlanningReport(data)}>
-                    <ONSDateInput
-                        label={"Date"}
-                        date={date}
-                        id={"date"}
-                        onChange={(date) => setDate(date)}
-                    />
-                    <br/>
-                    <br/>
-                    <ONSButton
-                        testid={"submit-Form"}
-                        label={"Run"}
-                        primary={true}
-                        loading={buttonLoading}
-                        submit={true}/>
-                </Form>
+                <ReportErrorPanel error={reportFailed}/>
+                <div className="u-mt-s">
+                    <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport}
+                                submitLabel={"Run"}/>
+                </div>
+
                 <br/>
 
                 <ErrorBoundary errorMessageText={"Failed to load"}>

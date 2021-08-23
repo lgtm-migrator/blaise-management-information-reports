@@ -67,12 +67,12 @@ defineFeature(feature, test => {
             fireEvent.input(screen.getByLabelText(/Date/i), {
                 target: {
                     value:
-                        "01/01/2021"
+                        "2021-01-01"
                 }
             });
         });
         when("I request information on appointments scheduled for that date", async () => {
-            await fireEvent.click(screen.getByTestId(/submit-form-button/i));
+            await fireEvent.click(screen.getByTestId(/submit-button/i));
             await act(async () => {
                 await flushPromises();
             });
