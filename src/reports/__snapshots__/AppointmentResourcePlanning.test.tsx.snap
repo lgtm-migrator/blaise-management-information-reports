@@ -63,10 +63,10 @@ Object {
               <input
                 class="input input--text input-type__input "
                 id="date"
-                initial_value="2021-08-20"
+                initial_value="2021-08-23"
                 name="date"
                 type="date"
-                value="2021-08-20"
+                value="2021-08-23"
               />
             </div>
             <br />
@@ -155,10 +155,10 @@ Object {
             <input
               class="input input--text input-type__input "
               id="date"
-              initial_value="2021-08-20"
+              initial_value="2021-08-23"
               name="date"
               type="date"
-              value="2021-08-20"
+              value="2021-08-23"
             />
           </div>
           <br />
@@ -304,10 +304,10 @@ Object {
               <input
                 class="input input--text input-type__input "
                 id="date"
-                initial_value="2021-08-20"
+                initial_value="2021-08-23"
                 name="date"
                 type="date"
-                value="2021-08-20"
+                value="2021-08-23"
               />
             </div>
             <br />
@@ -396,10 +396,10 @@ Object {
             <input
               class="input input--text input-type__input "
               id="date"
-              initial_value="2021-08-20"
+              initial_value="2021-08-23"
               name="date"
               type="date"
-              value="2021-08-20"
+              value="2021-08-23"
             />
           </div>
           <br />
