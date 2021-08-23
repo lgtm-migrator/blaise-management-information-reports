@@ -1,7 +1,6 @@
 import React, {ReactElement} from "react";
-import {DefaultErrorBoundary} from "./components/ErrorHandling/DefaultErrorBoundary";
 import {Link, Route, Switch} from "react-router-dom";
-import {BetaBanner, Footer, Header} from "blaise-design-system-react-components";
+import {BetaBanner, DefaultErrorBoundary, Footer, Header} from "blaise-design-system-react-components";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 import InterviewerCallPattern from "./reports/InterviewerCallPattern";
 import AppointmentResourcePlanning from "./reports/AppointmentResourcePlanning";
