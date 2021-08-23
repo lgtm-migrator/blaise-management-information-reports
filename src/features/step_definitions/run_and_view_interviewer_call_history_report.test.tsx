@@ -67,6 +67,8 @@ defineFeature(feature, test => {
                 await flushPromises();
             });
 
+            fireEvent.click(screen.getByText("LMS"));
+
             fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
                 target: {
                     value:
@@ -78,7 +80,7 @@ defineFeature(feature, test => {
 
         when("I request information on call history for that interviewer within the time specified period", async () => {
 
-            await fireEvent.click(screen.getByTestId(/submit-call-history-form-button/i));
+            await fireEvent.click(screen.getByTestId(/submit-button/i));
 
             await act(async () => {
                 await flushPromises();

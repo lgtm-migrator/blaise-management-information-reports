@@ -46,57 +46,43 @@ Object {
           Run appointment resource planning report
         </h1>
         <div
-          class="panel panel--error panel--no-title  u-mt-m"
-          hidden=""
+          class="u-mt-s"
         >
-          <div
-            class="panel__body "
-          />
-        </div>
-        <form
-          class="u-mt-m"
-        >
-          <div
-            class="react-datepicker-wrapper"
+          <form
+            action="#"
           >
             <div
-              class="react-datepicker__input-container"
+              class="field"
             >
-              <p
-                class="field"
+              <label
+                class="label "
+                for="date"
               >
-                <label
-                  class="label"
-                  for="date"
-                >
-                  Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="17/08/2021"
-                />
-              </p>
+                Date
+              </label>
+              <input
+                class="input input--text input-type__input "
+                id="date"
+                initial_value="2021-08-23"
+                name="date"
+                type="date"
+                value="2021-08-23"
+              />
             </div>
-          </div>
-          <br />
-          <br />
-          <button
-            class="btn "
-            data-testid="submit-Form-button"
-            type="submit"
-          >
-            <span
-              class="btn__inner"
+            <br />
+            <button
+              class="btn "
+              data-testid="submit-button"
+              type="submit"
             >
-              Run
-            </span>
-          </button>
-        </form>
+              <span
+                class="btn__inner"
+              >
+                Run
+              </span>
+            </button>
+          </form>
+        </div>
         <br />
         <div
           class="panel panel--info panel--no-title  u-mt-m"
@@ -152,57 +138,43 @@ Object {
         Run appointment resource planning report
       </h1>
       <div
-        class="panel panel--error panel--no-title  u-mt-m"
-        hidden=""
+        class="u-mt-s"
       >
-        <div
-          class="panel__body "
-        />
-      </div>
-      <form
-        class="u-mt-m"
-      >
-        <div
-          class="react-datepicker-wrapper"
+        <form
+          action="#"
         >
           <div
-            class="react-datepicker__input-container"
+            class="field"
           >
-            <p
-              class="field"
+            <label
+              class="label "
+              for="date"
             >
-              <label
-                class="label"
-                for="date"
-              >
-                Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="17/08/2021"
-              />
-            </p>
+              Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="date"
+              initial_value="2021-08-23"
+              name="date"
+              type="date"
+              value="2021-08-23"
+            />
           </div>
-        </div>
-        <br />
-        <br />
-        <button
-          class="btn "
-          data-testid="submit-Form-button"
-          type="submit"
-        >
-          <span
-            class="btn__inner"
+          <br />
+          <button
+            class="btn "
+            data-testid="submit-button"
+            type="submit"
           >
-            Run
-          </span>
-        </button>
-      </form>
+            <span
+              class="btn__inner"
+            >
+              Run
+            </span>
+          </button>
+        </form>
+      </div>
       <br />
       <div
         class="panel panel--info panel--no-title  u-mt-m"
@@ -315,57 +287,43 @@ Object {
           Run appointment resource planning report
         </h1>
         <div
-          class="panel panel--error panel--no-title  u-mt-m"
-          hidden=""
+          class="u-mt-s"
         >
-          <div
-            class="panel__body "
-          />
-        </div>
-        <form
-          class="u-mt-m"
-        >
-          <div
-            class="react-datepicker-wrapper"
+          <form
+            action="#"
           >
             <div
-              class="react-datepicker__input-container"
+              class="field"
             >
-              <p
-                class="field"
+              <label
+                class="label "
+                for="date"
               >
-                <label
-                  class="label"
-                  for="date"
-                >
-                  Date
-                </label>
-                <input
-                  class="input input--text input-type__input "
-                  data-testid="text-input"
-                  id="date"
-                  placeholder="Select Date"
-                  style="z-index: 0;"
-                  type="text"
-                  value="17/08/2021"
-                />
-              </p>
+                Date
+              </label>
+              <input
+                class="input input--text input-type__input "
+                id="date"
+                initial_value="2021-08-23"
+                name="date"
+                type="date"
+                value="2021-08-23"
+              />
             </div>
-          </div>
-          <br />
-          <br />
-          <button
-            class="btn "
-            data-testid="submit-Form-button"
-            type="submit"
-          >
-            <span
-              class="btn__inner"
+            <br />
+            <button
+              class="btn "
+              data-testid="submit-button"
+              type="submit"
             >
-              Run
-            </span>
-          </button>
-        </form>
+              <span
+                class="btn__inner"
+              >
+                Run
+              </span>
+            </button>
+          </form>
+        </div>
         <br />
         <div
           class="panel panel--info panel--no-title  u-mt-m"
@@ -421,57 +379,43 @@ Object {
         Run appointment resource planning report
       </h1>
       <div
-        class="panel panel--error panel--no-title  u-mt-m"
-        hidden=""
+        class="u-mt-s"
       >
-        <div
-          class="panel__body "
-        />
-      </div>
-      <form
-        class="u-mt-m"
-      >
-        <div
-          class="react-datepicker-wrapper"
+        <form
+          action="#"
         >
           <div
-            class="react-datepicker__input-container"
+            class="field"
           >
-            <p
-              class="field"
+            <label
+              class="label "
+              for="date"
             >
-              <label
-                class="label"
-                for="date"
-              >
-                Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                data-testid="text-input"
-                id="date"
-                placeholder="Select Date"
-                style="z-index: 0;"
-                type="text"
-                value="17/08/2021"
-              />
-            </p>
+              Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="date"
+              initial_value="2021-08-23"
+              name="date"
+              type="date"
+              value="2021-08-23"
+            />
           </div>
-        </div>
-        <br />
-        <br />
-        <button
-          class="btn "
-          data-testid="submit-Form-button"
-          type="submit"
-        >
-          <span
-            class="btn__inner"
+          <br />
+          <button
+            class="btn "
+            data-testid="submit-button"
+            type="submit"
           >
-            Run
-          </span>
-        </button>
-      </form>
+            <span
+              class="btn__inner"
+            >
+              Run
+            </span>
+          </button>
+        </form>
+      </div>
       <br />
       <div
         class="panel panel--info panel--no-title  u-mt-m"
