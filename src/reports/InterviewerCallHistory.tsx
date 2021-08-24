@@ -1,9 +1,8 @@
 import React, {ReactElement, useState} from "react";
-import {ONSPanel} from "blaise-design-system-react-components";
+import {ErrorBoundary, ONSPanel} from "blaise-design-system-react-components";
 import {getInterviewerCallHistoryReport} from "../utilities/HTTP";
 import {convertSecondsToMinutesAndSeconds} from "../utilities/Converters";
 import {InterviewerCallHistoryReportData} from "../interfaces";
-import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
