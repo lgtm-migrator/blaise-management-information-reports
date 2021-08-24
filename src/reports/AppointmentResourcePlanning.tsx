@@ -1,8 +1,7 @@
 import React, {ReactElement, useState} from "react";
-import {ONSPanel, StyledForm} from "blaise-design-system-react-components";
+import {ErrorBoundary, ONSPanel, StyledForm} from "blaise-design-system-react-components";
 import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
-import {ErrorBoundary} from "../components/ErrorHandling/ErrorBoundary";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
