@@ -8,6 +8,7 @@ import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
 import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
 import React from "react";
+import MockDate from "mockdate";
 
 const reportDataReturned: AppointmentResourcePlanningReportData[] = [
     {
@@ -48,10 +49,18 @@ const mock_server_response_without_data = () => {
 
 };
 
+const christmasEve97 = "1997-12-24";
+
 describe("appointment resource planning report with data", () => {
+    afterEach(() => {
+        MockDate.reset();
+    });
+
     beforeEach(() => {
         mock_fetch_requests(mock_server_response_with_data);
+        MockDate.set(new Date(christmasEve97));
     });
+
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
@@ -117,9 +126,15 @@ describe("appointment resource planning report with data", () => {
 });
 
 describe("appointment resource planning report without data", () => {
+    afterEach(() => {
+        MockDate.reset();
+    });
+
     beforeEach(() => {
         mock_fetch_requests(mock_server_response_without_data);
+        MockDate.set(new Date(christmasEve97));
     });
+
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(

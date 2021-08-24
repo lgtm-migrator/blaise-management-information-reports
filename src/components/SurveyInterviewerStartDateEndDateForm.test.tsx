@@ -7,8 +7,19 @@ import SurveyInterviewerStartDateEndDateForm from "./SurveyInterviewerStartDateE
 import {act} from "react-dom/test-utils";
 import {screen} from "@testing-library/dom";
 import React from "react";
+import MockDate from "mockdate";
+
+const christmasEve97 = "1997-12-24";
 
 describe("form - survey, interviewer, start date, end date", () => {
+    afterEach(() => {
+        MockDate.reset();
+    });
+
+    beforeEach(() => {
+        MockDate.set(new Date(christmasEve97));
+    });
+
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
@@ -16,13 +27,16 @@ describe("form - survey, interviewer, start date, end date", () => {
                 <SurveyInterviewerStartDateEndDateForm onSubmitFunction=""/>
             </Router>
         );
+
         await act(async () => {
             await flushPromises();
         });
+
         await waitFor(() => {
             expect(wrapper).toMatchSnapshot();
         });
     });
+
     it("renders correctly", async () => {
         const history = createMemoryHistory();
         await act(async () => {
