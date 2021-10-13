@@ -21,7 +21,6 @@ const reportDataReturned: InterviewerCallHistoryReportData[] = [
         serial_number: "1337",
         call_start_time: "Sat, 01 May 2021 10:00:00 GMT",
         dial_secs: "61",
-        // number_of_interviews: "42",
         call_result: "Busy",
     }];
 
@@ -94,7 +93,6 @@ defineFeature(feature, test => {
                 expect(screen.getByText(/1337/)).toBeDefined();
                 expect(screen.getByText("01/05/2021 11:00:00")).toBeDefined();
                 expect(screen.getByText(/01:01/)).toBeDefined();
-                // expect(screen.getByText(/42/)).toBeDefined();
                 expect(screen.getByText(/Busy/)).toBeDefined();
 
             });
