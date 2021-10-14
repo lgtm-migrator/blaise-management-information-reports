@@ -1,12 +1,12 @@
-import {InterviewerCallHistoryReportData} from "../interfaces";
+import { InterviewerCallHistoryReportData } from "../interfaces";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_fetch_requests} from "../tests/utilities";
-import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
+import flushPromises, { mock_fetch_requests } from "../tests/utilities";
+import { createMemoryHistory } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
 import InterviewerCallHistory from "./InterviewerCallHistory";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import { act } from "react-dom/test-utils";
+import { fireEvent, screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
 
@@ -17,7 +17,6 @@ const reportDataReturned: InterviewerCallHistoryReportData[] = [
         serial_number: "1337",
         call_start_time: "Sat, 01 May 2021 10:00:00 GMT",
         dial_secs: "61",
-        number_of_interviews: "42",
         call_result: "Busy"
     }];
 
@@ -31,7 +30,7 @@ const mock_server_responses_with_data = (url: string) => {
     } else if (url.includes("/api/reports/call-history-status")) {
         return Promise.resolve({
             status: 200,
-            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
+            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
         });
     }
 };
@@ -71,7 +70,7 @@ describe("interviewer call history report with data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallHistory/>
+                <InterviewerCallHistory />
             </Router>
         );
 
@@ -92,7 +91,7 @@ describe("interviewer call history report with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallHistory/>
+                    <InterviewerCallHistory />
                 </Router>
             );
         });
@@ -126,7 +125,6 @@ describe("interviewer call history report with data", () => {
             expect(screen.getByText("1337")).toBeVisible();
             expect(screen.getByText("01/05/2021 11:00:00")).toBeVisible();
             expect(screen.getByText("01:01")).toBeVisible();
-            expect(screen.getByText("42")).toBeVisible();
             expect(screen.getByText("Busy")).toBeVisible();
         });
 
@@ -153,7 +151,7 @@ describe("interviewer call history report without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallHistory/>
+                <InterviewerCallHistory />
             </Router>
         );
 
@@ -172,7 +170,7 @@ describe("interviewer call history report without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallHistory/>
+                    <InterviewerCallHistory />
                 </Router>
             );
         });
