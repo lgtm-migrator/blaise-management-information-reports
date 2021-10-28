@@ -85,7 +85,7 @@ Object {
         </div>
         <br />
         <a
-          download="appointment_resource_planning_report"
+          download="appointment-resource-planning-report-"
           hidden=""
           href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
           target="_self"
@@ -185,7 +185,7 @@ Object {
       </div>
       <br />
       <a
-        download="appointment_resource_planning_report"
+        download="appointment-resource-planning-report-"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
         target="_self"
@@ -342,7 +342,7 @@ Object {
         </div>
         <br />
         <a
-          download="appointment_resource_planning_report"
+          download="appointment-resource-planning-report-"
           hidden=""
           href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
           target="_self"
@@ -442,7 +442,7 @@ Object {
       </div>
       <br />
       <a
-        download="appointment_resource_planning_report"
+        download="appointment-resource-planning-report-"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
         target="_self"

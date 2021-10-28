@@ -15,6 +15,7 @@ dateFormatter.extend(timezone);
 function AppointmentResourcePlanning(): ReactElement {
     const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [messageNoData, setMessageNoData] = useState<string>("");
+    const [reportDate, setReportDate] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
     const reportExportHeaders = [
         { label: "Questionnaire", key: "questionnaire_name" },
@@ -29,6 +30,7 @@ function AppointmentResourcePlanning(): ReactElement {
         setReportData([]);
         setReportFailed(false);
         console.log(formValues);
+        setReportDate(formValues["date"]);
 
         const [success, data] = await getAppointmentResourcePlanningReport(formValues);
         setSubmitting(false);
@@ -72,7 +74,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     data={reportData}
                     headers={reportExportHeaders}
                     target="_blank"
-                    filename="appointment_resource_planning_report">
+                    filename={`appointment-resource-planning-report-${reportDate}`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
