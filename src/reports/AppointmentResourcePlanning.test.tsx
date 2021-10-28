@@ -100,7 +100,6 @@ describe("appointment resource planning report with data", () => {
             expect(screen.getByText("Questionnaire")).toBeVisible();
             expect(screen.getByText("Appointment Time")).toBeVisible();
             expect(screen.getByText("Appointment Language")).toBeVisible();
-            expect(screen.getByText("Call Result")).toBeVisible();
             expect(screen.getByText("Total")).toBeVisible();
             expect(screen.getByText("LMS2101_AA1")).toBeVisible();
             expect(screen.getByText("10:00")).toBeVisible();
