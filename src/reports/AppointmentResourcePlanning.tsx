@@ -97,9 +97,6 @@ function AppointmentResourcePlanning(): ReactElement {
                                                     {data.appointment_language}
                                                 </td>
                                                 <td className="table__cell ">
-                                                    {data.dial_result}
-                                                </td>
-                                                <td className="table__cell ">
                                                     {data.total}
                                                 </td>
                                             </tr>
