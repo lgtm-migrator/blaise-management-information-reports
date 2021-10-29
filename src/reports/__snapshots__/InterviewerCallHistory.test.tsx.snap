@@ -235,7 +235,7 @@ Object {
         </form>
         <br />
         <a
-          download="interviewer-call-history-"
+          download="interviewer-call-history-.csv"
           hidden=""
           href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
           target="_self"
@@ -485,7 +485,7 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-history-.csv"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
         target="_self"
@@ -786,7 +786,7 @@ Object {
         </form>
         <br />
         <a
-          download="interviewer-call-history-"
+          download="interviewer-call-history-.csv"
           hidden=""
           href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
           target="_self"
@@ -1030,7 +1030,7 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-history-.csv"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
         target="_self"
