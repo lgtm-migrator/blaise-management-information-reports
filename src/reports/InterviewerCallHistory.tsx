@@ -26,6 +26,7 @@ function InterviewerCallHistory(): ReactElement {
         { label: "Serial Number", key: "serial_number" },
         { label: "Call Start Time", key: "call_start_time" },
         { label: "Call Length (Seconds)", key: "dial_secs" },
+        { label: "Call Result", key: "call_result" }
     ];
 
 
@@ -92,6 +93,9 @@ function InterviewerCallHistory(): ReactElement {
                                         </th>
                                         <th scope="col" className="table__header ">
                                             <span>Call Length</span>
+                                        </th>
+                                        <th scope="col" className="table__header ">
+                                            <span>Call Result</span>
                                         </th>
                                     </tr>
                                 </thead>
