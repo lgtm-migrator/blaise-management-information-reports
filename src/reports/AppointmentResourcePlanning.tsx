@@ -1,8 +1,8 @@
-import React, { ReactElement, useState } from "react";
-import { ErrorBoundary, ONSPanel, StyledForm } from "blaise-design-system-react-components";
-import { getAppointmentResourcePlanningReport } from "../utilities/HTTP";
-import { AppointmentResourcePlanningReportData } from "../interfaces";
-import { CSVLink } from "react-csv";
+import React, {ReactElement, useState} from "react";
+import {ErrorBoundary, ONSPanel, StyledForm} from "blaise-design-system-react-components";
+import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
+import {AppointmentResourcePlanningReportData} from "../interfaces";
+import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -18,11 +18,10 @@ function AppointmentResourcePlanning(): ReactElement {
     const [reportDate, setReportDate] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
     const reportExportHeaders = [
-        { label: "Questionnaire", key: "questionnaire_name" },
-        { label: "Appointment Time", key: "appointment_time" },
-        { label: "Appointment Language", key: "appointment_language" },
-        { label: "Call Result", key: "dial_result" },
-        { label: "Total", key: "total" }
+        {label: "Questionnaire", key: "questionnaire_name"},
+        {label: "Appointment Time", key: "appointment_time"},
+        {label: "Appointment Language", key: "appointment_language"},
+        {label: "Total", key: "total"}
     ];
 
     async function runAppointmentResourcePlanningReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
@@ -59,22 +58,22 @@ function AppointmentResourcePlanning(): ReactElement {
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Back" }]} />
+            <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run appointment resource planning report</h1>
-                <ReportErrorPanel error={reportFailed} />
+                <ReportErrorPanel error={reportFailed}/>
                 <div className="u-mt-s">
                     <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport}
-                        submitLabel={"Run"} />
+                                submitLabel={"Run"}/>
                 </div>
 
-                <br />
+                <br/>
 
                 <CSVLink hidden={reportData === null || reportData.length === 0}
-                    data={reportData}
-                    headers={reportExportHeaders}
-                    target="_blank"
-                    filename={`appointment-resource-planning-report-${reportDate}`}>
+                         data={reportData}
+                         headers={reportExportHeaders}
+                         target="_blank"
+                         filename={`appointment-resource-planning-report-${reportDate}`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
@@ -83,49 +82,49 @@ function AppointmentResourcePlanning(): ReactElement {
                             ?
                             <table id="report-table" className="table u-mt-s">
                                 <thead className="table__head u-mt-m">
-                                    <tr className="table__row">
-                                        <th scope="col" className="table__header ">
-                                            <span>Questionnaire</span>
-                                        </th>
-                                        <th scope="col" className="table__header ">
-                                            <span>Appointment Time</span>
-                                        </th>
-                                        <th scope="col" className="table__header ">
-                                            <span>Appointment Language</span>
-                                        </th>
-                                        <th scope="col" className="table__header ">
-                                            <span>Total</span>
-                                        </th>
-                                    </tr>
+                                <tr className="table__row">
+                                    <th scope="col" className="table__header ">
+                                        <span>Questionnaire</span>
+                                    </th>
+                                    <th scope="col" className="table__header ">
+                                        <span>Appointment Time</span>
+                                    </th>
+                                    <th scope="col" className="table__header ">
+                                        <span>Appointment Language</span>
+                                    </th>
+                                    <th scope="col" className="table__header ">
+                                        <span>Total</span>
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody className="table__body">
-                                    {
-                                        reportData.map((data: AppointmentResourcePlanningReportData) => {
-                                            return (
-                                                <tr className="table__row" key={data.questionnaire_name}
-                                                    data-testid={"report-table-row"}>
-                                                    <td className="table__cell ">
-                                                        {data.questionnaire_name}
-                                                    </td>
-                                                    <td className="table__cell ">
-                                                        {data.appointment_time}
-                                                    </td>
-                                                    <td className="table__cell ">
-                                                        {data.appointment_language}
-                                                    </td>
-                                                    <td className="table__cell ">
-                                                        {data.total}
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
-                                    }
+                                {
+                                    reportData.map((data: AppointmentResourcePlanningReportData) => {
+                                        return (
+                                            <tr className="table__row" key={data.questionnaire_name}
+                                                data-testid={"report-table-row"}>
+                                                <td className="table__cell ">
+                                                    {data.questionnaire_name}
+                                                </td>
+                                                <td className="table__cell ">
+                                                    {data.appointment_time}
+                                                </td>
+                                                <td className="table__cell ">
+                                                    {data.appointment_language}
+                                                </td>
+                                                <td className="table__cell ">
+                                                    {data.total}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
+                                }
                                 </tbody>
                             </table>
                             :
                             <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                     }
-                    <br />
+                    <br/>
                 </ErrorBoundary>
             </main>
         </>
