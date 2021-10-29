@@ -87,7 +87,7 @@ Object {
         <a
           download="appointment-resource-planning-report-"
           hidden=""
-          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
+          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
           target="_self"
         >
           Export report as Comma-Separated Values (CSV) file
@@ -187,7 +187,7 @@ Object {
       <a
         download="appointment-resource-planning-report-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
+        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
@@ -344,7 +344,7 @@ Object {
         <a
           download="appointment-resource-planning-report-"
           hidden=""
-          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
+          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
           target="_self"
         >
           Export report as Comma-Separated Values (CSV) file
@@ -444,7 +444,7 @@ Object {
       <a
         download="appointment-resource-planning-report-"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Call Result\\",\\"Total\\""
+        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
