@@ -72,7 +72,7 @@ function InterviewerCallHistory(): ReactElement {
                     data={reportData}
                     headers={reportExportHeaders}
                     target="_blank"
-                    filename={`interviewer-call-history-${interviewerID}`}>
+                    filename={`interviewer-call-history-${interviewerID}.csv`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
