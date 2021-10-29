@@ -97,7 +97,7 @@ function InterviewerCallPattern(): ReactElement {
                 <CSVLink hidden={Object.entries(reportData).length === 0}
                          data={[reportData]}
                          target="_blank"
-                         filename={`interviewer-call-pattern-${interviewerID}`}>
+                         filename={`interviewer-call-pattern-${interviewerID}.csv`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
