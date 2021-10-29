@@ -2,6 +2,7 @@ import React, {ReactElement, useState} from "react";
 import {ErrorBoundary, ONSPanel, StyledForm} from "blaise-design-system-react-components";
 import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
+import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -14,13 +15,21 @@ dateFormatter.extend(timezone);
 function AppointmentResourcePlanning(): ReactElement {
     const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [messageNoData, setMessageNoData] = useState<string>("");
+    const [reportDate, setReportDate] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
+    const reportExportHeaders = [
+        {label: "Questionnaire", key: "questionnaire_name"},
+        {label: "Appointment Time", key: "appointment_time"},
+        {label: "Appointment Language", key: "appointment_language"},
+        {label: "Total", key: "total"}
+    ];
 
     async function runAppointmentResourcePlanningReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
         setReportData([]);
         setReportFailed(false);
         console.log(formValues);
+        setReportDate(formValues["date"]);
 
         const [success, data] = await getAppointmentResourcePlanningReport(formValues);
         setSubmitting(false);
@@ -60,6 +69,13 @@ function AppointmentResourcePlanning(): ReactElement {
 
                 <br/>
 
+                <CSVLink hidden={reportData === null || reportData.length === 0}
+                         data={reportData}
+                         headers={reportExportHeaders}
+                         target="_blank"
+                         filename={`appointment-resource-planning-report-${reportDate}`}>
+                    Export report as Comma-Separated Values (CSV) file
+                </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         reportData && reportData.length > 0
