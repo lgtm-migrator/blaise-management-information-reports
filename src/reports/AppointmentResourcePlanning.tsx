@@ -94,9 +94,6 @@ function AppointmentResourcePlanning(): ReactElement {
                                             <span>Appointment Language</span>
                                         </th>
                                         <th scope="col" className="table__header ">
-                                            <span>Call Result</span>
-                                        </th>
-                                        <th scope="col" className="table__header ">
                                             <span>Total</span>
                                         </th>
                                     </tr>
@@ -115,9 +112,6 @@ function AppointmentResourcePlanning(): ReactElement {
                                                     </td>
                                                     <td className="table__cell ">
                                                         {data.appointment_language}
-                                                    </td>
-                                                    <td className="table__cell ">
-                                                        {data.dial_result}
                                                     </td>
                                                     <td className="table__cell ">
                                                         {data.total}
