@@ -82,6 +82,7 @@ describe("appointment resource planning report with data", () => {
             );
         });
         expect(screen.queryByText("Run appointment resource planning report")).toBeVisible();
+        expect(screen.queryByText("Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.")).toBeVisible();
         expect(screen.queryByText("Date")).toBeVisible();
         fireEvent.input(screen.getByLabelText(/Date/i), {
             target: {
@@ -153,6 +154,7 @@ describe("appointment resource planning report without data", () => {
             );
         });
         expect(screen.queryByText("Run appointment resource planning report")).toBeVisible();
+        expect(screen.queryByText("Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.")).toBeVisible();
         expect(screen.queryByText("Date")).toBeVisible();
         fireEvent.input(screen.getByLabelText(/Date/i), {
             target: {

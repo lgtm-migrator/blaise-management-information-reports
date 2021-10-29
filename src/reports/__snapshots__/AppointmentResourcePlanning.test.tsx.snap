@@ -46,6 +46,17 @@ Object {
           Run appointment resource planning report
         </h1>
         <div
+          class="panel panel--info panel--no-title  u-mt-m"
+        >
+          <div
+            class="panel__body "
+          >
+            <p>
+              Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+            </p>
+          </div>
+        </div>
+        <div
           class="u-mt-s"
         >
           <form
@@ -145,6 +156,17 @@ Object {
       >
         Run appointment resource planning report
       </h1>
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+      >
+        <div
+          class="panel__body "
+        >
+          <p>
+            Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+          </p>
+        </div>
+      </div>
       <div
         class="u-mt-s"
       >
@@ -303,6 +325,17 @@ Object {
           Run appointment resource planning report
         </h1>
         <div
+          class="panel panel--info panel--no-title  u-mt-m"
+        >
+          <div
+            class="panel__body "
+          >
+            <p>
+              Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+            </p>
+          </div>
+        </div>
+        <div
           class="u-mt-s"
         >
           <form
@@ -402,6 +435,17 @@ Object {
       >
         Run appointment resource planning report
       </h1>
+      <div
+        class="panel panel--info panel--no-title  u-mt-m"
+      >
+        <div
+          class="panel__body "
+        >
+          <p>
+            Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+          </p>
+        </div>
+      </div>
       <div
         class="u-mt-s"
       >

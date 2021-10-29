@@ -61,6 +61,13 @@ function AppointmentResourcePlanning(): ReactElement {
             <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run appointment resource planning report</h1>
+
+                <ONSPanel>
+                    <p>
+                        Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+                    </p>
+                </ONSPanel>
+
                 <ReportErrorPanel error={reportFailed}/>
                 <div className="u-mt-s">
                     <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport}
