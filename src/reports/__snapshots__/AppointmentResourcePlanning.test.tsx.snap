@@ -95,6 +95,14 @@ Object {
           </form>
         </div>
         <br />
+        <a
+          download="appointment-resource-planning-report-"
+          hidden=""
+          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+          target="_self"
+        >
+          Export report as Comma-Separated Values (CSV) file
+        </a>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
           hidden=""
@@ -198,6 +206,14 @@ Object {
         </form>
       </div>
       <br />
+      <a
+        download="appointment-resource-planning-report-"
+        hidden=""
+        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+        target="_self"
+      >
+        Export report as Comma-Separated Values (CSV) file
+      </a>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
         hidden=""
@@ -358,6 +374,14 @@ Object {
           </form>
         </div>
         <br />
+        <a
+          download="appointment-resource-planning-report-"
+          hidden=""
+          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+          target="_self"
+        >
+          Export report as Comma-Separated Values (CSV) file
+        </a>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
           hidden=""
@@ -461,6 +485,14 @@ Object {
         </form>
       </div>
       <br />
+      <a
+        download="appointment-resource-planning-report-"
+        hidden=""
+        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+        target="_self"
+      >
+        Export report as Comma-Separated Values (CSV) file
+      </a>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
         hidden=""

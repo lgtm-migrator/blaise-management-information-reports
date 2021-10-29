@@ -1,12 +1,12 @@
-import {AppointmentResourcePlanningReportData} from "../interfaces";
+import { AppointmentResourcePlanningReportData } from "../interfaces";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_fetch_requests} from "../tests/utilities";
-import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
+import flushPromises, { mock_fetch_requests } from "../tests/utilities";
+import { createMemoryHistory } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
 import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import { act } from "react-dom/test-utils";
+import { fireEvent, screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
 
@@ -15,21 +15,18 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
         questionnaire_name: "LMS2101_AA1",
         appointment_time: "10:00",
         appointment_language: "English",
-        dial_result: "Appointment",
         total: 42
     },
     {
         questionnaire_name: "LMS2101_BB1",
         appointment_time: "12:30",
         appointment_language: "Welsh",
-        dial_result: "NoAnswer",
         total: 1908
     },
     {
         questionnaire_name: "LMS2101_CC1",
         appointment_time: "15:15",
         appointment_language: "Other",
-        dial_result: "NonRespons",
         total: 408
     }
 ];
@@ -65,7 +62,7 @@ describe("appointment resource planning report with data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <AppointmentResourcePlanning/>
+                <AppointmentResourcePlanning />
             </Router>
         );
         await act(async () => {
@@ -80,7 +77,7 @@ describe("appointment resource planning report with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <AppointmentResourcePlanning/>
+                    <AppointmentResourcePlanning />
                 </Router>
             );
         });
@@ -98,25 +95,22 @@ describe("appointment resource planning report with data", () => {
             await flushPromises();
         });
         await waitFor(() => {
+            expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
             expect(screen.getByText("Questionnaire")).toBeVisible();
             expect(screen.getByText("Appointment Time")).toBeVisible();
             expect(screen.getByText("Appointment Language")).toBeVisible();
-            expect(screen.getByText("Call Result")).toBeVisible();
             expect(screen.getByText("Total")).toBeVisible();
             expect(screen.getByText("LMS2101_AA1")).toBeVisible();
             expect(screen.getByText("10:00")).toBeVisible();
             expect(screen.getByText("English")).toBeVisible();
-            expect(screen.getByText("Appointment")).toBeVisible();
             expect(screen.getByText("42")).toBeVisible();
             expect(screen.getByText("LMS2101_BB1")).toBeVisible();
             expect(screen.getByText("12:30")).toBeVisible();
             expect(screen.getByText("Welsh")).toBeVisible();
-            expect(screen.getByText("NoAnswer")).toBeVisible();
             expect(screen.getByText("1908")).toBeVisible();
             expect(screen.getByText("LMS2101_CC1")).toBeVisible();
             expect(screen.getByText("15:15")).toBeVisible();
             expect(screen.getByText("Other")).toBeVisible();
-            expect(screen.getByText("NonRespons")).toBeVisible();
             expect(screen.getByText("408")).toBeVisible();
         });
     });
@@ -140,7 +134,7 @@ describe("appointment resource planning report without data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <AppointmentResourcePlanning/>
+                <AppointmentResourcePlanning />
             </Router>
         );
         await act(async () => {
@@ -155,7 +149,7 @@ describe("appointment resource planning report without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <AppointmentResourcePlanning/>
+                    <AppointmentResourcePlanning />
                 </Router>
             );
         });
