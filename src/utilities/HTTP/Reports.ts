@@ -69,10 +69,10 @@ function getInterviewerCallPatternReport(form: any): Promise<getInterviewerCallP
 
 type getAppointmentResourcePlanningReport = [boolean, any[]]
 
-function getAppointmentResourcePlanningReport(form: any): Promise<getInterviewerCallPatternReportResponse> {
+function getAppointmentResourcePlanningReport(date: string): Promise<getInterviewerCallPatternReportResponse> {
     const url = "/api/reports/appointment-resource-planning";
     const formData = new FormData();
-    formData.append("date", form.date);
+    formData.append("date", date);
     return new Promise((resolve: (object: getAppointmentResourcePlanningReport) => void) => {
         requestPromiseJson("POST", url, formData).then(([status, data]) => {
             console.log(`Response: Status ${status}, data ${data}`);

@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {ErrorBoundary, ONSPanel, StyledForm} from "blaise-design-system-react-components";
 import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
 import {AppointmentResourcePlanningReportData} from "../interfaces";
@@ -15,9 +15,11 @@ dateFormatter.extend(timezone);
 
 function AppointmentResourcePlanning(): ReactElement {
     const [reportFailed, setReportFailed] = useState<boolean>(false);
+    const [formSubmitting, setFormSubmitting] = useState<boolean>(false);
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportDate, setReportDate] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
+
     const reportExportHeaders = [
         {label: "Questionnaire", key: "questionnaire_name"},
         {label: "Appointment Time", key: "appointment_time"},
@@ -25,16 +27,19 @@ function AppointmentResourcePlanning(): ReactElement {
         {label: "Total", key: "total"}
     ];
 
+
     async function runAppointmentResourcePlanningReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+        setFormSubmitting(true);
         setMessageNoData("");
         setReportData([]);
         setReportFailed(false);
-        console.log(formValues);
-        setReportDate(formValues["date"]);
+        const date = formValues.date;
+        setReportDate(date);
 
-        const [success, data] = await getAppointmentResourcePlanningReport(formValues);
+        const [success, data] = await getAppointmentResourcePlanningReport(date);
+
         setSubmitting(false);
-
+        setFormSubmitting(false);
         if (!success) {
             setReportFailed(true);
             return;
@@ -74,7 +79,8 @@ function AppointmentResourcePlanning(): ReactElement {
 
                 <ReportErrorPanel error={reportFailed}/>
                 <div className="u-mt-s">
-                    <StyledForm fields={fields} onSubmitFunction={runAppointmentResourcePlanningReport}
+                    <StyledForm fields={fields}
+                                onSubmitFunction={runAppointmentResourcePlanningReport}
                                 submitLabel={"Run"}/>
                 </div>
 
@@ -115,7 +121,8 @@ function AppointmentResourcePlanning(): ReactElement {
                                 {
                                     reportData.map((data: AppointmentResourcePlanningReportData) => {
                                         return (
-                                            <tr className="table__row" key={data.questionnaire_name}
+                                            <tr className="table__row"
+                                                key={`${data.questionnaire_name}-${data.appointment_time}-${data.appointment_language}`}
                                                 data-testid={"report-table-row"}>
                                                 <td className="table__cell ">
                                                     {data.questionnaire_name}

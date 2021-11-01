@@ -35,7 +35,19 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
     }
 ];
 
-const mock_server_response = () => {
+const ReportSummary = [
+    {language: "English", total: 1},
+    {language: "Welsh", total: 1},
+    {language: "Other", total: 1},
+];
+
+const mock_server_response = (url: string) => {
+    if (url.includes("/api/reports/appointment-resource-planning-summary")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve([]),
+        });
+    }
     return Promise.resolve({
         status: 200,
         json: () => Promise.resolve(reportDataReturned),
@@ -79,22 +91,18 @@ defineFeature(feature, test => {
         });
         then("I will receive a list of the following information for appointments made:", async (docString) => {
             await waitFor(() => {
-            expect(screen.getByText("Questionnaire")).toBeDefined();
-            expect(screen.getByText("Appointment Time")).toBeDefined();
-            expect(screen.getByText("Appointment Language")).toBeDefined();
-            expect(screen.getByText("Total")).toBeDefined();
-            expect(screen.getByText("LMS2101_AA1")).toBeDefined();
-            expect(screen.getByText("10:00")).toBeDefined();
-            expect(screen.getByText("English")).toBeDefined();
-            expect(screen.getByText("42")).toBeDefined();
-            expect(screen.getByText("LMS2101_BB1")).toBeDefined();
-            expect(screen.getByText("12:30")).toBeDefined();
-            expect(screen.getByText("Welsh")).toBeDefined();
-            expect(screen.getByText("1908")).toBeDefined();
-            expect(screen.getByText("LMS2101_CC1")).toBeDefined();
-            expect(screen.getByText("15:15")).toBeDefined();
-            expect(screen.getByText("Other")).toBeDefined();
-            expect(screen.getByText("408")).toBeDefined();
+                expect(screen.getByText("Questionnaire")).toBeDefined();
+                expect(screen.getByText("Appointment Time")).toBeDefined();
+                expect(screen.getByText("Appointment Language")).toBeDefined();
+                expect(screen.getByText("Total")).toBeDefined();
+
+                const list = screen.queryAllByTestId(/report-table-row/i);
+                const listItemOne = list[0].textContent;
+                expect(listItemOne).toEqual("LMS2101_AA110:00English42");
+                const listItemTwo = list[1].textContent;
+                expect(listItemTwo).toEqual("LMS2101_BB112:30Welsh1908");
+                const listItemThree = list[2].textContent;
+                expect(listItemThree).toEqual("LMS2101_CC115:15Other408");
             });
         });
         and("the information will be displayed in time intervals of quarter of an hour, e.g. 09:00, 09:15, 09:30, 09:45, 10:00, 10:15, etc.", async (docString) => {
