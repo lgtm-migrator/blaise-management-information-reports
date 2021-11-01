@@ -235,9 +235,9 @@ Object {
         </form>
         <br />
         <a
-          download="interviewer-call-history-"
+          download="interviewer-call-history-.csv"
           hidden=""
-          href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
+          href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Call Result\\""
           target="_self"
         >
           Export report as Comma-Separated Values (CSV) file
@@ -485,9 +485,9 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-history-.csv"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
+        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Call Result\\""
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file
@@ -786,9 +786,9 @@ Object {
         </form>
         <br />
         <a
-          download="interviewer-call-history-"
+          download="interviewer-call-history-.csv"
           hidden=""
-          href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
+          href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Call Result\\""
           target="_self"
         >
           Export report as Comma-Separated Values (CSV) file
@@ -1030,9 +1030,9 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-history-"
+        download="interviewer-call-history-.csv"
         hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\""
+        href="data:text/csv;charset=utf-8,﻿\\"Interviewer\\",\\"Questionnaire\\",\\"Serial Number\\",\\"Call Start Time\\",\\"Call Length (Seconds)\\",\\"Call Result\\""
         target="_self"
       >
         Export report as Comma-Separated Values (CSV) file

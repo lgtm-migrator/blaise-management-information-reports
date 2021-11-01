@@ -91,11 +91,10 @@ function AppointmentResourcePlanning(): ReactElement {
                              data={reportData}
                              headers={reportExportHeaders}
                              target="_blank"
-                             filename={`appointment-resource-planning-report-${reportDate}`}>
+                             filename={`appointment-resource-planning-report-${reportDate}.csv`}>
                         Export report as Comma-Separated Values (CSV) file
                     </CSVLink>
                 </div>
-
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         reportData && reportData.length > 0
