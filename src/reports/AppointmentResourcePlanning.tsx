@@ -80,7 +80,7 @@ function AppointmentResourcePlanning(): ReactElement {
                          data={reportData}
                          headers={reportExportHeaders}
                          target="_blank"
-                         filename={`appointment-resource-planning-report-${reportDate}`}>
+                         filename={`appointment-resource-planning-report-${reportDate}.csv`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>

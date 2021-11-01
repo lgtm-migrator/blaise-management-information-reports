@@ -264,7 +264,7 @@ Object {
         </form>
         <br />
         <a
-          download="interviewer-call-pattern-"
+          download="interviewer-call-pattern-.csv"
           hidden=""
           href="data:text/csv;charset=utf-8,﻿
 "
@@ -544,7 +544,7 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-pattern-"
+        download="interviewer-call-pattern-.csv"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿
 "
@@ -875,7 +875,7 @@ Object {
         </form>
         <br />
         <a
-          download="interviewer-call-pattern-"
+          download="interviewer-call-pattern-.csv"
           hidden=""
           href="data:text/csv;charset=utf-8,﻿
 "
@@ -1149,7 +1149,7 @@ Object {
       </form>
       <br />
       <a
-        download="interviewer-call-pattern-"
+        download="interviewer-call-pattern-.csv"
         hidden=""
         href="data:text/csv;charset=utf-8,﻿
 "
