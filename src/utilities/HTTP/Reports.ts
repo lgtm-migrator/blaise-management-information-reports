@@ -88,4 +88,25 @@ function getAppointmentResourcePlanningReport(form: any): Promise<getInterviewer
     });
 }
 
-export {getInterviewerCallHistoryStatus, getInterviewerCallHistoryReport, getInterviewerCallPatternReport, getAppointmentResourcePlanningReport};
+type getAppointmentResourcePlanningSummaryReport = [boolean, any[]]
+
+function getAppointmentResourcePlanningSummaryReport(date: string): Promise<getInterviewerCallPatternReportResponse> {
+    const url = "/api/reports/appointment-resource-planning-summary";
+    const formData = new FormData();
+    formData.append("date", date);
+    return new Promise((resolve: (object: getAppointmentResourcePlanningSummaryReport) => void) => {
+        requestPromiseJson("POST", url, formData).then(([status, data]) => {
+            console.log(`Response: Status ${status}, data ${data}`);
+            if (status === 200) {
+                resolve([true, data]);
+            } else {
+                resolve([false, []]);
+            }
+        }).catch((error: Error) => {
+            console.error(`Response: Error ${error}`);
+            resolve([false, []]);
+        });
+    });
+}
+
+export {getInterviewerCallHistoryStatus, getInterviewerCallHistoryReport, getInterviewerCallPatternReport, getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport};

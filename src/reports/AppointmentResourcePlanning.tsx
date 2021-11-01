@@ -8,6 +8,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../components/Breadcrumbs";
 import ReportErrorPanel from "../components/ReportErrorPanel";
+import AppointmentSummary from "./AppointmentSummary";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -64,7 +65,10 @@ function AppointmentResourcePlanning(): ReactElement {
 
                 <ONSPanel>
                     <p>
-                        Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+                        Run a Daybatch first to obtain the most accurate results.
+                    </p>
+                    <p>
+                        Appointments that have already been attempted will not be displayed.
                     </p>
                 </ONSPanel>
 
@@ -74,15 +78,18 @@ function AppointmentResourcePlanning(): ReactElement {
                                 submitLabel={"Run"}/>
                 </div>
 
-                <br/>
+                <AppointmentSummary date={reportDate} formSubmitting={formSubmitting}/>
 
-                <CSVLink hidden={reportData === null || reportData.length === 0}
-                         data={reportData}
-                         headers={reportExportHeaders}
-                         target="_blank"
-                         filename={`appointment-resource-planning-report-${reportDate}`}>
-                    Export report as Comma-Separated Values (CSV) file
-                </CSVLink>
+                <div className=" u-mt-m">
+                    <CSVLink hidden={reportData === null || reportData.length === 0}
+                             data={reportData}
+                             headers={reportExportHeaders}
+                             target="_blank"
+                             filename={`appointment-resource-planning-report-${reportDate}`}>
+                        Export report as Comma-Separated Values (CSV) file
+                    </CSVLink>
+                </div>
+
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
                         reportData && reportData.length > 0

@@ -92,6 +92,20 @@ server.post("/api/reports/appointment-resource-planning", async function (req: R
     res.status(status).json(result);
 });
 
+// appointment-resource-planning-summary report endpoint
+server.post("/api/reports/appointment-resource-planning-summary", async function (req: Request, res: Response) {
+    console.log("appointment-resource-planning-summary endpoint called");
+    const authHeader = await authProvider.getAuthHeader();
+    logger(req, res);
+    console.log(req.body);
+    const {date} = req.body;
+    const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
+    const url = `${BERT_URL}/api/reports/appointment-resource-planning-summary/${dateFormatted}`;
+    console.log(url);
+    const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
+    res.status(status).json(result);
+});
+
 server.get("*", function (req: Request, res: Response) {
     res.render("index.html");
 });

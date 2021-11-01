@@ -52,7 +52,10 @@ Object {
             class="panel__body "
           >
             <p>
-              Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+              Run a Daybatch first to obtain the most accurate results.
+            </p>
+            <p>
+              Appointments that have already been attempted will not be displayed.
             </p>
           </div>
         </div>
@@ -94,15 +97,18 @@ Object {
             </button>
           </form>
         </div>
-        <br />
-        <a
-          download="appointment-resource-planning-report-"
-          hidden=""
-          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
-          target="_self"
+        <div
+          class=" u-mt-m"
         >
-          Export report as Comma-Separated Values (CSV) file
-        </a>
+          <a
+            download="appointment-resource-planning-report-"
+            hidden=""
+            href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+            target="_self"
+          >
+            Export report as Comma-Separated Values (CSV) file
+          </a>
+        </div>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
           hidden=""
@@ -163,7 +169,10 @@ Object {
           class="panel__body "
         >
           <p>
-            Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+            Run a Daybatch first to obtain the most accurate results.
+          </p>
+          <p>
+            Appointments that have already been attempted will not be displayed.
           </p>
         </div>
       </div>
@@ -205,15 +214,18 @@ Object {
           </button>
         </form>
       </div>
-      <br />
-      <a
-        download="appointment-resource-planning-report-"
-        hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
-        target="_self"
+      <div
+        class=" u-mt-m"
       >
-        Export report as Comma-Separated Values (CSV) file
-      </a>
+        <a
+          download="appointment-resource-planning-report-"
+          hidden=""
+          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+          target="_self"
+        >
+          Export report as Comma-Separated Values (CSV) file
+        </a>
+      </div>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
         hidden=""
@@ -331,7 +343,10 @@ Object {
             class="panel__body "
           >
             <p>
-              Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+              Run a Daybatch first to obtain the most accurate results.
+            </p>
+            <p>
+              Appointments that have already been attempted will not be displayed.
             </p>
           </div>
         </div>
@@ -373,15 +388,18 @@ Object {
             </button>
           </form>
         </div>
-        <br />
-        <a
-          download="appointment-resource-planning-report-"
-          hidden=""
-          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
-          target="_self"
+        <div
+          class=" u-mt-m"
         >
-          Export report as Comma-Separated Values (CSV) file
-        </a>
+          <a
+            download="appointment-resource-planning-report-"
+            hidden=""
+            href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+            target="_self"
+          >
+            Export report as Comma-Separated Values (CSV) file
+          </a>
+        </div>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
           hidden=""
@@ -442,7 +460,10 @@ Object {
           class="panel__body "
         >
           <p>
-            Run a Daybatch to obtain the most accurate results. Appointments that have been attempted will not be displayed.
+            Run a Daybatch first to obtain the most accurate results.
+          </p>
+          <p>
+            Appointments that have already been attempted will not be displayed.
           </p>
         </div>
       </div>
@@ -484,15 +505,18 @@ Object {
           </button>
         </form>
       </div>
-      <br />
-      <a
-        download="appointment-resource-planning-report-"
-        hidden=""
-        href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
-        target="_self"
+      <div
+        class=" u-mt-m"
       >
-        Export report as Comma-Separated Values (CSV) file
-      </a>
+        <a
+          download="appointment-resource-planning-report-"
+          hidden=""
+          href="data:text/csv;charset=utf-8,﻿\\"Questionnaire\\",\\"Appointment Time\\",\\"Appointment Language\\",\\"Total\\""
+          target="_self"
+        >
+          Export report as Comma-Separated Values (CSV) file
+        </a>
+      </div>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
         hidden=""
