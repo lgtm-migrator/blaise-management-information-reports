@@ -15,7 +15,7 @@ const AppointmentSummary = ({date, formSubmitting}: Props): ReactElement => {
         if (formSubmitting) {
             runAppointmentResourcePlanningSummaryReport();
         }
-    }, [formSubmitting]);
+    }, [formSubmitting, date]);
 
     async function runAppointmentResourcePlanningSummaryReport(): Promise<void> {
         setSummaryData([]);
