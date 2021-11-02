@@ -45,7 +45,7 @@ const mock_server_response = (url: string) => {
     if (url.includes("/api/reports/appointment-resource-planning-summary")) {
         return Promise.resolve({
             status: 200,
-            json: () => Promise.resolve([]),
+            json: () => Promise.resolve(ReportSummary),
         });
     }
     return Promise.resolve({
