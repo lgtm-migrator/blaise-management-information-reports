@@ -1,42 +1,18 @@
-import React, {ReactElement, useState, useEffect} from "react";
-import {getAppointmentResourcePlanningSummaryReport} from "../utilities/HTTP";
+import React, {ReactElement} from "react";
 import {AppointmentResourcePlanningSummaryReportData} from "../interfaces";
+import {ONSPanel} from "blaise-design-system-react-components";
 
 interface Props {
-    date: string
-    formSubmitting: boolean
+    data: AppointmentResourcePlanningSummaryReportData[];
+    failed: boolean;
 }
 
-const AppointmentSummary = ({date, formSubmitting}: Props): ReactElement => {
-    const [summaryFailed, setSummaryFailed] = useState<boolean>(false);
-    const [summaryData, setSummaryData] = useState<AppointmentResourcePlanningSummaryReportData[]>([]);
-
-    useEffect(() => {
-        if (formSubmitting) {
-            runAppointmentResourcePlanningSummaryReport();
-        }
-    }, [formSubmitting, date]);
-
-    async function runAppointmentResourcePlanningSummaryReport(): Promise<void> {
-        setSummaryData([]);
-        setSummaryFailed(false);
-
-        const [success, data] = await getAppointmentResourcePlanningSummaryReport(date);
-
-        if (!success) {
-            setSummaryFailed(true);
-            return;
-        }
-
-        console.log(data);
-        setSummaryData(data);
+const AppointmentSummary = ({data, failed}: Props): ReactElement => {
+    if (failed) {
+        return <ONSPanel status={"error"}><p>Failed to get appointment language summary</p></ONSPanel>;
     }
 
-    if (summaryFailed) {
-        return <p className="u-mt-m">Failed to get appointment language summary</p>;
-    }
-
-    if (summaryData.length === 0) {
+    if (data.length === 0) {
         return <></>;
     }
 
@@ -54,7 +30,7 @@ const AppointmentSummary = ({date, formSubmitting}: Props): ReactElement => {
                         </thead>
                         <tbody className="summary__item">
                         {
-                            summaryData.map(({language, total}: AppointmentResourcePlanningSummaryReportData) => {
+                            data.map(({language, total}: AppointmentResourcePlanningSummaryReportData) => {
                                 return (
                                     <tr className="summary__row summary__row--has-values" key={language}
                                         data-testid={"summary-table-row"}>

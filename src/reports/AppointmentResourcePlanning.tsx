@@ -1,7 +1,7 @@
 import React, {ReactElement, useState} from "react";
 import {ErrorBoundary, ONSPanel, StyledForm} from "blaise-design-system-react-components";
-import {getAppointmentResourcePlanningReport} from "../utilities/HTTP";
-import {AppointmentResourcePlanningReportData} from "../interfaces";
+import {getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport} from "../utilities/HTTP";
+import {AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData} from "../interfaces";
 import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -15,10 +15,11 @@ dateFormatter.extend(timezone);
 
 function AppointmentResourcePlanning(): ReactElement {
     const [reportFailed, setReportFailed] = useState<boolean>(false);
-    const [formSubmitting, setFormSubmitting] = useState<boolean>(false);
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [reportDate, setReportDate] = useState<string>("");
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
+    const [summaryFailed, setSummaryFailed] = useState<boolean>(false);
+    const [summaryData, setSummaryData] = useState<AppointmentResourcePlanningSummaryReportData[]>([]);
 
     const reportExportHeaders = [
         {label: "Questionnaire", key: "questionnaire_name"},
@@ -28,30 +29,49 @@ function AppointmentResourcePlanning(): ReactElement {
     ];
 
 
-    async function runAppointmentResourcePlanningReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
-        setFormSubmitting(true);
+    async function runReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+        runAppointmentResourcePlanningReport(formValues["date"], setSubmitting);
+        runAppointmentSummary(formValues["date"]);
+    }
+
+    function runAppointmentResourcePlanningReport(date: string, setSubmitting: (isSubmitting: boolean) => void): void {
         setMessageNoData("");
         setReportData([]);
         setReportFailed(false);
-        const date = formValues.date;
         setReportDate(date);
 
-        const [success, data] = await getAppointmentResourcePlanningReport(date);
+        getAppointmentResourcePlanningReport(date)
+            .then(([success, data]) => {
+                if (!success) {
+                    setReportFailed(true);
+                    return;
+                }
 
-        setSubmitting(false);
-        setFormSubmitting(false);
-        if (!success) {
-            setReportFailed(true);
-            return;
-        }
+                if (data.length == 0) {
+                    setMessageNoData("No data found for parameters given.");
+                    return;
+                }
 
-        if (data.length == 0) {
-            setMessageNoData("No data found for parameters given.");
-            return;
-        }
+                console.log(data);
+                setReportData(data);
+                setSubmitting(false);
+            });
+    }
 
-        console.log(data);
-        setReportData(data);
+    function runAppointmentSummary(date: string): void {
+        setSummaryData([]);
+        setSummaryFailed(false);
+
+        getAppointmentResourcePlanningSummaryReport(date)
+            .then(([success, data]) => {
+                if (!success) {
+                    setSummaryFailed(true);
+                    return;
+                }
+
+                console.log(data);
+                setSummaryData(data);
+            });
     }
 
     const fields = [
@@ -80,11 +100,11 @@ function AppointmentResourcePlanning(): ReactElement {
                 <ReportErrorPanel error={reportFailed}/>
                 <div className="u-mt-s">
                     <StyledForm fields={fields}
-                                onSubmitFunction={runAppointmentResourcePlanningReport}
+                                onSubmitFunction={runReport}
                                 submitLabel={"Run"}/>
                 </div>
 
-                <AppointmentSummary date={reportDate} formSubmitting={formSubmitting}/>
+                <AppointmentSummary data={summaryData} failed={summaryFailed}/>
 
                 <div className=" u-mt-m">
                     <CSVLink hidden={reportData === null || reportData.length === 0}
@@ -99,7 +119,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     {
                         reportData && reportData.length > 0
                             ?
-                            <table id="report-table" className="table u-mt-s">
+                            <table id="report-table" className="table elementToFadeIn u-mt-s">
                                 <thead className="table__head u-mt-m">
                                 <tr className="table__row">
                                     <th scope="col" className="table__header ">

@@ -1,8 +1,6 @@
 import React from "react";
 import {cleanup, render, screen, waitFor} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_server_request_return_json} from "../tests/utilities";
-import {act} from "react-dom/test-utils";
 import {createMemoryHistory} from "history";
 import {Router} from "react-router";
 import AppointmentSummary from "./AppointmentSummary";
@@ -14,17 +12,12 @@ describe("Appointment Summary Section", () => {
     ];
 
     it("displays appointment summary", async () => {
-        mock_server_request_return_json(200, languageSummary);
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <AppointmentSummary date={"2021-10-24"} formSubmitting={true}/>
+                <AppointmentSummary data={languageSummary} failed={false}/>
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         await waitFor(() => {
             const list = screen.queryAllByTestId(/summary-table-row/i);
@@ -56,17 +49,13 @@ describe("Appointment Summary Section", () => {
     });
 
     it("displays error message on failure", async () => {
-        mock_server_request_return_json(500, {});
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <AppointmentSummary date={"2021-10-24"} formSubmitting={true}/>
+                <AppointmentSummary data={[]} failed={true}/>
             </Router>
         );
 
-        await act(async () => {
-            await flushPromises();
-        });
         await waitFor(() => {
             expect(screen.queryByText("Failed to get appointment language summary")).toBeVisible();
         });
