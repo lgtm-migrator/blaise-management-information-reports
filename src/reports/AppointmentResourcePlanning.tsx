@@ -29,7 +29,7 @@ function AppointmentResourcePlanning(): ReactElement {
     ];
 
 
-    async function runReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+    function runReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): void {
         runAppointmentResourcePlanningReport(formValues["date"], setSubmitting);
         runAppointmentSummary(formValues["date"]);
     }
