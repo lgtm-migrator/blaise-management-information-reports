@@ -42,6 +42,7 @@ function AppointmentResourcePlanning(): ReactElement {
 
         getAppointmentResourcePlanningReport(date)
             .then(([success, data]) => {
+                setSubmitting(false);
                 if (!success) {
                     setReportFailed(true);
                     return;
@@ -54,7 +55,6 @@ function AppointmentResourcePlanning(): ReactElement {
 
                 console.log(data);
                 setReportData(data);
-                setSubmitting(false);
             });
     }
 
