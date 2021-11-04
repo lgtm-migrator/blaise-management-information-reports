@@ -3,7 +3,8 @@ import {Link, Route, Switch} from "react-router-dom";
 import {BetaBanner, DefaultErrorBoundary, Footer, Header} from "blaise-design-system-react-components";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 import InterviewerCallPattern from "./reports/InterviewerCallPattern";
-import AppointmentResourcePlanning from "./reports/AppointmentResourcePlanning";
+import AppointmentResourcePlanning from "./reports/AppointmentResourcePlanning/AppointmentResourcePlanning";
+import "./style.css";
 
 const divStyle = {
     minHeight: "calc(72vh)"

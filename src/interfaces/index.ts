@@ -13,4 +13,12 @@ interface AppointmentResourcePlanningReportData {
     total: number
 }
 
-export type {InterviewerCallHistoryReportData, AppointmentResourcePlanningReportData};
+interface AppointmentResourcePlanningSummaryReportData {
+    language: string
+    total: number
+}
+
+
+
+
+export type {InterviewerCallHistoryReportData, AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData};
