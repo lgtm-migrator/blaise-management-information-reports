@@ -1,14 +1,15 @@
 import React, {ReactElement, useState} from "react";
-import {ErrorBoundary, ONSPanel, StyledForm} from "blaise-design-system-react-components";
-import {getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport} from "../utilities/HTTP";
-import {AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData} from "../interfaces";
+import {ONSPanel, StyledForm} from "blaise-design-system-react-components";
+import {getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport} from "../../utilities/HTTP";
+import {AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData} from "../../interfaces";
 import {CSVLink} from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import Breadcrumbs from "../components/Breadcrumbs";
-import ReportErrorPanel from "../components/ReportErrorPanel";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import ReportErrorPanel from "../../components/ReportErrorPanel";
 import AppointmentSummary from "./AppointmentSummary";
+import {AppointmentResults} from "./AppointmentResults";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -115,57 +116,7 @@ function AppointmentResourcePlanning(): ReactElement {
                         Export report as Comma-Separated Values (CSV) file
                     </CSVLink>
                 </div>
-                <ErrorBoundary errorMessageText={"Failed to load"}>
-                    {
-                        reportData && reportData.length > 0
-                            ?
-                            <table id="report-table" className="table elementToFadeIn u-mt-s">
-                                <thead className="table__head u-mt-m">
-                                <tr className="table__row">
-                                    <th scope="col" className="table__header ">
-                                        <span>Questionnaire</span>
-                                    </th>
-                                    <th scope="col" className="table__header ">
-                                        <span>Appointment Time</span>
-                                    </th>
-                                    <th scope="col" className="table__header ">
-                                        <span>Appointment Language</span>
-                                    </th>
-                                    <th scope="col" className="table__header ">
-                                        <span>Total</span>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody className="table__body">
-                                {
-                                    reportData.map((data: AppointmentResourcePlanningReportData) => {
-                                        return (
-                                            <tr className="table__row"
-                                                key={`${data.questionnaire_name}-${data.appointment_time}-${data.appointment_language}`}
-                                                data-testid={"report-table-row"}>
-                                                <td className="table__cell ">
-                                                    {data.questionnaire_name}
-                                                </td>
-                                                <td className="table__cell ">
-                                                    {data.appointment_time}
-                                                </td>
-                                                <td className="table__cell ">
-                                                    {data.appointment_language}
-                                                </td>
-                                                <td className="table__cell ">
-                                                    {data.total}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })
-                                }
-                                </tbody>
-                            </table>
-                            :
-                            <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
-                    }
-                    <br/>
-                </ErrorBoundary>
+                <AppointmentResults reportData={reportData} messageNoData={messageNoData}/>
             </main>
         </>
     );
