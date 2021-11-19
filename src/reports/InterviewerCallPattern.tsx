@@ -1,11 +1,10 @@
 import React, {ReactElement, useState} from "react";
-import {ErrorBoundary, ONSPanel} from "blaise-design-system-react-components";
+import {ErrorBoundary, ONSPanel, GroupedSummaryAsCSV, SummaryGroupTable, GroupedSummary} from "blaise-design-system-react-components";
 import {getInterviewerCallPatternReport} from "../utilities/HTTP";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {CSVLink} from "react-csv";
-import {formatText} from "../utilities/TextFormatting";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
@@ -14,12 +13,13 @@ import ReportErrorPanel from "../components/ReportErrorPanel";
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
+
+
 function InterviewerCallPattern(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportData, setReportData] = useState<any>({});
+    const [reportData, setReportData] = useState<GroupedSummary>([]);
     const [reportFailed, setReportFailed] = useState<boolean>(false);
-
 
     async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
@@ -45,31 +45,51 @@ function InterviewerCallPattern(): ReactElement {
         }
 
         console.log(data);
-        setReportData(data);
+        const callTimes: Group = callTimeSection(data);
+        const callStatus: Group = callStatusSection(data);
+        const noContactBreakdown: Group = noContactBreakdownSection(data);
+        const groupedSummary: GroupedSummary = [callTimes, callStatus, noContactBreakdown];
+
+        console.log(groupedSummary);
+        setReportData(groupedSummary);
     }
 
-    function convertJsonToTable(object: any) {
-        const elementList: ReactElement[] = [];
-        const entries: [string, (string | null | number)][] = Object.entries(object);
-        for (const [field, data] of entries) {
-            elementList.push(
-                <tbody className="summary__item" key={field}>
-                <tr className="summary__row summary__row--has-values">
-                    <td className="summary__item-title">
-                        <div className="summary__item--text">
-                            {formatText(field)}
-                        </div>
-                    </td>
-                    <td className="summary__values" colSpan={2}>
-                        {data}
-                    </td>
-                </tr>
-                </tbody>
-            );
-        }
-        return elementList.map((element => {
-            return element;
-        }));
+    function callTimeSection(data: Record<string, any>): Group {
+        return {
+            title: "Call times",
+            records: {
+                hours_worked: data.hours_worked,
+                call_time: data.call_time,
+                hours_on_calls_percentage: data.hours_on_calls_percentage,
+                average_calls_per_hour: data.average_calls_per_hour
+            }
+        };
+    }
+
+    function callStatusSection(data: Record<string, any>): Group {
+        return {
+            title: "Call status",
+            records: {
+                refusals: data.refusals,
+                completed_successfully: data.completed_successfully,
+                appointments_for_contacts: data.appointments_for_contacts,
+                discounted_invalid_cases: data.discounted_invalid_cases,
+                no_contacts: data.no_contacts
+            }
+        };
+    }
+
+    function noContactBreakdownSection(data: Record<string, any>): Group {
+        return {
+            title: "Breakdown of No Contact calls",
+            records: {
+                answer_service: data.no_contact_answer_service,
+                busy: data.no_contact_busy,
+                disconnect: data.no_contact_disconnect,
+                no_answer: data.no_contact_no_answer,
+                other: data.no_contact_other
+            }
+        };
     }
 
     return (
@@ -95,7 +115,7 @@ function InterviewerCallPattern(): ReactElement {
                 <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
                 <br/>
                 <CSVLink hidden={Object.entries(reportData).length === 0}
-                         data={[reportData]}
+                         data={GroupedSummaryAsCSV(reportData)}
                          target="_blank"
                          filename={`interviewer-call-pattern-${interviewerID}.csv`}>
                     Export report as Comma-Separated Values (CSV) file
@@ -104,13 +124,9 @@ function InterviewerCallPattern(): ReactElement {
                     {
                         Object.entries(reportData).length > 0
                             ?
-                            <div className="summary">
-                                <div className="summary__group">
-                                    <table id="report-table" className="summary__items u-mt-s">
-                                        {
-                                            convertJsonToTable(reportData)
-                                        }
-                                    </table>
+                            <div className="summary u-mt-m">
+                                <div className="summary__group" id="report-table">
+                                    <SummaryGroupTable groupedSummary={reportData} />
                                 </div>
                             </div>
                             :

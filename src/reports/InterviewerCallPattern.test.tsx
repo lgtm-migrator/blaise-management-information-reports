@@ -15,10 +15,8 @@ const reportDataReturned: any = {
     "hours_on_calls_percentage": "42%",
     "average_calls_per_hour": 3.14,
     "respondents_interviewed": 666,
-    "households_completed_successfully": 911,
-    "average_respondents_interviewed_per_hour": 420,
-    "no_contacts_percentage": "10.10%",
-    "appointments_for_contacts_percentage": "13.0%"
+    "completed_successfully": 911,
+    "no_contacts": "10.10%",
 };
 
 const mock_server_responses_with_data = (url: string) => {
@@ -125,16 +123,10 @@ describe("interviewer call pattern report with data", () => {
             expect(screen.getByText("42%")).toBeVisible();
             expect(screen.getByText("Average calls per hour")).toBeVisible();
             expect(screen.getByText("3.14")).toBeVisible();
-            expect(screen.getByText("Respondents interviewed")).toBeVisible();
-            expect(screen.getByText("666")).toBeVisible();
-            expect(screen.getByText("Households completed successfully")).toBeVisible();
+            expect(screen.getByText("Completed successfully")).toBeVisible();
             expect(screen.getByText("911")).toBeVisible();
-            expect(screen.getByText("Average respondents interviewed per hour")).toBeVisible();
-            expect(screen.getByText("420")).toBeVisible();
-            expect(screen.getByText("No contacts percentage")).toBeVisible();
+            expect(screen.getByText("No contacts")).toBeVisible();
             expect(screen.getByText("10.10%")).toBeVisible();
-            expect(screen.getByText("Appointments for contacts percentage")).toBeVisible();
-            expect(screen.getByText("13.0%")).toBeVisible();
         });
 
     });
