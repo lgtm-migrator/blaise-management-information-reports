@@ -1,10 +1,10 @@
-import React, {ReactElement, useState} from "react";
-import {ErrorBoundary, ONSPanel, GroupedSummaryAsCSV, SummaryGroupTable, GroupedSummary} from "blaise-design-system-react-components";
-import {getInterviewerCallPatternReport} from "../utilities/HTTP";
+import React, { ReactElement, useState } from "react";
+import { ErrorBoundary, ONSPanel, SummaryGroupTable, GroupedSummary, Group } from "blaise-design-system-react-components";
+import { getInterviewerCallPatternReport } from "../utilities/HTTP";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import {CSVLink} from "react-csv";
+import { CSVLink } from "react-csv";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
@@ -14,17 +14,16 @@ dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 
-
 function InterviewerCallPattern(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportData, setReportData] = useState<GroupedSummary>([]);
+    const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [reportFailed, setReportFailed] = useState<boolean>(false);
 
     async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
         setReportFailed(false);
-        setReportData([]);
+        setGroupedSummary(new GroupedSummary([]));
         setInterviewerID(formValues["Interviewer ID"]);
         formValues.survey_tla = formValues["Survey TLA"];
         formValues.interviewer = formValues["Interviewer ID"];
@@ -48,10 +47,10 @@ function InterviewerCallPattern(): ReactElement {
         const callTimes: Group = callTimeSection(data);
         const callStatus: Group = callStatusSection(data);
         const noContactBreakdown: Group = noContactBreakdownSection(data);
-        const groupedSummary: GroupedSummary = [callTimes, callStatus, noContactBreakdown];
+        const groupedSummary = new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
 
         console.log(groupedSummary);
-        setReportData(groupedSummary);
+        setGroupedSummary(groupedSummary);
     }
 
     function callTimeSection(data: Record<string, any>): Group {
@@ -94,11 +93,11 @@ function InterviewerCallPattern(): ReactElement {
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={[{link: "/", title: "Back"}]}/>
+            <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Back" }]} />
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Run interviewer call pattern report</h1>
-                <ReportErrorPanel error={reportFailed}/>
-                <CallHistoryLastUpdatedStatus/>
+                <ReportErrorPanel error={reportFailed} />
+                <CallHistoryLastUpdatedStatus />
                 <div className="u-mb-m">
                     <ONSPanel>
                         <p>
@@ -112,27 +111,28 @@ function InterviewerCallPattern(): ReactElement {
                         </p>
                     </ONSPanel>
                 </div>
-                <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport}/>
-                <br/>
-                <CSVLink hidden={Object.entries(reportData).length === 0}
-                         data={GroupedSummaryAsCSV(reportData)}
-                         target="_blank"
-                         filename={`interviewer-call-pattern-${interviewerID}.csv`}>
+                <SurveyInterviewerStartDateEndDateForm onSubmitFunction={runInterviewerCallPatternReport} />
+                <br />
+                <CSVLink
+                    hidden={groupedSummary.groups.length === 0}
+                    data={groupedSummary.csv()}
+                    target="_blank"
+                    filename={`interviewer-call-pattern-${interviewerID}.csv`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
-                        Object.entries(reportData).length > 0
+                        groupedSummary.groups.length > 0
                             ?
                             <div className="summary u-mt-m">
                                 <div className="summary__group" id="report-table">
-                                    <SummaryGroupTable groupedSummary={reportData} />
+                                    <SummaryGroupTable groupedSummary={groupedSummary} />
                                 </div>
                             </div>
                             :
                             <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                     }
-                    <br/>
+                    <br />
                 </ErrorBoundary>
             </main>
         </>

@@ -3630,7 +3630,7 @@ bindings@^1.5.0:
 
 "blaise-design-system-react-components@git+https://github.com/ONSdigital/blaise-design-system-react-components":
   version "1.0.0"
-  resolved "git+https://github.com/ONSdigital/blaise-design-system-react-components#1f04d4d46642b010fa06fb64532082a4d4b13c2f"
+  resolved "git+https://github.com/ONSdigital/blaise-design-system-react-components#5c3e2013bc22060bb99c49479d4bd8f3cb346245"
   dependencies:
     formik "^2.2.9"
     react "^17.0.1"
