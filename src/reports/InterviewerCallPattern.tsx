@@ -19,16 +19,25 @@ function InterviewerCallPattern(): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [reportFailed, setReportFailed] = useState<boolean>(false);
+    const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
 
-    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+    function defaultState() {
         setMessageNoData("");
         setReportFailed(false);
         setGroupedSummary(new GroupedSummary([]));
-        setInterviewerID(formValues["Interviewer ID"]);
+        setInterviewerID("");
+        setInvalidFields({ title: "Invalid fields", records: {} });
+    }
+
+    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+        defaultState();
+
         formValues.survey_tla = formValues["Survey TLA"];
         formValues.interviewer = formValues["Interviewer ID"];
         formValues.start_date = new Date(formValues["Start date"]);
         formValues.end_date = new Date(formValues["End date"]);
+
+        setInterviewerID(formValues.interviewer);
 
         const [success, data] = await getInterviewerCallPatternReport(formValues);
         setSubmitting(false);
@@ -43,7 +52,6 @@ function InterviewerCallPattern(): ReactElement {
             return;
         }
 
-        console.log(data);
         const callTimes: Group = callTimeSection(data);
         const callStatus: Group = callStatusSection(data);
         const noContactBreakdown: Group = noContactBreakdownSection(data);
@@ -51,6 +59,7 @@ function InterviewerCallPattern(): ReactElement {
 
         console.log(groupedSummary);
         setGroupedSummary(groupedSummary);
+        setInvalidFields(invalidFieldsGroup(data));
     }
 
     function callTimeSection(data: Record<string, any>): Group {
@@ -91,6 +100,29 @@ function InterviewerCallPattern(): ReactElement {
         };
     }
 
+    function invalidFieldsGroup(data: Record<string, any>): Group {
+        return {
+            title: "Invalid Fields",
+            records: {
+                invalid_fields: data.invalid_fields,
+                discounted_invalid_cases: data.discounted_invalid_cases
+            }
+        };
+    }
+
+    function InvalidCaseInfo(): ReactElement {
+        console.log(invalidFields);
+        if (invalidFields.records.discounted_invalid_cases) {
+            return (
+                <ONSPanel>
+                    <p>Information: {invalidFields.records.discounted_invalid_cases} were discounted due to the
+                        following invalid fields: {invalidFields.records.invalid_fields}</p>
+                </ONSPanel>
+            );
+        }
+        return (<></>);
+    }
+
     return (
         <>
             <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Back" }]} />
@@ -124,11 +156,14 @@ function InterviewerCallPattern(): ReactElement {
                     {
                         groupedSummary.groups.length > 0
                             ?
-                            <div className="summary u-mt-m">
-                                <div className="summary__group" id="report-table">
-                                    <SummaryGroupTable groupedSummary={groupedSummary} />
+                            <>
+                                <InvalidCaseInfo />
+                                <div className="summary u-mt-m">
+                                    <div className="summary__group" id="report-table">
+                                        <SummaryGroupTable groupedSummary={groupedSummary} />
+                                    </div>
                                 </div>
-                            </div>
+                            </>
                             :
                             <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                     }

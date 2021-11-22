@@ -1,12 +1,12 @@
-import React, {ReactElement} from "react";
-import {StyledForm} from "blaise-design-system-react-components";
+import React, { ReactElement } from "react";
+import { StyledForm } from "blaise-design-system-react-components";
 import dateFormatter from "dayjs";
 
 interface Props {
     onSubmitFunction: any;
 }
 
-const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): ReactElement => {
+const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): ReactElement => {
 
     const validateInterviewer = (value: string) => {
         let error;
@@ -36,9 +36,9 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
             type: "radio",
             initial_value: "undefined",
             radioOptions: [
-                {id: "all", value: "undefined", label: "Show all surveys"},
-                {id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey"},
-                {id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey"}
+                { id: "all", value: "undefined", label: "Show all surveys" },
+                { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
+                { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
             ]
         },
         {
@@ -62,7 +62,7 @@ const SurveyInterviewerStartDateEndDateForm = ({onSubmitFunction}: Props): React
 
     return (
         <>
-            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Run"}/>
+            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Run"} />
         </>
     );
 };
