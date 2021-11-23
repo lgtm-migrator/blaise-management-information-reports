@@ -13,6 +13,53 @@ import ReportErrorPanel from "../components/ReportErrorPanel";
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
+function callTimeSection(data: Record<string, any>): Group {
+    return {
+        title: "Call times",
+        records: {
+            hours_worked: data.hours_worked,
+            call_time: data.call_time,
+            hours_on_calls_percentage: data.hours_on_calls_percentage,
+            average_calls_per_hour: data.average_calls_per_hour
+        }
+    };
+}
+
+function callStatusSection(data: Record<string, any>): Group {
+    return {
+        title: "Call status",
+        records: {
+            refusals: data.refusals,
+            completed_successfully: data.completed_successfully,
+            appointments_for_contacts: data.appointments_for_contacts,
+            discounted_invalid_cases: data.discounted_invalid_cases,
+            no_contacts: data.no_contacts
+        }
+    };
+}
+
+function noContactBreakdownSection(data: Record<string, any>): Group {
+    return {
+        title: "Breakdown of No Contact calls",
+        records: {
+            answer_service: data.no_contact_answer_service,
+            busy: data.no_contact_busy,
+            disconnect: data.no_contact_disconnect,
+            no_answer: data.no_contact_no_answer,
+            other: data.no_contact_other
+        }
+    };
+}
+
+function invalidFieldsGroup(data: Record<string, any>): Group {
+    return {
+        title: "Invalid Fields",
+        records: {
+            invalid_fields: data.invalid_fields,
+            discounted_invalid_cases: data.discounted_invalid_cases
+        }
+    };
+}
 
 function InterviewerCallPattern(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
@@ -62,54 +109,6 @@ function InterviewerCallPattern(): ReactElement {
         setInvalidFields(invalidFieldsGroup(data));
     }
 
-    function callTimeSection(data: Record<string, any>): Group {
-        return {
-            title: "Call times",
-            records: {
-                hours_worked: data.hours_worked,
-                call_time: data.call_time,
-                hours_on_calls_percentage: data.hours_on_calls_percentage,
-                average_calls_per_hour: data.average_calls_per_hour
-            }
-        };
-    }
-
-    function callStatusSection(data: Record<string, any>): Group {
-        return {
-            title: "Call status",
-            records: {
-                refusals: data.refusals,
-                completed_successfully: data.completed_successfully,
-                appointments_for_contacts: data.appointments_for_contacts,
-                discounted_invalid_cases: data.discounted_invalid_cases,
-                no_contacts: data.no_contacts
-            }
-        };
-    }
-
-    function noContactBreakdownSection(data: Record<string, any>): Group {
-        return {
-            title: "Breakdown of No Contact calls",
-            records: {
-                answer_service: data.no_contact_answer_service,
-                busy: data.no_contact_busy,
-                disconnect: data.no_contact_disconnect,
-                no_answer: data.no_contact_no_answer,
-                other: data.no_contact_other
-            }
-        };
-    }
-
-    function invalidFieldsGroup(data: Record<string, any>): Group {
-        return {
-            title: "Invalid Fields",
-            records: {
-                invalid_fields: data.invalid_fields,
-                discounted_invalid_cases: data.discounted_invalid_cases
-            }
-        };
-    }
-
     function InvalidCaseInfo(): ReactElement {
         console.log(invalidFields);
         if (invalidFields.records.discounted_invalid_cases) {
@@ -139,7 +138,7 @@ function InterviewerCallPattern(): ReactElement {
                             The <b>Discounted invalid records</b> entry will advise how many records have been removed.
                         </p>
                         <p>
-                            The <b>Invalid fields</b> entry will advise which fields were incomplete.
+                            If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
                         </p>
                     </ONSPanel>
                 </div>
@@ -174,4 +173,7 @@ function InterviewerCallPattern(): ReactElement {
     );
 }
 
+export { callTimeSection, callStatusSection, noContactBreakdownSection, invalidFieldsGroup };
 export default InterviewerCallPattern;
+
+
