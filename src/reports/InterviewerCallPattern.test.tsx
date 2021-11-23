@@ -1,22 +1,51 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import flushPromises, { mock_fetch_requests, mock_server_request_return_json } from "../tests/utilities";
-import { createMemoryHistory } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
-import { Router } from "react-router";
-import { act } from "react-dom/test-utils";
-import { fireEvent, screen } from "@testing-library/dom";
-import InterviewerCallPattern from "./InterviewerCallPattern";
+import flushPromises, {mock_fetch_requests, mock_server_request_return_json} from "../tests/utilities";
+import {createMemoryHistory} from "history";
+import {cleanup, render, waitFor} from "@testing-library/react";
+import {Router} from "react-router";
+import {act} from "react-dom/test-utils";
+import {fireEvent, screen} from "@testing-library/dom";
+import InterviewerCallPattern, {
+    callTimeSection,
+    callStatusSection,
+    noContactBreakdownSection,
+    invalidFieldsGroup
+} from "./InterviewerCallPattern";
 import MockDate from "mockdate";
+import {Group} from "blaise-design-system-react-components";
 
-const reportDataReturned: Record<string, any> = {
-    "hours_worked": "13:37:00",
-    "call_time": "1:56:00",
-    "hours_on_calls_percentage": "42%",
-    "average_calls_per_hour": 3.14,
-    "respondents_interviewed": 666,
-    "completed_successfully": 911,
-    "no_contacts": "10.10%",
+const mockData: Record<string, any> = {
+    hours_worked: "26:58:07",
+    call_time: "01:31:32",
+    hours_on_calls_percentage: "5.66%",
+    average_calls_per_hour: "3.86",
+    refusals: "4/133, 3.01%",
+    completed_successfully: "0/133, 0.00%",
+    appointments_for_contacts: "86/133, 64.66%",
+    no_contacts: "11/133, 8.27%",
+    no_contact_answer_service: "4/11, 36.36%",
+    no_contact_busy: "1/11, 9.09%",
+    no_contact_disconnect: "2/11, 18.18%",
+    no_contact_no_answer: "3/11, 18.18%",
+    no_contact_other: "4/11, 18.18%"
+};
+
+const mockDataWithInvalidCases: Record<string, any> = {
+    hours_worked: "26:58:07",
+    call_time: "01:31:32",
+    hours_on_calls_percentage: "5.66%",
+    average_calls_per_hour: "3.86",
+    refusals: "4/133, 3.01%",
+    completed_successfully: "0/133, 0.00%",
+    appointments_for_contacts: "86/133, 64.66%",
+    discounted_invalid_cases: "29/133, 21.80%",
+    no_contacts: "11/133, 8.27%",
+    no_contact_answer_service: "4/11, 36.36%",
+    no_contact_busy: "1/11, 9.09%",
+    no_contact_disconnect: "2/11, 18.18%",
+    no_contact_no_answer: "3/11, 18.18%",
+    no_contact_other: "4/11, 18.18%"
 };
 
 const mock_server_responses_with_data = (url: string) => {
@@ -84,7 +113,7 @@ describe("interviewer call pattern report with data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern />
+                <InterviewerCallPattern/>
             </Router>
         );
 
@@ -103,7 +132,7 @@ describe("interviewer call pattern report with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern />
+                    <InterviewerCallPattern/>
                 </Router>
             );
         });
@@ -133,18 +162,40 @@ describe("interviewer call pattern report with data", () => {
 
         await waitFor(() => {
             expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
+
+            expect(screen.getByText("Call times")).toBeVisible();
             expect(screen.getByText("Hours worked")).toBeVisible();
-            expect(screen.getByText("13:37:00")).toBeVisible();
+            expect(screen.getByText("26:58:07")).toBeVisible();
             expect(screen.getByText("Call time")).toBeVisible();
-            expect(screen.getByText("1:56:00")).toBeVisible();
+            expect(screen.getByText("01:31:32")).toBeVisible();
             expect(screen.getByText("Hours on calls percentage")).toBeVisible();
-            expect(screen.getByText("42%")).toBeVisible();
+            expect(screen.getByText("5.66%")).toBeVisible();
             expect(screen.getByText("Average calls per hour")).toBeVisible();
-            expect(screen.getByText("3.14")).toBeVisible();
+            expect(screen.getByText("3.86")).toBeVisible();
+
+            expect(screen.getByText("Call status")).toBeVisible();
+            expect(screen.getByText("Refusals")).toBeVisible();
+            expect(screen.getByText("4/133, 3.01%")).toBeVisible();
             expect(screen.getByText("Completed successfully")).toBeVisible();
-            expect(screen.getByText("911")).toBeVisible();
+            expect(screen.getByText("0/133, 0.00%")).toBeVisible();
+            expect(screen.getByText("Appointments for contacts")).toBeVisible();
+            expect(screen.getByText("86/133, 64.66%")).toBeVisible();
+            expect(screen.getByText("Discounted invalid cases")).toBeVisible();
+            expect(screen.queryByText("29/133, 21.80%")).not.toBeInTheDocument();
             expect(screen.getByText("No contacts")).toBeVisible();
-            expect(screen.getByText("10.10%")).toBeVisible();
+            expect(screen.getByText("11/133, 8.27%")).toBeVisible();
+
+            expect(screen.getByText("Breakdown of No Contact calls")).toBeVisible();
+            expect(screen.getByText("Answer service")).toBeVisible();
+            expect(screen.getByText("4/11, 36.36%")).toBeVisible();
+            expect(screen.getByText("Busy")).toBeVisible();
+            expect(screen.getByText("1/11, 9.09%")).toBeVisible();
+            expect(screen.getByText("Disconnect")).toBeVisible();
+            expect(screen.getByText("2/11, 18.18%")).toBeVisible();
+            expect(screen.getByText("No answer")).toBeVisible();
+            expect(screen.getByText("3/11, 18.18%")).toBeVisible();
+            expect(screen.getByText("Other")).toBeVisible();
+            expect(screen.getByText("4/11, 18.18%")).toBeVisible();
         });
 
         expect(screen.queryByText(/were discounted due to the following invalid fields/i)).not.toBeInTheDocument();
@@ -171,7 +222,7 @@ describe("interviewer call pattern report with data and invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern />
+                <InterviewerCallPattern/>
             </Router>
         );
 
@@ -190,7 +241,7 @@ describe("interviewer call pattern report with data and invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern />
+                    <InterviewerCallPattern/>
                 </Router>
             );
         });
@@ -220,19 +271,40 @@ describe("interviewer call pattern report with data and invalid data", () => {
 
         await waitFor(() => {
             expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
+
+            expect(screen.getByText("Call times")).toBeVisible();
             expect(screen.getByText("Hours worked")).toBeVisible();
-            expect(screen.getByText("13:37:00")).toBeVisible();
+            expect(screen.getByText("26:58:07")).toBeVisible();
             expect(screen.getByText("Call time")).toBeVisible();
-            expect(screen.getByText("1:56:00")).toBeVisible();
+            expect(screen.getByText("01:31:32")).toBeVisible();
             expect(screen.getByText("Hours on calls percentage")).toBeVisible();
-            expect(screen.getByText("42%")).toBeVisible();
+            expect(screen.getByText("5.66%")).toBeVisible();
             expect(screen.getByText("Average calls per hour")).toBeVisible();
-            expect(screen.getByText("3.14")).toBeVisible();
+            expect(screen.getByText("3.86")).toBeVisible();
+
+            expect(screen.getByText("Call status")).toBeVisible();
+            expect(screen.getByText("Refusals")).toBeVisible();
+            expect(screen.getByText("4/133, 3.01%")).toBeVisible();
             expect(screen.getByText("Completed successfully")).toBeVisible();
-            expect(screen.getByText("911")).toBeVisible();
+            expect(screen.getByText("0/133, 0.00%")).toBeVisible();
+            expect(screen.getByText("Appointments for contacts")).toBeVisible();
+            expect(screen.getByText("86/133, 64.66%")).toBeVisible();
+            expect(screen.getByText("Discounted invalid cases")).toBeVisible();
+            expect(screen.getByText("29/133, 21.80%")).toBeVisible();
             expect(screen.getByText("No contacts")).toBeVisible();
-            expect(screen.getByText("10.10%")).toBeVisible();
-            expect(screen.getByText(/were discounted due to the following invalid fields/i)).toBeVisible();
+            expect(screen.getByText("11/133, 8.27%")).toBeVisible();
+
+            expect(screen.getByText("Breakdown of No Contact calls")).toBeVisible();
+            expect(screen.getByText("Answer service")).toBeVisible();
+            expect(screen.getByText("4/11, 36.36%")).toBeVisible();
+            expect(screen.getByText("Busy")).toBeVisible();
+            expect(screen.getByText("1/11, 9.09%")).toBeVisible();
+            expect(screen.getByText("Disconnect")).toBeVisible();
+            expect(screen.getByText("2/11, 18.18%")).toBeVisible();
+            expect(screen.getByText("No answer")).toBeVisible();
+            expect(screen.getByText("3/11, 18.18%")).toBeVisible();
+            expect(screen.getByText("Other")).toBeVisible();
+            expect(screen.getByText("4/11, 18.18%")).toBeVisible();
         });
 
     });
@@ -258,7 +330,7 @@ describe("interviewer call pattern report without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern />
+                <InterviewerCallPattern/>
             </Router>
         );
 
@@ -277,7 +349,7 @@ describe("interviewer call pattern report without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern />
+                    <InterviewerCallPattern/>
                 </Router>
             );
         });

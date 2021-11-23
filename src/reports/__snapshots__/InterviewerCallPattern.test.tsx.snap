@@ -85,11 +85,7 @@ Object {
                  entry will advise how many records have been removed.
               </p>
               <p>
-                The 
-                <b>
-                  Invalid fields
-                </b>
-                 entry will advise which fields were incomplete.
+                If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
               </p>
             </div>
           </div>
@@ -365,11 +361,7 @@ Object {
                entry will advise how many records have been removed.
             </p>
             <p>
-              The 
-              <b>
-                Invalid fields
-              </b>
-               entry will advise which fields were incomplete.
+              If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
             </p>
           </div>
         </div>
@@ -702,11 +694,7 @@ Object {
                  entry will advise how many records have been removed.
               </p>
               <p>
-                The 
-                <b>
-                  Invalid fields
-                </b>
-                 entry will advise which fields were incomplete.
+                If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
               </p>
             </div>
           </div>
@@ -982,11 +970,7 @@ Object {
                entry will advise how many records have been removed.
             </p>
             <p>
-              The 
-              <b>
-                Invalid fields
-              </b>
-               entry will advise which fields were incomplete.
+              If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
             </p>
           </div>
         </div>
@@ -1313,11 +1297,7 @@ Object {
                  entry will advise how many records have been removed.
               </p>
               <p>
-                The 
-                <b>
-                  Invalid fields
-                </b>
-                 entry will advise which fields were incomplete.
+                If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
               </p>
             </div>
           </div>
@@ -1587,11 +1567,7 @@ Object {
                entry will advise how many records have been removed.
             </p>
             <p>
-              The 
-              <b>
-                Invalid fields
-              </b>
-               entry will advise which fields were incomplete.
+              If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
             </p>
           </div>
         </div>
