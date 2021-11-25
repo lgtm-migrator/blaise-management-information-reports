@@ -55,55 +55,59 @@ const mockDataWithOnlyInvalidCases: Record<string, any> = {
     invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
 };
 
-const mock_server_responses_with_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(reportDataReturned),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
-        });
-    }
-};
+describe("formatToFractionAndPercentage", () => {
+    it("returns maff", () => {
+        const actual = formatToFractionAndPercentage(1, 2);
+        expect(actual).toEqual("1/2, 50.00%");
+    });
+});
 
-const mock_server_responses_with_invalid_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        const reportDataReturnedWithInvalid: Record<string, any> = Object.create(reportDataReturned);
-        reportDataReturnedWithInvalid.invalid_fields = "'status' column had timed out call status,'call_end_time' column had missing data";
-        reportDataReturnedWithInvalid.discounted_invalid_cases = "29/133, 21.80%";
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(reportDataReturnedWithInvalid),
+describe("Call time section with data", () => {
+    it("returns the relevant section from data", () => {
+        const callSection = callTimeSection(mockDataWithInvalidCases);
+        expect(callSection).toEqual({
+            "records": {
+                "average_calls_per_hour": mockDataWithInvalidCases.average_calls_per_hour,
+                "call_time": mockDataWithInvalidCases.call_time,
+                "hours_on_calls_percentage": "5.66%",
+                "hours_worked": mockDataWithInvalidCases.hours_worked,
+            },
+            "title": "Call times",
         });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
-        });
-    }
-};
+    });
+});
 
-const mock_server_responses_without_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
+describe("Call status section with data", () => {
+    it("returns the relevant section from data", () => {
+        const callSection = callStatusSection(mockDataWithInvalidCases);
+        expect(callSection).toEqual({
+            "records": {
+                "refusals": "4/133, 3.01%",
+                "completed_successfully": "0/133, 0.00%",
+                "appointments_for_contacts": "86/133, 64.66%",
+                "discounted_invalid_cases": "29/133, 21.80%",
+                "no_contacts": "11/133, 8.27%",
+            },
+            "title": "Call status",
         });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
-        });
-    }
-};
+    });
+});
 
-const threeDaysFromTheNewMillennium = "2000-01-03";
+describe("Breakdown of No Contacts section with data", () => {
+    it("returns the relevant section from data", () => {
+        const callSection = noContactBreakdownSection(mockDataWithInvalidCases);
+        expect(callSection).toEqual({
+            "records": {
+                "answer_service": "4/11, 36.36%",
+                "busy": "1/11, 9.09%",
+                "disconnect": "2/11, 18.18%",
+                "no_answer": "3/11, 27.27%",
+                "other": "4/11, 36.36%",
+            },
+            "title": "Breakdown of No Contact calls",
+        });
+    });
+});
 
 describe("interviewer call pattern report with data", () => {
     afterEach(() => {
@@ -476,3 +480,66 @@ describe("interviewer call pattern report with only invalid data", () => {
         cleanup();
     });
 });
+
+const mock_server_responses_with_data = (url: string) => {
+    console.log(url);
+    if (url.includes("/api/reports/interviewer-call-pattern")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve(mockData),
+        });
+    } else if (url.includes("/api/reports/call-history-status")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
+        });
+    }
+};
+
+const mock_server_responses_with_invalid_data = (url: string) => {
+    console.log(url);
+    if (url.includes("/api/reports/interviewer-call-pattern")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve(mockDataWithInvalidCases),
+        });
+    } else if (url.includes("/api/reports/call-history-status")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
+        });
+    }
+};
+
+const mock_server_responses_without_data = (url: string) => {
+    console.log(url);
+    if (url.includes("/api/reports/interviewer-call-pattern")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve(""),
+        });
+    } else if (url.includes("/api/reports/call-history-status")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve(""),
+        });
+    }
+};
+
+const mock_server_responses_with_only_invalid_data = (url: string) => {
+    console.log(url);
+    if (url.includes("/api/reports/interviewer-call-pattern")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve(mockDataWithOnlyInvalidCases),
+        });
+    } else if (url.includes("/api/reports/call-history-status")) {
+        return Promise.resolve({
+            status: 200,
+            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
+        });
+    }
+};
+
+const threeDaysFromTheNewMillennium = "2000-01-03";
+
