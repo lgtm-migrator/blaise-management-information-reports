@@ -14,6 +14,10 @@ dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
 function formatToFractionAndPercentage(numerator: number, denominator: number): string {
+    if (denominator === 0) {
+        console.warn("Cannot divide by 0");
+        return "0/0, 0%";
+    }
     return `${numerator}/${denominator}, ${(numerator / denominator * 100).toFixed(2)}%`;
 }
 
