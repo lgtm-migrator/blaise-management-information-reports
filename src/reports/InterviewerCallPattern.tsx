@@ -85,6 +85,7 @@ function InterviewerCallPattern(): ReactElement {
         setGroupedSummary(new GroupedSummary([]));
         setInterviewerID("");
         setInvalidFields({ title: "Invalid fields", records: {} });
+        setAllInvalid(false);
     }
 
     async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
