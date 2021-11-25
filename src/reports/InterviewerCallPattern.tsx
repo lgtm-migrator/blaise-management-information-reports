@@ -71,6 +71,10 @@ function invalidFieldsGroup(data: Record<string, any>): Group {
     };
 }
 
+function isAllInvalid(data: Record<string, any>): boolean {
+    return !data.total_valid_records;
+}
+
 function InterviewerCallPattern(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
@@ -86,38 +90,6 @@ function InterviewerCallPattern(): ReactElement {
         setInterviewerID("");
         setInvalidFields({ title: "Invalid fields", records: {} });
         setAllInvalid(false);
-    }
-
-    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
-        defaultState();
-
-        formValues.survey_tla = formValues["Survey TLA"];
-        formValues.interviewer = formValues["Interviewer ID"];
-        formValues.start_date = new Date(formValues["Start date"]);
-        formValues.end_date = new Date(formValues["End date"]);
-
-        setInterviewerID(formValues.interviewer);
-
-        const [success, data] = await getInterviewerCallPatternReport(formValues);
-        setSubmitting(false);
-
-        if (!success) {
-            setReportFailed(true);
-            return;
-        }
-
-        if (Object.keys(data).length === 0) {
-            setMessageNoData("No data found for parameters given.");
-            return;
-        }
-
-        if (Object.keys(data).length === 2) {
-            setInvalidFields(invalidFieldsGroup(data));
-            setAllInvalid(true);
-            return;
-        }
-
-        groupData(data);
     }
 
     function groupData(data: any) {
@@ -145,6 +117,38 @@ function InterviewerCallPattern(): ReactElement {
             );
         }
         return (<></>);
+    }
+
+    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+        defaultState();
+
+        formValues.survey_tla = formValues["Survey TLA"];
+        formValues.interviewer = formValues["Interviewer ID"];
+        formValues.start_date = new Date(formValues["Start date"]);
+        formValues.end_date = new Date(formValues["End date"]);
+
+        setInterviewerID(formValues.interviewer);
+
+        const [success, data] = await getInterviewerCallPatternReport(formValues);
+        setSubmitting(false);
+
+        if (!success) {
+            setReportFailed(true);
+            return;
+        }
+
+        if (data.length === 0) {
+            setMessageNoData("No data found for parameters given.");
+            return;
+        }
+
+        if (isAllInvalid(data)) {
+            setInvalidFields(invalidFieldsGroup(data));
+            setAllInvalid(true);
+            return;
+        }
+
+        groupData(data);
     }
 
     return (
@@ -204,7 +208,7 @@ function InterviewerCallPattern(): ReactElement {
     );
 }
 
-export { formatToFractionAndPercentage, callTimeSection, callStatusSection, noContactBreakdownSection, invalidFieldsGroup };
+export { formatToFractionAndPercentage, callTimeSection, callStatusSection, noContactBreakdownSection, invalidFieldsGroup, isAllInvalid };
 export default InterviewerCallPattern;
 
 

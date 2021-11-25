@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interviewer call pattern report with data and invalid data matches snapshot 1`] = `
+exports[`function InterviewerCallPattern() with data and invalid data should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -609,7 +609,7 @@ Object {
 }
 `;
 
-exports[`interviewer call pattern report with data matches snapshot 1`] = `
+exports[`function InterviewerCallPattern() with happy data should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -1218,7 +1218,7 @@ Object {
 }
 `;
 
-exports[`interviewer call pattern report with only invalid data matches snapshot 1`] = `
+exports[`function InterviewerCallPattern() with only invalid data should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -1827,7 +1827,7 @@ Object {
 }
 `;
 
-exports[`interviewer call pattern report without data matches snapshot 1`] = `
+exports[`function InterviewerCallPattern() without data should match the snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>

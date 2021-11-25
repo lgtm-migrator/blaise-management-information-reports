@@ -10,7 +10,7 @@ import InterviewerCallPattern, {
     formatToFractionAndPercentage,
     callTimeSection,
     callStatusSection,
-    noContactBreakdownSection
+    noContactBreakdownSection, isAllInvalid, invalidFieldsGroup
 } from "./InterviewerCallPattern";
 import MockDate from "mockdate";
 
@@ -55,15 +55,15 @@ const mockDataWithOnlyInvalidCases: Record<string, any> = {
     invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
 };
 
-describe("formatToFractionAndPercentage", () => {
-    it("returns maff", () => {
+describe("function formatToFractionAndPercentage()", () => {
+    it("should return a string demonstrating the total and percentage", () => {
         const actual = formatToFractionAndPercentage(1, 2);
         expect(actual).toEqual("1/2, 50.00%");
     });
 });
 
-describe("Call time section with data", () => {
-    it("returns the relevant section from data", () => {
+describe("function callTimeSection()", () => {
+    it("should return the relevant section from data", () => {
         const callSection = callTimeSection(mockDataWithInvalidCases);
         expect(callSection).toEqual({
             "records": {
@@ -77,8 +77,8 @@ describe("Call time section with data", () => {
     });
 });
 
-describe("Call status section with data", () => {
-    it("returns the relevant section from data", () => {
+describe("function callStatusSection()", () => {
+    it("should return the relevant section from data", () => {
         const callSection = callStatusSection(mockDataWithInvalidCases);
         expect(callSection).toEqual({
             "records": {
@@ -93,8 +93,8 @@ describe("Call status section with data", () => {
     });
 });
 
-describe("Breakdown of No Contacts section with data", () => {
-    it("returns the relevant section from data", () => {
+describe("function noContactBreakdownSection()", () => {
+    it("should return the relevant section from data", () => {
         const callSection = noContactBreakdownSection(mockDataWithInvalidCases);
         expect(callSection).toEqual({
             "records": {
@@ -109,7 +109,33 @@ describe("Breakdown of No Contacts section with data", () => {
     });
 });
 
-describe("interviewer call pattern report with data", () => {
+describe("function invalidFieldsGroup()", () => {
+    it("should return the required information to display in an information panel", () => {
+        const invalidPanel = invalidFieldsGroup(mockDataWithInvalidCases);
+        expect(invalidPanel).toEqual({
+            "records": {
+                "invalid_fields": "'status' column had timed out call status,'call_end_time' column had missing data",
+                "discounted_invalid_cases": 29,
+                "total_records": 133,
+            },
+            "title": "Invalid Fields",
+        });
+    });
+});
+
+describe("function isAllInvalid()", () => {
+    it("should return true if data does not have total_valid_records", () => {
+        const expectTrue = isAllInvalid(mockDataWithOnlyInvalidCases);
+        expect(expectTrue).toEqual(true);
+    });
+
+    it("should return false if data has total_valid_records", () => {
+        const expectFalse = isAllInvalid(mockData);
+        expect(expectFalse).toEqual(false);
+    });
+});
+
+describe("function InterviewerCallPattern() with happy data", () => {
     afterEach(() => {
         MockDate.reset();
     });
@@ -119,7 +145,7 @@ describe("interviewer call pattern report with data", () => {
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
-    it("matches snapshot", async () => {
+    it("should match the snapshot", async () => {
         const history = createMemoryHistory();
 
         const wrapper = render(
@@ -137,7 +163,7 @@ describe("interviewer call pattern report with data", () => {
         });
     });
 
-    it("renders correctly", async () => {
+    it("should render correctly", async () => {
         const history = createMemoryHistory();
 
         await act(async () => {
@@ -218,7 +244,7 @@ describe("interviewer call pattern report with data", () => {
     });
 });
 
-describe("interviewer call pattern report with data and invalid data", () => {
+describe("function InterviewerCallPattern() with data and invalid data", () => {
     afterEach(() => {
         MockDate.reset();
     });
@@ -228,7 +254,7 @@ describe("interviewer call pattern report with data and invalid data", () => {
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
-    it("matches snapshot", async () => {
+    it("should match the snapshot", async () => {
         const history = createMemoryHistory();
 
         const wrapper = render(
@@ -246,7 +272,7 @@ describe("interviewer call pattern report with data and invalid data", () => {
         });
     });
 
-    it("renders correctly", async () => {
+    it("should render correctly", async () => {
         const history = createMemoryHistory();
 
         await act(async () => {
@@ -328,7 +354,7 @@ describe("interviewer call pattern report with data and invalid data", () => {
     });
 });
 
-describe("interviewer call pattern report without data", () => {
+describe("function InterviewerCallPattern() without data", () => {
     afterEach(() => {
         MockDate.reset();
     });
@@ -338,7 +364,7 @@ describe("interviewer call pattern report without data", () => {
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
-    it("matches snapshot", async () => {
+    it("should match the snapshot", async () => {
         const history = createMemoryHistory();
 
         const wrapper = render(
@@ -356,7 +382,7 @@ describe("interviewer call pattern report without data", () => {
         });
     });
 
-    it("renders correctly", async () => {
+    it("should render correctly", async () => {
         const history = createMemoryHistory();
 
         await act(async () => {
@@ -401,7 +427,7 @@ describe("interviewer call pattern report without data", () => {
     });
 });
 
-describe("interviewer call pattern report with only invalid data", () => {
+describe("function InterviewerCallPattern() with only invalid data", () => {
     afterEach(() => {
         MockDate.reset();
     });
@@ -411,7 +437,7 @@ describe("interviewer call pattern report with only invalid data", () => {
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
-    it("matches snapshot", async () => {
+    it("should match the snapshot", async () => {
         const history = createMemoryHistory();
 
         const wrapper = render(
@@ -429,7 +455,7 @@ describe("interviewer call pattern report with only invalid data", () => {
         });
     });
 
-    it("renders correctly", async () => {
+    it("should render correctly", async () => {
         const history = createMemoryHistory();
 
         await act(async () => {
