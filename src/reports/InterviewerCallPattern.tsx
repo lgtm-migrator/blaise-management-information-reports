@@ -13,13 +13,17 @@ import ReportErrorPanel from "../components/ReportErrorPanel";
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
+function formatToFractionAndPercentage(numerator: number, denominator: number): string {
+    return `${numerator}/${denominator}, ${(numerator / denominator * 100).toFixed(2)}%`;
+}
+
 function callTimeSection(data: Record<string, any>): Group {
     return {
         title: "Call times",
         records: {
             hours_worked: data.hours_worked,
             call_time: data.call_time,
-            hours_on_calls_percentage: data.hours_on_calls_percentage,
+            hours_on_calls_percentage: `${data.hours_on_calls_percentage.toFixed(2)}%`,
             average_calls_per_hour: data.average_calls_per_hour
         }
     };
@@ -29,11 +33,11 @@ function callStatusSection(data: Record<string, any>): Group {
     return {
         title: "Call status",
         records: {
-            refusals: data.refusals,
-            completed_successfully: data.completed_successfully,
-            appointments_for_contacts: data.appointments_for_contacts,
-            discounted_invalid_cases: data.discounted_invalid_cases,
-            no_contacts: data.no_contacts
+            refusals: formatToFractionAndPercentage(data.refusals, data.total_valid_records),
+            completed_successfully: formatToFractionAndPercentage(data.completed_successfully, data.total_valid_records),
+            appointments_for_contacts: formatToFractionAndPercentage(data.appointments_for_contacts, data.total_valid_records),
+            discounted_invalid_cases: formatToFractionAndPercentage(data.discounted_invalid_cases, data.total_valid_records),
+            no_contacts: formatToFractionAndPercentage(data.no_contacts, data.total_valid_records),
         }
     };
 }
@@ -42,11 +46,11 @@ function noContactBreakdownSection(data: Record<string, any>): Group {
     return {
         title: "Breakdown of No Contact calls",
         records: {
-            answer_service: data.no_contact_answer_service,
-            busy: data.no_contact_busy,
-            disconnect: data.no_contact_disconnect,
-            no_answer: data.no_contact_no_answer,
-            other: data.no_contact_other
+            answer_service: formatToFractionAndPercentage(data.no_contact_answer_service, data.no_contacts),
+            busy: formatToFractionAndPercentage(data.no_contact_busy, data.no_contacts),
+            disconnect: formatToFractionAndPercentage(data.no_contact_disconnect, data.no_contacts),
+            no_answer: formatToFractionAndPercentage(data.no_contact_no_answer, data.no_contacts),
+            other: formatToFractionAndPercentage(data.no_contact_other, data.no_contacts),
         }
     };
 }
@@ -173,7 +177,7 @@ function InterviewerCallPattern(): ReactElement {
     );
 }
 
-export { callTimeSection, callStatusSection, noContactBreakdownSection, invalidFieldsGroup };
+export { formatToFractionAndPercentage, callTimeSection, callStatusSection, noContactBreakdownSection, invalidFieldsGroup };
 export default InterviewerCallPattern;
 
 

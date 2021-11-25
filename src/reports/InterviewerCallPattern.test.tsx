@@ -1,51 +1,54 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import flushPromises, {mock_fetch_requests, mock_server_request_return_json} from "../tests/utilities";
+import flushPromises, {mock_fetch_requests} from "../tests/utilities";
 import {createMemoryHistory} from "history";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";
 import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
 import InterviewerCallPattern, {
+    formatToFractionAndPercentage,
     callTimeSection,
     callStatusSection,
     noContactBreakdownSection,
     invalidFieldsGroup
 } from "./InterviewerCallPattern";
 import MockDate from "mockdate";
-import {Group} from "blaise-design-system-react-components";
 
 const mockData: Record<string, any> = {
+    total_valid_records: 133,
     hours_worked: "26:58:07",
     call_time: "01:31:32",
-    hours_on_calls_percentage: "5.66%",
-    average_calls_per_hour: "3.86",
-    refusals: "4/133, 3.01%",
-    completed_successfully: "0/133, 0.00%",
-    appointments_for_contacts: "86/133, 64.66%",
-    no_contacts: "11/133, 8.27%",
-    no_contact_answer_service: "4/11, 36.36%",
-    no_contact_busy: "1/11, 9.09%",
-    no_contact_disconnect: "2/11, 18.18%",
-    no_contact_no_answer: "3/11, 18.18%",
-    no_contact_other: "4/11, 18.18%"
+    hours_on_calls_percentage: 5.66,
+    average_calls_per_hour: 3.86,
+    refusals: 4,
+    completed_successfully: 0,
+    appointments_for_contacts: 86,
+    no_contacts: 11,
+    no_contact_answer_service: 4,
+    no_contact_busy: 1,
+    no_contact_disconnect: 2,
+    no_contact_no_answer: 3,
+    no_contact_other: 4
 };
 
 const mockDataWithInvalidCases: Record<string, any> = {
+    total_valid_records: 133,
     hours_worked: "26:58:07",
     call_time: "01:31:32",
-    hours_on_calls_percentage: "5.66%",
-    average_calls_per_hour: "3.86",
-    refusals: "4/133, 3.01%",
-    completed_successfully: "0/133, 0.00%",
-    appointments_for_contacts: "86/133, 64.66%",
-    discounted_invalid_cases: "29/133, 21.80%",
-    no_contacts: "11/133, 8.27%",
-    no_contact_answer_service: "4/11, 36.36%",
-    no_contact_busy: "1/11, 9.09%",
-    no_contact_disconnect: "2/11, 18.18%",
-    no_contact_no_answer: "3/11, 18.18%",
-    no_contact_other: "4/11, 18.18%"
+    hours_on_calls_percentage: 5.66,
+    average_calls_per_hour: 3.86,
+    refusals: 4,
+    completed_successfully: 0,
+    appointments_for_contacts: 86,
+    discounted_invalid_cases: 29,
+    no_contacts: 11,
+    no_contact_answer_service: 4,
+    no_contact_busy: 1,
+    no_contact_disconnect: 2,
+    no_contact_no_answer: 3,
+    no_contact_other: 4,
+    invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
 };
 
 const mock_server_responses_with_data = (url: string) => {
@@ -187,15 +190,15 @@ describe("interviewer call pattern report with data", () => {
 
             expect(screen.getByText("Breakdown of No Contact calls")).toBeVisible();
             expect(screen.getByText("Answer service")).toBeVisible();
-            expect(screen.getByText("4/11, 36.36%")).toBeVisible();
+            expect(screen.queryAllByText("4/11, 36.36%")[0]).toBeVisible();
             expect(screen.getByText("Busy")).toBeVisible();
             expect(screen.getByText("1/11, 9.09%")).toBeVisible();
             expect(screen.getByText("Disconnect")).toBeVisible();
             expect(screen.getByText("2/11, 18.18%")).toBeVisible();
             expect(screen.getByText("No answer")).toBeVisible();
-            expect(screen.getByText("3/11, 18.18%")).toBeVisible();
+            expect(screen.getByText("3/11, 27.27%")).toBeVisible();
             expect(screen.getByText("Other")).toBeVisible();
-            expect(screen.getByText("4/11, 18.18%")).toBeVisible();
+            expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
         });
 
         expect(screen.queryByText(/were discounted due to the following invalid fields/i)).not.toBeInTheDocument();
@@ -296,13 +299,13 @@ describe("interviewer call pattern report with data and invalid data", () => {
 
             expect(screen.getByText("Breakdown of No Contact calls")).toBeVisible();
             expect(screen.getByText("Answer service")).toBeVisible();
-            expect(screen.getByText("4/11, 36.36%")).toBeVisible();
+            expect(screen.queryAllByText("4/11, 36.36%")[0]).toBeVisible();
             expect(screen.getByText("Busy")).toBeVisible();
             expect(screen.getByText("1/11, 9.09%")).toBeVisible();
             expect(screen.getByText("Disconnect")).toBeVisible();
             expect(screen.getByText("2/11, 18.18%")).toBeVisible();
             expect(screen.getByText("No answer")).toBeVisible();
-            expect(screen.getByText("3/11, 18.18%")).toBeVisible();
+            expect(screen.getByText("3/11, 27.27%")).toBeVisible();
             expect(screen.getByText("Other")).toBeVisible();
             expect(screen.getByText("4/11, 18.18%")).toBeVisible();
         });
@@ -378,6 +381,86 @@ describe("interviewer call pattern report without data", () => {
         await waitFor(() => {
             expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
             expect(screen.queryByText("No data found for parameters given.")).toBeVisible();
+        });
+
+    });
+
+    afterAll(() => {
+        jest.clearAllMocks();
+        cleanup();
+    });
+});
+
+describe("interviewer call pattern report with only invalid data", () => {
+    afterEach(() => {
+        MockDate.reset();
+    });
+
+    beforeEach(() => {
+        mock_fetch_requests(mock_server_responses_with_only_invalid_data);
+        MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    it("matches snapshot", async () => {
+        const history = createMemoryHistory();
+
+        const wrapper = render(
+            <Router history={history}>
+                <InterviewerCallPattern/>
+            </Router>
+        );
+
+        await act(async () => {
+            await flushPromises();
+        });
+
+        await waitFor(() => {
+            expect(wrapper).toMatchSnapshot();
+        });
+    });
+
+    it("renders correctly", async () => {
+        const history = createMemoryHistory();
+
+        await act(async () => {
+            render(
+                <Router history={history}>
+                    <InterviewerCallPattern/>
+                </Router>
+            );
+        });
+
+        expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.queryByText(/2 days ago/i)).toBeVisible();
+        expect(screen.queryByText("Run interviewer call pattern report")).toBeVisible();
+        expect(screen.queryByText("Select survey")).toBeVisible();
+        expect(screen.queryByText("Interviewer ID")).toBeVisible();
+        expect(screen.queryByText("Start date")).toBeVisible();
+        expect(screen.queryByText("End date")).toBeVisible();
+
+        fireEvent.click(screen.getByText("LMS"));
+
+        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
+            target: {
+                value:
+                    "ricer"
+            }
+        });
+
+        await fireEvent.click(screen.getByTestId(/submit-button/i));
+
+        await act(async () => {
+            await flushPromises();
+        });
+
+        await waitFor(() => {
+            expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
+            expect(screen.queryByText("Call times")).not.toBeInTheDocument();
+            expect(screen.queryByText("Call status")).not.toBeInTheDocument();
+            expect(screen.queryByText("Breakdown of no Contact calls")).not.toBeInTheDocument();
+            expect(screen.queryByText("Invalid Fields")).not.toBeInTheDocument();
+
+            expect(screen.getByText(/Information: 100\/100 records \(100%\) were discounted due to the following invalid fields:/i)).toBeVisible();
         });
 
     });
