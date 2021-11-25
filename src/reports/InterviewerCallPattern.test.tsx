@@ -15,7 +15,7 @@ import InterviewerCallPattern, {
 import MockDate from "mockdate";
 
 const mockData: Record<string, any> = {
-    total_valid_records: 133,
+    total_valid_cases: 133,
     hours_worked: "26:58:07",
     call_time: "01:31:32",
     hours_on_calls_percentage: 5.66,
@@ -32,7 +32,7 @@ const mockData: Record<string, any> = {
 };
 
 const mockDataWithInvalidCases: Record<string, any> = {
-    total_valid_records: 133,
+    total_valid_cases: 133,
     hours_worked: "26:58:07",
     call_time: "01:31:32",
     hours_on_calls_percentage: 5.66,
@@ -116,7 +116,7 @@ describe("function invalidFieldsGroup()", () => {
             "records": {
                 "invalid_fields": "'status' column had timed out call status,'call_end_time' column had missing data",
                 "discounted_invalid_cases": 29,
-                "total_records": mockDataWithInvalidCases.total_valid_records + mockDataWithInvalidCases.discounted_invalid_cases,
+                "total_records": mockDataWithInvalidCases.total_valid_cases + mockDataWithInvalidCases.discounted_invalid_cases,
             },
             "title": "Invalid Fields",
         });
@@ -124,12 +124,12 @@ describe("function invalidFieldsGroup()", () => {
 });
 
 describe("function isAllInvalid()", () => {
-    it("should return true if data does not have total_valid_records", () => {
+    it("should return true if data does not have total_valid_cases", () => {
         const expectTrue = isAllInvalid(mockDataWithOnlyInvalidCases);
         expect(expectTrue).toEqual(true);
     });
 
-    it("should return false if data has total_valid_records", () => {
+    it("should return false if data has total_valid_cases", () => {
         const expectFalse = isAllInvalid(mockData);
         expect(expectFalse).toEqual(false);
     });
