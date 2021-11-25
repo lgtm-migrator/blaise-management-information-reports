@@ -10,8 +10,7 @@ import InterviewerCallPattern, {
     formatToFractionAndPercentage,
     callTimeSection,
     callStatusSection,
-    noContactBreakdownSection,
-    invalidFieldsGroup
+    noContactBreakdownSection
 } from "./InterviewerCallPattern";
 import MockDate from "mockdate";
 
@@ -48,6 +47,11 @@ const mockDataWithInvalidCases: Record<string, any> = {
     no_contact_disconnect: 2,
     no_contact_no_answer: 3,
     no_contact_other: 4,
+    invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
+};
+
+const mockDataWithOnlyInvalidCases: Record<string, any> = {
+    discounted_invalid_cases: 100,
     invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
 };
 
@@ -307,7 +311,9 @@ describe("interviewer call pattern report with data and invalid data", () => {
             expect(screen.getByText("No answer")).toBeVisible();
             expect(screen.getByText("3/11, 27.27%")).toBeVisible();
             expect(screen.getByText("Other")).toBeVisible();
-            expect(screen.getByText("4/11, 18.18%")).toBeVisible();
+            expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
+
+            expect(screen.getByText(/were discounted due to the following invalid fields/i)).toBeVisible();
         });
 
     });

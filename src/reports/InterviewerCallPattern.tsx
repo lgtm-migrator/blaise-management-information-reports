@@ -56,11 +56,13 @@ function noContactBreakdownSection(data: Record<string, any>): Group {
 }
 
 function invalidFieldsGroup(data: Record<string, any>): Group {
+    const total_records = data.total_valid_records ? data.total_valid_records : data.discounted_invalid_cases;
     return {
         title: "Invalid Fields",
         records: {
             invalid_fields: data.invalid_fields,
-            discounted_invalid_cases: data.discounted_invalid_cases
+            discounted_invalid_cases: data.discounted_invalid_cases,
+            total_records: total_records
         }
     };
 }
@@ -71,6 +73,7 @@ function InterviewerCallPattern(): ReactElement {
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
+    const [allInvalid, setAllInvalid] = useState<boolean>(false);
 
     function defaultState() {
         setMessageNoData("");
@@ -103,6 +106,16 @@ function InterviewerCallPattern(): ReactElement {
             return;
         }
 
+        if (Object.keys(data).length === 2) {
+            setInvalidFields(invalidFieldsGroup(data));
+            setAllInvalid(true);
+            return;
+        }
+
+        groupData(data);
+    }
+
+    function groupData(data: any) {
         const callTimes: Group = callTimeSection(data);
         const callStatus: Group = callStatusSection(data);
         const noContactBreakdown: Group = noContactBreakdownSection(data);
@@ -111,15 +124,19 @@ function InterviewerCallPattern(): ReactElement {
         console.log(groupedSummary);
         setGroupedSummary(groupedSummary);
         setInvalidFields(invalidFieldsGroup(data));
+        return;
     }
 
     function InvalidCaseInfo(): ReactElement {
         console.log(invalidFields);
         if (invalidFields.records.discounted_invalid_cases) {
+            const total = `${invalidFields.records.discounted_invalid_cases}/${invalidFields.records.total_records}`;
+            const percentage = invalidFields.records.discounted_invalid_cases / invalidFields.records.total_records * 100;
+
             return (
                 <ONSPanel>
-                    <p>Information: {invalidFields.records.discounted_invalid_cases} were discounted due to the
-                        following invalid fields: {invalidFields.records.invalid_fields}</p>
+                    <p>Information: {total} records ({percentage}%) were discounted due to the following invalid fields:
+                        {invalidFields.records.invalid_fields}</p>
                 </ONSPanel>
             );
         }
@@ -142,7 +159,7 @@ function InterviewerCallPattern(): ReactElement {
                             The <b>Discounted invalid records</b> entry will advise how many records have been removed.
                         </p>
                         <p>
-                            If there are discounted invalid cases information will be displayed at the top of the report to advise which fields were incomplete.
+                            Information will be displayed at the top of the report to advise which fields were incomplete.
                         </p>
                     </ONSPanel>
                 </div>
@@ -157,6 +174,12 @@ function InterviewerCallPattern(): ReactElement {
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     {
+
+                        allInvalid
+                        ?
+                            <InvalidCaseInfo />
+                        :
+
                         groupedSummary.groups.length > 0
                             ?
                             <>
