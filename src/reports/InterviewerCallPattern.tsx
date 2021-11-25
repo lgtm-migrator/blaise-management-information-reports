@@ -60,7 +60,11 @@ function noContactBreakdownSection(data: Record<string, any>): Group {
 }
 
 function invalidFieldsGroup(data: Record<string, any>): Group {
-    const total_records = data.total_valid_records ? data.total_valid_records : data.discounted_invalid_cases;
+    let total_records = data.total_valid_records + data.discounted_invalid_cases;
+    if (!data.total_valid_records) {
+        total_records = data.discounted_invalid_cases;
+    }
+
     return {
         title: "Invalid Fields",
         records: {

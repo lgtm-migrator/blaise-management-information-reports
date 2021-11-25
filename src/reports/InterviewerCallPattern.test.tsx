@@ -116,7 +116,7 @@ describe("function invalidFieldsGroup()", () => {
             "records": {
                 "invalid_fields": "'status' column had timed out call status,'call_end_time' column had missing data",
                 "discounted_invalid_cases": 29,
-                "total_records": 133,
+                "total_records": mockDataWithInvalidCases.total_valid_records + mockDataWithInvalidCases.discounted_invalid_cases,
             },
             "title": "Invalid Fields",
         });
