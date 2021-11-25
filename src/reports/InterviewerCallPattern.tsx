@@ -139,8 +139,7 @@ function InterviewerCallPattern(): ReactElement {
 
             return (
                 <ONSPanel>
-                    <p>Information: {total} records ({percentage.toFixed(2)}%) were discounted due to the following invalid fields: \n
-                        {invalidFields.records.invalid_fields}</p>
+                    <p>Information: {total} records ({percentage.toFixed(2)}%) were discounted due to the following invalid fields: {invalidFields.records.invalid_fields}</p>
                 </ONSPanel>
             );
         }
