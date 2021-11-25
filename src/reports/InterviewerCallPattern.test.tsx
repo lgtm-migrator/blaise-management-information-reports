@@ -470,7 +470,7 @@ describe("interviewer call pattern report with only invalid data", () => {
             expect(screen.queryByText("Breakdown of no Contact calls")).not.toBeInTheDocument();
             expect(screen.queryByText("Invalid Fields")).not.toBeInTheDocument();
 
-            expect(screen.getByText(/Information: 100\/100 records \(100%\) were discounted due to the following invalid fields:/i)).toBeVisible();
+            expect(screen.getByText(/Information: 100\/100 records \(100.00%\) were discounted due to the following invalid fields:/i)).toBeVisible();
         });
 
     });
