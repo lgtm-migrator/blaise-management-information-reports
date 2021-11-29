@@ -43,7 +43,7 @@ function getInterviewerCallHistoryReport(form: any): Promise<getInterviewerCallH
     });
 }
 
-type getInterviewerCallPatternReportResponse = [boolean, any[]]
+type getInterviewerCallPatternReportResponse = [boolean, Record<string, any>]
 
 function getInterviewerCallPatternReport(form: any): Promise<getInterviewerCallPatternReportResponse> {
     const url = "/api/reports/interviewer-call-pattern";
@@ -69,7 +69,7 @@ function getInterviewerCallPatternReport(form: any): Promise<getInterviewerCallP
 
 type getAppointmentResourcePlanningReport = [boolean, any[]]
 
-function getAppointmentResourcePlanningReport(date: string): Promise<getInterviewerCallPatternReportResponse> {
+function getAppointmentResourcePlanningReport(date: string): Promise<getAppointmentResourcePlanningReport> {
     const url = "/api/reports/appointment-resource-planning";
     const formData = new FormData();
     formData.append("date", date);
@@ -90,7 +90,7 @@ function getAppointmentResourcePlanningReport(date: string): Promise<getIntervie
 
 type getAppointmentResourcePlanningSummaryReport = [boolean, any[]]
 
-function getAppointmentResourcePlanningSummaryReport(date: string): Promise<getInterviewerCallPatternReportResponse> {
+function getAppointmentResourcePlanningSummaryReport(date: string): Promise<getAppointmentResourcePlanningSummaryReport> {
     const url = "/api/reports/appointment-resource-planning-summary";
     const formData = new FormData();
     formData.append("date", date);
