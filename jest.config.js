@@ -8,6 +8,12 @@ module.exports = {
     moduleNameMapper: {
         "\\.(css|less|scss)$": "identity-obj-proxy",
         "\\.(jpg)$": "identity-obj-proxy"
-    }
+    },
+    coveragePathIgnorePatterns: [
+        "<rootDir>/node_modules"
+    ],
+    testPathIgnorePatterns: [
+        "<rootDir>/node_modules",
+        "<rootDir>/tests/integration"
+    ]
 };
-

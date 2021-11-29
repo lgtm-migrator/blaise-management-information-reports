@@ -10,17 +10,13 @@
     "build-react": "react-scripts build",
     "test": "jest --coverage --watchAll=false",
     "gcp-build": "react-scripts build && tsc --project tsconfig.server.json",
-    "lint-fix": "node_modules/.bin/eslint . --fix"
+    "lint-fix": "node_modules/.bin/eslint . --fix",
+    "integration-test": "playwright test tests/integration"
   },
   "proxy": "http://localhost:5004",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "jest": {
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
-  },
   "pre-commit": [
     "lint-fix"
   ],
@@ -59,6 +55,7 @@
     "@babel/plugin-transform-react-jsx": "^7.12.17",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
+    "@playwright/test": "^1.16.3",
     "@types/ejs": "^3.0.6",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/lodash": "^4.14.168",
