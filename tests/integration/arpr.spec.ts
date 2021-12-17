@@ -9,7 +9,7 @@ const REPORTS_URL = process.env.REPORTS_URL;
 const REST_API_URL = process.env.REST_API_URL || "http://localhost:8000";
 const INSTRUMENT_NAME = process.env.TEST_INSTRUMENT;
 
-async function tryToInstallInstrument(blaiseApiClient: BlaiseApiClient, serverpark: string) {
+async function installInstrument(blaiseApiClient: BlaiseApiClient, serverpark: string) {
   try {
     await blaiseApiClient.installInstrument(serverpark, {instrumentFile: `${INSTRUMENT_NAME}.bpkg`});
     for (let attempts = 0; attempts <= 12; attempts++) {
@@ -42,7 +42,7 @@ async function tryToInstallInstrument(blaiseApiClient: BlaiseApiClient, serverpa
   }
 }
 
-async function tryToAddSurveyDays(blaiseApiClient: BlaiseApiClient, serverpark: string, today: Date, tomorrow: Date) {
+async function addSurveyDays(blaiseApiClient: BlaiseApiClient, serverpark: string, today: Date, tomorrow: Date) {
   try {
     await blaiseApiClient.addSurveyDays(serverpark, INSTRUMENT_NAME, [today.toISOString(), tomorrow.toISOString()]);
   } catch (error) {
@@ -52,7 +52,7 @@ async function tryToAddSurveyDays(blaiseApiClient: BlaiseApiClient, serverpark: 
 
 }
 
-async function tryToAddDaybatch(blaiseApiClient: BlaiseApiClient, serverpark: string, today: Date) {
+async function addDaybatch(blaiseApiClient: BlaiseApiClient, serverpark: string, today: Date) {
   try {
     await blaiseApiClient.addDaybatch(serverpark, INSTRUMENT_NAME, {dayBatchDate: today.toISOString(), checkForTreatedCases: false});
   } catch (error) {
@@ -68,9 +68,9 @@ async function setupInstrument() {
   const tomorrow = new Date();
   tomorrow.setDate(today.getDate() + 1);
 
-  await tryToInstallInstrument(blaiseApiClient, serverpark);
-  await tryToAddSurveyDays(blaiseApiClient, serverpark, today, tomorrow);
-  await tryToAddDaybatch(blaiseApiClient, serverpark, today);
+  await installInstrument(blaiseApiClient, serverpark);
+  await addSurveyDays(blaiseApiClient, serverpark, today, tomorrow);
+  await addDaybatch(blaiseApiClient, serverpark, today);
 }
 
 async function loginCATI(page: Page) {
