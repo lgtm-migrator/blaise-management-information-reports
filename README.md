@@ -73,3 +73,50 @@ Test snapshots can be updated via:
 ```shell script
 yarn test -u
 ```
+
+### Playwright tests 
+
+To set up Playwright tests your .env file will need the following variables:
+
+| Variable | Description | Example |
+| --- | --- | --- |
+| CATI_URL | The URL to CATI | https://dev-cati.social-surveys.gcp.onsdigital.uk |
+| CATI_USERNAME | The username to log in to CATI | foobar |
+| CATI_PASSWORD | The password to log in to CATi | foobar |
+| REPORTS_URL | The URL to ERNIE | https://dev-reports.social-surveys.gcp.onsdigital.uk |
+| REST_API_URL | The URL to swagger | http://localhost:8000 |
+| TEST_INSTRUMENT | The name of the test instrument in the DQS bucket (this instrument needs to be configured for appointments) | DST2111Z |
+
+You may also need to run the following command to export the environment variables:
+
+```shell script
+export $(cat .env | xargs)
+```
+
+Open the tunnel the to rest api:
+```shell script
+gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:8000
+```
+
+Playwright tests can be run via:
+
+```shell script
+yarn run playwright test tests
+```
+
+Or a live demo can be run via:
+
+```shell script
+yarn run playwright test tests --headed
+```
+
+
+#### To help debug:
+```shell script
+export TRACE=true
+yarn run playwright test tests
+```
+and once the tests have finished run the following:
+```shell script
+yarn run playwright show-trace test-results/tests-integration-arpr/trace.zip
+```
