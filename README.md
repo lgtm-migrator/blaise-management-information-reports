@@ -116,7 +116,7 @@ yarn run playwright test tests --headed
 export TRACE=true
 yarn run playwright test tests
 ```
-and once the tests have finished run the following:
+and once the tests have finished run the following, where <TEST-NAME> is the title of test.describe() and the test. For example, 'Without-data-I-can-get-to-and-run-an-ARPR-for-a-day-with-no-data':
 ```shell script
-yarn run playwright show-trace test-results/tests-integration-arpr/trace.zip
+yarn run playwright show-trace test-results/tests-integration-arpr-<TEST-NAME>-chromium/trace.zip
 ```
