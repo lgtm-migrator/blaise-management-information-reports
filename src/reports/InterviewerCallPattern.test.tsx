@@ -47,7 +47,8 @@ const mockDataWithInvalidCases: Record<string, any> = {
     no_contact_disconnect: 2,
     no_contact_no_answer: 3,
     no_contact_other: 4,
-    invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
+    invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data",
+    total_records: 133 + 29,
 };
 
 const mockDataWithOnlyInvalidCases: Record<string, any> = {
@@ -85,8 +86,8 @@ describe("function callStatusSection()", () => {
                 "refusals": "4/133, 3.01%",
                 "completed_successfully": "0/133, 0.00%",
                 "appointments_for_contacts": "86/133, 64.66%",
-                "discounted_invalid_cases": "29/133, 21.80%",
                 "no_contacts": "11/133, 8.27%",
+                "discounted_invalid_cases": "29/162, 17.90%",
             },
             "title": "Call status",
         });
@@ -326,10 +327,10 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
             expect(screen.getByText("0/133, 0.00%")).toBeVisible();
             expect(screen.getByText("Appointments for contacts")).toBeVisible();
             expect(screen.getByText("86/133, 64.66%")).toBeVisible();
-            expect(screen.getByText("Discounted invalid cases")).toBeVisible();
-            expect(screen.getByText("29/133, 21.80%")).toBeVisible();
             expect(screen.getByText("No contacts")).toBeVisible();
             expect(screen.getByText("11/133, 8.27%")).toBeVisible();
+            expect(screen.getByText("Discounted invalid cases")).toBeVisible();
+            expect(screen.getByText("29/162, 17.90%")).toBeVisible();
 
             expect(screen.getByText("Breakdown of No Contact calls")).toBeVisible();
             expect(screen.getByText("Answer service")).toBeVisible();
