@@ -1,51 +1,45 @@
 import axios, { AxiosResponse } from "axios";
-import { InterviewerCallPatternReport } from "../../interfaces";
+import { CallHistoryStatus, InterviewerCallHistoryReport, InterviewerCallPatternReport } from "../../interfaces";
 import { requestPromiseJson } from "./RequestPromise";
 
-type getInterviewerCallHistoryStatusResponse = [boolean, any]
 
-function getInterviewerCallHistoryStatus(): Promise<getInterviewerCallHistoryStatusResponse> {
+async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | undefined> {
     const url = "/api/reports/call-history-status";
-    return new Promise((resolve: (object: getInterviewerCallHistoryStatusResponse) => void) => {
-        requestPromiseJson("GET", url).then(([status, data]) => {
-            console.log(`Response: Status ${status}, data ${data}`);
-            if (status === 200) {
-                resolve([true, data]);
-            } else {
-                resolve([false, {}]);
-            }
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            resolve([false, {}]);
-        });
+
+    return axios.get(url).then((response: AxiosResponse) => {
+        console.log(`Response: Status ${response.status}, data ${response.data}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        return undefined;
+    }).catch((error: Error) => {
+        console.error(`Response: Error ${error}`);
+        return undefined;
     });
 }
 
-type getInterviewerCallHistoryReportResponse = [boolean, any[]]
 
-function getInterviewerCallHistoryReport(form: any): Promise<getInterviewerCallHistoryReportResponse> {
+function getInterviewerCallHistoryReport(form: Record<string, any>): Promise<InterviewerCallHistoryReport[]> {
     const url = "/api/reports/interviewer-call-history";
     const formData = new FormData();
     formData.append("survey_tla", form.survey_tla);
     formData.append("interviewer", form.interviewer);
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
-    return new Promise((resolve: (object: getInterviewerCallHistoryReportResponse) => void) => {
-        requestPromiseJson("POST", url, formData).then(([status, data]) => {
-            console.log(`Response: Status ${status}, data ${data}`);
-            if (status === 200) {
-                resolve([true, data]);
-            } else {
-                resolve([false, []]);
-            }
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            resolve([false, []]);
-        });
+
+    return axios.post(url, formData).then((response: AxiosResponse) => {
+        console.log(`Response: Status ${response.status}, data ${response.data}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        return [];
+    }).catch((error: Error) => {
+        console.error(`Response: Error ${error}`);
+        throw error;
     });
 }
 
-function getInterviewerCallPatternReport(form: Record<string, any>): Promise<InterviewerCallPatternReport | undefined> {
+async function getInterviewerCallPatternReport(form: Record<string, any>): Promise<InterviewerCallPatternReport | undefined> {
     const url = "/api/reports/interviewer-call-pattern";
     const formData = new FormData();
     formData.append("survey_tla", form.survey_tla);
@@ -56,9 +50,8 @@ function getInterviewerCallPatternReport(form: Record<string, any>): Promise<Int
     return axios.post(url, formData).then((response: AxiosResponse) => {
         if (response.status === 200) {
             return response.data;
-        } else {
-            return undefined;
         }
+        return undefined;
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);
         throw error;

@@ -1,42 +1,36 @@
 import "@testing-library/jest-dom";
-import flushPromises, {mock_fetch_requests} from "../tests/utilities";
-import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
+import flushPromises from "../tests/utilities";
+import { createMemoryHistory } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
 import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import { act } from "react-dom/test-utils";
+import { screen } from "@testing-library/dom";
 import React from "react";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
+
+const mockAdapter = new MockAdapter(axios);
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
-const mock_server_response_with_data = () => {
-    return Promise.resolve({
-        status: 200,
-        json: () => Promise.resolve({"last_updated": "Sat, 01 Jan 2000 10:00:00 GMT"}),
-    });
-};
-
-const mock_server_response_with_invalid_data = () => {
-    return Promise.resolve({
-        status: 200,
-        json: () => Promise.resolve("blah"),
-    });
-};
-
 describe("call history last updated status with data", () => {
     beforeEach(() => {
-        mock_fetch_requests(mock_server_response_with_data);
+        mockAdapter.reset();
+
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200,
+            { "last_updated": "Sat, 01 Jan 2000 10:00:00 GMT" });
     });
+
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus/>
+                <CallHistoryLastUpdatedStatus />
             </Router>
         );
         await act(async () => {
@@ -46,12 +40,13 @@ describe("call history last updated status with data", () => {
             expect(wrapper).toMatchSnapshot();
         });
     });
+
     it("renders correctly", async () => {
         const history = createMemoryHistory();
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus/>
+                    <CallHistoryLastUpdatedStatus />
                 </Router>
             );
         });
@@ -64,6 +59,7 @@ describe("call history last updated status with data", () => {
             expect(screen.getByText("(01/01/2000 10:00:00)")).toBeVisible();
         });
     });
+
     afterAll(() => {
         jest.clearAllMocks();
         cleanup();
@@ -72,13 +68,16 @@ describe("call history last updated status with data", () => {
 
 describe("call history last updated status with invalid data", () => {
     beforeEach(() => {
-        mock_fetch_requests(mock_server_response_with_invalid_data);
+        mockAdapter.reset();
+
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, "blah");
     });
+
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus/>
+                <CallHistoryLastUpdatedStatus />
             </Router>
         );
         await act(async () => {
@@ -88,12 +87,13 @@ describe("call history last updated status with invalid data", () => {
             expect(wrapper).toMatchSnapshot();
         });
     });
+
     it("renders correctly", async () => {
         const history = createMemoryHistory();
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus/>
+                    <CallHistoryLastUpdatedStatus />
                 </Router>
             );
         });
@@ -106,6 +106,7 @@ describe("call history last updated status with invalid data", () => {
             expect(screen.getByText("Invalid Date")).toBeVisible();
         });
     });
+
     afterAll(() => {
         jest.clearAllMocks();
         cleanup();

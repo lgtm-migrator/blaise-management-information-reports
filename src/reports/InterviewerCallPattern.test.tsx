@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import flushPromises, { mock_fetch_requests } from "../tests/utilities";
+import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { cleanup, render, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
@@ -154,7 +154,9 @@ describe("function InterviewerCallPattern() with happy data", () => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, mockData
         );
-        mock_fetch_requests(mock_server_responses_with_data);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -262,7 +264,9 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, mockDataWithInvalidCases
         );
-        mock_fetch_requests(mock_server_responses_with_invalid_data);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -371,7 +375,9 @@ describe("function InterviewerCallPattern() without data", () => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, undefined
         );
-        mock_fetch_requests(mock_server_responses_without_data);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, {}
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -443,7 +449,9 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, mockDataWithOnlyInvalidCases
         );
-        mock_fetch_requests(mock_server_responses_with_only_invalid_data);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -511,45 +519,5 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         cleanup();
     });
 });
-
-const mock_server_responses_with_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
-        });
-    }
-};
-
-const mock_server_responses_with_invalid_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
-        });
-    }
-};
-
-const mock_server_responses_without_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
-        });
-    }
-};
-
-const mock_server_responses_with_only_invalid_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
-        });
-    }
-};
 
 const threeDaysFromTheNewMillennium = "2000-01-03";
