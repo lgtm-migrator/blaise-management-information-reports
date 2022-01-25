@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { CallHistoryStatus, InterviewerCallHistoryReport, InterviewerCallPatternReport } from "../../interfaces";
-import { requestPromiseJson } from "./RequestPromise";
+import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData, CallHistoryStatus, InterviewerCallHistoryReport, InterviewerCallPatternReport } from "../../interfaces";
 
 
 async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | undefined> {
@@ -18,8 +17,7 @@ async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | un
     });
 }
 
-
-function getInterviewerCallHistoryReport(form: Record<string, any>): Promise<InterviewerCallHistoryReport[]> {
+async function getInterviewerCallHistoryReport(form: Record<string, any>): Promise<InterviewerCallHistoryReport[]> {
     const url = "/api/reports/interviewer-call-history";
     const formData = new FormData();
     formData.append("survey_tla", form.survey_tla);
@@ -32,7 +30,7 @@ function getInterviewerCallHistoryReport(form: Record<string, any>): Promise<Int
         if (response.status === 200) {
             return response.data;
         }
-        return [];
+        throw ("Response was not 200");
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);
         throw error;
@@ -58,45 +56,37 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     });
 }
 
-type getAppointmentResourcePlanningReport = [boolean, any[]]
-
-function getAppointmentResourcePlanningReport(date: string): Promise<getAppointmentResourcePlanningReport> {
+async function getAppointmentResourcePlanningReport(date: string): Promise<AppointmentResourcePlanningReportData[]> {
     const url = "/api/reports/appointment-resource-planning";
     const formData = new FormData();
     formData.append("date", date);
-    return new Promise((resolve: (object: getAppointmentResourcePlanningReport) => void) => {
-        requestPromiseJson("POST", url, formData).then(([status, data]) => {
-            console.log(`Response: Status ${status}, data ${data}`);
-            if (status === 200) {
-                resolve([true, data]);
-            } else {
-                resolve([false, []]);
-            }
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            resolve([false, []]);
-        });
+
+    return axios.post(url, formData).then((response: AxiosResponse) => {
+        console.log(`Response: Status ${response.status}, data ${response.data}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw "Response was not 200";
+    }).catch((error: Error) => {
+        console.error(`Response: Error ${error}`);
+        throw error;
     });
 }
 
-type getAppointmentResourcePlanningSummaryReport = [boolean, any[]]
-
-function getAppointmentResourcePlanningSummaryReport(date: string): Promise<getAppointmentResourcePlanningSummaryReport> {
+async function getAppointmentResourcePlanningSummaryReport(date: string): Promise<AppointmentResourcePlanningSummaryReportData[]> {
     const url = "/api/reports/appointment-resource-planning-summary";
     const formData = new FormData();
     formData.append("date", date);
-    return new Promise((resolve: (object: getAppointmentResourcePlanningSummaryReport) => void) => {
-        requestPromiseJson("POST", url, formData).then(([status, data]) => {
-            console.log(`Response: Status ${status}, data ${data}`);
-            if (status === 200) {
-                resolve([true, data]);
-            } else {
-                resolve([false, []]);
-            }
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            resolve([false, []]);
-        });
+
+    return axios.post(url, formData).then((response: AxiosResponse) => {
+        console.log(`Response: Status ${response.status}, data ${response.data}`);
+        if (response.status === 200) {
+            return response.data;
+        }
+        throw "Response was not 200";
+    }).catch((error: Error) => {
+        console.error(`Response: Error ${error}`);
+        throw error;
     });
 }
 
