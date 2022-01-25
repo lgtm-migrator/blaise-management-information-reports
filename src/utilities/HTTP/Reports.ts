@@ -1,4 +1,6 @@
-import {requestPromiseJson} from "./RequestPromise";
+import axios, { AxiosResponse } from "axios";
+import { InterviewerCallPatternReport } from "../../interfaces";
+import { requestPromiseJson } from "./RequestPromise";
 
 type getInterviewerCallHistoryStatusResponse = [boolean, any]
 
@@ -43,27 +45,23 @@ function getInterviewerCallHistoryReport(form: any): Promise<getInterviewerCallH
     });
 }
 
-type getInterviewerCallPatternReportResponse = [boolean, Record<string, any>]
-
-function getInterviewerCallPatternReport(form: any): Promise<getInterviewerCallPatternReportResponse> {
+function getInterviewerCallPatternReport(form: Record<string, any>): Promise<InterviewerCallPatternReport | undefined> {
     const url = "/api/reports/interviewer-call-pattern";
     const formData = new FormData();
     formData.append("survey_tla", form.survey_tla);
     formData.append("interviewer", form.interviewer);
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
-    return new Promise((resolve: (object: getInterviewerCallPatternReportResponse) => void) => {
-        requestPromiseJson("POST", url, formData).then(([status, data]) => {
-            console.log(`Response: Status ${status}, data ${data}`);
-            if (status === 200) {
-                resolve([true, data]);
-            } else {
-                resolve([false, []]);
-            }
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            resolve([false, []]);
-        });
+
+    return axios.post(url, formData).then((response: AxiosResponse) => {
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            return undefined;
+        }
+    }).catch((error: Error) => {
+        console.error(`Response: Error ${error}`);
+        throw error;
     });
 }
 
@@ -109,4 +107,4 @@ function getAppointmentResourcePlanningSummaryReport(date: string): Promise<getA
     });
 }
 
-export {getInterviewerCallHistoryStatus, getInterviewerCallHistoryReport, getInterviewerCallPatternReport, getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport};
+export { getInterviewerCallHistoryStatus, getInterviewerCallHistoryReport, getInterviewerCallPatternReport, getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport };
