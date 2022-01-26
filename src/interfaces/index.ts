@@ -25,6 +25,7 @@ export type InterviewerCallPatternReport = {
     no_contact_other?: number,
     completed_successfully?: number,
     appointments_for_contacts?: number,
+    webnudge?: number,
     total_records?: number
     discounted_invalid_cases: number,
     invalid_fields: string,

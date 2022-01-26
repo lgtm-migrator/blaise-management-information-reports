@@ -44,6 +44,7 @@ function callStatusSection(callPatternReport: InterviewerCallPatternReport): Gro
             refusals: formatToFractionAndPercentage(callPatternReport.refusals, callPatternReport.total_valid_cases),
             completed_successfully: formatToFractionAndPercentage(callPatternReport.completed_successfully, callPatternReport.total_valid_cases),
             appointments_for_contacts: formatToFractionAndPercentage(callPatternReport.appointments_for_contacts, callPatternReport.total_valid_cases),
+            webnudge: formatToFractionAndPercentage(callPatternReport.webnudge, callPatternReport.total_valid_cases),
             no_contacts: formatToFractionAndPercentage(callPatternReport.no_contacts, callPatternReport.total_valid_cases),
             discounted_invalid_cases: formatToFractionAndPercentage(callPatternReport.discounted_invalid_cases, callPatternReport.total_records),
         }
