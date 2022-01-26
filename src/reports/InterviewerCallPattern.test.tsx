@@ -373,7 +373,7 @@ describe("function InterviewerCallPattern() without data", () => {
 
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, undefined
+            200, {}
         );
         mockAdapter.onGet("/api/reports/call-history-status").reply(
             200, {}

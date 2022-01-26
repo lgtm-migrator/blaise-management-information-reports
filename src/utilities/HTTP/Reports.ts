@@ -46,7 +46,8 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     formData.append("end_date", form.end_date);
 
     return axios.post(url, formData).then((response: AxiosResponse) => {
-        if (response.status === 200) {
+        if (response.status === 200 && Object.keys(response.data).length) {
+            console.log(response.data);
             return response.data;
         }
         return undefined;
