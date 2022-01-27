@@ -40,8 +40,8 @@ function callStatusSection(data: Record<string, any>): Group {
             refusals: formatToFractionAndPercentage(data.refusals, data.total_valid_cases),
             completed_successfully: formatToFractionAndPercentage(data.completed_successfully, data.total_valid_cases),
             appointments_for_contacts: formatToFractionAndPercentage(data.appointments_for_contacts, data.total_valid_cases),
-            discounted_invalid_cases: formatToFractionAndPercentage(data.discounted_invalid_cases, data.total_valid_cases),
             no_contacts: formatToFractionAndPercentage(data.no_contacts, data.total_valid_cases),
+            discounted_invalid_cases: formatToFractionAndPercentage(data.discounted_invalid_cases, data.total_records),
         }
     };
 }
@@ -60,17 +60,12 @@ function noContactBreakdownSection(data: Record<string, any>): Group {
 }
 
 function invalidFieldsGroup(data: Record<string, any>): Group {
-    let total_records = data.total_valid_cases + data.discounted_invalid_cases;
-    if (!data.total_valid_cases) {
-        total_records = data.discounted_invalid_cases;
-    }
-
     return {
         title: "Invalid Fields",
         records: {
             invalid_fields: data.invalid_fields,
             discounted_invalid_cases: data.discounted_invalid_cases,
-            total_records: total_records
+            total_records: data.total_records
         }
     };
 }
@@ -144,6 +139,11 @@ function InterviewerCallPattern(): ReactElement {
         if (data.length === 0) {
             setMessageNoData("No data found for parameters given.");
             return;
+        }
+
+        data.total_records = data.discounted_invalid_cases;
+        if (data.total_valid_cases) {
+            data.total_records = data.total_valid_cases + data.discounted_invalid_cases;
         }
 
         if (isAllInvalid(data)) {
