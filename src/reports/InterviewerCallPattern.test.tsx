@@ -28,7 +28,8 @@ const mockData: InterviewerCallPatternReport = {
     average_calls_per_hour: 3.86,
     refusals: 4,
     completed_successfully: 0,
-    appointments_for_contacts: 86,
+    appointments_for_contacts: 81,
+    web_nudge: 5,
     no_contacts: 11,
     no_contact_answer_service: 4,
     no_contact_busy: 1,
@@ -48,7 +49,7 @@ const mockDataWithInvalidCases: InterviewerCallPatternReport = {
     refusals: 4,
     completed_successfully: 0,
     appointments_for_contacts: 81,
-    webnudge: 5,
+    web_nudge: 5,
     discounted_invalid_cases: 29,
     no_contacts: 11,
     no_contact_answer_service: 4,
@@ -95,7 +96,7 @@ describe("function callStatusSection()", () => {
                 "refusals": "4/133, 3.01%",
                 "completed_successfully": "0/133, 0.00%",
                 "appointments_for_contacts": "81/133, 60.90%",
-                "webnudge": "5/133, 3.76%",
+                "web_nudge": "5/133, 3.76%",
                 "no_contacts": "11/133, 8.27%",
                 "discounted_invalid_cases": "29/162, 17.90%",
             },
@@ -226,9 +227,11 @@ describe("function InterviewerCallPattern() with happy data", () => {
             expect(screen.getByText("Refusals")).toBeVisible();
             expect(screen.getByText("4/133, 3.01%")).toBeVisible();
             expect(screen.getByText("Completed successfully")).toBeVisible();
-            expect(screen.getAllByText("0/133, 0.00%")).toHaveLength(3);
+            expect(screen.getAllByText("0/133, 0.00%")).toHaveLength(2);
             expect(screen.getByText("Appointments for contacts")).toBeVisible();
-            expect(screen.getByText("86/133, 64.66%")).toBeVisible();
+            expect(screen.getByText("81/133, 60.90%")).toBeVisible();
+            expect(screen.getByText("Web nudge")).toBeVisible();
+            expect(screen.getByText("5/133, 3.76%")).toBeVisible();
             expect(screen.getByText("Discounted invalid cases")).toBeVisible();
             expect(screen.queryByText("29/133, 21.80%")).not.toBeInTheDocument();
             expect(screen.getByText("No contacts")).toBeVisible();
@@ -339,7 +342,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
             expect(screen.getByText("0/133, 0.00%")).toBeVisible();
             expect(screen.getByText("Appointments for contacts")).toBeVisible();
             expect(screen.getByText("81/133, 60.90%")).toBeVisible();
-            expect(screen.getByText("Webnudge")).toBeVisible();
+            expect(screen.getByText("Web nudge")).toBeVisible();
             expect(screen.getByText("5/133, 3.76%")).toBeVisible();
             expect(screen.getByText("No contacts")).toBeVisible();
             expect(screen.getByText("11/133, 8.27%")).toBeVisible();
