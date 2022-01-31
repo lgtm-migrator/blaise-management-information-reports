@@ -1,0 +1,77 @@
+import React, { ReactElement } from "react";
+import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
+import { Component } from "react";
+import { getUser, validatePassword } from "../client/user";
+
+
+type LoginFormProps = {
+  setToken: (token: any) => void
+}
+
+type LoginFormState = {
+  error: string
+}
+
+export default class LoginForm extends Component<LoginFormProps, LoginFormState> {
+  constructor(props: LoginFormProps) {
+    super(props);
+    this.login = this.login.bind(this);
+    this.state = {
+      error: ""
+    };
+  }
+
+  formFields(): any {
+    return [
+      {
+        name: "Username",
+        id: "username",
+        description: "Your Blaise username",
+        type: "username",
+      },
+      {
+        name: "Password",
+        description: "Your Blaise password",
+        type: "password",
+      }
+    ];
+  }
+
+  async login(form: Record<string, string>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+    const valid = await validatePassword(form.Username, form.Password);
+    if (!valid) {
+      this.setState({
+        error: "Incorrect username or password"
+      });
+      setSubmitting(false);
+      return;
+    }
+    const user = await getUser(form.Username);
+    // Refactor this to load config from the environment
+    if (user.role !== "DST" && user.role !== "TO Manager" && user.role !== "BDSS") {
+      this.setState({
+        error: "You do not have the correct permissions"
+      });
+      setSubmitting(false);
+      return;
+    }
+    this.props.setToken(user);
+  }
+
+  error(): ReactElement | undefined {
+    if (this.state.error != "") {
+      return <ONSPanel status="error">{this.state.error}</ONSPanel>;
+    }
+    return undefined;
+  }
+
+  render(): ReactElement {
+    return (
+      <>
+        <h1 className="u-mt-m">Sign in</h1>
+        {this.error()}
+        <StyledForm fields={this.formFields()} onSubmitFunction={this.login} submitLabel="Sign in" />
+      </>
+    );
+  }
+}

@@ -15,7 +15,6 @@ const feature = loadFeature(
 );
 
 const reportDataReturned: InterviewerCallHistoryReportData[] = [
-
     {
         questionnaire_name: "LMS2101_AA1",
         serial_number: "1337",
@@ -48,6 +47,7 @@ defineFeature(feature, test => {
 
     beforeEach(() => {
         cleanup();
+        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         mock_fetch_requests(mock_server_responses);
     });
 

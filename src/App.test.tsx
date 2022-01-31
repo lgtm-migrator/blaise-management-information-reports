@@ -1,19 +1,20 @@
 import React from "react";
-import {render, waitFor} from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import App from "./App";
 import "@testing-library/jest-dom";
 import flushPromises from "./tests/utilities";
-import {act} from "react-dom/test-utils";
-import {createMemoryHistory} from "history";
-import {Router} from "react-router";
+import { act } from "react-dom/test-utils";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router";
 
 
 describe("management information reports homepage", () => {
     it("matches snapshot", async () => {
+        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <App/>
+                <App />
             </Router>
         );
 
@@ -27,10 +28,11 @@ describe("management information reports homepage", () => {
     });
 
     it("renders correctly", async () => {
+        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         const history = createMemoryHistory();
-        const {queryByText} = render(
+        const { queryByText } = render(
             <Router history={history}>
-                <App/>
+                <App />
             </Router>
         );
 
@@ -40,4 +42,3 @@ describe("management information reports homepage", () => {
         expect(queryByText(/Appointment resource planning/)).toBeInTheDocument();
     });
 });
-

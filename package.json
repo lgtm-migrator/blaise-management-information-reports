@@ -11,7 +11,8 @@
     "test": "jest --coverage --watchAll=false",
     "gcp-build": "react-scripts build && tsc --project tsconfig.server.json",
     "lint-fix": "node_modules/.bin/eslint . --fix",
-    "integration-test": "playwright test tests/integration"
+    "integration-test": "playwright test tests/integration",
+    "dev": "concurrently --kill-others-on-fail \"yarn start-server\" \"yarn start-react\""
   },
   "proxy": "http://localhost:5004",
   "keywords": [],
@@ -71,6 +72,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "axios-mock-adapter": "^1.19.0",
     "blaise-api-node-client": "git+https://github.com/ONSdigital/blaise-api-node-client",
+    "concurrently": "^7.0.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.21.0",
     "eslint-plugin-react": "^7.21.5",

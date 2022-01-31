@@ -1,16 +1,18 @@
-import express, {NextFunction, Request, Response} from "express";
+import express, { NextFunction, Request, Response } from "express";
 import path from "path";
 import ejs from "ejs";
 import dotenv from "dotenv";
-import {getEnvironmentVariables} from "./Config";
+import { getEnvironmentVariables } from "./Config";
 import createLogger from "./pino";
-import {SendAPIRequest} from "./SendRequest";
+import { SendAPIRequest } from "./SendRequest";
 import multer from "multer";
 import dateFormatter from "dayjs";
 import AuthProvider from "./AuthProvider";
+import BlaiseApiClient from "blaise-api-node-client";
+import newLoginHandler from "./handlers/loginHandler";
 
 if (process.env.NODE_ENV !== "production") {
-    dotenv.config({path: __dirname + "/../.env"});
+    dotenv.config({ path: __dirname + "/../.env" });
 }
 
 const upload = multer();
@@ -23,9 +25,10 @@ server.use(upload.any());
 const buildFolder = "../build";
 
 // load the .env variables in the server
-const {BERT_URL, BERT_CLIENT_ID} = getEnvironmentVariables();
+const { BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL } = getEnvironmentVariables();
 
 const authProvider = new AuthProvider(BERT_CLIENT_ID);
+const blaiseApiClient = new BlaiseApiClient(BLAISE_API_URL);
 
 // treat the index.html as a template and substitute the values at runtime
 server.set("views", path.join(__dirname, buildFolder));
@@ -35,7 +38,7 @@ server.use("/static", express.static(path.join(__dirname, `${buildFolder}/static
 // health_check endpoint
 server.get("/mir-ui/:version/health", async function (req: Request, res: Response) {
     console.log("health_check endpoint called");
-    res.status(200).json({healthy: true});
+    res.status(200).json({ healthy: true });
 });
 
 // call-history-status endpoint
@@ -54,7 +57,7 @@ server.post("/api/reports/interviewer-call-history", async function (req: Reques
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
-    const {interviewer, start_date, end_date, survey_tla} = req.body;
+    const { interviewer, start_date, end_date, survey_tla } = req.body;
     const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
     const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
     const url = `${BERT_URL}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
@@ -69,7 +72,7 @@ server.post("/api/reports/interviewer-call-pattern", async function (req: Reques
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
-    const {interviewer, start_date, end_date, survey_tla} = req.body;
+    const { interviewer, start_date, end_date, survey_tla } = req.body;
     const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
     const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
     const url = `${BERT_URL}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
@@ -84,7 +87,7 @@ server.post("/api/reports/appointment-resource-planning", async function (req: R
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
-    const {date} = req.body;
+    const { date } = req.body;
     const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
     const url = `${BERT_URL}/api/reports/appointment-resource-planning/${dateFormatted}`;
     console.log(url);
@@ -98,13 +101,17 @@ server.post("/api/reports/appointment-resource-planning-summary", async function
     const authHeader = await authProvider.getAuthHeader();
     logger(req, res);
     console.log(req.body);
-    const {date} = req.body;
+    const { date } = req.body;
     const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
     const url = `${BERT_URL}/api/reports/appointment-resource-planning-summary/${dateFormatted}`;
     console.log(url);
     const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
     res.status(status).json(result);
 });
+
+const loginHandler = newLoginHandler(blaiseApiClient);
+
+server.use("/", loginHandler);
 
 server.get("*", function (req: Request, res: Response) {
     res.render("index.html");
