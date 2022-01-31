@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export function useToken() {
+type tokenManager = {
+  setToken: (userToken: any) => void
+  token: any
+}
+
+export function useToken(): tokenManager {
   const getToken = () => {
     const tokenString = localStorage.getItem("token");
     if (!tokenString) {
@@ -23,6 +28,6 @@ export function useToken() {
   };
 }
 
-export function clearToken() {
+export function clearToken(): void {
   localStorage.clear();
 }
