@@ -1,64 +1,43 @@
-import { InterviewerCallHistoryReportData } from "../interfaces";
+import { InterviewerCallHistoryReport } from "../interfaces";
 import "@testing-library/jest-dom";
-import flushPromises, { mock_fetch_requests } from "../tests/utilities";
+import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { cleanup, render, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import InterviewerCallHistory from "./InterviewerCallHistory";
 import { act } from "react-dom/test-utils";
-import { fireEvent, screen } from "@testing-library/dom";
+import { screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
+import userEvent from "@testing-library/user-event";
 
-const reportDataReturned: InterviewerCallHistoryReportData[] = [
+const mockAdapter = new MockAdapter(axios);
 
+const reportDataReturned: InterviewerCallHistoryReport[] = [
     {
         questionnaire_name: "LMS2101_AA1",
         serial_number: "1337",
         call_start_time: "Sat, 01 May 2021 10:00:00 GMT",
-        dial_secs: "61",
+        dial_secs: 61,
         call_result: "Busy"
-    }];
-
-const mock_server_responses_with_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-history")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(reportDataReturned),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({ "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }),
-        });
     }
-};
-
-const mock_server_responses_without_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-history")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
-        });
-    }
-};
+];
 
 const threeDaysFromTheNewMillennium = "2000-01-03";
 
 describe("interviewer call history report with data", () => {
     afterEach(() => {
         MockDate.reset();
+        mockAdapter.reset();
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_responses_with_data);
+        mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, reportDataReturned);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -104,16 +83,11 @@ describe("interviewer call history report with data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.click(screen.getByText("LMS"));
+        userEvent.click(screen.getByText("LMS"));
 
-        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
-            target: {
-                value:
-                    "ricer"
-            }
-        });
+        userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
 
-        await fireEvent.click(screen.getByTestId(/submit-button/i));
+        userEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -139,10 +113,14 @@ describe("interviewer call history report with data", () => {
 describe("interviewer call history report without data", () => {
     afterEach(() => {
         MockDate.reset();
+        mockAdapter.reset();
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_responses_without_data);
+        mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, []);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, {}
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -181,16 +159,11 @@ describe("interviewer call history report without data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.click(screen.getByText("LMS"));
+        userEvent.click(screen.getByText("LMS"));
 
-        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
-            target: {
-                value:
-                    "ricer"
-            }
-        });
+        userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
 
-        await fireEvent.click(screen.getByTestId(/submit-button/i));
+        userEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();

@@ -3,7 +3,7 @@ import { StyledForm } from "blaise-design-system-react-components";
 import dateFormatter from "dayjs";
 
 interface Props {
-    onSubmitFunction: any;
+    onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
 const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): ReactElement => {
