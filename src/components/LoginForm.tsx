@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import { Component } from "react";
-import { getUser, validatePassword } from "../client/user";
+import { validatePassword, validateUserPermissions } from "../client/user";
 
 
 type LoginFormProps = {
@@ -46,9 +46,8 @@ export default class LoginForm extends Component<LoginFormProps, LoginFormState>
       setSubmitting(false);
       return;
     }
-    const user = await getUser(form.Username);
-    // Refactor this to load config from the environment
-    if (user.role !== "DST" && user.role !== "TO Manager" && user.role !== "BDSS") {
+    const user = await validateUserPermissions(form.Username);
+    if (!user.rolesValidated) {
       this.setState({
         error: "You do not have the correct permissions"
       });

@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { getEnvironmentVariables } from "./Config";
+import { loadConfigFromEnv } from "./Config";
 import { newServer } from "./Server";
 import AuthProvider from "./AuthProvider";
 import BlaiseApiClient from "blaise-api-node-client";
@@ -8,11 +8,10 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: __dirname + "/../.env" });
 }
 
+const config = loadConfigFromEnv();
 
-const config = getEnvironmentVariables();
-
-const authProvider = new AuthProvider(config.BERT_CLIENT_ID);
-const blaiseApiClient = new BlaiseApiClient(config.BLAISE_API_URL);
+const authProvider = new AuthProvider(config.BertClientId);
+const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
 
 const app = newServer(config, authProvider, blaiseApiClient);
 

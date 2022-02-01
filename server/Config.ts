@@ -1,12 +1,14 @@
-export interface EnvironmentVariables {
-    PROJECT_ID: string
-    BERT_URL: string
-    BERT_CLIENT_ID: string
-    BLAISE_API_URL: string
+export interface Config {
+    ProjectID: string
+    BertUrl: string
+    BertClientId: string
+    BlaiseApiUrl: string
+    Roles: string[]
 }
 
-export function getEnvironmentVariables(): EnvironmentVariables {
+export function loadConfigFromEnv(): Config {
     let { PROJECT_ID, BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL } = process.env;
+    const { ROLES } = process.env;
 
     if (PROJECT_ID === undefined) {
         console.error("PROJECT_ID environment variable has not been set");
@@ -28,6 +30,18 @@ export function getEnvironmentVariables(): EnvironmentVariables {
         BLAISE_API_URL = "ENV_VAR_NOT_SET";
     }
 
+    return {
+        ProjectID: PROJECT_ID,
+        BertUrl: BERT_URL,
+        BertClientId: BERT_CLIENT_ID,
+        BlaiseApiUrl: BLAISE_API_URL,
+        Roles: loadRoles(ROLES)
+    };
+}
 
-    return { PROJECT_ID, BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL };
+function loadRoles(roles: string | undefined): string[] {
+    if (!roles || roles === "") {
+        return ["DST", "BDSS", "TO Manager"];
+    }
+    return roles.split(",");
 }

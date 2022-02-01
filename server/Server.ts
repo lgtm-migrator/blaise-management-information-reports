@@ -9,13 +9,9 @@ import dateFormatter from "dayjs";
 import AuthProvider from "./AuthProvider";
 import BlaiseApiClient from "blaise-api-node-client";
 import newLoginHandler from "./handlers/loginHandler";
-import { EnvironmentVariables } from "./Config";
+import { Config } from "./Config";
 
-if (process.env.NODE_ENV !== "production") {
-    dotenv.config({ path: __dirname + "/../.env" });
-}
-
-export function newServer(config: EnvironmentVariables, authProvider: AuthProvider, blaiseApiClient: BlaiseApiClient): Express {
+export function newServer(config: Config, authProvider: AuthProvider, blaiseApiClient: BlaiseApiClient): Express {
     const upload = multer();
     const server = express();
     const logger = createLogger();
@@ -41,7 +37,7 @@ export function newServer(config: EnvironmentVariables, authProvider: AuthProvid
         console.log("call-history-status endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         logger(req, res);
-        const url = `${config.BERT_URL}/api/reports/call-history-status`;
+        const url = `${config.BertUrl}/api/reports/call-history-status`;
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
     });
@@ -55,7 +51,7 @@ export function newServer(config: EnvironmentVariables, authProvider: AuthProvid
         const { interviewer, start_date, end_date, survey_tla } = req.body;
         const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
         const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
-        const url = `${config.BERT_URL}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
+        const url = `${config.BertUrl}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -70,7 +66,7 @@ export function newServer(config: EnvironmentVariables, authProvider: AuthProvid
         const { interviewer, start_date, end_date, survey_tla } = req.body;
         const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
         const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
-        const url = `${config.BERT_URL}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
+        const url = `${config.BertUrl}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -84,7 +80,7 @@ export function newServer(config: EnvironmentVariables, authProvider: AuthProvid
         console.log(req.body);
         const { date } = req.body;
         const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
-        const url = `${config.BERT_URL}/api/reports/appointment-resource-planning/${dateFormatted}`;
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -98,13 +94,13 @@ export function newServer(config: EnvironmentVariables, authProvider: AuthProvid
         console.log(req.body);
         const { date } = req.body;
         const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
-        const url = `${config.BERT_URL}/api/reports/appointment-resource-planning-summary/${dateFormatted}`;
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
     });
 
-    const loginHandler = newLoginHandler(blaiseApiClient);
+    const loginHandler = newLoginHandler(config, blaiseApiClient);
 
     server.use("/", loginHandler);
 
