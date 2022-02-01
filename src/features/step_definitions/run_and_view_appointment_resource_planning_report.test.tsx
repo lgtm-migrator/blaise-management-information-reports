@@ -9,6 +9,12 @@ import { act } from "react-dom/test-utils";
 import flushPromises, { mock_fetch_requests } from "../../tests/utilities";
 import { AppointmentResourcePlanningReportData } from "../../interfaces";
 
+jest.mock("../../client/user", () => ({
+    validateToken: jest.fn().mockImplementation(async () => {
+        return Promise.resolve(true);
+    })
+}));
+
 const feature = loadFeature(
     "./src/features/run_and_view_appointment_resource_planning_report.feature",
     { tagFilter: "not @server and not @integration" }
@@ -62,9 +68,9 @@ defineFeature(feature, test => {
     });
     beforeEach(() => {
         cleanup();
-        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         mock_fetch_requests(mock_server_response);
     });
+
     test("Get information on appointments", ({ given, when, then, and }) => {
         given("a date is provided", async () => {
             const history = createMemoryHistory();
@@ -73,6 +79,9 @@ defineFeature(feature, test => {
                     <App />
                 </Router>
             );
+            await act(async () => {
+                await flushPromises();
+            });
             fireEvent.click(screen.getByText("Appointment resource planning"));
             await act(async () => {
                 await flushPromises();

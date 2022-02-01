@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response, Express } from "express";
 import path from "path";
 import ejs from "ejs";
-import dotenv from "dotenv";
 import createLogger from "./pino";
 import { SendAPIRequest } from "./SendRequest";
 import multer from "multer";

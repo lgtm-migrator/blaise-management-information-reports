@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import React, { ReactElement, useEffect, useState } from "react";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
 import { BetaBanner, DefaultErrorBoundary, Footer, Header } from "blaise-design-system-react-components";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory";
 import InterviewerCallPattern from "./reports/InterviewerCallPattern";
@@ -7,16 +7,29 @@ import AppointmentResourcePlanning from "./reports/AppointmentResourcePlanning/A
 import "./style.css";
 import LoginForm from "./components/LoginForm";
 import { useToken, clearToken } from "./client/token";
+import { validateToken } from "./client/user";
 
 const divStyle = {
     minHeight: "calc(72vh)"
 };
 
 function App(): ReactElement {
+    const location = useLocation();
     const { token, setToken } = useToken();
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        console.log(location);
+        validateToken(token).then((validated: boolean) => {
+            setLoggedIn(validated);
+        }).catch((error: unknown) => {
+            console.log(`Error checking logged in state: ${error}`);
+            setLoggedIn(false);
+        });
+    });
 
     function loginPage(): ReactElement {
-        if (token) {
+        if (loggedIn) {
             return <></>;
         }
         return <LoginForm setToken={setToken} />;
@@ -25,10 +38,11 @@ function App(): ReactElement {
     function signOut(): void {
         clearToken();
         setToken(null);
+        setLoggedIn(false);
     }
 
     function app(): ReactElement | undefined {
-        if (token) {
+        if (loggedIn) {
             return (<DefaultErrorBoundary>
                 <Switch>
                     <Route path="/interviewer-call-history">

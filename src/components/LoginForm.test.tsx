@@ -10,6 +10,7 @@ import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import flushPromises from "../tests/utilities";
+import jwt from "jsonwebtoken";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -83,7 +84,7 @@ describe("Login form", () => {
   describe("when the username and password are correct but the user does not have permission", () => {
     it("renders an error and does not set the token", async () => {
       mockAdapter.onPost("/api/login/users/password/validate").reply(200, true);
-      mockAdapter.onGet("/api/login/users/test/authorised").reply(200, { "role": "test", "rolesValidated": false });
+      mockAdapter.onGet("/api/login/users/test/authorised").reply(403, { "error": "Not authorised" });
 
       const history = createMemoryHistory();
       render(
@@ -108,7 +109,7 @@ describe("Login form", () => {
   describe("when the username and password are correct and the user has permission", () => {
     it("sets the token", async () => {
       mockAdapter.onPost("/api/login/users/password/validate").reply(200, true);
-      mockAdapter.onGet("/api/login/users/test/authorised").reply(200, { "role": "test", "rolesValidated": true });
+      mockAdapter.onGet("/api/login/users/test/authorised").reply(200, { token: jwt.sign({ data: { "role": "test" } }, "test-secret") });
 
       const history = createMemoryHistory();
       render(
@@ -126,7 +127,12 @@ describe("Login form", () => {
         await flushPromises();
       });
 
-      expect(token).toEqual({ "role": "test", "rolesValidated": true });
+      const myJwt = jwt.decode(token);
+      if (myJwt == null || typeof (myJwt) === "string") {
+        expect(myJwt).toEqual({ "role": "test" });
+      } else {
+        expect(myJwt["data"]).toEqual({ "role": "test" });
+      }
     });
   });
 });

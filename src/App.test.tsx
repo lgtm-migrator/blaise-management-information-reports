@@ -7,10 +7,15 @@ import { act } from "react-dom/test-utils";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
 
+jest.mock("./client/user", () => ({
+    validateToken: jest.fn().mockImplementation(async () => {
+        return Promise.resolve(true);
+    })
+}));
+
 
 describe("management information reports homepage", () => {
     it("matches snapshot", async () => {
-        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
@@ -28,13 +33,16 @@ describe("management information reports homepage", () => {
     });
 
     it("renders correctly", async () => {
-        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         const history = createMemoryHistory();
         const { queryByText } = render(
             <Router history={history}>
                 <App />
             </Router>
         );
+
+        await act(async () => {
+            await flushPromises();
+        });
 
         expect(queryByText(/Management Information Reports/)).toBeInTheDocument();
         expect(queryByText(/Interviewer call history/)).toBeInTheDocument();

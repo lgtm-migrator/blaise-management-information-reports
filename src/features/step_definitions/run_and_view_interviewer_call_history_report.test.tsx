@@ -9,6 +9,12 @@ import { act } from "react-dom/test-utils";
 import flushPromises, { mock_fetch_requests } from "../../tests/utilities";
 import { InterviewerCallHistoryReportData } from "../../interfaces";
 
+jest.mock("../../client/user", () => ({
+    validateToken: jest.fn().mockImplementation(async () => {
+        return Promise.resolve(true);
+    })
+}));
+
 const feature = loadFeature(
     "./src/features/run_and_view_interviewer_call_history_report.feature",
     { tagFilter: "not @server and not @integration" }
@@ -47,7 +53,6 @@ defineFeature(feature, test => {
 
     beforeEach(() => {
         cleanup();
-        localStorage.setItem("token", JSON.stringify({ "role": "test" }));
         mock_fetch_requests(mock_server_responses);
     });
 
@@ -59,6 +64,10 @@ defineFeature(feature, test => {
                     <App />
                 </Router>
             );
+
+            await act(async () => {
+                await flushPromises();
+            });
 
             fireEvent.click(screen.getByText("Interviewer call history"));
 

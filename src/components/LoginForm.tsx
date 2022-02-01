@@ -46,15 +46,15 @@ export default class LoginForm extends Component<LoginFormProps, LoginFormState>
       setSubmitting(false);
       return;
     }
-    const user = await validateUserPermissions(form.Username);
-    if (!user.rolesValidated) {
+    const [authorised, token] = await validateUserPermissions(form.Username);
+    if (!authorised) {
       this.setState({
         error: "You do not have the correct permissions"
       });
       setSubmitting(false);
       return;
     }
-    this.props.setToken(user);
+    this.props.setToken(token);
   }
 
   error(): ReactElement | undefined {
