@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { ErrorBoundary, ONSPanel } from "blaise-design-system-react-components";
 import { getInterviewerCallHistoryReport } from "../utilities/HTTP";
 import { convertSecondsToMinutesAndSeconds } from "../utilities/Converters";
-import { InterviewerCallHistoryReportData } from "../interfaces";
+import { InterviewerCallHistoryReport } from "../interfaces";
 import { CSVLink } from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -18,7 +18,7 @@ dateFormatter.extend(timezone);
 function InterviewerCallHistory(): ReactElement {
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportData, setReportData] = useState<InterviewerCallHistoryReportData[]>([]);
+    const [reportData, setReportData] = useState<InterviewerCallHistoryReport[]>([]);
     const [reportFailed, setReportFailed] = useState<boolean>(false);
     const reportExportHeaders = [
         { label: "Interviewer", key: "interviewer" },
@@ -30,7 +30,7 @@ function InterviewerCallHistory(): ReactElement {
     ];
 
 
-    async function runInterviewerCallHistoryReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+    async function runInterviewerCallHistoryReport(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setMessageNoData("");
         setReportFailed(false);
         setReportData([]);
@@ -41,21 +41,23 @@ function InterviewerCallHistory(): ReactElement {
         formValues.end_date = new Date(formValues["End date"]);
         console.log(formValues);
 
-        const [success, data] = await getInterviewerCallHistoryReport(formValues);
-        setSubmitting(false);
-
-        if (!success) {
+        let callHistory: InterviewerCallHistoryReport[];
+        try {
+            callHistory = await getInterviewerCallHistoryReport(formValues);
+        } catch {
             setReportFailed(true);
             return;
+        } finally {
+            setSubmitting(false);
         }
 
-        if (Object.keys(data).length === 0) {
+        if (callHistory.length === 0) {
             setMessageNoData("No data found for parameters given.");
             return;
         }
 
-        console.log(data);
-        setReportData(data);
+        console.log(callHistory);
+        setReportData(callHistory);
         setSubmitting(false);
     }
 
@@ -101,24 +103,24 @@ function InterviewerCallHistory(): ReactElement {
                                 </thead>
                                 <tbody className="table__body">
                                     {
-                                        reportData.map((data: InterviewerCallHistoryReportData) => {
+                                        reportData.map((callHistory: InterviewerCallHistoryReport) => {
                                             return (
-                                                <tr className="table__row" key={data.call_start_time}
+                                                <tr className="table__row" key={callHistory.call_start_time}
                                                     data-testid={"report-table-row"}>
                                                     <td className="table__cell ">
-                                                        {data.questionnaire_name}
+                                                        {callHistory.questionnaire_name}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {data.serial_number}
+                                                        {callHistory.serial_number}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {dateFormatter(data.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss")}
+                                                        {dateFormatter(callHistory.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss")}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {convertSecondsToMinutesAndSeconds(data.dial_secs)}
+                                                        {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {(data.call_result === null ? "Unknown" : data.call_result)}
+                                                        {(callHistory.call_result === null ? "Unknown" : callHistory.call_result)}
                                                     </td>
                                                 </tr>
                                             );

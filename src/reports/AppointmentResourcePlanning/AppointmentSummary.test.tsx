@@ -1,21 +1,21 @@
 import React from "react";
-import {cleanup, render, screen, waitFor} from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {createMemoryHistory} from "history";
-import {Router} from "react-router";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router";
 import AppointmentSummary from "./AppointmentSummary";
 
 describe("Appointment Summary Section", () => {
     const languageSummary = [
-        {language: "English", total: 12},
-        {language: "Welsh", total: 56},
+        { language: "English", total: 12 },
+        { language: "Welsh", total: 56 },
     ];
 
     it("displays appointment summary", async () => {
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <AppointmentSummary data={languageSummary} failed={false}/>
+                <AppointmentSummary data={languageSummary} failed={false} />
             </Router>
         );
 
@@ -52,7 +52,7 @@ describe("Appointment Summary Section", () => {
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <AppointmentSummary data={[]} failed={true}/>
+                <AppointmentSummary data={[]} failed={true} />
             </Router>
         );
 

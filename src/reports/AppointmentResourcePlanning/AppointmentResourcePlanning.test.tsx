@@ -1,19 +1,25 @@
-import {AppointmentResourcePlanningReportData} from "../../interfaces";
+import { AppointmentResourcePlanningReportData } from "../../interfaces";
 import "@testing-library/jest-dom";
-import flushPromises, {mock_fetch_requests} from "../../tests/utilities";
-import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
+import flushPromises from "../../tests/utilities";
+import { createMemoryHistory } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
 import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import { act } from "react-dom/test-utils";
+import { screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
+import userEvent from "@testing-library/user-event";
+
+
+const mockAdapter = new MockAdapter(axios);
 
 const ReportSummary = [
-    {language: "English", total: 1},
-    {language: "Welsh", total: 1},
-    {language: "Other", total: 1},
+    { language: "English", total: 1 },
+    { language: "Welsh", total: 1 },
+    { language: "Other", total: 1 },
 ];
 
 const reportDataReturned: AppointmentResourcePlanningReportData[] = [
@@ -37,33 +43,6 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
     }
 ];
 
-const mock_server_response_with_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/appointment-resource-planning-summary")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(ReportSummary),
-        });
-    }
-    return Promise.resolve({
-        status: 200,
-        json: () => Promise.resolve(reportDataReturned),
-    });
-};
-
-const mock_server_response_without_data = (url: string) => {
-    if (url.includes("/api/reports/appointment-resource-planning-summary")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve([]),
-        });
-    }
-    return Promise.resolve({
-        status: 200,
-        json: () => Promise.resolve(""),
-    });
-
-};
 
 const christmasEve97 = "1997-12-24";
 
@@ -73,15 +52,17 @@ describe("appointment resource planning report with data", () => {
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_response_with_data);
         MockDate.set(new Date(christmasEve97));
+        mockAdapter.reset();
+        mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, reportDataReturned);
+        mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
     });
 
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <AppointmentResourcePlanning/>
+                <AppointmentResourcePlanning />
             </Router>
         );
         await act(async () => {
@@ -91,12 +72,13 @@ describe("appointment resource planning report with data", () => {
             expect(wrapper).toMatchSnapshot();
         });
     });
+
     it("renders correctly", async () => {
         const history = createMemoryHistory();
         await act(async () => {
             render(
                 <Router history={history}>
-                    <AppointmentResourcePlanning/>
+                    <AppointmentResourcePlanning />
                 </Router>
             );
         });
@@ -104,13 +86,10 @@ describe("appointment resource planning report with data", () => {
         expect(screen.queryByText("Run a Daybatch first to obtain the most accurate results.")).toBeVisible();
         expect(screen.queryByText("Appointments that have already been attempted will not be displayed.")).toBeVisible();
         expect(screen.queryByText("Date")).toBeVisible();
-        fireEvent.input(screen.getByLabelText(/Date/i), {
-            target: {
-                value:
-                    "2021-01-01"
-            }
-        });
-        fireEvent.click(screen.getByTestId(/submit-button/i));
+
+        userEvent.type(screen.getByLabelText(/Date/i), "2021-01-01");
+        userEvent.click(screen.getByTestId(/submit-button/i));
+
         await act(async () => {
             await flushPromises();
         });
@@ -142,15 +121,17 @@ describe("appointment resource planning report without data", () => {
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_response_without_data);
         MockDate.set(new Date(christmasEve97));
+        mockAdapter.reset();
+        mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, "");
+        mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, []);
     });
 
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <AppointmentResourcePlanning/>
+                <AppointmentResourcePlanning />
             </Router>
         );
         await act(async () => {
@@ -165,7 +146,7 @@ describe("appointment resource planning report without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <AppointmentResourcePlanning/>
+                    <AppointmentResourcePlanning />
                 </Router>
             );
         });
@@ -173,13 +154,10 @@ describe("appointment resource planning report without data", () => {
         expect(screen.queryByText("Run a Daybatch first to obtain the most accurate results.")).toBeVisible();
         expect(screen.queryByText("Appointments that have already been attempted will not be displayed.")).toBeVisible();
         expect(screen.queryByText("Date")).toBeVisible();
-        fireEvent.input(screen.getByLabelText(/Date/i), {
-            target: {
-                value:
-                    "2021-01-01"
-            }
-        });
-        fireEvent.click(screen.getByTestId(/submit-button/i));
+
+        userEvent.type(screen.getByLabelText(/Date/i), "2021-01-01");
+        userEvent.click(screen.getByTestId(/submit-button/i));
+
         await act(async () => {
             await flushPromises();
         });
@@ -187,6 +165,7 @@ describe("appointment resource planning report without data", () => {
             expect(screen.queryByText("No data found for parameters given.")).toBeVisible();
         });
     });
+
     afterAll(() => {
         jest.clearAllMocks();
         cleanup();
