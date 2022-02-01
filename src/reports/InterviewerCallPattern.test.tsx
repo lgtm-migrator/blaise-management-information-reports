@@ -1,11 +1,12 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import flushPromises, {mock_fetch_requests} from "../tests/utilities";
-import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import flushPromises from "../tests/utilities";
+import { createMemoryHistory } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
+import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
+import { screen } from "@testing-library/dom";
 import InterviewerCallPattern, {
     formatToFractionAndPercentage,
     callTimeSection,
@@ -13,8 +14,13 @@ import InterviewerCallPattern, {
     noContactBreakdownSection, isAllInvalid, invalidFieldsGroup
 } from "./InterviewerCallPattern";
 import MockDate from "mockdate";
+import { InterviewerCallPatternReport } from "../interfaces";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
 
-const mockData: Record<string, any> = {
+const mockAdapter = new MockAdapter(axios);
+
+const mockData: InterviewerCallPatternReport = {
     total_valid_cases: 133,
     hours_worked: "26:58:07",
     call_time: "01:31:32",
@@ -22,16 +28,19 @@ const mockData: Record<string, any> = {
     average_calls_per_hour: 3.86,
     refusals: 4,
     completed_successfully: 0,
-    appointments_for_contacts: 86,
+    appointments_for_contacts: 81,
+    web_nudge: 5,
     no_contacts: 11,
     no_contact_answer_service: 4,
     no_contact_busy: 1,
     no_contact_disconnect: 2,
     no_contact_no_answer: 3,
-    no_contact_other: 4
+    no_contact_other: 4,
+    invalid_fields: "n/a",
+    discounted_invalid_cases: 0,
 };
 
-const mockDataWithInvalidCases: Record<string, any> = {
+const mockDataWithInvalidCases: InterviewerCallPatternReport = {
     total_valid_cases: 133,
     hours_worked: "26:58:07",
     call_time: "01:31:32",
@@ -39,7 +48,8 @@ const mockDataWithInvalidCases: Record<string, any> = {
     average_calls_per_hour: 3.86,
     refusals: 4,
     completed_successfully: 0,
-    appointments_for_contacts: 86,
+    appointments_for_contacts: 81,
+    web_nudge: 5,
     discounted_invalid_cases: 29,
     no_contacts: 11,
     no_contact_answer_service: 4,
@@ -51,7 +61,7 @@ const mockDataWithInvalidCases: Record<string, any> = {
     total_records: 133 + 29,
 };
 
-const mockDataWithOnlyInvalidCases: Record<string, any> = {
+const mockDataWithOnlyInvalidCases: InterviewerCallPatternReport = {
     discounted_invalid_cases: 100,
     invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
 };
@@ -85,7 +95,8 @@ describe("function callStatusSection()", () => {
             "records": {
                 "refusals": "4/133, 3.01%",
                 "completed_successfully": "0/133, 0.00%",
-                "appointments_for_contacts": "86/133, 64.66%",
+                "appointments_for_contacts": "81/133, 60.90%",
+                "web_nudge": "5/133, 3.76%",
                 "no_contacts": "11/133, 8.27%",
                 "discounted_invalid_cases": "29/162, 17.90%",
             },
@@ -117,7 +128,7 @@ describe("function invalidFieldsGroup()", () => {
             "records": {
                 "invalid_fields": "'status' column had timed out call status,'call_end_time' column had missing data",
                 "discounted_invalid_cases": 29,
-                "total_records": mockDataWithInvalidCases.total_valid_cases + mockDataWithInvalidCases.discounted_invalid_cases,
+                "total_records": (mockDataWithInvalidCases.total_valid_cases || 0) + mockDataWithInvalidCases.discounted_invalid_cases,
             },
             "title": "Invalid Fields",
         });
@@ -139,10 +150,16 @@ describe("function isAllInvalid()", () => {
 describe("function InterviewerCallPattern() with happy data", () => {
     afterEach(() => {
         MockDate.reset();
+        mockAdapter.reset();
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_responses_with_data);
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
+            200, mockData
+        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -151,7 +168,7 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern/>
+                <InterviewerCallPattern />
             </Router>
         );
 
@@ -170,7 +187,7 @@ describe("function InterviewerCallPattern() with happy data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern/>
+                    <InterviewerCallPattern />
                 </Router>
             );
         });
@@ -183,16 +200,11 @@ describe("function InterviewerCallPattern() with happy data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.click(screen.getByText("LMS"));
+        userEvent.click(screen.getByText("LMS"));
 
-        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
-            target: {
-                value:
-                    "ricer"
-            }
-        });
+        userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
 
-        await fireEvent.click(screen.getByTestId(/submit-button/i));
+        userEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -215,9 +227,11 @@ describe("function InterviewerCallPattern() with happy data", () => {
             expect(screen.getByText("Refusals")).toBeVisible();
             expect(screen.getByText("4/133, 3.01%")).toBeVisible();
             expect(screen.getByText("Completed successfully")).toBeVisible();
-            expect(screen.getByText("0/133, 0.00%")).toBeVisible();
+            expect(screen.getAllByText("0/133, 0.00%")).toHaveLength(2);
             expect(screen.getByText("Appointments for contacts")).toBeVisible();
-            expect(screen.getByText("86/133, 64.66%")).toBeVisible();
+            expect(screen.getByText("81/133, 60.90%")).toBeVisible();
+            expect(screen.getByText("Web nudge")).toBeVisible();
+            expect(screen.getByText("5/133, 3.76%")).toBeVisible();
             expect(screen.getByText("Discounted invalid cases")).toBeVisible();
             expect(screen.queryByText("29/133, 21.80%")).not.toBeInTheDocument();
             expect(screen.getByText("No contacts")).toBeVisible();
@@ -248,10 +262,16 @@ describe("function InterviewerCallPattern() with happy data", () => {
 describe("function InterviewerCallPattern() with data and invalid data", () => {
     afterEach(() => {
         MockDate.reset();
+        mockAdapter.reset();
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_responses_with_invalid_data);
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
+            200, mockDataWithInvalidCases
+        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -260,7 +280,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern/>
+                <InterviewerCallPattern />
             </Router>
         );
 
@@ -279,7 +299,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern/>
+                    <InterviewerCallPattern />
                 </Router>
             );
         });
@@ -292,16 +312,11 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.click(screen.getByText("LMS"));
+        userEvent.click(screen.getByText("LMS"));
 
-        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
-            target: {
-                value:
-                    "ricer"
-            }
-        });
+        userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
 
-        await fireEvent.click(screen.getByTestId(/submit-button/i));
+        userEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -326,7 +341,9 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
             expect(screen.getByText("Completed successfully")).toBeVisible();
             expect(screen.getByText("0/133, 0.00%")).toBeVisible();
             expect(screen.getByText("Appointments for contacts")).toBeVisible();
-            expect(screen.getByText("86/133, 64.66%")).toBeVisible();
+            expect(screen.getByText("81/133, 60.90%")).toBeVisible();
+            expect(screen.getByText("Web nudge")).toBeVisible();
+            expect(screen.getByText("5/133, 3.76%")).toBeVisible();
             expect(screen.getByText("No contacts")).toBeVisible();
             expect(screen.getByText("11/133, 8.27%")).toBeVisible();
             expect(screen.getByText("Discounted invalid cases")).toBeVisible();
@@ -358,10 +375,16 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 describe("function InterviewerCallPattern() without data", () => {
     afterEach(() => {
         MockDate.reset();
+        mockAdapter.reset();
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_responses_without_data);
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
+            200, {}
+        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, {}
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -370,7 +393,7 @@ describe("function InterviewerCallPattern() without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern/>
+                <InterviewerCallPattern />
             </Router>
         );
 
@@ -389,7 +412,7 @@ describe("function InterviewerCallPattern() without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern/>
+                    <InterviewerCallPattern />
                 </Router>
             );
         });
@@ -400,16 +423,11 @@ describe("function InterviewerCallPattern() without data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.click(screen.getByText("LMS"));
+        userEvent.click(screen.getByText("LMS"));
 
-        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
-            target: {
-                value:
-                    "ricer"
-            }
-        });
+        userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
 
-        await fireEvent.click(screen.getByTestId(/submit-button/i));
+        userEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -431,10 +449,16 @@ describe("function InterviewerCallPattern() without data", () => {
 describe("function InterviewerCallPattern() with only invalid data", () => {
     afterEach(() => {
         MockDate.reset();
+        mockAdapter.reset();
     });
 
     beforeEach(() => {
-        mock_fetch_requests(mock_server_responses_with_only_invalid_data);
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
+            200, mockDataWithOnlyInvalidCases
+        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -443,7 +467,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern/>
+                <InterviewerCallPattern />
             </Router>
         );
 
@@ -462,7 +486,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern/>
+                    <InterviewerCallPattern />
                 </Router>
             );
         });
@@ -475,16 +499,11 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
 
-        fireEvent.click(screen.getByText("LMS"));
+        userEvent.click(screen.getByText("LMS"));
 
-        fireEvent.input(screen.getByLabelText(/Interviewer ID/i), {
-            target: {
-                value:
-                    "ricer"
-            }
-        });
+        userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
 
-        await fireEvent.click(screen.getByTestId(/submit-button/i));
+        userEvent.click(screen.getByTestId(/submit-button/i));
 
         await act(async () => {
             await flushPromises();
@@ -508,65 +527,4 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
     });
 });
 
-const mock_server_responses_with_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(mockData),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
-        });
-    }
-};
-
-const mock_server_responses_with_invalid_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(mockDataWithInvalidCases),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
-        });
-    }
-};
-
-const mock_server_responses_without_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(""),
-        });
-    }
-};
-
-const mock_server_responses_with_only_invalid_data = (url: string) => {
-    console.log(url);
-    if (url.includes("/api/reports/interviewer-call-pattern")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(mockDataWithOnlyInvalidCases),
-        });
-    } else if (url.includes("/api/reports/call-history-status")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve({"last_updated": "Tue, 01 Jan 2000 10:00:00 GMT"}),
-        });
-    }
-};
-
 const threeDaysFromTheNewMillennium = "2000-01-03";
-
