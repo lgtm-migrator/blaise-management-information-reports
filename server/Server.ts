@@ -5,12 +5,12 @@ import createLogger from "./pino";
 import { SendAPIRequest } from "./SendRequest";
 import multer from "multer";
 import dateFormatter from "dayjs";
-import AuthProvider from "./AuthProvider";
+import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient from "blaise-api-node-client";
 import newLoginHandler from "./handlers/loginHandler";
 import { Config } from "./Config";
 
-export function newServer(config: Config, authProvider: AuthProvider, blaiseApiClient: BlaiseApiClient): Express {
+export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, blaiseApiClient: BlaiseApiClient): Express {
     const upload = multer();
     const server = express();
     const logger = createLogger();

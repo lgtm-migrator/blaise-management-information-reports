@@ -6,8 +6,13 @@ import App from "../../App";
 import React from "react";
 import { fireEvent } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
-import flushPromises, { mock_fetch_requests } from "../../tests/utilities";
+import flushPromises from "../../tests/utilities";
 import { AppointmentResourcePlanningReportData } from "../../interfaces";
+import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
+
+const mockAdapter = new MockAdapter(axios);
+
 
 jest.mock("../../client/user", () => ({
     validateToken: jest.fn().mockImplementation(async () => {
@@ -47,28 +52,18 @@ const ReportSummary = [
     { language: "Other", total: 1 },
 ];
 
-const mock_server_response = (url: string) => {
-    if (url.includes("/api/reports/appointment-resource-planning-summary")) {
-        return Promise.resolve({
-            status: 200,
-            json: () => Promise.resolve(ReportSummary),
-        });
-    }
-    return Promise.resolve({
-        status: 200,
-        json: () => Promise.resolve(reportDataReturned),
-    });
-};
-
 defineFeature(feature, test => {
     afterEach(() => {
         jest.clearAllMocks();
         jest.resetModules();
         cleanup();
     });
+
     beforeEach(() => {
         cleanup();
-        mock_fetch_requests(mock_server_response);
+        mockAdapter.reset();
+        mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
+        mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, reportDataReturned);
     });
 
     test("Get information on appointments", ({ given, when, then, and }) => {
@@ -93,12 +88,14 @@ defineFeature(feature, test => {
                 }
             });
         });
+
         when("I request information on appointments scheduled for that date", async () => {
             await fireEvent.click(screen.getByTestId(/submit-button/i));
             await act(async () => {
                 await flushPromises();
             });
         });
+
         then("I will receive a list of the following information for appointments made:", async (docString) => {
             await waitFor(() => {
                 expect(screen.getByText("Questionnaire")).toBeDefined();
@@ -115,6 +112,7 @@ defineFeature(feature, test => {
                 expect(listItemThree).toEqual("LMS2101_CC115:15Other408");
             });
         });
+
         and("the information will be displayed in time intervals of quarter of an hour, e.g. 09:00, 09:15, 09:30, 09:45, 10:00, 10:15, etc.", async (docString) => {
             expect(screen.getByText("10:00")).toBeDefined();
             expect(screen.getByText("12:30")).toBeDefined();

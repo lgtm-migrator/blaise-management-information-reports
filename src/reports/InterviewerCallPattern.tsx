@@ -9,69 +9,74 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
 import ReportErrorPanel from "../components/ReportErrorPanel";
+import { InterviewerCallPatternReport } from "../interfaces";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
-function formatToFractionAndPercentage(numerator: number, denominator: number): string {
-    if (denominator === 0) {
+function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
+    if (!numerator) {
+        numerator = 0;
+    }
+    if (denominator === 0 || denominator === undefined) {
         console.warn("Cannot divide by 0");
         return "0/0, 0%";
     }
     return `${numerator}/${denominator}, ${(numerator / denominator * 100).toFixed(2)}%`;
 }
 
-function callTimeSection(data: Record<string, any>): Group {
+function callTimeSection(callPatternReport: InterviewerCallPatternReport): Group {
     return {
         title: "Call times",
         records: {
-            hours_worked: data.hours_worked,
-            call_time: data.call_time,
-            hours_on_calls_percentage: `${data.hours_on_calls_percentage.toFixed(2)}%`,
-            average_calls_per_hour: data.average_calls_per_hour
+            hours_worked: callPatternReport.hours_worked,
+            call_time: callPatternReport.call_time,
+            hours_on_calls_percentage: `${(callPatternReport.hours_on_calls_percentage || 0).toFixed(2)}%`,
+            average_calls_per_hour: callPatternReport.average_calls_per_hour
         }
     };
 }
 
-function callStatusSection(data: Record<string, any>): Group {
+function callStatusSection(callPatternReport: InterviewerCallPatternReport): Group {
     return {
         title: "Call status",
         records: {
-            refusals: formatToFractionAndPercentage(data.refusals, data.total_valid_cases),
-            completed_successfully: formatToFractionAndPercentage(data.completed_successfully, data.total_valid_cases),
-            appointments_for_contacts: formatToFractionAndPercentage(data.appointments_for_contacts, data.total_valid_cases),
-            no_contacts: formatToFractionAndPercentage(data.no_contacts, data.total_valid_cases),
-            discounted_invalid_cases: formatToFractionAndPercentage(data.discounted_invalid_cases, data.total_records),
+            refusals: formatToFractionAndPercentage(callPatternReport.refusals, callPatternReport.total_valid_cases),
+            completed_successfully: formatToFractionAndPercentage(callPatternReport.completed_successfully, callPatternReport.total_valid_cases),
+            appointments_for_contacts: formatToFractionAndPercentage(callPatternReport.appointments_for_contacts, callPatternReport.total_valid_cases),
+            web_nudge: formatToFractionAndPercentage(callPatternReport.web_nudge, callPatternReport.total_valid_cases),
+            no_contacts: formatToFractionAndPercentage(callPatternReport.no_contacts, callPatternReport.total_valid_cases),
+            discounted_invalid_cases: formatToFractionAndPercentage(callPatternReport.discounted_invalid_cases, callPatternReport.total_records),
         }
     };
 }
 
-function noContactBreakdownSection(data: Record<string, any>): Group {
+function noContactBreakdownSection(callPatternReport: InterviewerCallPatternReport): Group {
     return {
         title: "Breakdown of No Contact calls",
         records: {
-            answer_service: formatToFractionAndPercentage(data.no_contact_answer_service, data.no_contacts),
-            busy: formatToFractionAndPercentage(data.no_contact_busy, data.no_contacts),
-            disconnect: formatToFractionAndPercentage(data.no_contact_disconnect, data.no_contacts),
-            no_answer: formatToFractionAndPercentage(data.no_contact_no_answer, data.no_contacts),
-            other: formatToFractionAndPercentage(data.no_contact_other, data.no_contacts),
+            answer_service: formatToFractionAndPercentage(callPatternReport.no_contact_answer_service, callPatternReport.no_contacts),
+            busy: formatToFractionAndPercentage(callPatternReport.no_contact_busy, callPatternReport.no_contacts),
+            disconnect: formatToFractionAndPercentage(callPatternReport.no_contact_disconnect, callPatternReport.no_contacts),
+            no_answer: formatToFractionAndPercentage(callPatternReport.no_contact_no_answer, callPatternReport.no_contacts),
+            other: formatToFractionAndPercentage(callPatternReport.no_contact_other, callPatternReport.no_contacts),
         }
     };
 }
 
-function invalidFieldsGroup(data: Record<string, any>): Group {
+function invalidFieldsGroup(callPatternReport: InterviewerCallPatternReport): Group {
     return {
         title: "Invalid Fields",
         records: {
-            invalid_fields: data.invalid_fields,
-            discounted_invalid_cases: data.discounted_invalid_cases,
-            total_records: data.total_records
+            invalid_fields: callPatternReport.invalid_fields,
+            discounted_invalid_cases: callPatternReport.discounted_invalid_cases,
+            total_records: callPatternReport.total_records
         }
     };
 }
 
-function isAllInvalid(data: Record<string, any>): boolean {
-    return !data.total_valid_cases;
+function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean {
+    return !callPatternReport.total_valid_cases;
 }
 
 function InterviewerCallPattern(): ReactElement {
@@ -91,15 +96,15 @@ function InterviewerCallPattern(): ReactElement {
         setAllInvalid(false);
     }
 
-    function groupData(data: any) {
-        const callTimes: Group = callTimeSection(data);
-        const callStatus: Group = callStatusSection(data);
-        const noContactBreakdown: Group = noContactBreakdownSection(data);
+    function groupData(callPatternReport: InterviewerCallPatternReport) {
+        const callTimes: Group = callTimeSection(callPatternReport);
+        const callStatus: Group = callStatusSection(callPatternReport);
+        const noContactBreakdown: Group = noContactBreakdownSection(callPatternReport);
         const groupedSummary = new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
 
         console.log(groupedSummary);
         setGroupedSummary(groupedSummary);
-        setInvalidFields(invalidFieldsGroup(data));
+        setInvalidFields(invalidFieldsGroup(callPatternReport));
         return;
     }
 
@@ -118,7 +123,7 @@ function InterviewerCallPattern(): ReactElement {
         return (<></>);
     }
 
-    async function runInterviewerCallPatternReport(formValues: any, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
+    async function runInterviewerCallPatternReport(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         defaultState();
 
         formValues.survey_tla = formValues["Survey TLA"];
@@ -128,31 +133,32 @@ function InterviewerCallPattern(): ReactElement {
 
         setInterviewerID(formValues.interviewer);
 
-        const [success, data] = await getInterviewerCallPatternReport(formValues);
-        setSubmitting(false);
+        let callPatternReport: InterviewerCallPatternReport | undefined;
 
-        if (!success) {
+        try {
+            callPatternReport = await getInterviewerCallPatternReport(formValues);
+        } catch {
             setReportFailed(true);
             return;
+        } finally {
+            setSubmitting(false);
         }
 
-        if (data.length === 0) {
+        if (!callPatternReport) {
             setMessageNoData("No data found for parameters given.");
             return;
         }
 
-        data.total_records = data.discounted_invalid_cases;
-        if (data.total_valid_cases) {
-            data.total_records = data.total_valid_cases + data.discounted_invalid_cases;
-        }
+        callPatternReport.total_records = callPatternReport.discounted_invalid_cases
+            + (callPatternReport.total_valid_cases || 0);
 
-        if (isAllInvalid(data)) {
-            setInvalidFields(invalidFieldsGroup(data));
+        if (isAllInvalid(callPatternReport)) {
+            setInvalidFields(invalidFieldsGroup(callPatternReport));
             setAllInvalid(true);
             return;
         }
 
-        groupData(data);
+        groupData(callPatternReport);
     }
 
     return (
@@ -188,22 +194,22 @@ function InterviewerCallPattern(): ReactElement {
                     {
 
                         allInvalid
-                        ?
-                            <InvalidCaseInfo />
-                        :
-
-                        groupedSummary.groups.length > 0
                             ?
-                            <>
-                                <InvalidCaseInfo />
-                                <div className="summary u-mt-m">
-                                    <div className="summary__group" id="report-table">
-                                        <SummaryGroupTable groupedSummary={groupedSummary} />
-                                    </div>
-                                </div>
-                            </>
+                            <InvalidCaseInfo />
                             :
-                            <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
+
+                            groupedSummary.groups.length > 0
+                                ?
+                                <>
+                                    <InvalidCaseInfo />
+                                    <div className="summary u-mt-m">
+                                        <div className="summary__group" id="report-table">
+                                            <SummaryGroupTable groupedSummary={groupedSummary} />
+                                        </div>
+                                    </div>
+                                </>
+                                :
+                                <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
                     }
                     <br />
                 </ErrorBoundary>
@@ -214,5 +220,3 @@ function InterviewerCallPattern(): ReactElement {
 
 export { formatToFractionAndPercentage, callTimeSection, callStatusSection, noContactBreakdownSection, invalidFieldsGroup, isAllInvalid };
 export default InterviewerCallPattern;
-
-

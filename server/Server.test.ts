@@ -1,11 +1,11 @@
 import { newServer } from "./Server"; // Link to your server file
 import supertest, { Response } from "supertest";
 import { loadConfigFromEnv } from "./Config";
-import AuthProvider from "./AuthProvider";
+import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient from "blaise-api-node-client";
 
 const config = loadConfigFromEnv();
-const authProvider = new AuthProvider(config.BertClientId);
+const authProvider = new BlaiseIapNodeProvider(config.BertClientId);
 const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
 
 const app = newServer(config, authProvider, blaiseApiClient);

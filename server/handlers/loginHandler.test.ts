@@ -3,7 +3,7 @@ import { newServer } from "../Server";
 
 import BlaiseApiClient from "blaise-api-node-client";
 import { loadConfigFromEnv } from "../Config";
-import AuthProvider from "../AuthProvider";
+import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import jwt from "jsonwebtoken";
 
 const mockGetUser = jest.fn();
@@ -13,7 +13,7 @@ BlaiseApiClient.prototype.getUser = mockGetUser;
 BlaiseApiClient.prototype.validatePassword = mockValidatePassword;
 
 const config = loadConfigFromEnv();
-const authProvider = new AuthProvider(config.BertClientId);
+const authProvider = new BlaiseIapNodeProvider(config.BertClientId);
 const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
 
 const app = newServer(config, authProvider, blaiseApiClient);
