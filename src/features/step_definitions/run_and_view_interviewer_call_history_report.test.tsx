@@ -13,13 +13,18 @@ import userEvent from "@testing-library/user-event";
 
 const mockAdapter = new MockAdapter(axios);
 
+jest.mock("../../client/user", () => ({
+    validateToken: jest.fn().mockImplementation(async () => {
+        return Promise.resolve(true);
+    })
+}));
+
 const feature = loadFeature(
     "./src/features/run_and_view_interviewer_call_history_report.feature",
     { tagFilter: "not @server and not @integration" }
 );
 
 const reportDataReturned: InterviewerCallHistoryReport[] = [
-
     {
         questionnaire_name: "LMS2101_AA1",
         serial_number: "1337",
@@ -53,6 +58,10 @@ defineFeature(feature, test => {
                     <App />
                 </Router>
             );
+
+            await act(async () => {
+                await flushPromises();
+            });
 
             userEvent.click(screen.getByText("Interviewer call history"));
 

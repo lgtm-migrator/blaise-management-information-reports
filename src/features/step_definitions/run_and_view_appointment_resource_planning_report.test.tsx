@@ -13,6 +13,13 @@ import axios from "axios";
 
 const mockAdapter = new MockAdapter(axios);
 
+
+jest.mock("../../client/user", () => ({
+    validateToken: jest.fn().mockImplementation(async () => {
+        return Promise.resolve(true);
+    })
+}));
+
 const feature = loadFeature(
     "./src/features/run_and_view_appointment_resource_planning_report.feature",
     { tagFilter: "not @server and not @integration" }
@@ -67,6 +74,9 @@ defineFeature(feature, test => {
                     <App />
                 </Router>
             );
+            await act(async () => {
+                await flushPromises();
+            });
             fireEvent.click(screen.getByText("Appointment resource planning"));
             await act(async () => {
                 await flushPromises();
