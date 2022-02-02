@@ -3147,18 +3147,9 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
-"blaise-api-node-client@git+https://github.com/ONSdigital/blaise-api-node-client":
-  version "1.0.0"
-  resolved "git+https://github.com/ONSdigital/blaise-api-node-client#c14fa095dc178f494ec70801a28d370c3da7fbfa"
-  dependencies:
-    "@babel/preset-env" "^7.14.7"
-    axios "^0.21.1"
-    blaise-iap-node-provider "https://github.com/ONSdigital/blaise-iap-node-provider.git"
-    typescript "~4.2.2"
-
 "blaise-api-node-client@https://github.com/ONSdigital/blaise-api-node-client":
   version "1.0.0"
-  resolved "https://github.com/ONSdigital/blaise-api-node-client#7a97ea4f639c4fb76e40a66e76e942734bbf6a02"
+  resolved "https://github.com/ONSdigital/blaise-api-node-client#c14fa095dc178f494ec70801a28d370c3da7fbfa"
   dependencies:
     "@babel/preset-env" "^7.14.7"
     axios "^0.21.1"

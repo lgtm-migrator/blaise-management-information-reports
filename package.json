@@ -72,7 +72,7 @@
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.16.1",
     "axios-mock-adapter": "^1.19.0",
-    "blaise-api-node-client": "git+https://github.com/ONSdigital/blaise-api-node-client",
+    "blaise-api-node-client": "https://github.com/ONSdigital/blaise-api-node-client",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.21.0",
