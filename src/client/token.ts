@@ -5,11 +5,11 @@ type tokenManager = {
   token: any
 }
 
-export function useToken(): tokenManager {
-  const getToken = () => {
-    return localStorage.getItem("token");
-  };
+export function getToken(): string | null {
+  return localStorage.getItem("token");
+}
 
+export function useToken(): tokenManager {
   const [token, setToken] = useState(getToken());
 
   const saveToken = (userToken: any) => {
@@ -25,4 +25,15 @@ export function useToken(): tokenManager {
 
 export function clearToken(): void {
   localStorage.clear();
+}
+
+export function authHeader(): Record<string, string> {
+  const token = getToken();
+  if (!token) {
+    return {};
+  }
+
+  return {
+    authorization: token
+  };
 }

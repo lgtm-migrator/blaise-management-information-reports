@@ -79,7 +79,7 @@ describe("LoginHandler", () => {
         expect(response.status).toEqual(200);
         expect(mockGetUser).toHaveBeenCalled();
         const myJwt = response.body.token;
-        expect(jwt.decode(myJwt)["data"]).toEqual({ "role": "DST" });
+        expect(jwt.decode(myJwt)["user"]).toEqual({ "role": "DST" });
       });
     });
   });
@@ -95,9 +95,31 @@ describe("LoginHandler", () => {
       });
     });
 
-    describe("with a valid token", () => {
+    describe("with a valid token but no role", () => {
+      it("should return a 403", async () => {
+        const token = jwt.sign("random token", config.SessionSecret);
+        const response: Response = await request.post("/api/login/token/validate")
+          .send({ token: token })
+          .set("Content-Type", "application/json");
+
+        expect(response.status).toEqual(403);
+      });
+    });
+
+    describe("with a valid token but invalid role", () => {
+      it("should return a 403", async () => {
+        const token = jwt.sign({ user: { role: "TO Interviewer" } }, config.SessionSecret);
+        const response: Response = await request.post("/api/login/token/validate")
+          .send({ token: token })
+          .set("Content-Type", "application/json");
+
+        expect(response.status).toEqual(403);
+      });
+    });
+
+    describe("with a valid token and role", () => {
       it("should return a 200", async () => {
-        const token = jwt.sign("random payload", config.SessionSecret);
+        const token = jwt.sign({ user: { role: "DST" } }, config.SessionSecret);
         const response: Response = await request.post("/api/login/token/validate")
           .send({ token: token })
           .set("Content-Type", "application/json");

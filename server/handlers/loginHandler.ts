@@ -2,14 +2,15 @@ import BlaiseApiClient, { User } from "blaise-api-node-client";
 import express, { Router, Request, Response } from "express";
 import { Config } from "../Config";
 import jwt from "jsonwebtoken";
+import { Auth } from "../auth/auth";
 
 
-export default function newLoginHandler(config: Config, blaiseApiClient: BlaiseApiClient): Router {
+export default function newLoginHandler(auth: Auth, blaiseApiClient: BlaiseApiClient): Router {
   const router = express.Router();
 
   router.use(express.json());
 
-  const loginHandler = new LoginHandler(config, blaiseApiClient);
+  const loginHandler = new LoginHandler(auth, blaiseApiClient);
   router.get("/api/login/users/:username", loginHandler.GetUser);
   router.get("/api/login/users/:username/authorised", loginHandler.ValidateRoles);
   router.post("/api/login/token/validate", loginHandler.ValidateToken);
@@ -18,11 +19,11 @@ export default function newLoginHandler(config: Config, blaiseApiClient: BlaiseA
 }
 
 export class LoginHandler {
-  config: Config
+  auth: Auth
   blaiseApiClient: BlaiseApiClient;
 
-  constructor(config: Config, blaiseApiClient: BlaiseApiClient) {
-    this.config = config;
+  constructor(auth: Auth, blaiseApiClient: BlaiseApiClient) {
+    this.auth = auth;
     this.blaiseApiClient = blaiseApiClient;
 
     this.GetUser = this.GetUser.bind(this);
@@ -45,30 +46,17 @@ export class LoginHandler {
   async ValidateRoles(req: Request, res: Response): Promise<Response> {
     console.log("Validating user roles");
     const user = await this.blaiseApiClient.getUser(req.params.username);
-    if (this.roleValid(user)) {
-      const token = jwt.sign({
-        data: user
-      }, this.config.SessionSecret, { expiresIn: this.config.SessionTimeout });
-      return res.status(200).json({ token: token });
+    if (this.auth.UserHasRole(user)) {
+      return res.status(200).json({ token: this.auth.SignToken(user) });
     }
 
     return res.status(403).json({ "error": "Not authorised" });
   }
 
   async ValidateToken(req: Request, res: Response): Promise<Response> {
-    try {
-      if (!req.body.token) {
-        return res.status(403).json();
-      }
-      jwt.verify(req.body.token, this.config.SessionSecret);
-    } catch (error: any) {
-      console.error(`Invalid JWT token: ${error}`);
-      return res.status(403).json();
+    if (this.auth.ValidateToken(req.body.token)) {
+      return res.status(200).json();
     }
-    return res.status(200).json();
-  }
-
-  roleValid(user: User): boolean {
-    return this.config.Roles.includes(user.role);
+    return res.status(403).json();
   }
 }
