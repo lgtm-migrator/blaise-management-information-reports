@@ -1,4 +1,4 @@
-import {getEnvironmentVariables} from "./Config";
+import { loadConfigFromEnv } from "./Config";
 
 describe("Config setup", () => {
     afterEach(() => {
@@ -7,11 +7,21 @@ describe("Config setup", () => {
     });
 
     it("should return the correct environment variables", () => {
-        const {PROJECT_ID, BERT_URL, BERT_CLIENT_ID} = getEnvironmentVariables();
+        process.env = Object.assign({
+            PROJECT_ID: "mock-project-id",
+            BERT_URL: "mock-bert-url",
+            BERT_CLIENT_ID: "mock-bert-client-id",
+            BLAISE_API_URL: "mock-blaise-api-url",
+            ROLES: "foo,bar,fwibble"
+        });
 
-        expect(PROJECT_ID).toBe("mock-project-id");
-        expect(BERT_URL).toBe("mock-bert-url");
-        expect(BERT_CLIENT_ID).toBe("mock-bert-client-id");
+        const config = loadConfigFromEnv();
+
+        expect(config.ProjectID).toBe("mock-project-id");
+        expect(config.BertUrl).toBe("mock-bert-url");
+        expect(config.BertClientId).toBe("mock-bert-client-id");
+        expect(config.BlaiseApiUrl).toBe("mock-blaise-api-url");
+        expect(config.Roles).toEqual(["foo", "bar", "fwibble"]);
     });
 
     it("should return variables with default string if variables are not defined", () => {
@@ -19,12 +29,16 @@ describe("Config setup", () => {
             PROJECT_ID: undefined,
             BERT_URL: undefined,
             BERT_CLIENT_ID: undefined,
+            BLAISE_API_URL: undefined,
+            ROLES: undefined
         });
 
-        const {PROJECT_ID, BERT_URL, BERT_CLIENT_ID} = getEnvironmentVariables();
+        const config = loadConfigFromEnv();
 
-        expect(PROJECT_ID).toBe("ENV_VAR_NOT_SET");
-        expect(BERT_URL).toBe("ENV_VAR_NOT_SET");
-        expect(BERT_CLIENT_ID).toBe("ENV_VAR_NOT_SET");
+        expect(config.ProjectID).toBe("ENV_VAR_NOT_SET");
+        expect(config.BertUrl).toBe("ENV_VAR_NOT_SET");
+        expect(config.BertClientId).toBe("ENV_VAR_NOT_SET");
+        expect(config.BlaiseApiUrl).toBe("ENV_VAR_NOT_SET");
+        expect(config.Roles).toEqual(["DST", "BDSS", "TO Manager"]);
     });
 });

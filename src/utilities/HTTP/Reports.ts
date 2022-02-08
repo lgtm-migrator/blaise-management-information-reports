@@ -1,11 +1,17 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { authHeader } from "../../client/token";
 import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData, CallHistoryStatus, InterviewerCallHistoryReport, InterviewerCallPatternReport } from "../../interfaces";
 
+function axiosConfig(): AxiosRequestConfig {
+    return {
+        headers: authHeader()
+    };
+}
 
 async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | undefined> {
     const url = "/api/reports/call-history-status";
 
-    return axios.get(url).then((response: AxiosResponse) => {
+    return axios.get(url, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
         if (response.status === 200) {
             return response.data;
@@ -25,7 +31,7 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
 
-    return axios.post(url, formData).then((response: AxiosResponse) => {
+    return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
         if (response.status === 200) {
             return response.data;
@@ -45,7 +51,7 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
 
-    return axios.post(url, formData).then((response: AxiosResponse) => {
+    return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         if (response.status === 200 && Object.keys(response.data).length) {
             console.log(response.data);
             return response.data;
@@ -62,7 +68,7 @@ async function getAppointmentResourcePlanningReport(date: string): Promise<Appoi
     const formData = new FormData();
     formData.append("date", date);
 
-    return axios.post(url, formData).then((response: AxiosResponse) => {
+    return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
         if (response.status === 200) {
             return response.data;
@@ -79,7 +85,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: string): Promis
     const formData = new FormData();
     formData.append("date", date);
 
-    return axios.post(url, formData).then((response: AxiosResponse) => {
+    return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
         if (response.status === 200) {
             return response.data;
