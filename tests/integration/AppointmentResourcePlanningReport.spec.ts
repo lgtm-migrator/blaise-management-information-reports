@@ -77,10 +77,6 @@ test.describe("With data", () => {
         await page.locator("#date").type(`${mirTomorrow()}`);
         await page.click("button[type=submit]");
 
-        // Summary items
-        await expect(page.locator(".summary__item-title")).toHaveText("English");
-        await expect(page.locator(".summary__values")).toHaveText("1");
-
         // Report items
         await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=1")).toHaveText("10:00");
         await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=2")).toHaveText("English");
