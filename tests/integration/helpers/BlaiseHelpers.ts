@@ -2,6 +2,7 @@ import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
 import {v4 as uuidv4} from "uuid";
 
 export async function setupTestUser(blaiseApiClient: BlaiseApiClient): Promise<NewUser> {
+    console.debug("Setting up test user...");
     await connectToRestApi(blaiseApiClient);
     const password = uuidv4();
     const userName = `dst-test-user-${uuidv4()}`;
@@ -36,6 +37,7 @@ export async function setupInstrument(blaiseApiClient: BlaiseApiClient, instrume
 }
 
 async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
+    console.debug("Connecting to the rest api...");
     try {
         await blaiseApiClient.getDiagnostics();
     } catch (error) {
@@ -45,6 +47,7 @@ async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
 }
 
 async function installInstrument(blaiseApiClient: BlaiseApiClient, serverpark: string, instrumentName: string) {
+    console.debug("Installing test instrument...");
     try {
         await blaiseApiClient.installInstrument(serverpark, {instrumentFile: `${instrumentName}.bpkg`});
         for (let attempts = 0; attempts <= 12; attempts++) {
@@ -74,6 +77,7 @@ async function installInstrument(blaiseApiClient: BlaiseApiClient, serverpark: s
 }
 
 async function addSurveyDays(blaiseApiClient: BlaiseApiClient, serverpark: string, today: Date, tomorrow: Date, instrumentName: string) {
+    console.debug("Adding survey days...");
     try {
         await blaiseApiClient.addSurveyDays(serverpark, `${instrumentName}`, [today.toISOString(), tomorrow.toISOString()]);
     } catch (error) {
@@ -83,6 +87,7 @@ async function addSurveyDays(blaiseApiClient: BlaiseApiClient, serverpark: strin
 }
 
 async function addDaybatch(blaiseApiClient: BlaiseApiClient, serverpark: string, today: Date, instrumentName: string) {
+    console.debug("Adding daybatch...");
     try {
         await blaiseApiClient.addDaybatch(serverpark, `${instrumentName}`, {
             dayBatchDate: today.toISOString(),
