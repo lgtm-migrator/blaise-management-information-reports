@@ -7,26 +7,30 @@ import { loginMIR, mirTomorrow } from "./helpers/MirHelpers";
 const REST_API_URL = process.env.REST_API_URL || "http://localhost:8000";
 const REST_API_CLIENT_ID = process.env.REST_API_CLIENT_ID || undefined;
 const INSTRUMENT_NAME = process.env.TEST_INSTRUMENT;
+const blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
+
+let userCredentials: NewUser;
 
 if (!INSTRUMENT_NAME) {
     console.error("Instrument name is undefined");
     process.exit(1);
 }
 
-test.describe("Without data", () => {
-    let userCredentials: NewUser;
-    let blaiseApiClient: BlaiseApiClient;
+test.beforeAll(async () => {
+    userCredentials = await setupTestUser(blaiseApiClient);
+});
 
+test.afterAll(async () => {
+    await blaiseApiClient.deleteUser(userCredentials.name);
+});
+
+test.describe("Without data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
-        blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
-        userCredentials = await setupTestUser(blaiseApiClient);
+
     });
 
-    test.afterEach(async () => {
-        await blaiseApiClient.deleteUser(userCredentials.name);
-    });
 
     test("I can get to, and run an ARPR for a day with no data", async ({ page }) => {
         await loginMIR(page, userCredentials);
@@ -43,15 +47,10 @@ test.describe("Without data", () => {
 });
 
 test.describe("With data", () => {
-    let userCredentials: NewUser;
-    let blaiseApiClient: BlaiseApiClient;
-
     test.beforeEach(async ({ page }, testInfo) => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
-        blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
 
-        userCredentials = await setupTestUser(blaiseApiClient);
         await setupInstrument(blaiseApiClient, INSTRUMENT_NAME);
         await setupAppointment(page, INSTRUMENT_NAME, userCredentials);
     });
@@ -62,7 +61,6 @@ test.describe("With data", () => {
 
         await clearCATIData(page, INSTRUMENT_NAME, userCredentials);
         await blaiseApiClient.deleteInstrument(serverpark, `${INSTRUMENT_NAME}`);
-        await blaiseApiClient.deleteUser(userCredentials.name);
     });
 
     test("I can get to, and run an ARPR for a day with data", async ({ page }) => {
@@ -83,3 +81,7 @@ test.describe("With data", () => {
         await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=3")).toHaveText("1");
     });
 });
+
+
+
+
