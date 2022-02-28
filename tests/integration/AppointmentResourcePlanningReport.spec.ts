@@ -18,7 +18,7 @@ test.describe("Without data", () => {
     let blaiseApiClient: BlaiseApiClient;
 
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(170000);
+        testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
         blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
         userCredentials = await setupTestUser(blaiseApiClient);
@@ -47,7 +47,7 @@ test.describe("With data", () => {
     let blaiseApiClient: BlaiseApiClient;
 
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(170000);
+        testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
         blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
 
