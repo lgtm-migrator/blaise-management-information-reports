@@ -26,7 +26,7 @@ test.afterAll(async () => {
 
 test.describe("Without data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(170000);
+        testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
 
     });
@@ -48,7 +48,7 @@ test.describe("Without data", () => {
 
 test.describe("With data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(170000);
+        testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
 
         await setupInstrument(blaiseApiClient, INSTRUMENT_NAME);
