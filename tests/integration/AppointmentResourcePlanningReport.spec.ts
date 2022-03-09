@@ -60,8 +60,6 @@ test.describe("With data", () => {
     });
 
     test.afterEach(async ({ page }) => {
-        const blaiseApiClient = new BlaiseApiClient(restApiUrl, { blaiseApiClientId: restApiClientId });
-
         await clearCATIData(page, instrumentName, userCredentials);
         await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
     });
