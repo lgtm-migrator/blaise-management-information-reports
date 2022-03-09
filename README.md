@@ -94,6 +94,11 @@ You <i>may</i> also need to run the following command to export the environment 
 export $(cat .env | xargs)
 ```
 
+Select the environment to connect to the rest-api, for example where PROJECT-ID is ons-blaise-v2-dev-<SANDBOX>:
+```shell script
+gcloud config set project <PROJECT-ID>
+```
+
 Open the tunnel the to rest api:
 ```shell script
 gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:8000
