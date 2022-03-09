@@ -1,4 +1,4 @@
-import { expect, Page, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
 import { setupInstrument, setupTestUser } from "./helpers/BlaiseHelpers";
 import { setupAppointment, clearCATIData } from "./helpers/CatiHelpers";
