@@ -86,6 +86,7 @@ To set up Playwright tests <i>locally</i> your .env file will need the following
 | REPORTS_URL | The URL to ERNIE | https://dev-reports.social-surveys.gcp.onsdigital.uk |
 | REST_API_URL | The URL to swagger | http://localhost:8000 |
 | TEST_INSTRUMENT | The name of the test instrument in the DQS bucket (this instrument needs to be configured for appointments) | DST2111Z |
+| SERVER_PARK | The name of the server park | gusty |
 
 You <i>may</i> also need to run the following command to export the environment variables:
 
@@ -114,7 +115,6 @@ Or a live demo can be run via:
 ```shell script
 yarn run playwright test tests --headed
 ```
-
 
 #### To help debug:
 ```shell script

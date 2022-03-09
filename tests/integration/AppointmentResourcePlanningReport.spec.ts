@@ -1,23 +1,29 @@
-import { expect, Page, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
 import { setupInstrument, setupTestUser } from "./helpers/BlaiseHelpers";
 import { setupAppointment, clearCATIData } from "./helpers/CatiHelpers";
 import { loginMIR, mirTomorrow } from "./helpers/MirHelpers";
 
-const REST_API_URL = process.env.REST_API_URL || "http://localhost:8000";
-const REST_API_CLIENT_ID = process.env.REST_API_CLIENT_ID || undefined;
-const INSTRUMENT_NAME = process.env.TEST_INSTRUMENT;
-const blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
+const restApiUrl = process.env.REST_API_URL || "http://localhost:8000";
+const restApiClientId = process.env.REST_API_CLIENT_ID || undefined;
+const instrumentName = process.env.TEST_INSTRUMENT;
+const serverPark = process.env.SERVER_PARK;
+const blaiseApiClient = new BlaiseApiClient(restApiUrl, { blaiseApiClientId: restApiClientId });
 
 let userCredentials: NewUser;
 
-if (!INSTRUMENT_NAME) {
+if (!instrumentName) {
     console.error("Instrument name is undefined");
     process.exit(1);
 }
 
+if (!serverPark) {
+    console.error("Server park is undefined");
+    process.exit(1);
+}
+
 test.beforeAll(async () => {
-    userCredentials = await setupTestUser(blaiseApiClient);
+    userCredentials = await setupTestUser(blaiseApiClient, serverPark);
 });
 
 test.afterAll(async () => {
@@ -28,9 +34,7 @@ test.describe("Without data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
-
     });
-
 
     test("I can get to, and run an ARPR for a day with no data", async ({ page }) => {
         await loginMIR(page, userCredentials);
@@ -51,20 +55,17 @@ test.describe("With data", () => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
 
-        await setupInstrument(blaiseApiClient, INSTRUMENT_NAME);
-        await setupAppointment(page, INSTRUMENT_NAME, userCredentials);
+        await setupInstrument(blaiseApiClient, instrumentName, serverPark);
+        await setupAppointment(page, instrumentName, userCredentials);
     });
 
     test.afterEach(async ({ page }) => {
-        const serverpark = "gusty";
-        const blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
-
-        await clearCATIData(page, INSTRUMENT_NAME, userCredentials);
-        await blaiseApiClient.deleteInstrument(serverpark, `${INSTRUMENT_NAME}`);
+        await clearCATIData(page, instrumentName, userCredentials);
+        await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
     });
 
     test("I can get to, and run an ARPR for a day with data", async ({ page }) => {
-        await new Promise(f => setTimeout(f, 10000));
+        await new Promise(f => setTimeout(f, 20000));
         await loginMIR(page, userCredentials);
 
         await page.click("#appointment-resource-planning");
