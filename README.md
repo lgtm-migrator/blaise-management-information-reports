@@ -110,7 +110,6 @@ Or a live demo can be run via:
 yarn run playwright test tests --headed
 ```
 
-
 #### To help debug:
 ```shell script
 export TRACE=true
