@@ -4,7 +4,7 @@ import {NewUser} from "blaise-api-node-client";
 const CATI_URL = process.env.CATI_URL;
 
 export async function setupAppointment(page: Page, instrumentName: string, userCredentials: NewUser) {
-    await new Promise(f => setTimeout(f, 10000));
+    await new Promise(f => setTimeout(f, 20000));
 
     await loginCATI(page, userCredentials);
     await page.click(".nav li:has-text('Case Info')");
@@ -29,7 +29,7 @@ export async function setupAppointment(page: Page, instrumentName: string, userC
 }
 
 export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {
-    await new Promise(f => setTimeout(f, 12000));
+    await new Promise(f => setTimeout(f, 20000));
 
     await loginCATI(page, userCredentials);
     await page.click(".nav li:has-text('Surveys')");
@@ -41,13 +41,13 @@ export async function clearCATIData(page: Page, instrumentName: string, userCred
     await page.uncheck("#BackupDialHistory");
     await page.uncheck("#BackupEvents");
     await page.click("#chkClearAll");
-    await page.click("input[type=submit]:has-text('Execute')", {timeout: 1600});
+    await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
 }
 
 async function loginCATI(page: Page, userCredentials: NewUser) {
     await page.goto(`${CATI_URL}/blaise`);
     const loginHeader = page.locator("h1:has-text('Login')");
-    if (await loginHeader.isVisible({timeout: 100})) {
+    if (await loginHeader.isVisible({timeout: 20000})) {
         await page.locator("#Username").type(`${userCredentials.name}`);
         await page.locator("#Password").type(`${userCredentials.password}`);
         await page.click("button[type=submit]");

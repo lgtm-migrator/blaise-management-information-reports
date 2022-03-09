@@ -52,7 +52,7 @@ async function installInstrument(blaiseApiClient: BlaiseApiClient, serverPark: s
                 break;
             } else {
                 console.log(`Instrument ${instrumentName} is not active, waiting to add cases`);
-                await new Promise(f => setTimeout(f, 10000));
+                await new Promise(f => setTimeout(f, 20000));
             }
         }
         for (let caseID = 1; caseID <= 10; caseID++) {

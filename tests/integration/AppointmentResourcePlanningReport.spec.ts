@@ -65,7 +65,7 @@ test.describe("With data", () => {
     });
 
     test("I can get to, and run an ARPR for a day with data", async ({ page }) => {
-        await new Promise(f => setTimeout(f, 10000));
+        await new Promise(f => setTimeout(f, 20000));
         await loginMIR(page, userCredentials);
 
         await page.click("#appointment-resource-planning");
