@@ -23,7 +23,7 @@ if (!serverPark) {
 }
 
 test.beforeAll(async () => {
-    userCredentials = await setupTestUser(blaiseApiClient);
+    userCredentials = await setupTestUser(blaiseApiClient, serverPark);
 });
 
 test.afterAll(async () => {
@@ -55,7 +55,7 @@ test.describe("With data", () => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
 
-        await setupInstrument(blaiseApiClient, instrumentName);
+        await setupInstrument(blaiseApiClient, instrumentName, serverPark);
         await setupAppointment(page, instrumentName, userCredentials);
     });
 
