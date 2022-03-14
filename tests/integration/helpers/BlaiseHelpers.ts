@@ -16,10 +16,26 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
     };
 
     try {
+        console.log(`Create a test user ${user.name} on server park ${serverPark}`);
+
         return await blaiseApiClient.createUser(user);
+
+        console.log(`Created test user ${user.name}`);
     } catch (error) {
         console.error(`Failed to create user: ${error}`);
         throw(error);
+    }
+}
+
+export async function deleteTestUser(blaiseApiClient: BlaiseApiClient, serverPark :string, userName: string)
+{
+    try {
+        console.log(`Attempting to delete test user ${userName}`);
+        await blaiseApiClient.deleteUser(userName);
+        console.log(`Deleted test user ${userName}`);
+    }
+    catch (error) {
+        console.log(`There was an error deleting test user ${userName}: ${error}`);
     }
 }
 
@@ -69,6 +85,18 @@ async function installInstrument(blaiseApiClient: BlaiseApiClient, serverPark: s
     } catch (error) {
         console.error(`Failed to install instrument: ${error}`);
         throw(error);
+    }
+}
+
+export async function unInstallInstrument(blaiseApiClient: BlaiseApiClient, serverPark: string, instrumentName: string)
+{
+    try {
+        console.log(`Uninstalling test instrument ${instrumentName}`);
+        await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
+        console.log(`Uninstalled test instrument ${instrumentName}`);
+    }
+    catch (error) {
+        console.error(`Failed to uninstall instrument: ${error}`);
     }
 }
 

@@ -30,8 +30,9 @@ export async function setupAppointment(page: Page, instrumentName: string, userC
 
 export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {
     try {
-        await new Promise(f => setTimeout(f, 20000));
+        console.log(`Attempting to clear down CATI data for instrument ${instrumentName}`);
 
+        await new Promise(f => setTimeout(f, 20000));
         await loginCATI(page, userCredentials);
         await page.click(".nav li:has-text('Surveys')");
         await filterCATIInstrument(page, instrumentName);
@@ -43,9 +44,11 @@ export async function clearCATIData(page: Page, instrumentName: string, userCred
         await page.uncheck("#BackupEvents");
         await page.click("#chkClearAll");
         await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
+
+        console.log(`Cleared CATI data for ${instrumentName}`);
         }
-        catch (e) {
-            console.log(`Error clearing down CATI data: ${e}`);
+        catch (error) {
+            console.log(`Error clearing down CATI data: ${error}`);
         }
 }
 
