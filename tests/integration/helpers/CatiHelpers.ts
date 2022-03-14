@@ -29,19 +29,24 @@ export async function setupAppointment(page: Page, instrumentName: string, userC
 }
 
 export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {
-    await new Promise(f => setTimeout(f, 20000));
+    try {
+        await new Promise(f => setTimeout(f, 20000));
 
-    await loginCATI(page, userCredentials);
-    await page.click(".nav li:has-text('Surveys')");
-    await filterCATIInstrument(page, instrumentName);
-    await page.click(".glyphicon-save");
-    await page.uncheck("#chkBackupAll");
-    await page.uncheck("#BackupDaybatch");
-    await page.uncheck("#BackupCaseInfo");
-    await page.uncheck("#BackupDialHistory");
-    await page.uncheck("#BackupEvents");
-    await page.click("#chkClearAll");
-    await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
+        await loginCATI(page, userCredentials);
+        await page.click(".nav li:has-text('Surveys')");
+        await filterCATIInstrument(page, instrumentName);
+        await page.click(".glyphicon-save");
+        await page.uncheck("#chkBackupAll");
+        await page.uncheck("#BackupDaybatch");
+        await page.uncheck("#BackupCaseInfo");
+        await page.uncheck("#BackupDialHistory");
+        await page.uncheck("#BackupEvents");
+        await page.click("#chkClearAll");
+        await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
+        }
+        catch (e) {
+            console.log(`Error clearing down CATI data: ${e}`);
+        }
 }
 
 async function loginCATI(page: Page, userCredentials: NewUser) {
