@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
-import { setupInstrument, setupTestUser } from "./helpers/BlaiseHelpers";
+import {deleteTestUser, setupInstrument, setupTestUser, unInstallInstrument,} from "./helpers/BlaiseHelpers";
 import { setupAppointment, clearCATIData } from "./helpers/CatiHelpers";
 import { loginMIR, mirTomorrow } from "./helpers/MirHelpers";
 
@@ -22,22 +22,14 @@ if (!serverPark) {
     process.exit(1);
 }
 
-test.beforeAll(async () => {
-    console.log(`Create a test user on server park ${serverPark}`);
-    userCredentials = await setupTestUser(blaiseApiClient, serverPark);
-    console.log(`Created test user ${userCredentials.name}`);
-});
-
-test.afterAll(async () => {
-    console.log(`Attempting to delete test user ${userCredentials.name}`);
-    await blaiseApiClient.deleteUser(userCredentials.name);
-    console.log(`Deleted test user ${userCredentials.name}`);
-});
-
 test.describe("Without data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+    });
+
+    test.afterEach(async () => {
+        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
     });
 
     test("I can get to, and run an ARPR for a day with no data", async ({ page }, testInfo) => {
@@ -64,18 +56,15 @@ test.describe("With data", () => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
 
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
         await setupInstrument(blaiseApiClient, instrumentName, serverPark);
         await setupAppointment(page, instrumentName, userCredentials);
     });
 
-    test.afterEach(async ({ page }, testInfo) => {
-        console.log(`Clearing down CATI data for ${testInfo.title}`);
+    test.afterEach(async ({ page }) => {
         await clearCATIData(page, instrumentName, userCredentials);
-        console.log(`Cleared CATI data for ${testInfo.title}`);
-
-        console.log(`Uninstalling test instrument ${instrumentName}`);
-        await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
-        console.log(`Uninstalled test instrument ${instrumentName}`);
+        await unInstallInstrument(blaiseApiClient, serverPark, instrumentName);
+        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
     });
 
     test("I can get to, and run an ARPR for a day with data", async ({ page }, testInfo) => {

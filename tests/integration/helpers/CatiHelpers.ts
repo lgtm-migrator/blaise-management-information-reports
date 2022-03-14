@@ -4,6 +4,8 @@ import {NewUser} from "blaise-api-node-client";
 const CATI_URL = process.env.CATI_URL;
 
 export async function setupAppointment(page: Page, instrumentName: string, userCredentials: NewUser) {
+    console.log(`Attempting to set up an appointment for instrument ${instrumentName}`);
+
     await new Promise(f => setTimeout(f, 20000));
 
     await loginCATI(page, userCredentials);
@@ -26,12 +28,15 @@ export async function setupAppointment(page: Page, instrumentName: string, userC
     await casePage.click(".ButtonComponent:has-text('Save and continue')");
     await casePage.check("input:left-of(.CategoryButtonComponent:has-text('No'))");
     await casePage.click(".ButtonComponent:has-text('Save and continue')");
+
+    console.log(`Set up an appointment for instrument ${instrumentName}`);
 }
 
 export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {
     try {
-        await new Promise(f => setTimeout(f, 20000));
+        console.log(`Attempting to clear down CATI data for instrument ${instrumentName}`);
 
+        await new Promise(f => setTimeout(f, 20000));
         await loginCATI(page, userCredentials);
         await page.click(".nav li:has-text('Surveys')");
         await filterCATIInstrument(page, instrumentName);
@@ -43,9 +48,11 @@ export async function clearCATIData(page: Page, instrumentName: string, userCred
         await page.uncheck("#BackupEvents");
         await page.click("#chkClearAll");
         await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
+
+        console.log(`Cleared CATI data for ${instrumentName}`);
         }
-        catch (e) {
-            console.log(`Error clearing down CATI data: ${e}`);
+        catch (error) {
+            console.log(`Error clearing down CATI data: ${error}`);
         }
 }
 

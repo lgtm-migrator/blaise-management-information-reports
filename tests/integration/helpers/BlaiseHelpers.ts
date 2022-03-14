@@ -16,10 +16,30 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
     };
 
     try {
-        return await blaiseApiClient.createUser(user);
+        console.log(`Attempting to create a test user ${user.name} on server park ${serverPark}`);
+
+        const newUser = await blaiseApiClient.createUser(user);
+
+        console.log(`Created test user ${user.name}`);
+
+        return newUser;
     } catch (error) {
         console.error(`Failed to create user: ${error}`);
         throw(error);
+    }
+}
+
+export async function deleteTestUser(blaiseApiClient: BlaiseApiClient, serverPark :string, userName: string)
+{
+    try {
+        console.log(`Attempting to delete test user ${userName}`);
+
+        await blaiseApiClient.deleteUser(userName);
+
+        console.log(`Deleted test user ${userName}`);
+    }
+    catch (error) {
+        console.log(`There was an error deleting test user ${userName}: ${error}`);
     }
 }
 
@@ -28,10 +48,14 @@ export async function setupInstrument(blaiseApiClient: BlaiseApiClient, instrume
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
 
+    console.log(`Attempting to install and configure instrument ${instrumentName} on server park ${serverPark}`);
+
     await connectToRestApi(blaiseApiClient);
     await installInstrument(blaiseApiClient, serverPark, instrumentName);
     await addSurveyDays(blaiseApiClient, serverPark, today, tomorrow, instrumentName);
     await addDaybatch(blaiseApiClient, serverPark, today, instrumentName);
+
+    console.log(`Installed and configured instrument ${instrumentName} on server park ${serverPark}`);
 }
 
 async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
@@ -69,6 +93,18 @@ async function installInstrument(blaiseApiClient: BlaiseApiClient, serverPark: s
     } catch (error) {
         console.error(`Failed to install instrument: ${error}`);
         throw(error);
+    }
+}
+
+export async function unInstallInstrument(blaiseApiClient: BlaiseApiClient, serverPark: string, instrumentName: string)
+{
+    try {
+        console.log(`Uninstalling test instrument ${instrumentName}`);
+        await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
+        console.log(`Uninstalled test instrument ${instrumentName}`);
+    }
+    catch (error) {
+        console.error(`Failed to uninstall instrument: ${error}`);
     }
 }
 
