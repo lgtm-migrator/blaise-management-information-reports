@@ -16,9 +16,9 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
     };
 
     try {
-        console.log(`Create a test user ${user.name} on server park ${serverPark}`);
+        console.log(`Attempting to create a test user ${user.name} on server park ${serverPark}`);
 
-        return await blaiseApiClient.createUser(user);
+        await blaiseApiClient.createUser(user);
 
         console.log(`Created test user ${user.name}`);
     } catch (error) {
@@ -31,7 +31,9 @@ export async function deleteTestUser(blaiseApiClient: BlaiseApiClient, serverPar
 {
     try {
         console.log(`Attempting to delete test user ${userName}`);
+
         await blaiseApiClient.deleteUser(userName);
+
         console.log(`Deleted test user ${userName}`);
     }
     catch (error) {
@@ -44,10 +46,14 @@ export async function setupInstrument(blaiseApiClient: BlaiseApiClient, instrume
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
 
+    console.log(`Attempting to install and configure instrument ${instrumentName} on server park ${serverPark}`);
+
     await connectToRestApi(blaiseApiClient);
     await installInstrument(blaiseApiClient, serverPark, instrumentName);
     await addSurveyDays(blaiseApiClient, serverPark, today, tomorrow, instrumentName);
     await addDaybatch(blaiseApiClient, serverPark, today, instrumentName);
+
+    console.log(`Installed and configured instrument ${instrumentName} on server park ${serverPark}`);
 }
 
 async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {

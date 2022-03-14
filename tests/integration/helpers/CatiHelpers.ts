@@ -4,6 +4,8 @@ import {NewUser} from "blaise-api-node-client";
 const CATI_URL = process.env.CATI_URL;
 
 export async function setupAppointment(page: Page, instrumentName: string, userCredentials: NewUser) {
+    console.log(`Attempting to set up an appointment for instrument ${instrumentName}`);
+
     await new Promise(f => setTimeout(f, 20000));
 
     await loginCATI(page, userCredentials);
@@ -26,6 +28,8 @@ export async function setupAppointment(page: Page, instrumentName: string, userC
     await casePage.click(".ButtonComponent:has-text('Save and continue')");
     await casePage.check("input:left-of(.CategoryButtonComponent:has-text('No'))");
     await casePage.click(".ButtonComponent:has-text('Save and continue')");
+
+    console.log(`Set up an appointment for instrument ${instrumentName}`);
 }
 
 export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {
