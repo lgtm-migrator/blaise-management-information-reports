@@ -23,11 +23,15 @@ if (!serverPark) {
 }
 
 test.beforeAll(async () => {
+    console.log(`Create a test user on server park ${serverPark}`);
     userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+    console.log(`Created test user ${userCredentials.name}`);
 });
 
 test.afterAll(async () => {
+    console.log(`Attempting to delete test user ${userCredentials.name}`);
     await blaiseApiClient.deleteUser(userCredentials.name);
+    console.log(`Deleted test user ${userCredentials.name}`);
 });
 
 test.describe("Without data", () => {
@@ -59,9 +63,14 @@ test.describe("With data", () => {
         await setupAppointment(page, instrumentName, userCredentials);
     });
 
-    test.afterEach(async ({ page }) => {
+    test.afterEach(async ({ page }, testInfo) => {
+        console.log(`Clearing down CATI data for ${testInfo.title}`);
         await clearCATIData(page, instrumentName, userCredentials);
+        console.log(`Cleared CATI data for ${testInfo.title}`);
+
+        console.log(`Uninstalling test instrument ${instrumentName}`);
         await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
+        console.log(`Uninstalled test instrument ${instrumentName}`);
     });
 
     test("I can get to, and run an ARPR for a day with data", async ({ page }) => {
