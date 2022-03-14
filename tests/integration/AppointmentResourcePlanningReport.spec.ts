@@ -56,6 +56,7 @@ test.describe("With data", () => {
         testInfo.setTimeout(200000);
         console.log(`Running ${testInfo.title}`);
 
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
         await setupInstrument(blaiseApiClient, instrumentName, serverPark);
         await setupAppointment(page, instrumentName, userCredentials);
     });

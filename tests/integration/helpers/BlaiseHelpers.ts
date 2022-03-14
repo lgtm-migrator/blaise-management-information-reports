@@ -18,9 +18,11 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
     try {
         console.log(`Attempting to create a test user ${user.name} on server park ${serverPark}`);
 
-        await blaiseApiClient.createUser(user);
+        const newUser = await blaiseApiClient.createUser(user);
 
         console.log(`Created test user ${user.name}`);
+
+        return newUser;
     } catch (error) {
         console.error(`Failed to create user: ${error}`);
         throw(error);
