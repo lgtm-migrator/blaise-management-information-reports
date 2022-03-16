@@ -22,20 +22,20 @@ if (!serverPark) {
     process.exit(1);
 }
 
-test.beforeAll(async ({ page }, testInfo) => {
-    console.log(`Started running before all hook for test ${testInfo.title}`);
+test.beforeAll(async () => {
+    console.log("Started running before all hook");
 
     userCredentials = await setupTestUser(blaiseApiClient, serverPark);
 
-    console.log(`Finished running before all hook for test ${testInfo.title}`);
+    console.log("Finished running before all hook");
 });
 
-test.afterAll(async ({ page }, testInfo) => {
-    console.log(`Started running after all hook for test ${testInfo.title}`);
+test.afterAll(async () => {
+    console.log("Started running after all hook");
 
     await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
 
-    console.log(`Finished running after all hook for test ${testInfo.title}`);
+    console.log("Finished running after all hook");
 });
 
 test.describe("Without data", () => {
