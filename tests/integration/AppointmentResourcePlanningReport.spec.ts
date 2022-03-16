@@ -22,29 +22,22 @@ if (!serverPark) {
     process.exit(1);
 }
 
-test.beforeAll(async () => {
-    console.log("Started running before all hook");
-
-    userCredentials = await setupTestUser(blaiseApiClient, serverPark);
-
-    console.log("Finished running before all hook");
-});
-
-test.afterAll(async () => {
-    console.log("Started running after all hook");
-
-    await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
-
-    console.log("Finished running after all hook");
-});
-
 test.describe("Without data", () => {
-    test.beforeEach(({ page }, testInfo) => {
+    test.beforeEach(async ({ page }, testInfo) => {
         console.log(`Started running before each hook for test ${testInfo.title}`);
 
         testInfo.setTimeout(300000);
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
 
         console.log(`Finished running before each hook for test ${testInfo.title}`);
+    });
+
+    test.afterEach(async ({ page }, testInfo) => {
+        console.log(`Started running after each hook for test ${testInfo.title}`);
+
+        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
+
+        console.log(`Finished running after each hook for test ${testInfo.title}`);
     });
 
     test("I can get to, and run an ARPR for a day with no data", async ({ page }, testInfo) => {
@@ -76,6 +69,7 @@ test.describe("With data", () => {
 
         testInfo.setTimeout(300000);
 
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
         await setupInstrument(blaiseApiClient, instrumentName, serverPark);
         await setupAppointment(page, instrumentName, userCredentials);
 
@@ -85,6 +79,7 @@ test.describe("With data", () => {
     test.afterEach(async ({ page }, testInfo) => {
         console.log(`Started running after each hook for test ${testInfo.title}`);
 
+        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
         await clearCATIData(page, instrumentName, userCredentials);
         await unInstallInstrument(blaiseApiClient, serverPark, instrumentName);
 
