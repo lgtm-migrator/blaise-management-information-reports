@@ -22,18 +22,35 @@ if (!serverPark) {
     process.exit(1);
 }
 
-test.describe("Without data", () => {
-    test.beforeEach(async ({ page }, testInfo) => {
-        console.log(`Running ${testInfo.title}`);
-        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
-    });
+test.beforeAll(async ({ page }, testInfo) => {
+    console.log(`Started running before all hook for test ${testInfo.title}`);
 
-    test.afterEach(async () => {
-        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
+    userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+
+    console.log(`Finished running before all hook for test ${testInfo.title}`);
+});
+
+test.afterAll(async ({ page }, testInfo) => {
+    console.log(`Started running after all hook for test ${testInfo.title}`);
+
+    await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
+
+    console.log(`Finished running after all hook for test ${testInfo.title}`);
+});
+
+test.describe("Without data", () => {
+    test.beforeEach(({ page }, testInfo) => {
+        console.log(`Started running before each hook for test ${testInfo.title}`);
+
+        testInfo.setTimeout(300000);
+
+        console.log(`Finished running before each hook for test ${testInfo.title}`);
     });
 
     test("I can get to, and run an ARPR for a day with no data", async ({ page }, testInfo) => {
         try {
+            console.log(`Started running ${testInfo.title}`);
+
             await loginMIR(page, userCredentials);
             await page.click("#appointment-resource-planning");
 
@@ -44,31 +61,40 @@ test.describe("Without data", () => {
             await page.click("button[type=submit]");
     
             await expect(page.locator(".panel--info >> nth=1")).toHaveText("No data found for parameters given.");
+
+            console.log(`Finished running ${testInfo.title}`);
         }
-        catch (e) {
-            console.log(`Test ${testInfo.title} failed: ${e}`);
+        catch (error) {
+            console.log(`Test ${testInfo.title} failed: ${error}`);
         }
     });
 });
 
 test.describe("With data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(200000);
-        console.log(`Running ${testInfo.title}`);
+        console.log(`Started running before each hook for test ${testInfo.title}`);
 
-        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+        testInfo.setTimeout(300000);
+
         await setupInstrument(blaiseApiClient, instrumentName, serverPark);
         await setupAppointment(page, instrumentName, userCredentials);
+
+        console.log(`Finished running before each hook for test ${testInfo.title}`);
     });
 
-    test.afterEach(async ({ page }) => {
+    test.afterEach(async ({ page }, testInfo) => {
+        console.log(`Started running after each hook for test ${testInfo.title}`);
+
         await clearCATIData(page, instrumentName, userCredentials);
         await unInstallInstrument(blaiseApiClient, serverPark, instrumentName);
-        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
+
+        console.log(`Finished running after each hook for test ${testInfo.title}`);
     });
 
     test("I can get to, and run an ARPR for a day with data", async ({ page }, testInfo) => {
         try {
+            console.log(`Started running ${testInfo.title}`);
+
             await loginMIR(page, userCredentials);
 
             await page.click("#appointment-resource-planning");
@@ -83,9 +109,11 @@ test.describe("With data", () => {
             await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=1")).toHaveText("10:00");
             await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=2")).toHaveText("English");
             await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=3")).toHaveText("1");
+
+            console.log(`Finished running ${testInfo.title}`);
         }
-        catch (e) {
-            console.log(`Test ${testInfo.title} failed: ${e}`);
+        catch (error) {
+            console.log(`Test ${testInfo.title} failed: ${error}`);
         }
     });
 });
