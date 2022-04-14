@@ -35,8 +35,6 @@ function AppointmentResourcePlanning(): ReactElement {
         form.survey_tla = form["Survey TLA"];
         form.date = new Date(form["Date"]);
 
-        console.log(`This is formvalues tla: ${form.survey_tla}`);
-
         runAppointmentResourcePlanningReport(form, setSubmitting);
         runAppointmentSummary(form);
     }
@@ -46,8 +44,6 @@ function AppointmentResourcePlanning(): ReactElement {
         setReportData([]);
         setReportFailed(false);
         setReportDate(form.date);
-
-        console.log(`This is parameter form.date : ${form.date}`);
 
         getAppointmentResourcePlanningReport(form.date, form.survey_tla).then((planningReport: AppointmentResourcePlanningReportData[]) => {
             if (planningReport.length === 0) {
@@ -68,7 +64,6 @@ function AppointmentResourcePlanning(): ReactElement {
     function runAppointmentSummary(form: Record<string, any>): void {
         setSummaryData([]);
         setSummaryFailed(false);
-
         getAppointmentResourcePlanningSummaryReport(form.date, form.survey_tla)
             .then((summaryReport: AppointmentResourcePlanningSummaryReportData[]) => {
                 console.log(summaryReport);
