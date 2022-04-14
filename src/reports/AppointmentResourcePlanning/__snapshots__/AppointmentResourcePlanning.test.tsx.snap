@@ -166,15 +166,15 @@ Object {
           >
             <label
               class="label "
-              for="date"
+              for="Date"
             >
               Date
             </label>
             <input
               class="input input--text input-type__input "
-              id="date"
+              id="Date"
               initial_value="1997-12-24"
-              name="date"
+              name="Date"
               type="date"
               value="1997-12-24"
             />
@@ -378,15 +378,15 @@ Object {
         >
           <label
             class="label "
-            for="date"
+            for="Date"
           >
             Date
           </label>
           <input
             class="input input--text input-type__input "
-            id="date"
+            id="Date"
             initial_value="1997-12-24"
-            name="date"
+            name="Date"
             type="date"
             value="1997-12-24"
           />
@@ -647,15 +647,15 @@ Object {
           >
             <label
               class="label "
-              for="date"
+              for="Date"
             >
               Date
             </label>
             <input
               class="input input--text input-type__input "
-              id="date"
+              id="Date"
               initial_value="1997-12-24"
-              name="date"
+              name="Date"
               type="date"
               value="1997-12-24"
             />
@@ -859,15 +859,15 @@ Object {
         >
           <label
             class="label "
-            for="date"
+            for="Date"
           >
             Date
           </label>
           <input
             class="input input--text input-type__input "
-            id="date"
+            id="Date"
             initial_value="1997-12-24"
-            name="date"
+            name="Date"
             type="date"
             value="1997-12-24"
           />
