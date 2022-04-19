@@ -89,6 +89,7 @@ function AppointmentResourcePlanning(): ReactElement {
                 </ONSPanel>
 
                 <ReportErrorPanel error={reportFailed} />
+                <br/>
                 <SurveyDateForm onSubmitFunction={runReport} />
                 <AppointmentSummary data={summaryData} failed={summaryFailed} />
 
