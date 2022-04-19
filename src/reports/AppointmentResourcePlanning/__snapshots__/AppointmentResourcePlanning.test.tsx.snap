@@ -59,6 +59,7 @@ Object {
             </p>
           </div>
         </div>
+        <br />
         <form
           action="#"
         >
@@ -271,6 +272,7 @@ Object {
           </p>
         </div>
       </div>
+      <br />
       <form
         action="#"
       >
@@ -540,6 +542,7 @@ Object {
             </p>
           </div>
         </div>
+        <br />
         <form
           action="#"
         >
@@ -752,6 +755,7 @@ Object {
           </p>
         </div>
       </div>
+      <br />
       <form
         action="#"
       >
