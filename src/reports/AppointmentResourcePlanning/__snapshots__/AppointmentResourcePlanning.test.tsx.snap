@@ -59,44 +59,140 @@ Object {
             </p>
           </div>
         </div>
-        <div
-          class="u-mt-s"
+        <br />
+        <form
+          action="#"
         >
-          <form
-            action="#"
+          <fieldset
+            class="fieldset"
           >
+            <legend
+              class="fieldset__legend"
+            >
+              Select survey
+            </legend>
             <div
-              class="field"
+              class="radios__items"
+              id="Survey TLA"
             >
-              <label
-                class="label "
-                for="date"
+              <p
+                class="radios__item"
               >
-                Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                id="date"
-                initial_value="1997-12-24"
-                name="date"
-                type="date"
-                value="1997-12-24"
-              />
+                <span
+                  class="radio"
+                >
+                  <input
+                    checked=""
+                    class="radio__input js-radio"
+                    id="all"
+                    initial_value="undefined"
+                    name="Survey TLA"
+                    type="radio"
+                    value="undefined"
+                  />
+                  <label
+                    class="radio__label "
+                    for="all"
+                    id="all-label"
+                  >
+                    Show all surveys
+                  </label>
+                </span>
+              </p>
+              <br />
+              <p
+                class="radios__item"
+              >
+                <span
+                  class="radio"
+                >
+                  <input
+                    class="radio__input js-radio"
+                    id="lms"
+                    initial_value="undefined"
+                    name="Survey TLA"
+                    type="radio"
+                    value="lms"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="lms"
+                    id="lms-label"
+                  >
+                    LMS
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Labour Market Survey
+                    </span>
+                  </label>
+                </span>
+              </p>
+              <br />
+              <p
+                class="radios__item"
+              >
+                <span
+                  class="radio"
+                >
+                  <input
+                    class="radio__input js-radio"
+                    id="opn"
+                    initial_value="undefined"
+                    name="Survey TLA"
+                    type="radio"
+                    value="opn"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="opn"
+                    id="opn-label"
+                  >
+                    OPN
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Opinions and Lifestyle Survey
+                    </span>
+                  </label>
+                </span>
+              </p>
+              <br />
             </div>
-            <br />
-            <button
-              class="btn "
-              data-testid="submit-button"
-              type="submit"
+          </fieldset>
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="Date"
             >
-              <span
-                class="btn__inner"
-              >
-                Run
-              </span>
-            </button>
-          </form>
-        </div>
+              Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="Date"
+              initial_value="1997-12-24"
+              name="Date"
+              type="date"
+              value="1997-12-24"
+            />
+          </div>
+          <br />
+          <button
+            class="btn "
+            data-testid="submit-button"
+            type="submit"
+          >
+            <span
+              class="btn__inner"
+            >
+              Run
+            </span>
+          </button>
+        </form>
         <div
           class=" u-mt-m"
         >
@@ -176,44 +272,140 @@ Object {
           </p>
         </div>
       </div>
-      <div
-        class="u-mt-s"
+      <br />
+      <form
+        action="#"
       >
-        <form
-          action="#"
+        <fieldset
+          class="fieldset"
         >
+          <legend
+            class="fieldset__legend"
+          >
+            Select survey
+          </legend>
           <div
-            class="field"
+            class="radios__items"
+            id="Survey TLA"
           >
-            <label
-              class="label "
-              for="date"
+            <p
+              class="radios__item"
             >
-              Date
-            </label>
-            <input
-              class="input input--text input-type__input "
-              id="date"
-              initial_value="1997-12-24"
-              name="date"
-              type="date"
-              value="1997-12-24"
-            />
+              <span
+                class="radio"
+              >
+                <input
+                  checked=""
+                  class="radio__input js-radio"
+                  id="all"
+                  initial_value="undefined"
+                  name="Survey TLA"
+                  type="radio"
+                  value="undefined"
+                />
+                <label
+                  class="radio__label "
+                  for="all"
+                  id="all-label"
+                >
+                  Show all surveys
+                </label>
+              </span>
+            </p>
+            <br />
+            <p
+              class="radios__item"
+            >
+              <span
+                class="radio"
+              >
+                <input
+                  class="radio__input js-radio"
+                  id="lms"
+                  initial_value="undefined"
+                  name="Survey TLA"
+                  type="radio"
+                  value="lms"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="lms"
+                  id="lms-label"
+                >
+                  LMS
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Labour Market Survey
+                  </span>
+                </label>
+              </span>
+            </p>
+            <br />
+            <p
+              class="radios__item"
+            >
+              <span
+                class="radio"
+              >
+                <input
+                  class="radio__input js-radio"
+                  id="opn"
+                  initial_value="undefined"
+                  name="Survey TLA"
+                  type="radio"
+                  value="opn"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="opn"
+                  id="opn-label"
+                >
+                  OPN
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Opinions and Lifestyle Survey
+                  </span>
+                </label>
+              </span>
+            </p>
+            <br />
           </div>
-          <br />
-          <button
-            class="btn "
-            data-testid="submit-button"
-            type="submit"
+        </fieldset>
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="Date"
           >
-            <span
-              class="btn__inner"
-            >
-              Run
-            </span>
-          </button>
-        </form>
-      </div>
+            Date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="Date"
+            initial_value="1997-12-24"
+            name="Date"
+            type="date"
+            value="1997-12-24"
+          />
+        </div>
+        <br />
+        <button
+          class="btn "
+          data-testid="submit-button"
+          type="submit"
+        >
+          <span
+            class="btn__inner"
+          >
+            Run
+          </span>
+        </button>
+      </form>
       <div
         class=" u-mt-m"
       >
@@ -350,44 +542,140 @@ Object {
             </p>
           </div>
         </div>
-        <div
-          class="u-mt-s"
+        <br />
+        <form
+          action="#"
         >
-          <form
-            action="#"
+          <fieldset
+            class="fieldset"
           >
+            <legend
+              class="fieldset__legend"
+            >
+              Select survey
+            </legend>
             <div
-              class="field"
+              class="radios__items"
+              id="Survey TLA"
             >
-              <label
-                class="label "
-                for="date"
+              <p
+                class="radios__item"
               >
-                Date
-              </label>
-              <input
-                class="input input--text input-type__input "
-                id="date"
-                initial_value="1997-12-24"
-                name="date"
-                type="date"
-                value="1997-12-24"
-              />
+                <span
+                  class="radio"
+                >
+                  <input
+                    checked=""
+                    class="radio__input js-radio"
+                    id="all"
+                    initial_value="undefined"
+                    name="Survey TLA"
+                    type="radio"
+                    value="undefined"
+                  />
+                  <label
+                    class="radio__label "
+                    for="all"
+                    id="all-label"
+                  >
+                    Show all surveys
+                  </label>
+                </span>
+              </p>
+              <br />
+              <p
+                class="radios__item"
+              >
+                <span
+                  class="radio"
+                >
+                  <input
+                    class="radio__input js-radio"
+                    id="lms"
+                    initial_value="undefined"
+                    name="Survey TLA"
+                    type="radio"
+                    value="lms"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="lms"
+                    id="lms-label"
+                  >
+                    LMS
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Labour Market Survey
+                    </span>
+                  </label>
+                </span>
+              </p>
+              <br />
+              <p
+                class="radios__item"
+              >
+                <span
+                  class="radio"
+                >
+                  <input
+                    class="radio__input js-radio"
+                    id="opn"
+                    initial_value="undefined"
+                    name="Survey TLA"
+                    type="radio"
+                    value="opn"
+                  />
+                  <label
+                    class="radio__label label--with-description"
+                    for="opn"
+                    id="opn-label"
+                  >
+                    OPN
+                    <span
+                      class="label__description radio__label--with-description"
+                      id="white-label-description-hint"
+                    >
+                      Opinions and Lifestyle Survey
+                    </span>
+                  </label>
+                </span>
+              </p>
+              <br />
             </div>
-            <br />
-            <button
-              class="btn "
-              data-testid="submit-button"
-              type="submit"
+          </fieldset>
+          <div
+            class="field"
+          >
+            <label
+              class="label "
+              for="Date"
             >
-              <span
-                class="btn__inner"
-              >
-                Run
-              </span>
-            </button>
-          </form>
-        </div>
+              Date
+            </label>
+            <input
+              class="input input--text input-type__input "
+              id="Date"
+              initial_value="1997-12-24"
+              name="Date"
+              type="date"
+              value="1997-12-24"
+            />
+          </div>
+          <br />
+          <button
+            class="btn "
+            data-testid="submit-button"
+            type="submit"
+          >
+            <span
+              class="btn__inner"
+            >
+              Run
+            </span>
+          </button>
+        </form>
         <div
           class=" u-mt-m"
         >
@@ -467,44 +755,140 @@ Object {
           </p>
         </div>
       </div>
-      <div
-        class="u-mt-s"
+      <br />
+      <form
+        action="#"
       >
-        <form
-          action="#"
+        <fieldset
+          class="fieldset"
         >
+          <legend
+            class="fieldset__legend"
+          >
+            Select survey
+          </legend>
           <div
-            class="field"
+            class="radios__items"
+            id="Survey TLA"
           >
-            <label
-              class="label "
-              for="date"
+            <p
+              class="radios__item"
             >
-              Date
-            </label>
-            <input
-              class="input input--text input-type__input "
-              id="date"
-              initial_value="1997-12-24"
-              name="date"
-              type="date"
-              value="1997-12-24"
-            />
+              <span
+                class="radio"
+              >
+                <input
+                  checked=""
+                  class="radio__input js-radio"
+                  id="all"
+                  initial_value="undefined"
+                  name="Survey TLA"
+                  type="radio"
+                  value="undefined"
+                />
+                <label
+                  class="radio__label "
+                  for="all"
+                  id="all-label"
+                >
+                  Show all surveys
+                </label>
+              </span>
+            </p>
+            <br />
+            <p
+              class="radios__item"
+            >
+              <span
+                class="radio"
+              >
+                <input
+                  class="radio__input js-radio"
+                  id="lms"
+                  initial_value="undefined"
+                  name="Survey TLA"
+                  type="radio"
+                  value="lms"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="lms"
+                  id="lms-label"
+                >
+                  LMS
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Labour Market Survey
+                  </span>
+                </label>
+              </span>
+            </p>
+            <br />
+            <p
+              class="radios__item"
+            >
+              <span
+                class="radio"
+              >
+                <input
+                  class="radio__input js-radio"
+                  id="opn"
+                  initial_value="undefined"
+                  name="Survey TLA"
+                  type="radio"
+                  value="opn"
+                />
+                <label
+                  class="radio__label label--with-description"
+                  for="opn"
+                  id="opn-label"
+                >
+                  OPN
+                  <span
+                    class="label__description radio__label--with-description"
+                    id="white-label-description-hint"
+                  >
+                    Opinions and Lifestyle Survey
+                  </span>
+                </label>
+              </span>
+            </p>
+            <br />
           </div>
-          <br />
-          <button
-            class="btn "
-            data-testid="submit-button"
-            type="submit"
+        </fieldset>
+        <div
+          class="field"
+        >
+          <label
+            class="label "
+            for="Date"
           >
-            <span
-              class="btn__inner"
-            >
-              Run
-            </span>
-          </button>
-        </form>
-      </div>
+            Date
+          </label>
+          <input
+            class="input input--text input-type__input "
+            id="Date"
+            initial_value="1997-12-24"
+            name="Date"
+            type="date"
+            value="1997-12-24"
+          />
+        </div>
+        <br />
+        <button
+          class="btn "
+          data-testid="submit-button"
+          type="submit"
+        >
+          <span
+            class="btn__inner"
+          >
+            Run
+          </span>
+        </button>
+      </form>
       <div
         class=" u-mt-m"
       >
