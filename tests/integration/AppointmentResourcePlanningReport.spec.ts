@@ -1,89 +1,118 @@
-import { expect, Page, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
-import { setupInstrument, setupTestUser } from "./helpers/BlaiseHelpers";
+import {deleteTestUser, setupInstrument, setupTestUser, unInstallInstrument,} from "./helpers/BlaiseHelpers";
 import { setupAppointment, clearCATIData } from "./helpers/CatiHelpers";
 import { loginMIR, mirTomorrow } from "./helpers/MirHelpers";
 
-const REST_API_URL = process.env.REST_API_URL || "http://localhost:8000";
-const REST_API_CLIENT_ID = process.env.REST_API_CLIENT_ID || undefined;
-const INSTRUMENT_NAME = process.env.TEST_INSTRUMENT;
+const restApiUrl = process.env.REST_API_URL || "http://localhost:8000";
+const restApiClientId = process.env.REST_API_CLIENT_ID || undefined;
+const instrumentName = process.env.TEST_INSTRUMENT;
+const serverPark = process.env.SERVER_PARK;
+const blaiseApiClient = new BlaiseApiClient(restApiUrl, { blaiseApiClientId: restApiClientId });
 
-if (!INSTRUMENT_NAME) {
+let userCredentials: NewUser;
+
+if (!instrumentName) {
     console.error("Instrument name is undefined");
     process.exit(1);
 }
 
+if (!serverPark) {
+    console.error("Server park is undefined");
+    process.exit(1);
+}
+
 test.describe("Without data", () => {
-    let userCredentials: NewUser;
-    let blaiseApiClient: BlaiseApiClient;
-
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(170000);
-        console.log(`Running ${testInfo.title}`);
-        blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
-        userCredentials = await setupTestUser(blaiseApiClient);
+        console.log(`Started running before each hook for test ${testInfo.title}`);
+
+        testInfo.setTimeout(300000);
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+
+        console.log(`Finished running before each hook for test ${testInfo.title}`);
     });
 
-    test.afterEach(async () => {
-        await blaiseApiClient.deleteUser(userCredentials.name);
+    test.afterEach(async ({ page }, testInfo) => {
+        console.log(`Started running after each hook for test ${testInfo.title}`);
+
+        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
+
+        console.log(`Finished running after each hook for test ${testInfo.title}`);
     });
 
-    test("I can get to, and run an ARPR for a day with no data", async ({ page }) => {
-        await loginMIR(page, userCredentials);
-        await page.click("#appointment-resource-planning");
+    test("I can get to, and run an ARPR for a day with no data", async ({ page }, testInfo) => {
+        try {
+            console.log(`Started running ${testInfo.title}`);
 
-        await expect(page.locator("h1")).toHaveText("Run appointment resource planning report");
-        await expect(page.locator(".panel--info >> nth=0")).toContainText("Run a Daybatch first to obtain the most accurate results.");
+            await loginMIR(page, userCredentials);
+            await page.click("#appointment-resource-planning");
 
-        await page.locator("#Date").type("30-06-1990");
-        await page.click("button[type=submit]");
+            await expect(page.locator("h1")).toHaveText("Run appointment resource planning report");
+            await expect(page.locator(".panel--info >> nth=0")).toContainText("Run a Daybatch first to obtain the most accurate results.");
+    
+            await page.locator("#Date").type("30-06-1990");
+            await page.click("button[type=submit]");
+    
+            await expect(page.locator(".panel--info >> nth=1")).toHaveText("No data found for parameters given.");
 
-        await expect(page.locator(".panel--info >> nth=1")).toHaveText("No data found for parameters given.");
+            console.log(`Finished running ${testInfo.title}`);
+        }
+        catch (error) {
+            console.log(`Test ${testInfo.title} failed: ${error}`);
+        }
     });
 });
 
 test.describe("With data", () => {
-    let userCredentials: NewUser;
-    let blaiseApiClient: BlaiseApiClient;
-
     test.beforeEach(async ({ page }, testInfo) => {
-        testInfo.setTimeout(170000);
-        console.log(`Running ${testInfo.title}`);
-        blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
+        console.log(`Started running before each hook for test ${testInfo.title}`);
 
-        userCredentials = await setupTestUser(blaiseApiClient);
-        await setupInstrument(blaiseApiClient, INSTRUMENT_NAME);
-        await setupAppointment(page, INSTRUMENT_NAME, userCredentials);
+        testInfo.setTimeout(300000);
+
+        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+        await setupInstrument(blaiseApiClient, instrumentName, serverPark);
+        await setupAppointment(page, instrumentName, userCredentials);
+
+        console.log(`Finished running before each hook for test ${testInfo.title}`);
     });
 
-    test.afterEach(async ({ page }) => {
-        const serverpark = "gusty";
-        const blaiseApiClient = new BlaiseApiClient(REST_API_URL, { blaiseApiClientId: REST_API_CLIENT_ID });
+    test.afterEach(async ({ page }, testInfo) => {
+        console.log(`Started running after each hook for test ${testInfo.title}`);
 
-        await clearCATIData(page, INSTRUMENT_NAME, userCredentials);
-        await blaiseApiClient.deleteInstrument(serverpark, `${INSTRUMENT_NAME}`);
-        await blaiseApiClient.deleteUser(userCredentials.name);
+        await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
+        await clearCATIData(page, instrumentName, userCredentials);
+        await unInstallInstrument(blaiseApiClient, serverPark, instrumentName);
+
+        console.log(`Finished running after each hook for test ${testInfo.title}`);
     });
 
-    test("I can get to, and run an ARPR for a day with data", async ({ page }) => {
-        await new Promise(f => setTimeout(f, 10000));
-        await loginMIR(page, userCredentials);
+    test("I can get to, and run an ARPR for a day with data", async ({ page }, testInfo) => {
+        try {
+            console.log(`Started running ${testInfo.title}`);
 
-        await page.click("#appointment-resource-planning");
+            await loginMIR(page, userCredentials);
 
-        await expect(page.locator("h1")).toHaveText("Run appointment resource planning report");
-        await expect(page.locator(".panel--info >> nth=0")).toContainText("Run a Daybatch first to obtain the most accurate results.");
+            await page.click("#appointment-resource-planning");
 
-        await page.locator("#Date").type(`${mirTomorrow()}`);
-        await page.click("button[type=submit]");
+            await expect(page.locator("h1")).toHaveText("Run appointment resource planning report");
+            await expect(page.locator(".panel--info >> nth=0")).toContainText("Run a Daybatch first to obtain the most accurate results.");
 
-        // Summary items
-        await expect(page.locator(".summary__item-title")).toHaveText("English");
-        await expect(page.locator(".summary__values")).toHaveText("1");
+            await page.locator("#Date").type(`${mirTomorrow()}`);
+            await page.click("button[type=submit]");
 
-        // Report items
-        await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=1")).toHaveText("10:00");
-        await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=2")).toHaveText("English");
-        await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=3")).toHaveText("1");
+            // Report items
+            await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=1")).toHaveText("10:00");
+            await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=2")).toHaveText("English");
+            await expect(page.locator(".table__row:has-text('DST2111Z') >> nth=0 >> td >> nth=3")).toHaveText("1");
+
+            console.log(`Finished running ${testInfo.title}`);
+        }
+        catch (error) {
+            console.log(`Test ${testInfo.title} failed: ${error}`);
+        }
     });
 });
+
+
+
+
