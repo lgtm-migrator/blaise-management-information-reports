@@ -98,9 +98,9 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, b
     server.post("/api/reports/appointment-resource-planning", auth.Middleware, async function (req: Request, res: Response) {
         console.log("appointment-resource-planning endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { date } = req.body;
+        const { date, survey_tla } = req.body;
         const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
-        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}`;
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}?survey-tla=${survey_tla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -110,9 +110,9 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, b
     server.post("/api/reports/appointment-resource-planning-summary", auth.Middleware, async function (req: Request, res: Response) {
         console.log("appointment-resource-planning-summary endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { date } = req.body;
+        const { date, survey_tla } = req.body;
         const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
-        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}`;
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}?survey-tla=${survey_tla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);

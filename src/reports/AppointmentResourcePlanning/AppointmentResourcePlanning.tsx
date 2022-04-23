@@ -10,6 +10,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import AppointmentSummary from "./AppointmentSummary";
 import { AppointmentResults } from "./AppointmentResults";
+import SurveyDateForm from "../../components/SurveyDateForm";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -30,18 +31,21 @@ function AppointmentResourcePlanning(): ReactElement {
     ];
 
 
-    function runReport(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): void {
-        runAppointmentResourcePlanningReport(formValues["date"], setSubmitting);
-        runAppointmentSummary(formValues["date"]);
+    function runReport(form: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): void {
+        form.survey_tla = form["Survey TLA"];
+        form.date = new Date(form["Date"]);
+
+        runAppointmentResourcePlanningReport(form, setSubmitting);
+        runAppointmentSummary(form);
     }
 
-    function runAppointmentResourcePlanningReport(date: string, setSubmitting: (isSubmitting: boolean) => void): void {
+    function runAppointmentResourcePlanningReport(form: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): void {
         setMessageNoData("");
         setReportData([]);
         setReportFailed(false);
-        setReportDate(date);
+        setReportDate(form.date);
 
-        getAppointmentResourcePlanningReport(date).then((planningReport: AppointmentResourcePlanningReportData[]) => {
+        getAppointmentResourcePlanningReport(form.date, form.survey_tla).then((planningReport: AppointmentResourcePlanningReportData[]) => {
             if (planningReport.length === 0) {
                 setMessageNoData("No data found for parameters given.");
             }
@@ -57,11 +61,10 @@ function AppointmentResourcePlanning(): ReactElement {
 
     }
 
-    function runAppointmentSummary(date: string): void {
+    function runAppointmentSummary(form: Record<string, any>): void {
         setSummaryData([]);
         setSummaryFailed(false);
-
-        getAppointmentResourcePlanningSummaryReport(date)
+        getAppointmentResourcePlanningSummaryReport(form.date, form.survey_tla)
             .then((summaryReport: AppointmentResourcePlanningSummaryReportData[]) => {
                 console.log(summaryReport);
                 setSummaryData(summaryReport);
@@ -69,14 +72,6 @@ function AppointmentResourcePlanning(): ReactElement {
                 setSummaryFailed(true);
             });
     }
-
-    const fields = [
-        {
-            name: "date",
-            type: "date",
-            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD")
-        }
-    ];
 
     return (
         <>
@@ -94,12 +89,8 @@ function AppointmentResourcePlanning(): ReactElement {
                 </ONSPanel>
 
                 <ReportErrorPanel error={reportFailed} />
-                <div className="u-mt-s">
-                    <StyledForm fields={fields}
-                        onSubmitFunction={runReport}
-                        submitLabel={"Run"} />
-                </div>
-
+                <br/>
+                <SurveyDateForm onSubmitFunction={runReport} />
                 <AppointmentSummary data={summaryData} failed={summaryFailed} />
 
                 <div className=" u-mt-m">

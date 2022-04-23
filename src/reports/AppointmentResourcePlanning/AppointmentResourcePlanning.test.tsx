@@ -89,6 +89,14 @@ describe("appointment resource planning report with data", () => {
         expect(screen.queryByText("Run appointment resource planning report")).toBeVisible();
         expect(screen.queryByText("Run a Daybatch first to obtain the most accurate results.")).toBeVisible();
         expect(screen.queryByText("Appointments that have already been attempted will not be displayed.")).toBeVisible();
+        
+        expect(screen.queryByText("Select survey")).toBeVisible();
+        expect(screen.queryByText("Show all surveys")).toBeVisible();
+        expect(screen.queryByText("LMS")).toBeVisible();
+        expect(screen.queryByText("Labour Market Survey")).toBeVisible();
+        expect(screen.queryByText("OPN")).toBeVisible();
+        expect(screen.queryByText("Opinions and Lifestyle Survey")).toBeVisible();
+
         expect(screen.queryByText("Date")).toBeVisible();
 
         userEvent.type(screen.getByLabelText(/Date/i), "2021-01-01");
@@ -157,6 +165,14 @@ describe("appointment resource planning report without data", () => {
         expect(screen.queryByText("Run appointment resource planning report")).toBeVisible();
         expect(screen.queryByText("Run a Daybatch first to obtain the most accurate results.")).toBeVisible();
         expect(screen.queryByText("Appointments that have already been attempted will not be displayed.")).toBeVisible();
+        
+        expect(screen.queryByText("Select survey")).toBeVisible();
+        expect(screen.queryByText("Show all surveys")).toBeVisible();
+        expect(screen.queryByText("LMS")).toBeVisible();
+        expect(screen.queryByText("Labour Market Survey")).toBeVisible();
+        expect(screen.queryByText("OPN")).toBeVisible();
+        expect(screen.queryByText("Opinions and Lifestyle Survey")).toBeVisible();
+
         expect(screen.queryByText("Date")).toBeVisible();
 
         userEvent.type(screen.getByLabelText(/Date/i), "2021-01-01");
