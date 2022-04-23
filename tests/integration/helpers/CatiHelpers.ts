@@ -4,37 +4,32 @@ import {NewUser} from "blaise-api-node-client";
 const CATI_URL = process.env.CATI_URL;
 
 export async function setupAppointment(page: Page, instrumentName: string, userCredentials: NewUser) {
-    try {
-        console.log(`Attempting to set up an appointment for instrument ${instrumentName}`);
+    console.log(`Attempting to set up an appointment for instrument ${instrumentName}`);
 
-        await new Promise(f => setTimeout(f, 20000));
+    await new Promise(f => setTimeout(f, 20000));
 
-        await loginCATI(page, userCredentials);
-        await page.click(".nav li:has-text('Case Info')");
-        await filterCATIInstrument(page, instrumentName);
+    await loginCATI(page, userCredentials);
+    await page.click(".nav li:has-text('Case Info')");
+    await filterCATIInstrument(page, instrumentName);
 
-        const [casePage] = await Promise.all([
-            page.waitForEvent("popup"),
-            await page.click(".glyphicon-calendar >> nth=0"),
-        ]);
-        await casePage.check("input:left-of(.CategoryButtonComponent:has-text('Appointment agreed'))");
-        await casePage.click(".ButtonComponent:has-text('Save and continue')");
-        await casePage.locator("table.e-schedule-table").locator("tbody")
+    const [casePage] = await Promise.all([
+        page.waitForEvent("popup"),
+        await page.click(".glyphicon-calendar >> nth=0"),
+    ]);
+    await casePage.check("input:left-of(.CategoryButtonComponent:has-text('Appointment agreed'))");
+    await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.locator("table.e-schedule-table").locator("tbody")
             .locator(`//tr/td[@data-date=${catiTomorrow10am()}]`).click();
-        await casePage.click("button:has-text('Confirm')");
-        await casePage.click(".ButtonComponent:has-text('Save and continue')");
-        await casePage.type(".StringTextBoxComponent", `${userCredentials}`);
-        await casePage.click(".ButtonComponent:has-text('Save and continue')");
-        await casePage.click(".CategoryButtonComponent >> nth=0");
-        await casePage.click(".ButtonComponent:has-text('Save and continue')");
-        await casePage.check("input:left-of(.CategoryButtonComponent:has-text('No'))");
-        await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.click("button:has-text('Confirm')");
+    await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.type(".StringTextBoxComponent", `${userCredentials}`);
+    await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.click(".CategoryButtonComponent >> nth=0");
+    await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.check("input:left-of(.CategoryButtonComponent:has-text('No'))");
+    await casePage.click(".ButtonComponent:has-text('Save and continue')");
 
-        console.log(`Set up an appointment for instrument ${instrumentName}`);
-    }
-    catch (error) {
-            console.log(`Error setting up an appointment for instrument: ${error}`);
-        }        
+    console.log(`Set up an appointment for instrument ${instrumentName}`);      
 }
 
 export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {

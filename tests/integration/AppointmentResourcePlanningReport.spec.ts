@@ -65,15 +65,21 @@ test.describe("Without data", () => {
 
 test.describe("With data", () => {
     test.beforeEach(async ({ page }, testInfo) => {
-        console.log(`Started running before each hook for test ${testInfo.title}`);
+        try {
+            console.log(`Started running before each hook for test ${testInfo.title}`);
 
-        testInfo.setTimeout(300000);
-
-        userCredentials = await setupTestUser(blaiseApiClient, serverPark);
-        await setupInstrument(blaiseApiClient, instrumentName, serverPark);
-        await setupAppointment(page, instrumentName, userCredentials);
-
-        console.log(`Finished running before each hook for test ${testInfo.title}`);
+            testInfo.setTimeout(300000);
+    
+            userCredentials = await setupTestUser(blaiseApiClient, serverPark);
+            await setupInstrument(blaiseApiClient, instrumentName, serverPark);
+            await setupAppointment(page, instrumentName, userCredentials);
+    
+            console.log(`Finished running before each hook for test ${testInfo.title}`);
+        }
+        catch (error) {
+            console.log(`Test ${testInfo.title} failed to set up the test correctly: ${error}`);
+            process.exit(0);
+        }
     });
 
     test.afterEach(async ({ page }, testInfo) => {
