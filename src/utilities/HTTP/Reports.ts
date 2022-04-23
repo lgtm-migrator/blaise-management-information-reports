@@ -64,10 +64,11 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     });
 }
 
-async function getAppointmentResourcePlanningReport(date: string): Promise<AppointmentResourcePlanningReportData[]> {
+async function getAppointmentResourcePlanningReport(date: string, survey_tla: string): Promise<AppointmentResourcePlanningReportData[]> {
     const url = "/api/reports/appointment-resource-planning";
     const formData = new FormData();
     formData.append("date", date);
+    formData.append("survey_tla", survey_tla);
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
@@ -81,10 +82,11 @@ async function getAppointmentResourcePlanningReport(date: string): Promise<Appoi
     });
 }
 
-async function getAppointmentResourcePlanningSummaryReport(date: string): Promise<AppointmentResourcePlanningSummaryReportData[]> {
+async function getAppointmentResourcePlanningSummaryReport(date: string, survey_tla: string): Promise<AppointmentResourcePlanningSummaryReportData[]> {
     const url = "/api/reports/appointment-resource-planning-summary";
     const formData = new FormData();
     formData.append("date", date);
+    formData.append("survey_tla", survey_tla);
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
