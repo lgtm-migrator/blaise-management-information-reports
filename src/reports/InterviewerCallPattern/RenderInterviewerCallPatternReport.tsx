@@ -207,13 +207,19 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                 title: "Interviewer details"
             }, {link: "#", onClickFunction: navigateBack, title: "Questionnaires"}]}/>
             <main id="main-content" className="page__main u-mt-s">
-                <h1 className="u-mb-m">
-                    Displaying the call pattern report for <em className="highlight">{interviewer}</em>,
-                    for questionnaire{instruments.length > 1 ? ("s") : ""} <em
-                    className="highlight">{formatList(instruments)}</em>{" "}
-                    between <em className="highlight">{dateFormatter(startDate).format("DD/MM/YYYY")}</em>{" "}
-                    and <em className="highlight">{dateFormatter(endDate).format("DD/MM/YYYY")}</em>
-                </h1>
+                {/*<h1 className="u-mb-m">*/}
+                {/*    Displaying the call pattern report for <em className="highlight">{interviewer}</em>,*/}
+                {/*    for questionnaire{instruments.length > 1 ? ("s") : ""} <em*/}
+                {/*    className="highlight">{formatList(instruments)}</em>{" "}*/}
+                {/*    between <em className="highlight">{dateFormatter(startDate).format("DD/MM/YYYY")}</em>{" "}*/}
+                {/*    and <em className="highlight">{dateFormatter(endDate).format("DD/MM/YYYY")}</em>*/}
+                {/*</h1>*/}
+                <h1>Call Pattern Report</h1>
+                <h3 className="u-mb-m">
+                    Interviewer: {interviewer} <br></br>
+                    Period: {dateFormatter(startDate).format("DD/MM/YYYY")}–{dateFormatter(endDate).format("DD/MM/YYYY")}<br></br>
+                    Questionnaire{instruments.length > 1 ? ("s") : ""}: {formatList(instruments)}
+                </h3>
                 <ReportErrorPanel error={reportFailed}/>
                 <CallHistoryLastUpdatedStatus/>
                 <div className="u-mb-m">
