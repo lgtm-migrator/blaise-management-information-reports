@@ -63,28 +63,20 @@ Object {
           class="page__main u-mt-s"
           id="main-content"
         >
-          <h1
+          <h1>
+            Select questionnaires for
+          </h1>
+          <h3
             class="u-mb-m"
           >
-            Select questionnaires for 
-            <em
-              class="highlight"
-            >
-              James
-            </em>
-            , between 
-            <em
-              class="highlight"
-            >
-              01/01/2022
-            </em>
-             and 
-            <em
-              class="highlight"
-            >
-              05/01/2022
-            </em>
-          </h1>
+            Interviewer: 
+            James
+            <br />
+            Period: 
+            01/01/2022
+            –
+            05/01/2022
+          </h3>
           <p
             aria-live="polite"
             class="u-fs-s u-mt-s"
@@ -250,28 +242,20 @@ Object {
         class="page__main u-mt-s"
         id="main-content"
       >
-        <h1
+        <h1>
+          Select questionnaires for
+        </h1>
+        <h3
           class="u-mb-m"
         >
-          Select questionnaires for 
-          <em
-            class="highlight"
-          >
-            James
-          </em>
-          , between 
-          <em
-            class="highlight"
-          >
-            01/01/2022
-          </em>
-           and 
-          <em
-            class="highlight"
-          >
-            05/01/2022
-          </em>
-        </h1>
+          Interviewer: 
+          James
+          <br />
+          Period: 
+          01/01/2022
+          –
+          05/01/2022
+        </h3>
         <p
           aria-live="polite"
           class="u-fs-s u-mt-s"
