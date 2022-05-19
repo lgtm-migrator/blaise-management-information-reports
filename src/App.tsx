@@ -57,7 +57,7 @@ function App(): ReactElement {
                             <InterviewerCallPattern/>
                         </Route>
                         <Route path="/appointment-resource-planning">
-                            <AppointmentResourcePlanningSteps/>
+                            <AppointmentResourcePlanning/>
                         </Route>
                         <Route path="/">
                             <main id="main-content" className="page__main u-mt-no">
