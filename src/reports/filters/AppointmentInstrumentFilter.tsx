@@ -114,12 +114,12 @@ function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps
                     }]}/>
 
                 <main id="main-content" className="page__main u-mt-s">
-                    <AppointmentResourceDaybatchWarning/>
-                    <br/>
+                    
                     <h1 className="u-mb-m">Select questionnaires for appointments occurring on <em className="highlight">
                         {dateFormatter(reportDate).format("DD/MM/YYYY")}</em> 
                     </h1>
-                
+                    <AppointmentResourceDaybatchWarning/>
+                    <br/>
                     <div className="input-items">
                         <div className="checkboxes__items">
                             {displayCheckboxes()}
