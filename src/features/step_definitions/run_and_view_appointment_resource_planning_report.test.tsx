@@ -15,6 +15,7 @@ import { AppointmentResourcePlanningReportData } from "../../interfaces";
 import { AuthManager } from "blaise-login-react-client";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import userEvent from "@testing-library/user-event";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -56,6 +57,8 @@ const ReportSummary = [
     { language: "Other", total: 1 },
 ];
 
+const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"]
+
 defineFeature(feature, test => {
     afterEach(() => {
         jest.clearAllMocks();
@@ -67,37 +70,60 @@ defineFeature(feature, test => {
         cleanup();
         mockAdapter.reset();
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
-        mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, reportDataReturned);
+        mockAdapter.onPost("/api/reports/appointment-resource-planning/").reply(200, reportDataReturned);
+        mockAdapter.onPost("/api/appointments/instruments").reply(200, questionnairesReturned);
     });
 
-    test("Get information on appointments", ({ given, when, then, and }) => {
-        given("a date is provided", async () => {
+    test("Run and view appointment resource planning report", ({ given, when, then, and }) => {
+        given("A survey tla and date has been specified", async () => {
             const history = createMemoryHistory();
             render(
                 <Router history={history}>
                     <App />
                 </Router>
             );
+            
             await act(async () => {
                 await flushPromises();
             });
-            fireEvent.click(screen.getByText("Appointment resource planning"));
+
+            userEvent.click(screen.getByText("Appointment resource planning"));
+            
             await act(async () => {
                 await flushPromises();
             });
+
+            userEvent.click(screen.getByText("LMS"));
+
+            await act(async () => {
+                await flushPromises();
+            });
+
             fireEvent.input(screen.getByLabelText(/Date/i), {
-                target: {
-                    value:
-                        "2021-01-01"
-                }
+                    target: {
+                        value:
+                            "2021-01-01"
+                    }
+                });
+
+        });
+
+        when("I click next to retrieve a list of instruments", async () => {
+            userEvent.click(screen.getByTestId(/submit-button/i));
+
+            await act(async () => {
+                await flushPromises();
             });
         });
 
-        when("I request information on appointments scheduled for that date", async () => {
-            await fireEvent.click(screen.getByTestId(/submit-button/i));
+        when("I select an instrument and click on run report", async () => {
+            userEvent.click(screen.getByLabelText(/LMS2101_AA1/i));
+            userEvent.click(screen.getByTestId(/submit-button/i));
+
             await act(async () => {
                 await flushPromises();
             });
+
         });
 
         then("I will receive a list of the following information for appointments made:", async (docString) => {
@@ -110,17 +136,12 @@ defineFeature(feature, test => {
                 const list = screen.queryAllByTestId(/report-table-row/i);
                 const listItemOne = list[0].textContent;
                 expect(listItemOne).toEqual("LMS2101_AA110:00English42");
-                const listItemTwo = list[1].textContent;
-                expect(listItemTwo).toEqual("LMS2101_BB112:30Welsh1908");
-                const listItemThree = list[2].textContent;
-                expect(listItemThree).toEqual("LMS2101_CC115:15Other408");
             });
         });
 
         and("the information will be displayed in time intervals of quarter of an hour, e.g. 09:00, 09:15, 09:30, 09:45, 10:00, 10:15, etc.", async (docString) => {
             expect(screen.getByText("10:00")).toBeDefined();
-            expect(screen.getByText("12:30")).toBeDefined();
-            expect(screen.getByText("15:15")).toBeDefined();
         });
     });
+
 });

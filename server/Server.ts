@@ -123,6 +123,18 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, b
         res.status(status).json(result);
     });
 
+    // appointment-resource-planning-questionnaires report endpoint
+    server.post("/api/appointments/instruments", auth.Middleware, async function (req: Request, res: Response) {
+        console.log("appointment-resource-planning-questionnaires report endpoint called");
+        const authHeader = await authProvider.getAuthHeader();
+        const {date, survey_tla} = req.body;
+        const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
+        const url = `${config.BertUrl}/api/appointment-resource-planning/${dateFormatted}/questionnaires?survey-tla=${survey_tla}`;
+        console.log(url);
+        const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
+        res.status(status).json(result);
+    });
+
     // appointment-resource-planning-summary report endpoint
     server.post("/api/reports/appointment-resource-planning-summary", auth.Middleware, async function (req: Request, res: Response) {
         console.log("appointment-resource-planning-summary endpoint called");

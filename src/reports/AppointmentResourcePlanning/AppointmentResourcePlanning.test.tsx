@@ -47,6 +47,7 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
     }
 ];
 
+const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"]
 
 const christmasEve97 = "1997-12-24";
 
@@ -60,6 +61,7 @@ describe("appointment resource planning report with data", () => {
         mockAdapter.reset();
         mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, reportDataReturned);
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
+        mockAdapter.onPost("/api/appointments/instruments").reply(200, questionnairesReturned);
     });
 
     it("matches snapshot", async () => {
@@ -101,10 +103,17 @@ describe("appointment resource planning report with data", () => {
 
         userEvent.type(screen.getByLabelText(/Date/i), "2021-01-01");
         userEvent.click(screen.getByTestId(/submit-button/i));
+    
+        await act(async () => {
+            await flushPromises();
+        });
+
+
 
         await act(async () => {
             await flushPromises();
         });
+
         await waitFor(() => {
             const list = screen.queryAllByTestId(/report-table-row/i);
             const listItemOne = list[0].textContent;
@@ -137,6 +146,7 @@ describe("appointment resource planning report without data", () => {
         mockAdapter.reset();
         mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, "");
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, []);
+        mockAdapter.onPost("/api/appointments/instruments").reply(200, []);
     });
 
     it("matches snapshot", async () => {
