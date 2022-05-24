@@ -3,17 +3,15 @@
  */
 
 import "@testing-library/jest-dom";
-import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import { createMemoryHistory, History } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
+import { act } from "react-dom/test-utils";
+import { fireEvent, screen } from "@testing-library/dom";
 import React from "react";
 import InstrumentFilter from "./InstrumentFilter";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import {History} from "history";
-import flushPromises from "../../tests/utilities";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -47,33 +45,28 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     function renderComponent() {
-        let wrapper;
-
-        act(() => {
-            wrapper = render(
-                <Router history={ history }>
-                    <InstrumentFilter interviewer="James"
-                                      startDate={ new Date("2022-01-01") }
-                                      endDate={ new Date("2022-01-05") }
-                                      surveyTla="LMS"
-                                      instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
-                                      submitFunction={ submit }
-                                      navigateBack={ () => {
-                                          return;
-                                      } }/>
-                </Router>
-            );
-
-            flushPromises();
-        });
-
-        return wrapper;
+        return render(
+            <Router history={ history }>
+                <InstrumentFilter interviewer="James"
+                                  startDate={ new Date("2022-01-01") }
+                                  endDate={ new Date("2022-01-05") }
+                                  surveyTla="LMS"
+                                  instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
+                                  submitFunction={ submit }
+                                  navigateBack={ () => {
+                                      return;
+                                  } }/>
+            </Router>
+        );
     }
 
     it("matches loading snapshot", async () => {
         mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
         const wrapper = renderComponent();
         expect(wrapper).toMatchSnapshot();
+
+        // Wait for loading to finish
+        await screen.findByText("LMS2101_AA1");
     });
 
     it("matches snapshot", async () => {
