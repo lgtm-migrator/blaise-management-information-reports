@@ -60,12 +60,32 @@ describe("the interviewer details page renders correctly", () => {
         );
     }
 
+    it("posts the query params", async () => {
+        expect.assertions(4);
+        mockAdapter.onPost(
+            "/api/instruments",
+            {
+                asymmetricMatch: (formData: FormData) => {
+                    expect(formData.get("survey_tla")).toBe("LMS");
+                    expect(formData.get("interviewer")).toBe("James");
+                    expect(formData.get("start_date")).toBe("2022-01-01");
+                    expect(formData.get("end_date")).toBe("2022-01-05");
+                    return true;
+                }
+            }
+        ).reply(200, instrumentDataReturned);
+        renderComponent();
+
+        // Wait for loading to finish (avoid warnings)
+        await screen.findByText("LMS2101_AA1");
+    });
+
     it("matches loading snapshot", async () => {
         mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
         const wrapper = renderComponent();
         expect(wrapper).toMatchSnapshot();
 
-        // Wait for loading to finish
+        // Wait for loading to finish (avoid warnings)
         await screen.findByText("LMS2101_AA1");
     });
 
