@@ -66,6 +66,14 @@ describe("the interviewer details page renders correctly", () => {
         expect(screen.queryByText(/Run report/i)).toBeVisible();
     });
 
+    it("displays a message when not questionnaires are returned", async () => {
+        mockAdapter.onPost("/api/instruments").reply(200, []);
+        renderComponent();
+        await waitFor(() => {
+            screen.getByText("No data found for parameters given.");
+        });
+    });
+
     afterAll(() => {
         cleanup();
     });

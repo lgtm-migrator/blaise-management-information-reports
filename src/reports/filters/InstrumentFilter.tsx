@@ -80,9 +80,9 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
         return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
             console.log(`Response: Status ${response.status}, data ${response.data}`);
-            if (response.data === 0) {
+            if (response.data.length === 0) {
                 setMessageNoData("No data found for parameters given.");
-                return;
+                return [];
             }
             if (response.status === 200) {
                 return response.data;
