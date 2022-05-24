@@ -29,10 +29,24 @@ function axiosConfig(): AxiosRequestConfig {
     };
 }
 
+function FetchInstrumentsError() {
+    return (
+        <div role="alert">
+            <ONSPanel status="error">
+                <h2>An error occurred when trying to the list of questionnaires</h2>
+                <p>Try again later.</p>
+                <p>If you are still experiencing problems <a href="https://ons.service-now.com/">report this
+                    issue</a> to Service Desk</p>
+            </ONSPanel>
+        </div>
+    );
+}
+
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingFailed, setIsLoadingFailed] = useState(false);
     const [numberOfInstruments, setNumberOfInstruments] = useState(0);
     const {
         interviewer,
@@ -47,7 +61,12 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
 
     useEffect(() => {
-            getInstrumentList().then(setupForm);
+            getInstrumentList()
+                .then(setupForm)
+                .catch((error: Error) => {
+                    setIsLoadingFailed(true);
+                    console.error(`Response: Error ${error}`);
+                });
         }, []
     );
 
@@ -88,9 +107,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                 return response.data;
             }
             throw ("Response was not 200");
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            throw error;
         });
     }
 
@@ -100,6 +116,9 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     }
 
     function displayCheckboxes() {
+        if (isLoadingFailed) {
+            return <FetchInstrumentsError/>;
+        }
         if (isLoading) {
             return <ONSLoadingPanel/>;
         }
