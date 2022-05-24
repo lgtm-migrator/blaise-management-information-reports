@@ -38,14 +38,9 @@ describe("the interviewer details page renders correctly", () => {
             </Router>
         );
 
-        await act(async () => {
-            await flushPromises();
-        });
+        await screen.findByText("LMS2101_AA1");
 
-        jest.useRealTimers();
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(wrapper).toMatchSnapshot();
     });
 
     it("renders correctly", async () => {
