@@ -27,6 +27,24 @@ describe("the interviewer details page renders correctly", () => {
         history = createMemoryHistory();
     });
 
+    it("matches loading snapshot", async () => {
+        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+
+        const wrapper = render(
+            <Router history={history}>
+                <InstrumentFilter interviewer="James"
+                                  startDate={new Date("2022-01-01")}
+                                  endDate={new Date("2022-01-05")}
+                                  surveyTla="LMS"
+                                  instruments={["LMS2101_AA1"]} setInstruments={() => {return;}}
+                                  submitFunction={() => {return;}}
+                                  navigateBack={() => {return;}}/>
+            </Router>
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
+
     it("matches snapshot", async () => {
         mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
 
