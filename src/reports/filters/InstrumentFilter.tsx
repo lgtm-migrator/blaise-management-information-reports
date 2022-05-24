@@ -42,11 +42,12 @@ function FetchInstrumentsError() {
     );
 }
 
+type Status = "loading" | "loaded" | "loading_failed"
+
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
+    const [status, setStatus] = useState<Status>("loading");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isLoadingFailed, setIsLoadingFailed] = useState(false);
     const [numberOfInstruments, setNumberOfInstruments] = useState(0);
     const {
         interviewer,
@@ -64,7 +65,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             getInstrumentList()
                 .then(setupForm)
                 .catch((error: Error) => {
-                    setIsLoadingFailed(true);
+                    setStatus("loading_failed");
                     console.error(`Response: Error ${error}`);
                 });
         }, []
@@ -84,7 +85,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             },
         ]);
         setNumberOfInstruments(allInstruments.length);
-        setIsLoading(false);
+        setStatus("loaded");
     }
 
     async function getInstrumentList(): Promise<string[]> {
@@ -116,10 +117,10 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     }
 
     function displayCheckboxes() {
-        if (isLoadingFailed) {
+        if (status === "loading_failed") {
             return <FetchInstrumentsError/>;
         }
-        if (isLoading) {
+        if (status === "loading") {
             return <ONSLoadingPanel/>;
         }
         if (numberOfInstruments === 0) {
