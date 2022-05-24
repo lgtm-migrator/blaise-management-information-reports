@@ -124,8 +124,16 @@ describe("the interviewer details page renders correctly", () => {
         });
     });
 
-    it("displays an error when non-500 is returned", async () => {
+    it("displays an error when an error HTTP status is returned", async () => {
         mockAdapter.onPost("/api/instruments").reply(500, []);
+        renderComponent();
+        await waitFor(() => {
+            screen.getByText("An error occurred when trying to the list of questionnaires");
+        });
+    });
+
+    it("displays an error when a non-200 success HTTP status is returned", async () => {
+        mockAdapter.onPost("/api/instruments").reply(201, instrumentDataReturned);
         renderComponent();
         await waitFor(() => {
             screen.getByText("An error occurred when trying to the list of questionnaires");

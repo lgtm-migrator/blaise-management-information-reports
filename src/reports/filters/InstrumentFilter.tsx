@@ -107,6 +107,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             if (response.status === 200) {
                 return response.data;
             }
+
             throw ("Response was not 200");
         });
     }
