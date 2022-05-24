@@ -565,7 +565,7 @@ Object {
                       <span
                         class="js-button-text"
                       >
-                        Unselect All
+                        Select All
                       </span>
                       <span
                         class="u-vh"
@@ -599,6 +599,30 @@ Object {
                           id="LMS2101_AA1-label"
                         >
                           LMS2101_AA1
+                        </label>
+                      </span>
+                    </p>
+                    <br />
+                    <p
+                      class="checkboxes__item"
+                    >
+                      <span
+                        class="checkbox"
+                      >
+                        <input
+                          class="checkbox__input js-checkbox"
+                          id="LMS2101_AA2"
+                          initial_value="LMS2101_AA1"
+                          name="questionnaires"
+                          type="checkbox"
+                          value="LMS2101_AA2"
+                        />
+                        <label
+                          class="checkbox__label "
+                          for="LMS2101_AA2"
+                          id="LMS2101_AA2-label"
+                        >
+                          LMS2101_AA2
                         </label>
                       </span>
                     </p>
@@ -744,7 +768,7 @@ Object {
                     <span
                       class="js-button-text"
                     >
-                      Unselect All
+                      Select All
                     </span>
                     <span
                       class="u-vh"
@@ -778,6 +802,30 @@ Object {
                         id="LMS2101_AA1-label"
                       >
                         LMS2101_AA1
+                      </label>
+                    </span>
+                  </p>
+                  <br />
+                  <p
+                    class="checkboxes__item"
+                  >
+                    <span
+                      class="checkbox"
+                    >
+                      <input
+                        class="checkbox__input js-checkbox"
+                        id="LMS2101_AA2"
+                        initial_value="LMS2101_AA1"
+                        name="questionnaires"
+                        type="checkbox"
+                        value="LMS2101_AA2"
+                      />
+                      <label
+                        class="checkbox__label "
+                        for="LMS2101_AA2"
+                        id="LMS2101_AA2-label"
+                      >
+                        LMS2101_AA2
                       </label>
                     </span>
                   </p>
