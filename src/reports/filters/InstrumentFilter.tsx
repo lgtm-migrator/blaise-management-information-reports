@@ -44,6 +44,30 @@ function FetchInstrumentsError() {
 
 type Status = "loading" | "loaded" | "loading_failed"
 
+async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
+    const url = "/api/instruments";
+
+    const formData = new FormData();
+    formData.append("survey_tla", surveyTla);
+    formData.append("interviewer", interviewer);
+    formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
+    formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
+
+    const response = await axios.post(url, formData, axiosConfig());
+
+    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+
+    if (response.data.length === 0) {
+        return [];
+    }
+
+    if (response.status === 200) {
+        return response.data;
+    }
+
+    throw ("Response was not 200");
+}
+
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [status, setStatus] = useState<Status>("loading");
@@ -62,14 +86,23 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
 
     useEffect(() => {
-            getInstrumentList()
-                .then(setupForm)
-                .catch((error: Error) => {
-                    setStatus("loading_failed");
-                    console.error(`Response: Error ${error}`);
-                });
-        }, []
-    );
+        async function fetchInstruments(): Promise<string[]> {
+            const instruments = await getInstrumentList(surveyTla, interviewer, startDate, endDate);
+            if (instruments.length === 0) {
+                setMessageNoData("No data found for parameters given.");
+            }
+            return instruments;
+        }
+
+        setMessageNoData("");
+
+        fetchInstruments()
+            .then(setupForm)
+            .catch((error: Error) => {
+                setStatus("loading_failed");
+                console.error(`Response: Error ${error}`);
+            });
+    }, []);
 
     function setupForm(allInstruments: string[]) {
         setFields([
@@ -86,30 +119,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
         ]);
         setNumberOfInstruments(allInstruments.length);
         setStatus("loaded");
-    }
-
-    async function getInstrumentList(): Promise<string[]> {
-        const url = "/api/instruments";
-
-        const formData = new FormData();
-        setMessageNoData("");
-        formData.append("survey_tla", surveyTla);
-        formData.append("interviewer", interviewer);
-        formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
-        formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
-
-        return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
-            console.log(`Response: Status ${response.status}, data ${response.data}`);
-            if (response.data.length === 0) {
-                setMessageNoData("No data found for parameters given.");
-                return [];
-            }
-            if (response.status === 200) {
-                return response.data;
-            }
-
-            throw ("Response was not 200");
-        });
     }
 
     function handleSubmit(values: any) {
