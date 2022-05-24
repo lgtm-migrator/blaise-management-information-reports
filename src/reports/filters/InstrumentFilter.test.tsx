@@ -7,7 +7,7 @@ import {createMemoryHistory} from "history";
 import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";
 import {act} from "react-dom/test-utils";
-import {screen} from "@testing-library/dom";
+import {fireEvent, screen} from "@testing-library/dom";
 import React from "react";
 import InstrumentFilter from "./InstrumentFilter";
 import MockAdapter from "axios-mock-adapter";
@@ -17,14 +17,19 @@ import {History} from "history";
 const mockAdapter = new MockAdapter(axios);
 
 const instrumentDataReturned: string[] = [
-    "LMS2101_AA1"
+    "LMS2101_AA1",
+    "LMS2101_AA2",
 ];
 
 describe("the interviewer details page renders correctly", () => {
     let history: History;
+    let setInstruments: (instruments: string[]) => void;
+    let submit: () => void;
 
     beforeEach(() => {
         history = createMemoryHistory();
+        setInstruments = jest.fn();
+        submit = jest.fn();
     });
 
     afterEach(() => {
@@ -38,8 +43,8 @@ describe("the interviewer details page renders correctly", () => {
                                   startDate={new Date("2022-01-01")}
                                   endDate={new Date("2022-01-05")}
                                   surveyTla="LMS"
-                                  instruments={["LMS2101_AA1"]} setInstruments={() => {return;}}
-                                  submitFunction={() => {return;}}
+                                  instruments={["LMS2101_AA1"]} setInstruments={setInstruments}
+                                  submitFunction={submit}
                                   navigateBack={() => {return;}}/>
             </Router>
         );
@@ -80,7 +85,30 @@ describe("the interviewer details page renders correctly", () => {
         renderComponent();
         await waitFor(() => {
             screen.getByText("No data found for parameters given.");
+            screen.getByText("No questionnaires found for given parameters.");
         });
+    });
+
+    it("checks all provided instruments by default", async () => {
+        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        renderComponent();
+        await act(async () => {
+            fireEvent.click(await screen.findByText(/Run report/));
+        });
+        expect(setInstruments).toHaveBeenCalledWith(["LMS2101_AA1"]);
+        expect(submit).toHaveBeenCalled();
+    });
+
+    it("returns the instruments when a checkbox is ticket", async () => {
+        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        renderComponent();
+        await act(async () => {
+            fireEvent.click(await screen.findByText(/LMS2101_AA1/));
+            fireEvent.click(await screen.findByText(/LMS2101_AA2/));
+            fireEvent.click(await screen.findByText(/Run report/));
+        });
+        expect(setInstruments).toHaveBeenCalledWith(["LMS2101_AA2"]);
+        expect(submit).toHaveBeenCalled();
     });
 
     afterAll(() => {

@@ -104,7 +104,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             return <ONSLoadingPanel/>;
         }
         if (numberOfInstruments === 0) {
-            return <ONSPanel> No questionnaires found for given parameters.</ONSPanel>;
+            return <ONSPanel>No questionnaires found for given parameters.</ONSPanel>;
         }
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
     }
