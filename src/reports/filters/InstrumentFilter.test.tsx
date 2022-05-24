@@ -13,6 +13,10 @@ import InstrumentFilter from "./InstrumentFilter";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import {History} from "history";
+import flushPromises from "../../tests/utilities";
+import dateFormatter from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -21,12 +25,18 @@ const instrumentDataReturned: string[] = [
     "LMS2101_AA2",
 ];
 
+dateFormatter.extend(utc);
+dateFormatter.extend(timezone);
+
 describe("the interviewer details page renders correctly", () => {
     let history: History;
     let setInstruments: (instruments: string[]) => void;
     let submit: () => void;
 
     beforeEach(() => {
+        mockAdapter
+            .onGet("/api/reports/call-history-status")
+            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
         history = createMemoryHistory();
         setInstruments = jest.fn();
         submit = jest.fn();
@@ -37,17 +47,27 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     function renderComponent() {
-        return render(
-            <Router history={history}>
-                <InstrumentFilter interviewer="James"
-                                  startDate={new Date("2022-01-01")}
-                                  endDate={new Date("2022-01-05")}
-                                  surveyTla="LMS"
-                                  instruments={["LMS2101_AA1"]} setInstruments={setInstruments}
-                                  submitFunction={submit}
-                                  navigateBack={() => {return;}}/>
-            </Router>
-        );
+        let wrapper;
+
+        act(() => {
+            wrapper = render(
+                <Router history={ history }>
+                    <InstrumentFilter interviewer="James"
+                                      startDate={ new Date("2022-01-01") }
+                                      endDate={ new Date("2022-01-05") }
+                                      surveyTla="LMS"
+                                      instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
+                                      submitFunction={ submit }
+                                      navigateBack={ () => {
+                                          return;
+                                      } }/>
+                </Router>
+            );
+
+            flushPromises();
+        });
+
+        return wrapper;
     }
 
     it("matches loading snapshot", async () => {
@@ -72,6 +92,8 @@ describe("the interviewer details page renders correctly", () => {
 
         expect(screen.queryByText(/Select questionnaire/i)).toBeVisible();
         expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
+
+        expect(screen.queryByText(/22 years ago/i)).toBeVisible();
 
         expect(screen.queryByText(/Interviewer: James/i)).toBeVisible();
         expect(screen.queryByText(/Period: 01\/01\/2022–05\/01\/2022/i)).toBeVisible();

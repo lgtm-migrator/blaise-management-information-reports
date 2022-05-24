@@ -532,7 +532,13 @@ Object {
           >
             Data in this report was last updated: 
             <b>
-              Unknown
+              <time
+                datetime="2000-01-01T10:00:00.000Z"
+                title="2000-01-01 10:00"
+              >
+                22 years ago
+              </time>
+               (01/01/2000 10:00:00)
             </b>
           </p>
           <p
@@ -735,7 +741,13 @@ Object {
         >
           Data in this report was last updated: 
           <b>
-            Unknown
+            <time
+              datetime="2000-01-01T10:00:00.000Z"
+              title="2000-01-01 10:00"
+            >
+              22 years ago
+            </time>
+             (01/01/2000 10:00:00)
           </b>
         </p>
         <p
