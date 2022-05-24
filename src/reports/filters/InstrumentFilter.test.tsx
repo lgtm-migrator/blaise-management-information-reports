@@ -27,6 +27,10 @@ describe("the interviewer details page renders correctly", () => {
         history = createMemoryHistory();
     });
 
+    afterEach(() => {
+        mockAdapter.reset();
+    });
+
     function renderComponent() {
         return render(
             <Router history={history}>
@@ -55,12 +59,17 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("renders correctly", async () => {
+        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+
         await act(async () => {
             renderComponent();
         });
 
         expect(screen.queryByText(/Select questionnaire/i)).toBeVisible();
         expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
+
+        expect(screen.queryByText(/Interviewer: James/i)).toBeVisible();
+        expect(screen.queryByText(/Period: 01\/01\/2022–05\/01\/2022/i)).toBeVisible();
 
         expect(screen.queryByText(/LMS2101_AA1/i)).toBeVisible();
         expect(screen.queryByText(/Run report/i)).toBeVisible();
