@@ -1,8 +1,6 @@
 import React, {ReactElement, useEffect, useState, Fragment} from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import axios, {AxiosRequestConfig} from "axios";
-import {AuthManager} from "blaise-login-react-client";
 import {
     FormFieldObject,
     ONSLoadingPanel,
@@ -10,6 +8,7 @@ import {
     StyledForm
 } from "blaise-design-system-react-components";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
+import { getInstrumentList } from "../../utilities/HTTP";
 
 interface InstrumentFilterPageProps {
     interviewer: string
@@ -20,13 +19,6 @@ interface InstrumentFilterPageProps {
     setInstruments: (string: string[]) => void
     submitFunction: () => void
     navigateBack: () => void
-}
-
-function axiosConfig(): AxiosRequestConfig {
-    const authManager = new AuthManager();
-    return {
-        headers: authManager.authHeader()
-    };
 }
 
 function FetchInstrumentsError() {
@@ -43,30 +35,6 @@ function FetchInstrumentsError() {
 }
 
 type Status = "loading" | "loaded" | "loading_failed"
-
-async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
-    const url = "/api/instruments";
-
-    const formData = new FormData();
-    formData.append("survey_tla", surveyTla);
-    formData.append("interviewer", interviewer);
-    formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
-    formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
-
-    const response = await axios.post(url, formData, axiosConfig());
-
-    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
-
-    if (response.data.length === 0) {
-        return [];
-    }
-
-    if (response.status === 200) {
-        return response.data;
-    }
-
-    throw ("Response was not 200");
-}
 
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");

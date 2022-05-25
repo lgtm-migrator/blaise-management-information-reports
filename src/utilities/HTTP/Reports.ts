@@ -7,12 +7,33 @@ import {
     InterviewerCallHistoryReport,
     InterviewerCallPatternReport
 } from "../../interfaces";
+import dateFormatter from "dayjs";
 
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
     return {
         headers: authManager.authHeader()
     };
+}
+
+async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
+    const url = "/api/instruments";
+
+    const formData = new FormData();
+    formData.append("survey_tla", surveyTla);
+    formData.append("interviewer", interviewer);
+    formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
+    formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
+
+    const response = await axios.post(url, formData, axiosConfig());
+
+    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+
+    if (response.status !== 200) {
+        throw new Error("Response was not 200");
+    }
+
+    return response.data;
 }
 
 async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | undefined> {
@@ -119,6 +140,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: string, survey_
 }
 
 export {
+    getInstrumentList,
     getInterviewerCallHistoryStatus,
     getInterviewerCallHistoryReport,
     getInterviewerCallPatternReport,
