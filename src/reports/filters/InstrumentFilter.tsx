@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useState, Fragment} from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import {AuthManager} from "blaise-login-react-client";
 import {
     FormFieldObject,
@@ -29,10 +29,49 @@ function axiosConfig(): AxiosRequestConfig {
     };
 }
 
+function FetchInstrumentsError() {
+    return (
+        <div role="alert">
+            <ONSPanel status="error">
+                <h2>An error occurred while fetching the list of questionnaires</h2>
+                <p>Try again later.</p>
+                <p>If you are still experiencing problems <a href="https://ons.service-now.com/">report this
+                    issue</a> to Service Desk</p>
+            </ONSPanel>
+        </div>
+    );
+}
+
+type Status = "loading" | "loaded" | "loading_failed"
+
+async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
+    const url = "/api/instruments";
+
+    const formData = new FormData();
+    formData.append("survey_tla", surveyTla);
+    formData.append("interviewer", interviewer);
+    formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
+    formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
+
+    const response = await axios.post(url, formData, axiosConfig());
+
+    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+
+    if (response.data.length === 0) {
+        return [];
+    }
+
+    if (response.status === 200) {
+        return response.data;
+    }
+
+    throw ("Response was not 200");
+}
+
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
+    const [status, setStatus] = useState<Status>("loading");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [numberOfInstruments, setNumberOfInstruments] = useState(0);
     const {
         interviewer,
@@ -47,9 +86,23 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
 
     useEffect(() => {
-            getInstrumentList().then(setupForm);
-        }, []
-    );
+        async function fetchInstruments(): Promise<string[]> {
+            const instruments = await getInstrumentList(surveyTla, interviewer, startDate, endDate);
+            if (instruments.length === 0) {
+                setMessageNoData("No data found for parameters given.");
+            }
+            return instruments;
+        }
+
+        setMessageNoData("");
+
+        fetchInstruments()
+            .then(setupForm)
+            .catch((error: Error) => {
+                setStatus("loading_failed");
+                console.error(`Response: Error ${error}`);
+            });
+    }, []);
 
     function setupForm(allInstruments: string[]) {
         setFields([
@@ -65,33 +118,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             },
         ]);
         setNumberOfInstruments(allInstruments.length);
-        setIsLoading(false);
-    }
-
-    async function getInstrumentList(): Promise<string[]> {
-        const url = "/api/instruments";
-
-        const formData = new FormData();
-        setMessageNoData("");
-        formData.append("survey_tla", surveyTla);
-        formData.append("interviewer", interviewer);
-        formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
-        formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
-
-        return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
-            console.log(`Response: Status ${response.status}, data ${response.data}`);
-            if (response.data.length === 0) {
-                setMessageNoData("No data found for parameters given.");
-                return [];
-            }
-            if (response.status === 200) {
-                return response.data;
-            }
-            throw ("Response was not 200");
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            throw error;
-        });
+        setStatus("loaded");
     }
 
     function handleSubmit(values: any) {
@@ -100,7 +127,10 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     }
 
     function displayCheckboxes() {
-        if (isLoading) {
+        if (status === "loading_failed") {
+            return <FetchInstrumentsError/>;
+        }
+        if (status === "loading") {
             return <ONSLoadingPanel/>;
         }
         if (numberOfInstruments === 0) {
