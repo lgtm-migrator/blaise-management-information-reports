@@ -2,7 +2,7 @@
 // Sort out breadcrumbs
 // Wording
 // Spinning loading
-import React, {useEffect, useState} from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import {CSVLink} from "react-csv";
 import {ErrorBoundary, ONSPanel} from "blaise-design-system-react-components";
@@ -29,7 +29,7 @@ function formatList(listOfInstruments: string[]): string {
     return firsts.join(", ") + " and " + last;
 }
 
-function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps) {
+function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps): ReactElement {
     const [reportData, setReportData] = useState<InterviewerCallHistoryReport[]>([]);
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
