@@ -128,7 +128,7 @@ describe("the interviewer details page renders correctly", () => {
         mockAdapter.onPost("/api/instruments").reply(500, []);
         renderComponent();
         await waitFor(() => {
-            screen.getByText("An error occurred when trying to the list of questionnaires");
+            screen.getByText("An error occurred while fetching the list of questionnaires");
         });
     });
 
@@ -136,7 +136,7 @@ describe("the interviewer details page renders correctly", () => {
         mockAdapter.onPost("/api/instruments").reply(201, instrumentDataReturned);
         renderComponent();
         await waitFor(() => {
-            screen.getByText("An error occurred when trying to the list of questionnaires");
+            screen.getByText("An error occurred while fetching the list of questionnaires");
         });
     });
 

@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useState, Fragment} from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {AxiosRequestConfig} from "axios";
 import {AuthManager} from "blaise-login-react-client";
 import {
     FormFieldObject,
@@ -33,7 +33,7 @@ function FetchInstrumentsError() {
     return (
         <div role="alert">
             <ONSPanel status="error">
-                <h2>An error occurred when trying to the list of questionnaires</h2>
+                <h2>An error occurred while fetching the list of questionnaires</h2>
                 <p>Try again later.</p>
                 <p>If you are still experiencing problems <a href="https://ons.service-now.com/">report this
                     issue</a> to Service Desk</p>
