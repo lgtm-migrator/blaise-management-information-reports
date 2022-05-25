@@ -110,6 +110,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                 name: "questionnaires",
                 type: "checkbox",
                 initial_value: instruments,
+                validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
                 checkboxOptions: allInstruments.map(name => ({
                     id: name,
                     value: name,
