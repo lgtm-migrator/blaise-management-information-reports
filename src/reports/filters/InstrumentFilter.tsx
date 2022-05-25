@@ -80,9 +80,9 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
         return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
             console.log(`Response: Status ${response.status}, data ${response.data}`);
-            if (response.data === 0) {
+            if (response.data.length === 0) {
                 setMessageNoData("No data found for parameters given.");
-                return;
+                return [];
             }
             if (response.status === 200) {
                 return response.data;
@@ -104,7 +104,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             return <ONSLoadingPanel/>;
         }
         if (numberOfInstruments === 0) {
-            return <ONSPanel> No questionnaires found for given parameters.</ONSPanel>;
+            return <ONSPanel>No questionnaires found for given parameters.</ONSPanel>;
         }
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
     }
