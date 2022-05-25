@@ -162,6 +162,20 @@ describe("the interviewer details page renders correctly", () => {
         expect(submit).toHaveBeenCalled();
     });
 
+    it("displays an error when submitting with no checkboxes selected", async () => {
+        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        renderComponent();
+        await act(async () => {
+            fireEvent.click(await screen.findByText(/LMS2101_AA1/));
+            fireEvent.click(await screen.findByText(/Run report/));
+        });
+        const elements = await screen.findAllByText("At least one questionnaire must be selected");
+        expect(elements[0]).toBeVisible();
+        expect(elements[1]).toBeVisible();
+        expect(setInstruments).not.toHaveBeenCalled();
+        expect(submit).not.toHaveBeenCalled();
+    });
+
     afterAll(() => {
         cleanup();
     });
