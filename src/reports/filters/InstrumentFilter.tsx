@@ -1,12 +1,7 @@
-import React, {ReactElement, useEffect, useState, Fragment} from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import {
-    FormFieldObject,
-    ONSLoadingPanel,
-    ONSPanel,
-    StyledForm
-} from "blaise-design-system-react-components";
+import { FormFieldObject, ONSLoadingPanel, ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import { getInstrumentList } from "../../utilities/HTTP";
 
@@ -37,7 +32,6 @@ function FetchInstrumentsError() {
 type Status = "loading" | "loaded" | "loading_failed"
 
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
-    const [messageNoData, setMessageNoData] = useState<string>("");
     const [status, setStatus] = useState<Status>("loading");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
     const [numberOfInstruments, setNumberOfInstruments] = useState(0);
@@ -55,14 +49,8 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
     useEffect(() => {
         async function fetchInstruments(): Promise<string[]> {
-            const instruments = await getInstrumentList(surveyTla, interviewer, startDate, endDate);
-            if (instruments.length === 0) {
-                setMessageNoData("No data found for parameters given.");
-            }
-            return instruments;
+            return getInstrumentList(surveyTla, interviewer, startDate, endDate);
         }
-
-        setMessageNoData("");
 
         fetchInstruments()
             .then(setupForm)
@@ -136,8 +124,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                         </div>
                     </div>
                 </main>
-
-                <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
             </div>
         </>
     );

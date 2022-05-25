@@ -189,14 +189,6 @@ Object {
             </div>
           </div>
         </main>
-        <div
-          class="panel panel--info panel--no-title  u-mt-m"
-          hidden=""
-        >
-          <div
-            class="panel__body "
-          />
-        </div>
       </div>
     </div>
   </body>,
@@ -385,14 +377,6 @@ Object {
           </div>
         </div>
       </main>
-      <div
-        class="panel panel--info panel--no-title  u-mt-m"
-        hidden=""
-      >
-        <div
-          class="panel__body "
-        />
-      </div>
     </div>
   </div>,
   "debug": [Function],
@@ -651,14 +635,6 @@ Object {
             </div>
           </div>
         </main>
-        <div
-          class="panel panel--info panel--no-title  u-mt-m"
-          hidden=""
-        >
-          <div
-            class="panel__body "
-          />
-        </div>
       </div>
     </div>
   </body>,
@@ -860,14 +836,6 @@ Object {
           </div>
         </div>
       </main>
-      <div
-        class="panel panel--info panel--no-title  u-mt-m"
-        hidden=""
-      >
-        <div
-          class="panel__body "
-        />
-      </div>
     </div>
   </div>,
   "debug": [Function],
