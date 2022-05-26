@@ -44,7 +44,7 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
         if (response.status === 200) {
             return response.data;
         }
-        throw ("Response was not 200");
+        throw new Error("Response was not 200");
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);
         throw error;
