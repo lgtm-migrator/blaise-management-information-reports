@@ -166,7 +166,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                                                     {dateFormatter(callHistory.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss")}
                                                 </td>
                                                 <td className="table__cell ">
-                                                    {convertSecondsToMinutesAndSeconds(callHistory.dial_secs || 0)}
+                                                    {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}
                                                 </td>
                                                 <td className="table__cell ">
                                                     {(callHistory.call_result === null ? "Unknown" : callHistory.call_result)}

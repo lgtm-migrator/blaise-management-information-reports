@@ -63,6 +63,7 @@ describe("getInterviewerCallHistoryReport", () => {
             questionnaire_name: "DST",
             serial_number: "9001",
             call_start_time: "2022-01-02 10:05:20",
+            dial_secs: 50,
         };
 
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, response);
@@ -75,6 +76,51 @@ describe("getInterviewerCallHistoryReport", () => {
                 instruments: "INST1,INST2",
             }
         )).toEqual(response);
+    });
+
+    it("defaults dial_secs to 0 if not in the response", async () => {
+        mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, {
+            questionnaire_name: "DST",
+            serial_number: "9001",
+            call_start_time: "2022-01-02 10:05:20",
+        });
+        expect(await getInterviewerCallHistoryReport(
+            {
+                survey_tla: "DST",
+                interviewer: "James",
+                start_date: "2022-01-02",
+                end_date: "2022-02-05",
+                instruments: "INST1,INST2",
+            }
+        )).toEqual({
+            questionnaire_name: "DST",
+            serial_number: "9001",
+            call_start_time: "2022-01-02 10:05:20",
+            dial_secs: 0,
+        });
+    });
+
+    it("defaults dial_secs to 0 if it is an empty string", async () => {
+        mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, {
+            questionnaire_name: "DST",
+            serial_number: "9001",
+            call_start_time: "2022-01-02 10:05:20",
+            dial_secs: ""
+        });
+        expect(await getInterviewerCallHistoryReport(
+            {
+                survey_tla: "DST",
+                interviewer: "James",
+                start_date: "2022-01-02",
+                end_date: "2022-02-05",
+                instruments: "INST1,INST2",
+            }
+        )).toEqual({
+            questionnaire_name: "DST",
+            serial_number: "9001",
+            call_start_time: "2022-01-02 10:05:20",
+            dial_secs: 0,
+        });
     });
 
     it("rejects when error status is returned", async () => {

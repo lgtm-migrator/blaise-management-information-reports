@@ -27,7 +27,3 @@ test("test 3601 seconds is converted to 60:01", () => {
 test("test 0 seconds is converted to 00:00", () => {
     expect(convertSecondsToMinutesAndSeconds(0)).toBe("00:00");
 });
-
-test("test empty string is converted to 00:00", () => {
-    expect(convertSecondsToMinutesAndSeconds("")).toBe("00:00");
-});

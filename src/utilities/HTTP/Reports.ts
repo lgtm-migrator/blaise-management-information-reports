@@ -42,7 +42,11 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
         if (response.status === 200) {
-            return response.data;
+            const result = {...response.data};
+            if (!("dial_secs" in result) || result.dial_secs === "") {
+                result.dial_secs = 0;
+            }
+            return result;
         }
         throw new Error("Response was not 200");
     }).catch((error: Error) => {
