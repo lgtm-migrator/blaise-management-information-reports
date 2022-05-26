@@ -1,12 +1,7 @@
-import React, {ReactElement, useEffect, useState, Fragment} from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import {
-    FormFieldObject,
-    ONSLoadingPanel,
-    ONSPanel,
-    StyledForm
-} from "blaise-design-system-react-components";
+import { FormFieldObject, ONSLoadingPanel, ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import { getInstrumentList } from "../../utilities/HTTP";
 
@@ -37,7 +32,6 @@ function FetchInstrumentsError() {
 type Status = "loading" | "loaded" | "loading_failed"
 
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
-    const [messageNoData, setMessageNoData] = useState<string>("");
     const [status, setStatus] = useState<Status>("loading");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
     const [numberOfInstruments, setNumberOfInstruments] = useState(0);
@@ -55,14 +49,8 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
     useEffect(() => {
         async function fetchInstruments(): Promise<string[]> {
-            const instruments = await getInstrumentList(surveyTla, interviewer, startDate, endDate);
-            if (instruments.length === 0) {
-                setMessageNoData("No data found for parameters given.");
-            }
-            return instruments;
+            return getInstrumentList(surveyTla, interviewer, startDate, endDate);
         }
-
-        setMessageNoData("");
 
         fetchInstruments()
             .then(setupForm)
@@ -119,10 +107,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                     }]}/>
 
                 <main id="main-content" className="page__main u-mt-s">
-                    {/*<h1 className="u-mb-m">Select questionnaires for <em className="highlight">{interviewer}</em>,*/}
-                    {/*    between <em className="highlight">{dateFormatter(startDate).format("DD/MM/YYYY")}</em> and <em*/}
-                    {/*        className="highlight">{dateFormatter(endDate).format("DD/MM/YYYY")}</em>*/}
-                    {/*</h1>*/}
                     <h1>Select questionnaires for</h1>
                     <h3 className="u-mb-m">
                         Interviewer: {interviewer}<br></br>
@@ -136,8 +120,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                         </div>
                     </div>
                 </main>
-
-                <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
             </div>
         </>
     );

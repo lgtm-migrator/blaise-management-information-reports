@@ -119,7 +119,6 @@ describe("the interviewer details page renders correctly", () => {
         mockAdapter.onPost("/api/instruments").reply(200, []);
         renderComponent();
         await waitFor(() => {
-            screen.getByText("No data found for parameters given.");
             screen.getByText("No questionnaires found for given parameters.");
         });
     });
