@@ -3,7 +3,7 @@ import {NewUser} from "blaise-api-node-client";
 
 const CATI_URL = process.env.CATI_URL;
 
-export async function setupAppointment(page: Page, instrumentName: string, userCredentials: NewUser) {
+export async function setupAppointment(page: Page, instrumentName: string, userCredentials: NewUser): Promise<void> {
     console.log(`Attempting to set up an appointment for instrument ${instrumentName}`);
 
     await new Promise(f => setTimeout(f, 20000));
@@ -32,7 +32,7 @@ export async function setupAppointment(page: Page, instrumentName: string, userC
     console.log(`Set up an appointment for instrument ${instrumentName}`);
 }
 
-export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser) {
+export async function clearCATIData(page: Page, instrumentName: string, userCredentials: NewUser): Promise<void> {
     try {
         console.log(`Attempting to clear down CATI data for instrument ${instrumentName}`);
 

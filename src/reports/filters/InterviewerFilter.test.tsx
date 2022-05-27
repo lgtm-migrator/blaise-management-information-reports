@@ -8,7 +8,7 @@ import {cleanup, render, waitFor} from "@testing-library/react";
 import {Router} from "react-router";
 import {act} from "react-dom/test-utils";
 import {screen} from "@testing-library/dom";
-import React, {useState} from "react";
+import React from "react";
 import InterviewerFilter from "./InterviewerFilter";
 
 describe("the interviewer details page renders correctly", () => {

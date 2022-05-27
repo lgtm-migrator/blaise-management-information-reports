@@ -49,7 +49,7 @@ export type InterviewerCallHistoryReport = {
     status?: string,
     survey?: string,
     call_result?: string,
-    dial_secs?: number,
+    dial_secs: number,
     questionnaire_name: string,
     serial_number: string,
     call_start_time: string

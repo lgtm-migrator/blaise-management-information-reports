@@ -29,7 +29,7 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
     }
 }
 
-export async function deleteTestUser(blaiseApiClient: BlaiseApiClient, serverPark :string, userName: string)
+export async function deleteTestUser(blaiseApiClient: BlaiseApiClient, serverPark :string, userName: string): Promise<void>
 {
     try {
         console.log(`Attempting to delete test user ${userName}`);
@@ -96,7 +96,7 @@ async function installInstrument(blaiseApiClient: BlaiseApiClient, serverPark: s
     }
 }
 
-export async function unInstallInstrument(blaiseApiClient: BlaiseApiClient, serverPark: string, instrumentName: string)
+export async function unInstallInstrument(blaiseApiClient: BlaiseApiClient, serverPark: string, instrumentName: string): Promise<void>
 {
     try {
         console.log(`Uninstalling test instrument ${instrumentName}`);
