@@ -1,15 +1,9 @@
-import React, {ReactElement, useEffect, useState, Fragment} from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {AuthManager} from "blaise-login-react-client";
-import {
-    FormFieldObject,
-    ONSLoadingPanel,
-    ONSPanel,
-    StyledForm
-} from "blaise-design-system-react-components";
+import { FormFieldObject, ONSLoadingPanel, ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
+import { getInstrumentList } from "../../utilities/HTTP";
 
 interface InstrumentFilterPageProps {
     interviewer: string
@@ -22,17 +16,24 @@ interface InstrumentFilterPageProps {
     navigateBack: () => void
 }
 
-function axiosConfig(): AxiosRequestConfig {
-    const authManager = new AuthManager();
-    return {
-        headers: authManager.authHeader()
-    };
+function FetchInstrumentsError() {
+    return (
+        <div role="alert">
+            <ONSPanel status="error">
+                <h2>An error occurred while fetching the list of questionnaires</h2>
+                <p>Try again later.</p>
+                <p>If you are still experiencing problems <a href="https://ons.service-now.com/">report this
+                    issue</a> to Service Desk</p>
+            </ONSPanel>
+        </div>
+    );
 }
 
+type Status = "loading" | "loaded" | "loading_failed"
+
 function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
-    const [messageNoData, setMessageNoData] = useState<string>("");
+    const [status, setStatus] = useState<Status>("loading");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
     const [numberOfInstruments, setNumberOfInstruments] = useState(0);
     const {
         interviewer,
@@ -47,9 +48,17 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
 
 
     useEffect(() => {
-            getInstrumentList().then(setupForm);
-        }, []
-    );
+        async function fetchInstruments(): Promise<string[]> {
+            return getInstrumentList(surveyTla, interviewer, startDate, endDate);
+        }
+
+        fetchInstruments()
+            .then(setupForm)
+            .catch((error: Error) => {
+                setStatus("loading_failed");
+                console.error(`Response: Error ${error}`);
+            });
+    }, []);
 
     function setupForm(allInstruments: string[]) {
         setFields([
@@ -57,6 +66,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                 name: "questionnaires",
                 type: "checkbox",
                 initial_value: instruments,
+                validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
                 checkboxOptions: allInstruments.map(name => ({
                     id: name,
                     value: name,
@@ -65,33 +75,7 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
             },
         ]);
         setNumberOfInstruments(allInstruments.length);
-        setIsLoading(false);
-    }
-
-    async function getInstrumentList(): Promise<string[]> {
-        const url = "/api/instruments";
-
-        const formData = new FormData();
-        setMessageNoData("");
-        formData.append("survey_tla", surveyTla);
-        formData.append("interviewer", interviewer);
-        formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
-        formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
-
-        return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
-            console.log(`Response: Status ${response.status}, data ${response.data}`);
-            if (response.data === 0) {
-                setMessageNoData("No data found for parameters given.");
-                return;
-            }
-            if (response.status === 200) {
-                return response.data;
-            }
-            throw ("Response was not 200");
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${error}`);
-            throw error;
-        });
+        setStatus("loaded");
     }
 
     function handleSubmit(values: any) {
@@ -100,11 +84,14 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     }
 
     function displayCheckboxes() {
-        if (isLoading) {
+        if (status === "loading_failed") {
+            return <FetchInstrumentsError/>;
+        }
+        if (status === "loading") {
             return <ONSLoadingPanel/>;
         }
         if (numberOfInstruments === 0) {
-            return <ONSPanel> No questionnaires found for given parameters.</ONSPanel>;
+            return <ONSPanel>No questionnaires found for given parameters.</ONSPanel>;
         }
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
     }
@@ -120,10 +107,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                     }]}/>
 
                 <main id="main-content" className="page__main u-mt-s">
-                    {/*<h1 className="u-mb-m">Select questionnaires for <em className="highlight">{interviewer}</em>,*/}
-                    {/*    between <em className="highlight">{dateFormatter(startDate).format("DD/MM/YYYY")}</em> and <em*/}
-                    {/*        className="highlight">{dateFormatter(endDate).format("DD/MM/YYYY")}</em>*/}
-                    {/*</h1>*/}
                     <h1>Select questionnaires for</h1>
                     <h3 className="u-mb-m">
                         Interviewer: {interviewer}<br></br>
@@ -137,8 +120,6 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
                         </div>
                     </div>
                 </main>
-
-                <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
             </div>
         </>
     );

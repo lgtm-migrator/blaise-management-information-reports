@@ -3,7 +3,7 @@
  */
 
 import "@testing-library/jest-dom";
-import React from "react";
+// import React from "react";
 
 //TODO:
 // Write unit/Gherkin test for rendering screen when no instrument found - get user requirements from Beth

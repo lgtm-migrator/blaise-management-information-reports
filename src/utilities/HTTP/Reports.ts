@@ -1,5 +1,5 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {AuthManager} from "blaise-login-react-client";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AuthManager } from "blaise-login-react-client";
 import {
     AppointmentResourcePlanningReportData,
     AppointmentResourcePlanningSummaryReportData,
@@ -7,12 +7,33 @@ import {
     InterviewerCallHistoryReport,
     InterviewerCallPatternReport
 } from "../../interfaces";
+import dateFormatter from "dayjs";
 
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
     return {
         headers: authManager.authHeader()
     };
+}
+
+async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
+    const url = "/api/instruments";
+
+    const formData = new FormData();
+    formData.append("survey_tla", surveyTla);
+    formData.append("interviewer", interviewer);
+    formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
+    formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
+
+    const response = await axios.post(url, formData, axiosConfig());
+
+    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+
+    if (response.status !== 200) {
+        throw new Error("Response was not 200");
+    }
+
+    return response.data;
 }
 
 async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | undefined> {
@@ -39,16 +60,26 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     formData.append("end_date", form.end_date);
     formData.append("instruments", form.instruments);
 
-    return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
-        console.log(`Response: Status ${response.status}, data ${response.data}`);
-        if (response.status === 200) {
-            return response.data;
+    function toReport(instrument: Record<string, unknown>): InterviewerCallHistoryReport {
+        const report = { ...instrument };
+        if (!("dial_secs" in report) || report.dial_secs === "") {
+            report.dial_secs = 0;
         }
-        throw ("Response was not 200");
-    }).catch((error: Error) => {
+        return report as InterviewerCallHistoryReport;
+    }
+
+    try {
+        const response: AxiosResponse = await axios.post(url, formData, axiosConfig());
+
+        console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+        if (response.status === 200) {
+            return response.data.map(toReport);
+        }
+        throw new Error("Response was not 200");
+    } catch (error) {
         console.error(`Response: Error ${error}`);
         throw error;
-    });
+    }
 }
 
 async function getInterviewerCallPatternReport(form: Record<string, any>): Promise<InterviewerCallPatternReport | undefined> {
@@ -109,6 +140,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: string, survey_
 }
 
 export {
+    getInstrumentList,
     getInterviewerCallHistoryStatus,
     getInterviewerCallHistoryReport,
     getInterviewerCallPatternReport,
