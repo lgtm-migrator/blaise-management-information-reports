@@ -6,12 +6,16 @@ import AppointmentResourcePlanning from "./reports/AppointmentResourcePlanning/A
 import "./style.css";
 import {LoginForm, AuthManager} from "blaise-login-react-client";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory/InterviewerCallHistory";
+import {Router} from "react-router";
+import ReportDetails from "./components/ReportDetails";
+import {createMemoryHistory} from "history";
 
 const divStyle = {
     minHeight: "calc(72vh)"
 };
 
 function App(): ReactElement {
+    const history = createMemoryHistory();
     const authManager = new AuthManager();
     const location = useLocation();
     const [loaded, setLoaded] = useState(false);
@@ -57,48 +61,21 @@ function App(): ReactElement {
                         <Route path="/appointment-resource-planning">
                             <AppointmentResourcePlanning/>
                         </Route>
+
+
                         <Route path="/">
                             <main id="main-content" className="page__main u-mt-no">
                                 <h1 className="u-mt-m">Reports</h1>
                                 <div className="grid grid--column@xxs@s u-mt-m">
-                                    <div className="grid__col col-6@m">
-                                        <div className="card" aria-labelledby="interviewer-call-history"
-                                             aria-describedby="interviewer-call-history-text">
-                                            <h2 className="u-fs-m" id="interviewer-call-history">
-                                                <Link to="/interviewer-call-history">
-                                                    Interviewer call history
-                                                </Link>
-                                            </h2>
-                                            <p id="interviewer-call-history-text">Generate report to see an interviewers
-                                                call history over a given date range.</p>
-                                        </div>
-                                    </div>
-                                    <div className="grid__col col-6@m">
-                                        <div className="card" aria-labelledby="interviewer-call-pattern"
-                                             aria-describedby="interviewer-call-pattern-text">
-                                            <h2 className="u-fs-m" id="interviewer-call-pattern">
-                                                <Link to="/interviewer-call-pattern">
-                                                    Interviewer call pattern
-                                                </Link>
-                                            </h2>
-                                            <p id="interviewer-call-pattern-text">Generate report to analyse
-                                                productivity of an interviewer over a given date range.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="grid grid--column@xxs@s  u-mt-m">
-                                    <div className="grid__col col-6@m">
-                                        <div className="card" aria-labelledby="appointment-resource-planning"
-                                             aria-describedby="appointment-resource-planning-text">
-                                            <h2 className="u-fs-m" id="appointment-resource-planning">
-                                                <Link to="/appointment-resource-planning">
-                                                    Appointment resource planning
-                                                </Link>
-                                            </h2>
-                                            <p id="appointment-resource-planning-text">Generate report to view the
-                                                number of interview appointments scheduled for a given date.</p>
-                                        </div>
-                                    </div>
+                                    <ReportDetails link="/interviewer-call-history"
+                                                   title="Interviewer call history"
+                                                   description="Generate report to see an interviewers call history over a given date range"/>
+                                    <ReportDetails link="/interviewer-call-pattern"
+                                                   title="Interviewer call pattern"
+                                                   description="Generate report to analyse productivity of an interviewer over a given date range."/>
+                                    <ReportDetails link="/appointment-resource-planning"
+                                                   title="Appointment-resource-planning"
+                                                   description="Generate report to view the number of interview appointments scheduled for a given date."/>
                                 </div>
                             </main>
                         </Route>
