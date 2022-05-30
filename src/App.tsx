@@ -74,7 +74,7 @@ function App(): ReactElement {
                                                    title="Interviewer call pattern"
                                                    description="Generate report to analyse productivity of an interviewer over a given date range."/>
                                     <ReportDetails link="/appointment-resource-planning"
-                                                   title="Appointment-resource-planning"
+                                                   title="Appointment resource planning"
                                                    description="Generate report to view the number of interview appointments scheduled for a given date."/>
                                 </div>
                             </main>
