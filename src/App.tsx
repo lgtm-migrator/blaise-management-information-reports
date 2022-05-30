@@ -69,7 +69,7 @@ function App(): ReactElement {
                                 <div className="grid grid--column@xxs@s u-mt-m">
                                     <ReportDetails link="/interviewer-call-history"
                                                    title="Interviewer call history"
-                                                   description="Generate report to see an interviewers call history over a given date range"/>
+                                                   description="Generate report to see an interviewers call history over a given date range."/>
                                     <ReportDetails link="/interviewer-call-pattern"
                                                    title="Interviewer call pattern"
                                                    description="Generate report to analyse productivity of an interviewer over a given date range."/>
