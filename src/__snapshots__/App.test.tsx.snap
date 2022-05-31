@@ -151,13 +151,13 @@ Object {
               class="grid__col col-6@m"
             >
               <div
-                aria-describedby="interviewer-call-history-text"
-                aria-labelledby="interviewer-call-history"
+                aria-describedby="/interviewer-call-history-text"
+                aria-labelledby="/interviewer-call-history"
                 class="card"
               >
                 <h2
                   class="u-fs-m"
-                  id="interviewer-call-history"
+                  id="/interviewer-call-history"
                 >
                   <a
                     href="/interviewer-call-history"
@@ -176,13 +176,13 @@ Object {
               class="grid__col col-6@m"
             >
               <div
-                aria-describedby="interviewer-call-pattern-text"
-                aria-labelledby="interviewer-call-pattern"
+                aria-describedby="/interviewer-call-pattern-text"
+                aria-labelledby="/interviewer-call-pattern"
                 class="card"
               >
                 <h2
                   class="u-fs-m"
-                  id="interviewer-call-pattern"
+                  id="/interviewer-call-pattern"
                 >
                   <a
                     href="/interviewer-call-pattern"
@@ -191,27 +191,23 @@ Object {
                   </a>
                 </h2>
                 <p
-                  id="interviewer-call-pattern-text"
+                  id="interviewer-call-history-text"
                 >
                   Generate report to analyse productivity of an interviewer over a given date range.
                 </p>
               </div>
             </div>
-          </div>
-          <div
-            class="grid grid--column@xxs@s  u-mt-m"
-          >
             <div
               class="grid__col col-6@m"
             >
               <div
-                aria-describedby="appointment-resource-planning-text"
-                aria-labelledby="appointment-resource-planning"
+                aria-describedby="/appointment-resource-planning-text"
+                aria-labelledby="/appointment-resource-planning"
                 class="card"
               >
                 <h2
                   class="u-fs-m"
-                  id="appointment-resource-planning"
+                  id="/appointment-resource-planning"
                 >
                   <a
                     href="/appointment-resource-planning"
@@ -220,7 +216,7 @@ Object {
                   </a>
                 </h2>
                 <p
-                  id="appointment-resource-planning-text"
+                  id="interviewer-call-history-text"
                 >
                   Generate report to view the number of interview appointments scheduled for a given date.
                 </p>
@@ -407,13 +403,13 @@ Object {
             class="grid__col col-6@m"
           >
             <div
-              aria-describedby="interviewer-call-history-text"
-              aria-labelledby="interviewer-call-history"
+              aria-describedby="/interviewer-call-history-text"
+              aria-labelledby="/interviewer-call-history"
               class="card"
             >
               <h2
                 class="u-fs-m"
-                id="interviewer-call-history"
+                id="/interviewer-call-history"
               >
                 <a
                   href="/interviewer-call-history"
@@ -432,13 +428,13 @@ Object {
             class="grid__col col-6@m"
           >
             <div
-              aria-describedby="interviewer-call-pattern-text"
-              aria-labelledby="interviewer-call-pattern"
+              aria-describedby="/interviewer-call-pattern-text"
+              aria-labelledby="/interviewer-call-pattern"
               class="card"
             >
               <h2
                 class="u-fs-m"
-                id="interviewer-call-pattern"
+                id="/interviewer-call-pattern"
               >
                 <a
                   href="/interviewer-call-pattern"
@@ -447,27 +443,23 @@ Object {
                 </a>
               </h2>
               <p
-                id="interviewer-call-pattern-text"
+                id="interviewer-call-history-text"
               >
                 Generate report to analyse productivity of an interviewer over a given date range.
               </p>
             </div>
           </div>
-        </div>
-        <div
-          class="grid grid--column@xxs@s  u-mt-m"
-        >
           <div
             class="grid__col col-6@m"
           >
             <div
-              aria-describedby="appointment-resource-planning-text"
-              aria-labelledby="appointment-resource-planning"
+              aria-describedby="/appointment-resource-planning-text"
+              aria-labelledby="/appointment-resource-planning"
               class="card"
             >
               <h2
                 class="u-fs-m"
-                id="appointment-resource-planning"
+                id="/appointment-resource-planning"
               >
                 <a
                   href="/appointment-resource-planning"
@@ -476,7 +468,7 @@ Object {
                 </a>
               </h2>
               <p
-                id="appointment-resource-planning-text"
+                id="interviewer-call-history-text"
               >
                 Generate report to view the number of interview appointments scheduled for a given date.
               </p>
