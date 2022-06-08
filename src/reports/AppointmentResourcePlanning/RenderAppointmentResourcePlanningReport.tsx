@@ -1,7 +1,3 @@
-//TODO:
-// Sort out breadcrumbs
-// Wording
-// Spinning loading
 import React, {useEffect, useState} from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import {CSVLink} from "react-csv";
@@ -82,7 +78,6 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
 
         console.log(planningReport);
         setReportData(planningReport);
-
     }
     
     async function runAppointmentSummary(): Promise<void> {

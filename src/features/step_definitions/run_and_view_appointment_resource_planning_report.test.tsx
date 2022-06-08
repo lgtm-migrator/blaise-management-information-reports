@@ -82,13 +82,13 @@ defineFeature(feature, test => {
                     <App />
                 </Router>
             );
-            
+
             await act(async () => {
                 await flushPromises();
             });
 
             userEvent.click(screen.getByText("Appointment resource planning"));
-            
+
             await act(async () => {
                 await flushPromises();
             });
@@ -100,12 +100,10 @@ defineFeature(feature, test => {
             });
 
             fireEvent.input(screen.getByLabelText(/Date/i), {
-                    target: {
-                        value:
-                            "2021-01-01"
-                    }
-                });
-
+                target: {
+                    value: "2021-01-01"
+                }
+            });
         });
 
         when("I click next to retrieve a list of instruments", async () => {
@@ -123,7 +121,6 @@ defineFeature(feature, test => {
             await act(async () => {
                 await flushPromises();
             });
-
         });
 
         then("I will receive a list of the following information for appointments made:", async (docString) => {

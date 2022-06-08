@@ -1,13 +1,8 @@
 import {StyledForm} from "blaise-design-system-react-components";
 import React, {ReactElement} from "react";
 import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
-
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 interface AppointmentFilterPageProps {
     title: string
@@ -36,16 +31,13 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
     }
 
     const validateDate = (value: string) => {
-        let error;
         if (value === "" || value === undefined) {
-            error = "Enter a date";
-            return error;
+            return "Enter a date";
         }
 
         if (value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
-            error = "Enter a valid date";
+            return "Enter a valid date";
         }
-        return error;
     };
 
     const fields = [
@@ -86,5 +78,3 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
 }
 
 export default AppointmentFilter;
-
-
