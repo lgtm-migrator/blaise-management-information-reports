@@ -127,6 +127,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         console.log("appointment-resource-planning-questionnaires endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const {date, survey_tla} = req.body;
+        console.log("originalDate is" + date);
         const dateFormatted = dateFormatter(date, "DD/MM/YYYY").format("YYYY-MM-DD");
         console.log("dateFormatted is : " + dateFormatted);
         const url = `${config.BertUrl}/api/appointment-resource-planning/${dateFormatted}/questionnaires?survey-tla=${survey_tla}`;
