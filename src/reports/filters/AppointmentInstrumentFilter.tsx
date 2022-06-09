@@ -115,9 +115,10 @@ function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps
 
                 <main id="main-content" className="page__main u-mt-s">
                     
-                    <h1 className="u-mb-m">Select questionnaires for appointments occurring on <em className="highlight">
-                        {dateFormatter(reportDate).format("DD/MM/YYYY")}</em> 
-                    </h1>
+                    <h1 className="u-mb-m">Select questionnaires for </h1>
+                    <h3 className="u-mb-m">
+                        Date: {dateFormatter(reportDate).format("DD/MM/YYYY")}
+                    </h3>
                     <AppointmentResourceDaybatchWarning/>
                     <br/>
                     <div className="input-items">

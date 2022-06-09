@@ -98,10 +98,12 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
             <main id="main-content" className="page__main u-mt-s">
             
                 <h1 className="u-mb-m">
-                        Displaying the appointment resource planning report for questionnaire{instruments.length > 1 ? ("s") : ""} <em className="highlight">{formatList(instruments)}</em>{" "}
-                        for the date <em className="highlight">{dateFormatter(reportDate).format("DD/MM/YYYY")}</em>{" "}
+                        Appointment Resource Planning Report
                 </h1>
-
+                <h3 className="u-mb-m">
+                        Date: {dateFormatter(reportDate).format("DD/MM/YYYY")}<br/>
+                        Questionnaire{instruments.length > 1 ? ("s:") : ":"} {formatList(instruments)}{" "}
+                </h3>
                 <AppointmentResourceDaybatchWarning/>
 
                 <ReportErrorPanel error={reportFailed} />
