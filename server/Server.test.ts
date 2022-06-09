@@ -75,10 +75,10 @@ describe("Test appointment resource planning questionnaires endpoint", () => {
     const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 
     it("should return a 200 status and the expected list of questionnaires", async () => {
-        axiosMock.onGet("http://bert.com/api/appointment-resource-planning/2022-10-07/questionnaires?survey-tla=NPM")
+        axiosMock.onGet("http://bert.com/api/appointment-resource-planning/2022-10-27/questionnaires?survey-tla=NPM")
                         .reply(200, questionnairesReturned);
         const response: supertest.Response = await request.post("/api/appointments/instruments")
-                                                          .field('date', '07/10/2022')
+                                                          .field('date', '2022-10-27')
                                                           .field('survey_tla', 'NPM');
         console.log(response.body);
         expect(response.status).toEqual(200);
