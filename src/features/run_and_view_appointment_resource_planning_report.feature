@@ -4,9 +4,10 @@ Feature: Run and view appointment resource planning report
   So that I can deploy resources to areas where and when they are needed
 
   # Scenario 1:
-  Scenario: Get information on appointments
-    Given a date is provided
-    When I request information on appointments scheduled for that date
+  Scenario: Run and view appointment resource planning report
+    Given A survey tla and date has been specified
+    When I click next to retrieve a list of instruments
+    When I select an instrument and click on run report
     Then I will receive a list of the following information for appointments made:
     """
       * Questionnaire

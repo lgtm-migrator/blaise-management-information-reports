@@ -33,7 +33,7 @@ class RequestLogger {
     }
 }
 
-export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, blaiseApiClient: BlaiseApiClient): Express {
+export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, auth: Auth, blaiseApiClient: BlaiseApiClient): Express {
     const upload = multer();
     const server = express();
     const logger = createLogger();
@@ -41,7 +41,6 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, b
     server.use(logger);
     server.use(upload.any());
 
-    const auth = new Auth(config);
     const loginHandler = newLoginHandler(auth, blaiseApiClient);
 
     // where ever the react built package is
@@ -118,6 +117,19 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, b
         const {date, survey_tla} = req.body;
         const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
         const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}?survey-tla=${survey_tla}`;
+        console.log(url);
+        const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
+        res.status(status).json(result);
+    });
+
+    // appointment-resource-planning-questionnaires endpoint
+    server.post("/api/appointments/instruments", auth.Middleware, async function (req: Request, res: Response) {
+        console.log("appointment-resource-planning-questionnaires endpoint called");
+        const authHeader = await authProvider.getAuthHeader();
+        const {date, survey_tla} = req.body;
+        const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
+        console.log("dateFormatted is : " + dateFormatted);
+        const url = `${config.BertUrl}/api/appointment-resource-planning/${dateFormatted}/questionnaires?survey-tla=${survey_tla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);

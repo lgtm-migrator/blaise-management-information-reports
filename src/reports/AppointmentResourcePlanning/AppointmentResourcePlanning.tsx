@@ -1,110 +1,77 @@
 import React, { ReactElement, useState } from "react";
-import { ONSPanel } from "blaise-design-system-react-components";
-import { getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport } from "../../utilities/HTTP";
-import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
-import { CSVLink } from "react-csv";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import ReportErrorPanel from "../../components/ReportErrorPanel";
-import AppointmentSummary from "./AppointmentSummary";
-import { AppointmentResults } from "./AppointmentResults";
-import SurveyDateForm from "../../components/SurveyDateForm";
+import AppointmentFilter from "../filters/AppointmentFilter";
+import AppointmentInstrumentFilter from "../filters/AppointmentInstrumentFilter";
+import RenderAppointmentResourcePlanningReport from "./RenderAppointmentResourcePlanningReport";
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
+enum Step {
+    AppointmentFilter,
+    InstrumentFilter,
+    RenderReport,
+}
+
 function AppointmentResourcePlanning(): ReactElement {
-    const [reportFailed, setReportFailed] = useState<boolean>(false);
-    const [messageNoData, setMessageNoData] = useState<string>("");
-    const [reportDate, setReportDate] = useState<string>("");
-    const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
-    const [summaryFailed, setSummaryFailed] = useState<boolean>(false);
-    const [summaryData, setSummaryData] = useState<AppointmentResourcePlanningSummaryReportData[]>([]);
+    const [activeStep, setActiveStep] = useState<Step>(Step.AppointmentFilter);
+    const [reportDate, setReportDate] = useState<Date>(new Date());
+    const [surveyTla, setSurveyTla] = useState<string>("");
+    const [instruments, setInstruments] = useState<string[]>([]);
 
-    const reportExportHeaders = [
-        { label: "Questionnaire", key: "questionnaire_name" },
-        { label: "Appointment Time", key: "appointment_time" },
-        { label: "Appointment Language", key: "appointment_language" },
-        { label: "Total", key: "total" }
-    ];
+    function _renderStepContent(step: number) {
+        switch (step) {
+            case Step.AppointmentFilter:
+                return (<AppointmentFilter title="appointment resource planning"
+                                           reportDate={reportDate} setReportDate={setReportDate}
+                                           surveyTla={surveyTla} setSurveyTla={setSurveyTla}
+                                           submitFunction={_handleSubmit}/>);
+            case Step.InstrumentFilter:
+                return (<AppointmentInstrumentFilter reportDate={reportDate}
+                                          surveyTla={surveyTla}
+                                          instruments={instruments} setInstruments={setInstruments}
+                                          submitFunction={_handleSubmit}
+                                          navigateBack={_navigateBack}/>);
+            case Step.RenderReport:
+                console.log(`Steps instruments ${instruments}`);
+                return (<RenderAppointmentResourcePlanningReport reportDate={reportDate}
+                                                            surveyTla={surveyTla}
+                                                            instruments={instruments}
+                                                            navigateBack={_navigateBack}
+                                                            navigateBackTwoSteps={_navigateBackTwoSteps}/>);
+        }
+        
+    } 
 
-
-    function runReport(form: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): void {
-        form.survey_tla = form["Survey TLA"];
-        form.date = new Date(form["Date"]);
-
-        runAppointmentResourcePlanningReport(form, setSubmitting);
-        runAppointmentSummary(form);
+    async function _handleSubmit() {
+        switch (activeStep) {
+            case Step.AppointmentFilter:
+                setActiveStep(Step.InstrumentFilter);
+                break;
+            case Step.InstrumentFilter:
+                setActiveStep(Step.RenderReport);
+                break;
+            default:
+                setActiveStep(Step.AppointmentFilter);
+        }
     }
 
-    function runAppointmentResourcePlanningReport(form: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): void {
-        setMessageNoData("");
-        setReportData([]);
-        setReportFailed(false);
-        setReportDate(form.date);
-
-        getAppointmentResourcePlanningReport(form.date, form.survey_tla).then((planningReport: AppointmentResourcePlanningReportData[]) => {
-            if (planningReport.length === 0) {
-                setMessageNoData("No data found for parameters given.");
-            }
-
-            console.log(planningReport);
-            setReportData(planningReport);
-        }).catch(() => {
-            setReportFailed(true);
-            return;
-        }).finally(() => {
-            setSubmitting(false);
-        });
-
+    function _navigateBack() {
+        setActiveStep(activeStep - 1);
     }
 
-    function runAppointmentSummary(form: Record<string, any>): void {
-        setSummaryData([]);
-        setSummaryFailed(false);
-        getAppointmentResourcePlanningSummaryReport(form.date, form.survey_tla)
-            .then((summaryReport: AppointmentResourcePlanningSummaryReportData[]) => {
-                console.log(summaryReport);
-                setSummaryData(summaryReport);
-            }).catch(() => {
-                setSummaryFailed(true);
-            });
+    function _navigateBackTwoSteps() {
+        setActiveStep(activeStep - 2);
     }
 
     return (
-        <>
-            <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Back" }]} />
-            <main id="main-content" className="page__main u-mt-s">
-                <h1 className="u-mb-m">Run appointment resource planning report</h1>
-
-                <ONSPanel>
-                    <p>
-                        Run a Daybatch first to obtain the most accurate results.
-                    </p>
-                    <p>
-                        Appointments that have already been attempted will not be displayed.
-                    </p>
-                </ONSPanel>
-
-                <ReportErrorPanel error={reportFailed} />
-                <br/>
-                <SurveyDateForm onSubmitFunction={runReport} />
-                <AppointmentSummary data={summaryData} failed={summaryFailed} />
-
-                <div className=" u-mt-m">
-                    <CSVLink hidden={reportData === null || reportData.length === 0}
-                        data={reportData}
-                        headers={reportExportHeaders}
-                        target="_blank"
-                        filename={`appointment-resource-planning-report-${reportDate}.csv`}>
-                        Export report as Comma-Separated Values (CSV) file
-                    </CSVLink>
-                </div>
-                <AppointmentResults reportData={reportData} messageNoData={messageNoData} />
-            </main>
-        </>
+        <div>
+            <div className="u-mt-m">
+                {_renderStepContent(activeStep)}
+            </div>
+        </div>
     );
 }
 

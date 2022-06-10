@@ -105,8 +105,7 @@ function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
                 </main>
             </div>
         </>
-    )
-        ;
+    );
 }
 
 export default InterviewerFilter;
