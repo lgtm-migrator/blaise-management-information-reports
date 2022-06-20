@@ -43,7 +43,7 @@ function QuestionnaireSelector(props: QuestionnaireSelectorProps): ReactElement 
     } = props;
 
     useEffect(() => {
-        let abortController = new AbortController();
+        const abortController = new AbortController();
         async function fetchInstruments(): Promise<string[]> {
             return getInstrumentList(surveyTla, interviewer, startDate, endDate);
         }
@@ -56,7 +56,7 @@ function QuestionnaireSelector(props: QuestionnaireSelectorProps): ReactElement 
             });
             return () => {
                 abortController.abort();
-            }
+            };
     }, []); 
 
     function setupForm(allInstruments: string[]) {
