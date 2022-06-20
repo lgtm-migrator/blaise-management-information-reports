@@ -66,16 +66,18 @@ describe("QuestionnaireSelector tests", () => {
         await waitFor(() => {
             expect(wrapper).toMatchSnapshot();
         });
-    });
-
-    it("displays a 'Select All' button", async () => {
-        expectSelectAllToBeDefined(wrapper);
-    });
-    it("displays all available questionnaires", async () =>{
-        expectAvailableQuestionnairesToBeDefined(wrapper);
     })
-    it("displays all available questionnaires", async () =>{
-        expectRadioButtonsForEachQuestionnaireToBeDefined(wrapper, questionnairesReturned);
+
+    describe("it renders correctly", () =>{
+        it("displays a 'Select All' button", () => {
+            expectSelectAllToBeDefined(wrapper);
+        });
+        it("displays all available questionnaires", () =>{
+            expectAvailableQuestionnairesToBeDefined(wrapper, questionnairesReturned);
+        })
+        it("displays all available questionnaires", () =>{
+            expectCheckboxesForEachQuestionnaireToBeDefined(wrapper, questionnairesReturned);
+        })
     })
 
     describe("when a questionnaire is selected", () => {
@@ -83,14 +85,16 @@ describe("QuestionnaireSelector tests", () => {
             expectTickWhenAQuestionnaireIsSelected(wrapper)
         })
     })
+
     describe("when 'Select all' is selected", () => {
-        it("selects all questionnaires", async () =>{
+        it("selects all questionnaires", () =>{
             expectSelectAllToSelectAllQuestionnaires(wrapper, questionnairesReturned)
         })
         it("changes to unselect all", () =>{
             expectSelectAllToChangeToUnselectAll(wrapper);
         })
     })
+
     describe("when 'Unselect all' is selected", () => {
         it("unselects all questionnaires", () =>{
             expectUnselectAllToUnselectAllQuestionnaires(wrapper, questionnairesReturned)
@@ -99,6 +103,7 @@ describe("QuestionnaireSelector tests", () => {
             expectUnselectAllToChangeSelectAll(wrapper);
         })
     })
+
     afterAll(() => {
         cleanup();
     });
@@ -108,14 +113,15 @@ function expectSelectAllToBeDefined(wrapper: RenderResult){
     expect(wrapper.queryByText("Select all")).toBeDefined();
 }
 
-function expectAvailableQuestionnairesToBeDefined(wrapper: RenderResult){
-    expect(wrapper.queryByText("LMS2101_AA1")).toBeDefined();
-    expect(wrapper.queryByText("LMS2101_BB1")).toBeDefined();
-}
-
-function expectRadioButtonsForEachQuestionnaireToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
+function expectAvailableQuestionnairesToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
     questionnairesReturned.forEach(function(questionnaire){
         expect(wrapper.getByText(questionnaire)).toBeDefined();
+    })
+}
+
+function expectCheckboxesForEachQuestionnaireToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
+    questionnairesReturned.forEach(function(questionnaire){
+        expect(wrapper.getByText(questionnaire)).toHaveClass("checkbox__label");
     })
 }
 function expectTickWhenAQuestionnaireIsSelected(wrapper: RenderResult){
