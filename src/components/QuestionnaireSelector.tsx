@@ -54,9 +54,9 @@ function QuestionnaireSelector(props: QuestionnaireSelectorProps): ReactElement 
                 setStatus("loading_failed");
                 console.error(`Response: Error ${error}`);
             });
-            return () => {
-                abortController.abort();
-            };
+        return () => {
+            abortController.abort();
+        };
     }, []); 
 
     function setupForm(allInstruments: string[]) {

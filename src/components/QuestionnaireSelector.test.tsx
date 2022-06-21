@@ -5,39 +5,28 @@
 import "@testing-library/jest-dom";
 import QuestionnaireSelector from "./QuestionnaireSelector";
 import React from "react";
-import { createMemoryHistory, History } from "history";
-import { cleanup, render, RenderResult, waitFor } from "@testing-library/react";
-import { Router } from "react-router";
+import { cleanup, render, RenderResult } from "@testing-library/react";
 import { fireEvent, screen } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
-import flushPromises from "../tests/utilities";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { forEach } from "lodash";
 
 const mockAdapter = new MockAdapter(axios);
 
-const instrumentDataReturned: string[] = [
-    "LMS2101_AA1",
-    "LMS2101_AA2",
-];
-
 const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 describe("QuestionnaireSelector tests", () => {
-    let history: History;
     let setInstruments: (instruments: string[]) => void;
     let submit: () => void;
-    let wrapper: RenderResult
+    let wrapper: RenderResult;
     
     beforeEach(async () =>{
         const axiosMock = new MockAdapter(axios);
-        history = createMemoryHistory();
         axiosMock.onPost("/api/instruments").reply(200, questionnairesReturned);
         setInstruments = jest.fn();
         submit = jest.fn();
         await act(async () => {
             wrapper = renderComponent();
-        })
+        });
     });
 
     afterEach(() => {
@@ -46,7 +35,6 @@ describe("QuestionnaireSelector tests", () => {
     
     function renderComponent(){
         return render(
-            <Router history={history}>
                 <QuestionnaireSelector interviewer="Cal"
                                   startDate={ new Date("2022-05-04") }
                                   endDate={ new Date("2022-05-05") }
@@ -54,80 +42,75 @@ describe("QuestionnaireSelector tests", () => {
                                   instruments={ questionnairesReturned } 
                                   setInstruments={ setInstruments }
                                   submitFunction={ submit }/>
-            </Router>
         );
     }
 
     it("matches snapshot", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
-        await act(async () => {
-            await flushPromises();
-        });
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
-    })
+        mockAdapter.onPost("/api/instruments").reply(200, questionnairesReturned);
+        await screen.findByText("LMS2101_AA1");
+        expect(wrapper).toMatchSnapshot();
+    });
 
     describe("it renders correctly", () =>{
         it("displays a 'Select All' button", () => {
-            expectSelectAllToBeDefined(wrapper);
+            expectSelectAllToBeDefined();
         });
         it("displays all available questionnaires", () =>{
             expectAvailableQuestionnairesToBeDefined(wrapper, questionnairesReturned);
-        })
+        });
         it("displays all available questionnaires", () =>{
             expectCheckboxesForEachQuestionnaireToBeDefined(wrapper, questionnairesReturned);
-        })
-    })
+        });
+    });
 
     describe("when a questionnaire is selected", () => {
         it("displays a tick in the checkbox", () =>{
-            expectTickWhenAQuestionnaireIsSelected(wrapper)
-        })
-    })
+            expectTickWhenAQuestionnaireIsSelected(wrapper);
+        });
+    });
 
     describe("when 'Select all' is selected", () => {
         it("selects all questionnaires", () =>{
-            expectSelectAllToSelectAllQuestionnaires(wrapper, questionnairesReturned)
-        })
+            expectSelectAllToSelectAllQuestionnaires(wrapper, questionnairesReturned);
+        });
         it("changes to unselect all", () =>{
             expectSelectAllToChangeToUnselectAll(wrapper);
-        })
-    })
+        });
+    });
 
     describe("when 'Unselect all' is selected", () => {
         it("unselects all questionnaires", () =>{
-            expectUnselectAllToUnselectAllQuestionnaires(wrapper, questionnairesReturned)
-        })
+            expectUnselectAllToUnselectAllQuestionnaires(wrapper, questionnairesReturned);
+        });
         it("changes to select all", () =>{
             expectUnselectAllToChangeSelectAll(wrapper);
-        })
-    })
+        });
+    });
 
     afterAll(() => {
         cleanup();
     });
-})
+});
 
-function expectSelectAllToBeDefined(wrapper: RenderResult){
-    expect(wrapper.queryByText("Select all")).toBeDefined();
+function expectSelectAllToBeDefined(){
+    expect(screen.getByRole("button", {name: "Unselect All following checkboxes"})).toBeVisible();
 }
 
 function expectAvailableQuestionnairesToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
-    questionnairesReturned.forEach(function(questionnaire){
-        expect(wrapper.getByText(questionnaire)).toBeDefined();
-    })
+    questionnairesReturned.forEach((questionnaire) => {
+        expect(wrapper.getByText(questionnaire)).toBeVisible();
+    });
 }
 
 function expectCheckboxesForEachQuestionnaireToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
-    questionnairesReturned.forEach(function(questionnaire){
-        expect(wrapper.getByText(questionnaire)).toHaveClass("checkbox__label");
-    })
+    questionnairesReturned.forEach((questionnaire) => {
+        expect(wrapper.getByRole("checkbox", {name: questionnaire})).toBeVisible();
+    });
 }
 function expectTickWhenAQuestionnaireIsSelected(wrapper: RenderResult){
-    const checkBox = wrapper.getByText("LMS2101_AA1");
+    const checkBox = wrapper.getByRole("checkbox", {name: "LMS2101_AA1"}, {checked: true});
     fireEvent.click(checkBox);
-    expect(checkBox).toBeChecked;
+    expect(wrapper.getByRole("checkbox", {name: "LMS2101_AA1"}, {checked: false}));
 }
 
 async function expectSelectAllToSelectAllQuestionnaires(wrapper: RenderResult, questionnairesReturned: string[]){
@@ -135,8 +118,8 @@ async function expectSelectAllToSelectAllQuestionnaires(wrapper: RenderResult, q
         fireEvent.click(await screen.findByText(/Select all/));
     });
     questionnairesReturned.forEach((questionnaire) => {
-        expect(wrapper.getByText(questionnaire)).toBeChecked();
-    })
+        expect(wrapper.getByRole("checkbox", {name: questionnaire}, {checked: true}));
+    });
 }
 
 async function expectSelectAllToChangeToUnselectAll(wrapper: RenderResult) {
@@ -152,8 +135,8 @@ async function expectUnselectAllToUnselectAllQuestionnaires(wrapper: RenderResul
         fireEvent.click(await screen.findByText(/Unselect all/));
     });
     questionnairesReturned.forEach((questionnaire) => {
-        expect(wrapper.getByText(questionnaire)).not.toBeChecked();
-    })
+        expect(wrapper.getByRole("checkbox", {name: questionnaire}, {checked: false}));
+    });
 }
 
 async function expectUnselectAllToChangeSelectAll(wrapper: RenderResult) {
