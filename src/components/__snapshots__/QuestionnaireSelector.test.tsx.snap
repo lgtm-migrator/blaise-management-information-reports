@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuestionnaireSelector tests matches snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="input-items"
+      >
+        <div
+          class="checkboxes__items"
+        >
+          <form
+            action="#"
+          >
+            <fieldset
+              class="fieldset"
+            >
+              <legend
+                class="fieldset__legend"
+              />
+              <button
+                class="btn u-mb-s js-auto-selector btn--small btn--secondary"
+                type="button"
+              >
+                <span
+                  class="btn__inner"
+                >
+                  <span
+                    class="js-button-text"
+                  >
+                    Unselect All
+                  </span>
+                  <span
+                    class="u-vh"
+                  >
+                     following checkboxes
+                  </span>
+                </span>
+              </button>
+              <div
+                class="checkboxes__items"
+                id="questionnaires"
+              >
+                <p
+                  class="checkboxes__item"
+                >
+                  <span
+                    class="checkbox"
+                  >
+                    <input
+                      checked=""
+                      class="checkbox__input js-checkbox"
+                      id="LMS2101_AA1"
+                      initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                      name="questionnaires"
+                      type="checkbox"
+                      value="LMS2101_AA1"
+                    />
+                    <label
+                      class="checkbox__label "
+                      for="LMS2101_AA1"
+                      id="LMS2101_AA1-label"
+                    >
+                      LMS2101_AA1
+                    </label>
+                  </span>
+                </p>
+                <br />
+                <p
+                  class="checkboxes__item"
+                >
+                  <span
+                    class="checkbox"
+                  >
+                    <input
+                      checked=""
+                      class="checkbox__input js-checkbox"
+                      id="LMS2101_BB1"
+                      initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                      name="questionnaires"
+                      type="checkbox"
+                      value="LMS2101_BB1"
+                    />
+                    <label
+                      class="checkbox__label "
+                      for="LMS2101_BB1"
+                      id="LMS2101_BB1-label"
+                    >
+                      LMS2101_BB1
+                    </label>
+                  </span>
+                </p>
+                <br />
+                <p
+                  class="checkboxes__item"
+                >
+                  <span
+                    class="checkbox"
+                  >
+                    <input
+                      checked=""
+                      class="checkbox__input js-checkbox"
+                      id="LMS2101_CC1"
+                      initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                      name="questionnaires"
+                      type="checkbox"
+                      value="LMS2101_CC1"
+                    />
+                    <label
+                      class="checkbox__label "
+                      for="LMS2101_CC1"
+                      id="LMS2101_CC1-label"
+                    >
+                      LMS2101_CC1
+                    </label>
+                  </span>
+                </p>
+                <br />
+              </div>
+            </fieldset>
+            <br />
+            <button
+              class="btn "
+              data-testid="submit-button"
+              type="submit"
+            >
+              <span
+                class="btn__inner"
+              >
+                Run report
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="input-items"
+    >
+      <div
+        class="checkboxes__items"
+      >
+        <form
+          action="#"
+        >
+          <fieldset
+            class="fieldset"
+          >
+            <legend
+              class="fieldset__legend"
+            />
+            <button
+              class="btn u-mb-s js-auto-selector btn--small btn--secondary"
+              type="button"
+            >
+              <span
+                class="btn__inner"
+              >
+                <span
+                  class="js-button-text"
+                >
+                  Unselect All
+                </span>
+                <span
+                  class="u-vh"
+                >
+                   following checkboxes
+                </span>
+              </span>
+            </button>
+            <div
+              class="checkboxes__items"
+              id="questionnaires"
+            >
+              <p
+                class="checkboxes__item"
+              >
+                <span
+                  class="checkbox"
+                >
+                  <input
+                    checked=""
+                    class="checkbox__input js-checkbox"
+                    id="LMS2101_AA1"
+                    initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                    name="questionnaires"
+                    type="checkbox"
+                    value="LMS2101_AA1"
+                  />
+                  <label
+                    class="checkbox__label "
+                    for="LMS2101_AA1"
+                    id="LMS2101_AA1-label"
+                  >
+                    LMS2101_AA1
+                  </label>
+                </span>
+              </p>
+              <br />
+              <p
+                class="checkboxes__item"
+              >
+                <span
+                  class="checkbox"
+                >
+                  <input
+                    checked=""
+                    class="checkbox__input js-checkbox"
+                    id="LMS2101_BB1"
+                    initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                    name="questionnaires"
+                    type="checkbox"
+                    value="LMS2101_BB1"
+                  />
+                  <label
+                    class="checkbox__label "
+                    for="LMS2101_BB1"
+                    id="LMS2101_BB1-label"
+                  >
+                    LMS2101_BB1
+                  </label>
+                </span>
+              </p>
+              <br />
+              <p
+                class="checkboxes__item"
+              >
+                <span
+                  class="checkbox"
+                >
+                  <input
+                    checked=""
+                    class="checkbox__input js-checkbox"
+                    id="LMS2101_CC1"
+                    initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                    name="questionnaires"
+                    type="checkbox"
+                    value="LMS2101_CC1"
+                  />
+                  <label
+                    class="checkbox__label "
+                    for="LMS2101_CC1"
+                    id="LMS2101_CC1-label"
+                  >
+                    LMS2101_CC1
+                  </label>
+                </span>
+              </p>
+              <br />
+            </div>
+          </fieldset>
+          <br />
+          <button
+            class="btn "
+            data-testid="submit-button"
+            type="submit"
+          >
+            <span
+              class="btn__inner"
+            >
+              Run report
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
