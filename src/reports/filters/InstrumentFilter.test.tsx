@@ -9,7 +9,7 @@ import {Router} from "react-router";
 import {act} from "react-dom/test-utils";
 import {fireEvent, screen} from "@testing-library/dom";
 import React from "react";
-import InstrumentFilter from "./InstrumentFilter";
+import QuestionnaireFilter from "./QuestionnaireFilter";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import dateFormatter from "dayjs";
@@ -48,14 +48,14 @@ describe("the interviewer details page renders correctly", () => {
 
     function renderComponent() {
         return render(
-            <Router history={history}>
-                <InstrumentFilter interviewer="James"
-                                  startDate={new Date("2022-01-01")}
-                                  endDate={new Date("2022-01-05")}
-                                  surveyTla="LMS"
-                                  instruments={["LMS2101_AA1"]} setInstruments={setInstruments}
-                                  submitFunction={submit}
-                                  navigateBack={() => {
+            <Router history={ history }>
+                <QuestionnaireFilter interviewer="James"
+                                     startDate={ new Date("2022-01-01") }
+                                     endDate={ new Date("2022-01-05") }
+                                     surveyTla="LMS"
+                                     instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
+                                     submitFunction={ submit }
+                                     navigateBack={ () => {
                                       return;
                                   }}/>
             </Router>
@@ -65,7 +65,7 @@ describe("the interviewer details page renders correctly", () => {
     it("posts the query params", async () => {
         expect.assertions(4);
         mockAdapter.onPost(
-            "/api/instruments",
+            "/api/questionnaires",
             {
                 asymmetricMatch: (formData: FormData) => {
                     expect(formData.get("survey_tla")).toBe("LMS");
@@ -83,7 +83,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("matches loading snapshot", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
         const wrapper = renderComponent();
         expect(wrapper).toMatchSnapshot();
 
@@ -93,7 +93,7 @@ describe("the interviewer details page renders correctly", () => {
 
     it("matches snapshot", async () => {
         // This snapshot will need to be updated in 1 years time (28/06/2023)
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
         mockAdapter
             .onGet("/api/reports/call-history-status")
             .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
@@ -103,7 +103,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("renders correctly", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
 
         await act(async () => {
             renderComponent();
@@ -122,7 +122,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("displays a message when not questionnaires are returned", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, []);
+        mockAdapter.onPost("/api/questionnaires").reply(200, []);
         renderComponent();
         await waitFor(() => {
             screen.getByText("No questionnaires found for given parameters.");
@@ -130,7 +130,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("displays an error when an error HTTP status is returned", async () => {
-        mockAdapter.onPost("/api/instruments").reply(500, []);
+        mockAdapter.onPost("/api/questionnaires").reply(500, []);
         renderComponent();
         await waitFor(() => {
             screen.getByText("An error occurred while fetching the list of questionnaires");
@@ -138,7 +138,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("displays an error when a non-200 success HTTP status is returned", async () => {
-        mockAdapter.onPost("/api/instruments").reply(201, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(201, instrumentDataReturned);
         renderComponent();
         await waitFor(() => {
             screen.getByText("An error occurred while fetching the list of questionnaires");
@@ -146,7 +146,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("checks all provided instruments by default", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
         renderComponent();
         await act(async () => {
             fireEvent.click(await screen.findByText(/Run report/));
@@ -156,7 +156,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("returns the instruments when a checkbox is ticket", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
         renderComponent();
         await act(async () => {
             fireEvent.click(await screen.findByText(/LMS2101_AA1/));
@@ -168,7 +168,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("displays an error when submitting with no checkboxes selected", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
         renderComponent();
         await act(async () => {
             fireEvent.click(await screen.findByText(/LMS2101_AA1/));

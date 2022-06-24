@@ -103,7 +103,7 @@ defineFeature(feature, test => {
             });
         });
 
-        when("I click next to retrieve a list of instruments", async () => {
+        when("I click next to retrieve a list of questionnaires", async () => {
             userEvent.click(screen.getByTestId(/submit-button/i));
 
             await act(async () => {
@@ -111,7 +111,7 @@ defineFeature(feature, test => {
             });
         });
 
-        when("I select an instrument and click on run report", async () => {
+        when("I select a questionnaire and click on run report", async () => {
             userEvent.click(screen.getByLabelText(/LMS2101_AA1/i));
             userEvent.click(screen.getByTestId(/submit-button/i));
 

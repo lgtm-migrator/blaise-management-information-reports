@@ -39,14 +39,14 @@ const reportDataReturned: InterviewerCallHistoryReport[] = [
         call_result: "Busy",
     }];
 
-const instrumentDataReturned: string[] = [
+const questionnaireDataReturned: string[] = [
     "LMS2101_AA1"
 ];
 
 
 defineFeature(feature, test => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, reportDataReturned);
         mockAdapter.onGet("/api/reports/call-history-status").reply(200,
             {"last_updated": "Fri, 28 May 2021 10:00:00 GMT"});
@@ -81,7 +81,7 @@ defineFeature(feature, test => {
 
         });
 
-        when("I click next to retrieve a list of instruments", async () => {
+        when("I click next to retrieve a list of questionnaires", async () => {
             userEvent.click(screen.getByTestId(/submit-button/i));
 
             await act(async () => {
@@ -89,7 +89,7 @@ defineFeature(feature, test => {
             });
         });
 
-        when("I select an instrument and click on run report", async () => {
+        when("I select a questionnaire and click on run report", async () => {
             userEvent.click(screen.getByLabelText(/LMS2101_AA1/i));
             userEvent.click(screen.getByTestId(/submit-button/i));
 

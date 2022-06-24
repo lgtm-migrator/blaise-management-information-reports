@@ -17,7 +17,7 @@ function axiosConfig(): AxiosRequestConfig {
 }
 
 async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
-    const url = "/api/instruments";
+    const url = "/api/questionnaires";
 
     const formData = new FormData();
     formData.append("survey_tla", surveyTla);

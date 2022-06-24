@@ -13,7 +13,7 @@ describe("getInstrumentList", () => {
     it("posts the search parameters", async () => {
         expect.assertions(4);
         mockAdapter.onPost(
-            "/api/instruments",
+            "/api/questionnaires",
             {
                 asymmetricMatch: (formData: FormData) => {
                     expect(formData.get("survey_tla")).toBe("DST");
@@ -29,7 +29,7 @@ describe("getInstrumentList", () => {
     });
 
     it("returns the instruments", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, ["INST_01", "INST_02"]);
+        mockAdapter.onPost("/api/questionnaires").reply(200, ["INST_01", "INST_02"]);
         expect(await getInstrumentList(
             "DST",
             "James",
@@ -39,7 +39,7 @@ describe("getInstrumentList", () => {
     });
 
     it("rejects when error status is returned", async () => {
-        mockAdapter.onPost("/api/instruments").reply(500, "error");
+        mockAdapter.onPost("/api/questionnaires").reply(500, "error");
         expect.assertions(1);
         try {
             await getInstrumentList(
@@ -54,7 +54,7 @@ describe("getInstrumentList", () => {
     });
 
     it("rejects when error status is not 200", async () => {
-        mockAdapter.onPost("/api/instruments").reply(201, "error");
+        mockAdapter.onPost("/api/questionnaires").reply(201, "error");
         expect.assertions(1);
         try {
             await getInstrumentList(

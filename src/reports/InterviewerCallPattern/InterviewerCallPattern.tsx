@@ -1,6 +1,6 @@
 import React, {ReactElement, useState} from "react";
 import InterviewerFilter from "../filters/InterviewerFilter";
-import InstrumentFilter from "../filters/InstrumentFilter";
+import QuestionnaireFilter from "../filters/QuestionnaireFilter";
 import RenderInterviewerCallPatternReport from "../InterviewerCallPattern/RenderInterviewerCallPatternReport";
 
 enum Step {
@@ -27,13 +27,13 @@ function InterviewerCallPattern(): ReactElement {
                                            surveyTla={surveyTla} setSurveyTla={setSurveyTla}
                                            submitFunction={_handleSubmit}/>);
             case Step.InstrumentFilter:
-                return (<InstrumentFilter interviewer={interviewer}
-                                          startDate={startDate}
-                                          endDate={endDate}
-                                          surveyTla={surveyTla}
-                                          instruments={instruments} setInstruments={setInstruments}
-                                          submitFunction={_handleSubmit}
-                                          navigateBack={_navigateBack}/>);
+                return (<QuestionnaireFilter interviewer={interviewer}
+                                             startDate={startDate}
+                                             endDate={endDate}
+                                             surveyTla={surveyTla}
+                                             instruments={instruments} setInstruments={setInstruments}
+                                             submitFunction={_handleSubmit}
+                                             navigateBack={_navigateBack}/>);
             case Step.RenderReport:
                 console.log(`Steps instruments ${instruments}`);
                 return (<RenderInterviewerCallPatternReport interviewer={interviewer}

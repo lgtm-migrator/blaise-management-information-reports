@@ -67,9 +67,9 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         res.status(status).json(result);
     });
 
-    // instrument endpoint
-    server.post("/api/instruments", auth.Middleware, async function (req: Request, res: Response) {
-        console.log("instrument endpoint called");
+    // questionnaire endpoint
+    server.post("/api/questionnaires", auth.Middleware, async function (req: Request, res: Response) {
+        console.log("questionnaire endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const {interviewer, start_date, end_date, survey_tla} = req.body;
         const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
