@@ -70,9 +70,7 @@ async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
 async function installQuestionnaire(blaiseApiClient: BlaiseApiClient, serverPark: string, questionnaireName: string) {
     try {
         const installQuestionnaireObject = {
-            questionnaireName: `${questionnaireName}`,
             questionnaireFile: `${questionnaireName}.bpkg`,
-            bucketPath: "/"
         };
 
         await blaiseApiClient.installQuestionnaire(serverPark, installQuestionnaireObject);
