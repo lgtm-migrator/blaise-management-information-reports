@@ -6,7 +6,7 @@ import { AppointmentResourcePlanningReportData } from "../../interfaces";
 import "@testing-library/jest-dom";
 import flushPromises from "../../tests/utilities";
 import { createMemoryHistory } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Router } from "react-router";
 import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
 import { act } from "react-dom/test-utils";
@@ -53,16 +53,16 @@ const christmasEve97 = "1997-12-24";
 
 
 describe("appointment resource planning report without data", () => {
-    afterEach(() => {
-        MockDate.reset();
-    });
-
     beforeEach(() => {
         MockDate.set(new Date(christmasEve97));
-        mockAdapter.reset();
         mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, "");
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, []);
         mockAdapter.onPost("/api/appointments/instruments").reply(200, []);
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
     });
 
     it("matches snapshot", async () => {
@@ -75,9 +75,8 @@ describe("appointment resource planning report without data", () => {
         await act(async () => {
             await flushPromises();
         });
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+
+        expect(await wrapper).toMatchSnapshot();
     });
     it("renders correctly", async () => {
         const history = createMemoryHistory();
@@ -107,13 +106,7 @@ describe("appointment resource planning report without data", () => {
         await act(async () => {
             await flushPromises();
         });
-        await waitFor(() => {
-            expect(screen.queryByText("No questionnaires found for given parameters.")).toBeVisible();
-        });
-    });
 
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
+        expect(await screen.queryByText("No questionnaires found for given parameters.")).toBeVisible();
     });
 });

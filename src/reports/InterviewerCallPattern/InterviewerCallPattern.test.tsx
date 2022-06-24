@@ -152,11 +152,6 @@ describe("function isAllInvalid()", () => {
 });
 
 describe("function InterviewerCallPattern() with happy data", () => {
-    afterEach(() => {
-        MockDate.reset();
-        mockAdapter.reset();
-    });
-
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, mockData
@@ -165,6 +160,11 @@ describe("function InterviewerCallPattern() with happy data", () => {
             200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
         );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
     });
 
     it("should match the snapshot", async () => {
@@ -180,9 +180,7 @@ describe("function InterviewerCallPattern() with happy data", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("should render correctly", async () => {
@@ -256,19 +254,9 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
         expect(screen.queryByText(/were discounted due to the following invalid fields/i)).not.toBeInTheDocument();
     });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
-    });
 });
 
 describe("function InterviewerCallPattern() with data and invalid data", () => {
-    afterEach(() => {
-        MockDate.reset();
-        mockAdapter.reset();
-    });
-
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, mockDataWithInvalidCases
@@ -277,6 +265,11 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
             200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
         );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
     });
 
     it("should match the snapshot", async () => {
@@ -292,9 +285,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("should render correctly", async () => {
@@ -369,19 +360,9 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         });
 
     });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
-    });
 });
 
 describe("function InterviewerCallPattern() without data", () => {
-    afterEach(() => {
-        MockDate.reset();
-        mockAdapter.reset();
-    });
-
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, {}
@@ -390,6 +371,11 @@ describe("function InterviewerCallPattern() without data", () => {
             200, {}
         );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
     });
 
     it("should match the snapshot", async () => {
@@ -405,9 +391,7 @@ describe("function InterviewerCallPattern() without data", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("should render correctly", async () => {
@@ -437,25 +421,12 @@ describe("function InterviewerCallPattern() without data", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
-            expect(screen.queryByText("No data found for parameters given.")).toBeVisible();
-        });
-
-    });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
+        expect(await screen.findByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
+        expect(await screen.findByText("No data found for parameters given.")).toBeVisible();
     });
 });
 
 describe("function InterviewerCallPattern() with only invalid data", () => {
-    afterEach(() => {
-        MockDate.reset();
-        mockAdapter.reset();
-    });
-
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             200, mockDataWithOnlyInvalidCases
@@ -464,6 +435,11 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
             200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
         );
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
     });
 
     it("should match the snapshot", async () => {
@@ -479,9 +455,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("should render correctly", async () => {
@@ -523,11 +497,6 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
             expect(screen.getByText(/Information: 100\/100 records \(100.00%\) were discounted due to the following invalid fields:/i)).toBeVisible();
         });
 
-    });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
     });
 });
 

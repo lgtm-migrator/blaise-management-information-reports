@@ -180,8 +180,4 @@ describe("the interviewer details page renders correctly", () => {
         expect(setInstruments).not.toHaveBeenCalled();
         expect(submit).not.toHaveBeenCalled();
     });
-
-    afterAll(() => {
-        cleanup();
-    });
 });
