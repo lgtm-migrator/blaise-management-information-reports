@@ -23,14 +23,14 @@ const mockAdapter = new MockAdapter(axios);
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
-const time = subtractYears(1)
+const dateOneYearAgo = subtractYears(1)
 
 describe("call history last updated status with data", () => {
     beforeEach(() => {
         mockAdapter.reset();
 
         mockAdapter.onGet("/api/reports/call-history-status").reply(200,
-            {"last_updated": time});
+            {"last_updated": dateOneYearAgo});
     });
 
     it("matches snapshot", async () => {
@@ -63,7 +63,7 @@ describe("call history last updated status with data", () => {
             await flushPromises();
         });
         await waitFor(() => {
-            expect(screen.getByText(dateFormatter(time).format("(DD/MM/YYYY HH:mm:ss)"))).toBeVisible();
+            expect(screen.getByText(dateFormatter(dateOneYearAgo).format("(DD/MM/YYYY HH:mm:ss)"))).toBeVisible();
         });
     });
 
