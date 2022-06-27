@@ -6,28 +6,28 @@ const CATI_URL = process.env.CATI_URL;
 export async function setupAppointment(page: Page, questionnaireName: string, userCredentials: NewUser): Promise<void> {
     console.log(`Attempting to set up an appointment for questionnaire ${questionnaireName}`);
 
-    await new Promise(f => setTimeout(f, 20000));
-
     await loginCATI(page, userCredentials);
-    await page.click(".nav li:has-text('Case Info')");
+    await page.locator("text=Case Info").click();
     await filterCATIQuestionnaire(page, questionnaireName);
+
+    await page.waitForSelector(`tr:has-text('${questionnaireName}') .glyphicon-calendar`);
 
     const [casePage] = await Promise.all([
         page.waitForEvent("popup"),
-        await page.click(".glyphicon-calendar >> nth=0"),
+        page.locator(`tr:has-text('${questionnaireName}') .glyphicon-calendar`).first().click(),
     ]);
-    await casePage.check("input:left-of(.CategoryButtonComponent:has-text('Appointment agreed'))");
-    await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.locator("input:left-of(.CategoryButtonComponent:has-text('Appointment agreed'))").first().check();
+    await casePage.locator(".ButtonComponent:has-text('Save and continue')").click();
     await casePage.locator("table.e-schedule-table").locator("tbody")
         .locator(`//tr/td[@data-date=${catiTomorrow10am()}]`).click();
-    await casePage.click("button:has-text('Confirm')");
-    await casePage.click(".ButtonComponent:has-text('Save and continue')");
-    await casePage.type(".StringTextBoxComponent", `${userCredentials}`);
-    await casePage.click(".ButtonComponent:has-text('Save and continue')");
-    await casePage.click(".CategoryButtonComponent >> nth=0");
-    await casePage.click(".ButtonComponent:has-text('Save and continue')");
-    await casePage.check("input:left-of(.CategoryButtonComponent:has-text('No'))");
-    await casePage.click(".ButtonComponent:has-text('Save and continue')");
+    await casePage.locator("button:has-text('Confirm')").click();
+    await casePage.locator(".ButtonComponent:has-text('Save and continue')").click();
+    await casePage.locator(".StringTextBoxComponent").first().type(`${userCredentials.name}`);
+    await casePage.locator(".ButtonComponent:has-text('Save and continue')").click();
+    await casePage.locator(".CategoryButtonComponent >> nth=0").click();
+    await casePage.locator(".ButtonComponent:has-text('Save and continue')").click();
+    await casePage.locator("input:left-of(.CategoryButtonComponent:has-text('No'))").first().check();
+    await casePage.locator(".ButtonComponent:has-text('Save and continue')").click();
 
     console.log(`Set up an appointment for questionnaire ${questionnaireName}`);
 }
@@ -36,18 +36,18 @@ export async function clearCATIData(page: Page, questionnaireName: string, userC
     try {
         console.log(`Attempting to clear down CATI data for questionnaire ${questionnaireName}`);
 
-        await new Promise(f => setTimeout(f, 20000));
         await loginCATI(page, userCredentials);
-        await page.click(".nav li:has-text('Surveys')");
+        await page.locator(".nav li:has-text('Surveys')").isVisible({ timeout: 1000 });
+        await page.locator(".nav li:has-text('Surveys')").click();
         await filterCATIQuestionnaire(page, questionnaireName);
-        await page.click(".glyphicon-save");
-        await page.uncheck("#chkBackupAll");
-        await page.uncheck("#BackupDaybatch");
-        await page.uncheck("#BackupCaseInfo");
-        await page.uncheck("#BackupDialHistory");
-        await page.uncheck("#BackupEvents");
-        await page.click("#chkClearAll");
-        await page.click("input[type=submit]:has-text('Execute')", { timeout: 20000 });
+        await page.locator(".glyphicon-save").click();
+        await page.locator("#chkBackupAll").uncheck();
+        await page.locator("#BackupDaybatch").uncheck();
+        await page.locator("#BackupCaseInfo").uncheck();
+        await page.locator("#BackupDialHistory").uncheck();
+        await page.locator("#BackupEvents").uncheck();
+        await page.locator("#chkClearAll").click();
+        await page.locator("input[type=submit]:has-text('Execute')").click({ timeout: 20000 });
 
         console.log(`Cleared CATI data for ${questionnaireName}`);
     }
@@ -62,15 +62,18 @@ async function loginCATI(page: Page, userCredentials: NewUser) {
     if (await loginHeader.isVisible({ timeout: 20000 })) {
         await page.locator("#Username").type(`${userCredentials.name}`);
         await page.locator("#Password").type(`${userCredentials.password}`);
-        await page.click("button[type=submit]");
+        await page.locator("button:has-text('Login')").click();
     }
 }
 
 async function filterCATIQuestionnaire(page: Page, questionnaireName: string) {
     await page.waitForSelector("#MVCGrid_Loading_CaseInfoGrid", { state: "hidden" });
-    await page.click(".filter-state:has-text('Filters')");
-    await page.check(`text=${questionnaireName}`);
-    await page.click("button:has-text('Apply')");
+    await page.locator(".filter-state:has-text('Filters')").click();
+    const instrumentCheckbox = page.locator(`label:has-text('${questionnaireName}')`);
+    if (!await instrumentCheckbox.isChecked()) {
+        await instrumentCheckbox.click();
+    }
+    await page.locator("button:has-text('Apply')").click();
     await page.waitForSelector("#MVCGrid_Loading_CaseInfoGrid", { state: "hidden" });
 }
 
