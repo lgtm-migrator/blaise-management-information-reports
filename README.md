@@ -85,7 +85,7 @@ To set up Playwright tests <i>locally</i> your .env file will need the following
 | CATI_PASSWORD | The password to log in to CATi | foobar |
 | REPORTS_URL | The URL to ERNIE | https://dev-reports.social-surveys.gcp.onsdigital.uk |
 | REST_API_URL | The URL to swagger | http://localhost:8000 |
-| TEST_INSTRUMENT | The name of the test instrument in the DQS bucket (this instrument needs to be configured for appointments) | DST2111Z |
+| TEST_QUESTIONNAIRE | The name of the test questionnaire in the DQS bucket (this questionnaire needs to be configured for appointments) | DST2111Z |
 | SERVER_PARK | The name of the server park | gusty |
 
 You <i>may</i> also need to run the following command to export the environment variables:

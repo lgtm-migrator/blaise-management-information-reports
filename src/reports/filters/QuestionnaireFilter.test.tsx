@@ -19,7 +19,7 @@ import subtractYears from "../../utilities/Helpers";
 
 const mockAdapter = new MockAdapter(axios);
 
-const instrumentDataReturned: string[] = [
+const questionnaireDataReturned: string[] = [
     "LMS2101_AA1",
     "LMS2101_AA2",
 ];
@@ -75,7 +75,7 @@ describe("the interviewer details page renders correctly", () => {
                     return true;
                 }
             }
-        ).reply(200, instrumentDataReturned);
+        ).reply(200, questionnaireDataReturned);
         renderComponent();
 
         // Wait for loading to finish (avoid warnings)
@@ -83,7 +83,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("matches loading snapshot", async () => {
-        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         const wrapper = renderComponent();
         expect(wrapper).toMatchSnapshot();
 
@@ -93,7 +93,7 @@ describe("the interviewer details page renders correctly", () => {
 
     it("matches snapshot", async () => {
         // This snapshot will need to be updated in 1 years time (28/06/2023)
-        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         mockAdapter
             .onGet("/api/reports/call-history-status")
             .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
@@ -103,7 +103,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("renders correctly", async () => {
-        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
 
         await act(async () => {
             renderComponent();
@@ -138,15 +138,15 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("displays an error when a non-200 success HTTP status is returned", async () => {
-        mockAdapter.onPost("/api/questionnaires").reply(201, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(201, questionnaireDataReturned);
         renderComponent();
         await waitFor(() => {
             screen.getByText("An error occurred while fetching the list of questionnaires");
         });
     });
 
-    it("checks all provided instruments by default", async () => {
-        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
+    it("checks all provided questionnaires by default", async () => {
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {
             fireEvent.click(await screen.findByText(/Run report/));
@@ -155,8 +155,8 @@ describe("the interviewer details page renders correctly", () => {
         expect(submit).toHaveBeenCalled();
     });
 
-    it("returns the instruments when a checkbox is ticket", async () => {
-        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
+    it("returns the questionnaires when a checkbox is ticket", async () => {
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {
             fireEvent.click(await screen.findByText(/LMS2101_AA1/));
@@ -168,7 +168,7 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("displays an error when submitting with no checkboxes selected", async () => {
-        mockAdapter.onPost("/api/questionnaires").reply(200, instrumentDataReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {
             fireEvent.click(await screen.findByText(/LMS2101_AA1/));
