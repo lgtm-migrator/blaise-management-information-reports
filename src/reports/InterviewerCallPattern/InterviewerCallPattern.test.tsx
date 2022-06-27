@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import flushPromises from "../../tests/utilities";
 import { createMemoryHistory } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import { act } from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";

@@ -5,7 +5,7 @@ import RenderInterviewerCallPatternReport from "../InterviewerCallPattern/Render
 
 enum Step {
     InterviewerFilter,
-    InstrumentFilter,
+    QuestionnaireFilter,
     RenderReport,
 }
 
@@ -15,7 +15,7 @@ function InterviewerCallPattern(): ReactElement {
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [surveyTla, setSurveyTla] = useState<string>("");
-    const [instruments, setInstruments] = useState<string[]>([]);
+    const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
     function _renderStepContent(step: number) {
         switch (step) {
@@ -26,21 +26,21 @@ function InterviewerCallPattern(): ReactElement {
                                            endDate={endDate} setEndDate={setEndDate}
                                            surveyTla={surveyTla} setSurveyTla={setSurveyTla}
                                            submitFunction={_handleSubmit}/>);
-            case Step.InstrumentFilter:
+            case Step.QuestionnaireFilter:
                 return (<QuestionnaireFilter interviewer={interviewer}
                                              startDate={startDate}
                                              endDate={endDate}
                                              surveyTla={surveyTla}
-                                             instruments={instruments} setInstruments={setInstruments}
+                                             questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
                                              submitFunction={_handleSubmit}
                                              navigateBack={_navigateBack}/>);
             case Step.RenderReport:
-                console.log(`Steps instruments ${instruments}`);
+                console.log(`Steps questionnaires ${questionnaires}`);
                 return (<RenderInterviewerCallPatternReport interviewer={interviewer}
                                                             startDate={startDate}
                                                             endDate={endDate}
                                                             surveyTla={surveyTla}
-                                                            questionnaires={instruments}
+                                                            questionnaires={questionnaires}
                                                             navigateBack={_navigateBack}
                                                             navigateBackTwoSteps={_navigateBackTwoSteps}/>);
         }
@@ -49,13 +49,13 @@ function InterviewerCallPattern(): ReactElement {
     async function _handleSubmit() {
         switch (activeStep) {
             case Step.InterviewerFilter:
-                setActiveStep(Step.InstrumentFilter);
+                setActiveStep(Step.QuestionnaireFilter);
                 break;
-            case Step.InstrumentFilter:
+            case Step.QuestionnaireFilter:
                 setActiveStep(Step.RenderReport);
                 break;
             default:
-                setActiveStep(Step.InstrumentFilter);
+                setActiveStep(Step.QuestionnaireFilter);
         }
     }
 
