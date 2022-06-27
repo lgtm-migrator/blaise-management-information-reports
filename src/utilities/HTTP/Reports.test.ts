@@ -5,7 +5,7 @@ import { InterviewerCallHistoryReport } from "../../interfaces";
 
 const mockAdapter = new MockAdapter(axios);
 
-describe("getInstrumentList", () => {
+describe("getQuestionnaireList", () => {
     afterEach(() => {
         mockAdapter.reset();
     });
@@ -28,7 +28,7 @@ describe("getInstrumentList", () => {
         await getQuestionnaireList("DST", "James", new Date("2022-01-02"), new Date("2022-02-05"));
     });
 
-    it("returns the instruments", async () => {
+    it("returns the questionnaires", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, ["INST_01", "INST_02"]);
         expect(await getQuestionnaireList(
             "DST",
@@ -75,10 +75,10 @@ describe("getInterviewerCallHistoryReport", () => {
         interviewer: "James",
         start_date: "2022-01-02",
         end_date: "2022-02-05",
-        instruments: "INST1,INST2",
+        questionnaires: "INST1,INST2",
     };
 
-    const testInstrumentResponse: InterviewerCallHistoryReport = {
+    const testQuestionnaireResponse: InterviewerCallHistoryReport = {
         questionnaire_name: "DST",
         serial_number: "9001",
         call_start_time: "2022-01-02 10:05:20",
@@ -99,7 +99,7 @@ describe("getInterviewerCallHistoryReport", () => {
                     expect(formData.get("interviewer")).toBe("James");
                     expect(formData.get("start_date")).toBe("2022-01-02");
                     expect(formData.get("end_date")).toBe("2022-02-05");
-                    expect(formData.get("instruments")).toBe("INST1,INST2");
+                    expect(formData.get("questionnaires")).toBe("INST1,INST2");
                     return true;
                 }
             }
@@ -120,7 +120,7 @@ describe("getInterviewerCallHistoryReport", () => {
                     expect(formData.get("interviewer")).toBe("undefined");
                     expect(formData.get("start_date")).toBe("undefined");
                     expect(formData.get("end_date")).toBe("undefined");
-                    expect(formData.get("instruments")).toBe("undefined");
+                    expect(formData.get("questionnaires")).toBe("undefined");
                     return true;
                 }
             }
@@ -129,20 +129,20 @@ describe("getInterviewerCallHistoryReport", () => {
         await getInterviewerCallHistoryReport({});
     });
 
-    it("returns the instruments", async () => {
-        mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, [testInstrumentResponse]);
-        expect(await getInterviewerCallHistoryReport(testFormParameters)).toEqual([testInstrumentResponse]);
+    it("returns the questionnaires", async () => {
+        mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, [testQuestionnaireResponse]);
+        expect(await getInterviewerCallHistoryReport(testFormParameters)).toEqual([testQuestionnaireResponse]);
     });
 
     it("defaults dial_secs to 0 if not in the response", async () => {
-        const response: Record<string, unknown> = {...testInstrumentResponse};
+        const response: Record<string, unknown> = {...testQuestionnaireResponse};
         delete response.dial_secs;
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, [response]);
         expect(await getInterviewerCallHistoryReport(testFormParameters)).toEqual([{ ...response, dial_secs: 0 }]);
     });
 
     it("defaults dial_secs to 0 if it is an empty string", async () => {
-        const response: Record<string, unknown> = {...testInstrumentResponse};
+        const response: Record<string, unknown> = {...testQuestionnaireResponse};
         mockAdapter.onPost("/api/reports/interviewer-call-history")
             .reply(200, [{ ...response, dial_secs: "" }]);
         expect(await getInterviewerCallHistoryReport(testFormParameters))
