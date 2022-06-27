@@ -1,4 +1,4 @@
-import subtractYears from "./helpers";
+import subtractYears from "./Helpers";
 
 test("test date returned is 1 year less than date given", () => {
     const date = new Date("1990-06-30")
