@@ -29,7 +29,7 @@ dateFormatter.extend(timezone);
 
 describe("the interviewer details page renders correctly", () => {
     let history: History;
-    let setInstruments: (instruments: string[]) => void;
+    let setQuestionnaires: (questionnaires: string[]) => void;
     let submit: () => void;
 
     beforeEach(() => {
@@ -38,7 +38,7 @@ describe("the interviewer details page renders correctly", () => {
             //.reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
             .reply(200, {last_updated: subtractYears(1)});
         history = createMemoryHistory();
-        setInstruments = jest.fn();
+        setQuestionnaires = jest.fn();
         submit = jest.fn();
     });
 
@@ -53,7 +53,7 @@ describe("the interviewer details page renders correctly", () => {
                                      startDate={ new Date("2022-01-01") }
                                      endDate={ new Date("2022-01-05") }
                                      surveyTla="LMS"
-                                     instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
+                                     questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
                                      submitFunction={ submit }
                                      navigateBack={ () => {
                                       return;
@@ -151,7 +151,7 @@ describe("the interviewer details page renders correctly", () => {
         await act(async () => {
             fireEvent.click(await screen.findByText(/Run report/));
         });
-        expect(setInstruments).toHaveBeenCalledWith(["LMS2101_AA1"]);
+        expect(setQuestionnaires).toHaveBeenCalledWith(["LMS2101_AA1"]);
         expect(submit).toHaveBeenCalled();
     });
 
@@ -163,7 +163,7 @@ describe("the interviewer details page renders correctly", () => {
             fireEvent.click(await screen.findByText(/LMS2101_AA2/));
             fireEvent.click(await screen.findByText(/Run report/));
         });
-        expect(setInstruments).toHaveBeenCalledWith(["LMS2101_AA2"]);
+        expect(setQuestionnaires).toHaveBeenCalledWith(["LMS2101_AA2"]);
         expect(submit).toHaveBeenCalled();
     });
 
@@ -177,7 +177,7 @@ describe("the interviewer details page renders correctly", () => {
         const elements = await screen.findAllByText("At least one questionnaire must be selected");
         expect(elements[0]).toBeVisible();
         expect(elements[1]).toBeVisible();
-        expect(setInstruments).not.toHaveBeenCalled();
+        expect(setQuestionnaires).not.toHaveBeenCalled();
         expect(submit).not.toHaveBeenCalled();
     });
 });

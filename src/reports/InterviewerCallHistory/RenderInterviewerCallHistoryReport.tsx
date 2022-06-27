@@ -17,7 +17,7 @@ interface RenderInterviewerCallHistoryReportPageProps {
     startDate: Date
     endDate: Date
     surveyTla: string
-    instruments: string[]
+    questionnaires: string[]
     navigateBack: () => void
     navigateBackTwoSteps: () => void
 }
@@ -39,7 +39,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
         startDate,
         endDate,
         surveyTla,
-        instruments,
+        questionnaires,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
@@ -68,7 +68,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
         formValues.interviewer = props.interviewer;
         formValues.start_date = props.startDate;
         formValues.end_date = props.endDate;
-        formValues.instruments = props.instruments;
+        formValues.questionnaires = props.questionnaires;
 
 
         let callHistory: InterviewerCallHistoryReport[];
@@ -99,17 +99,11 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 title: "Interviewer details"
             }, {link: "#", onClickFunction: navigateBack, title: "Questionnaires"}]}/>
             <main id="main-content" className="page__main u-mt-s">
-                {/*<h1 className="u-mb-m">*/}
-                {/*    Displaying the call history report for <em className="highlight">{interviewer}</em>,*/}
-                {/*    for questionnaire{instruments.length > 1 ? ("s") : ""} <em className="highlight">{formatList(instruments)}</em>{" "}*/}
-                {/*    between <em className="highlight">{dateFormatter(startDate).format("DD/MM/YYYY")}</em>{" "}*/}
-                {/*    and <em className="highlight">{dateFormatter(endDate).format("DD/MM/YYYY")}</em>*/}
-                {/*</h1>*/}
                 <h1>Call History Report</h1>
                 <h3 className="u-mb-m">
                     Interviewer: {interviewer} <br></br>
                     Period: {dateFormatter(startDate).format("DD/MM/YYYY")}–{dateFormatter(endDate).format("DD/MM/YYYY")}<br></br>
-                    Questionnaire{instruments.length > 1 ? ("s") : ""}: {formatList(instruments)}
+                    Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
                 </h3>
                 <CallHistoryLastUpdatedStatus/>
 
