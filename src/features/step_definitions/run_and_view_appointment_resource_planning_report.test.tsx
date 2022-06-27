@@ -64,7 +64,7 @@ defineFeature(feature, test => {
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
         mockAdapter.onPost("/api/reports/appointment-resource-planning/").reply(200, reportDataReturned);
-        mockAdapter.onPost("/api/appointments/instruments").reply(200, questionnairesReturned);
+        mockAdapter.onPost("/api/appointments/questionnaires").reply(200, questionnairesReturned);
     });
 
     afterEach(() => {

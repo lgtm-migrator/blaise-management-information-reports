@@ -65,7 +65,7 @@ function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps
     }
 
     async function getInstrumentList(): Promise<string[]> {
-        const url = "/api/appointments/instruments";
+        const url = "/api/appointments/questionnaires";
     
         const formData = new FormData();
         setMessageNoData("");

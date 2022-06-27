@@ -57,7 +57,7 @@ describe("appointment resource planning report without data", () => {
         MockDate.set(new Date(christmasEve97));
         mockAdapter.onPost("/api/reports/appointment-resource-planning").reply(200, "");
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, []);
-        mockAdapter.onPost("/api/appointments/instruments").reply(200, []);
+        mockAdapter.onPost("/api/appointments/questionnaires").reply(200, []);
     });
 
     afterEach(() => {

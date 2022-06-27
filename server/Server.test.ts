@@ -1,4 +1,4 @@
-import { newServer } from "./Server"; // Link to your server file
+import { newServer } from "./Server";
 import supertest from "supertest";
 import { Config } from "./Config";
 import BlaiseIapNodeProvider from "blaise-iap-node-provider";
