@@ -4,12 +4,12 @@
 
 import "@testing-library/jest-dom";
 import flushPromises from "../tests/utilities";
-import { createMemoryHistory } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
-import { Router } from "react-router";
+import {createMemoryHistory} from "history";
+import {cleanup, render, waitFor} from "@testing-library/react";
+import {Router} from "react-router";
 import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
-import { act } from "react-dom/test-utils";
-import { screen } from "@testing-library/dom";
+import {act} from "react-dom/test-utils";
+import {screen} from "@testing-library/dom";
 import React from "react";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -22,19 +22,26 @@ const mockAdapter = new MockAdapter(axios);
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
+function subtractYears(numOfYears: any, date: Date = new Date()) {
+    date.setFullYear(date.getFullYear() - numOfYears);
+    return date;
+}
+
+const time = subtractYears(1)
+
 describe("call history last updated status with data", () => {
     beforeEach(() => {
         mockAdapter.reset();
 
         mockAdapter.onGet("/api/reports/call-history-status").reply(200,
-            { "last_updated": "Sat, 01 Jan 2000 10:00:00 GMT" });
+            {"last_updated": time});
     });
 
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus />
+                <CallHistoryLastUpdatedStatus/>
             </Router>
         );
         await act(async () => {
@@ -50,7 +57,7 @@ describe("call history last updated status with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus />
+                    <CallHistoryLastUpdatedStatus/>
                 </Router>
             );
         });
@@ -60,7 +67,7 @@ describe("call history last updated status with data", () => {
             await flushPromises();
         });
         await waitFor(() => {
-            expect(screen.getByText("(01/01/2000 10:00:00)")).toBeVisible();
+            expect(screen.getByText(dateFormatter(time).format("(DD/MM/YYYY HH:mm:ss)"))).toBeVisible();
         });
     });
 
@@ -81,7 +88,7 @@ describe("call history last updated status with invalid data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus />
+                <CallHistoryLastUpdatedStatus/>
             </Router>
         );
         await act(async () => {
@@ -97,7 +104,7 @@ describe("call history last updated status with invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus />
+                    <CallHistoryLastUpdatedStatus/>
                 </Router>
             );
         });
