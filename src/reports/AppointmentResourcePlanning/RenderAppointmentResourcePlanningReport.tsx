@@ -12,15 +12,15 @@ import AppointmentSummary from "./AppointmentSummary";
 interface RenderAppointmentResourcePlanningReportPageProps {
     reportDate: Date
     surveyTla: string
-    questionnaires: string[]
+    instruments: string[]
     navigateBack: () => void
     navigateBackTwoSteps: () => void
 }
 
-function formatList(listOfQuestionnaires: string[]): string {
-    if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
-    const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
-    const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
+function formatList(listOfInstruments: string[]): string {
+    if (listOfInstruments.length === 1) return listOfInstruments[0];
+    const firsts = listOfInstruments.slice(0, listOfInstruments.length - 1);
+    const last = listOfInstruments[listOfInstruments.length - 1];
     return firsts.join(", ") + " and " + last;
 }
 
@@ -34,7 +34,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
     const {
         reportDate,
         surveyTla,
-        questionnaires,
+        instruments,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
@@ -102,7 +102,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 </h1>
                 <h3 className="u-mb-m">
                         Date: {dateFormatter(reportDate).format("DD/MM/YYYY")}<br/>
-                        Questionnaire{questionnaires.length > 1 ? ("s:") : ":"} {formatList(questionnaires)}{" "}
+                        Questionnaire{instruments.length > 1 ? ("s:") : ":"} {formatList(instruments)}{" "}
                 </h3>
                 <AppointmentResourceDaybatchWarning/>
 

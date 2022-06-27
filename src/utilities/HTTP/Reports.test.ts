@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { getQuestionnaireList, getInterviewerCallHistoryReport } from ".";
+import { getInstrumentList, getInterviewerCallHistoryReport } from ".";
 import { InterviewerCallHistoryReport } from "../../interfaces";
 
 const mockAdapter = new MockAdapter(axios);
@@ -25,12 +25,12 @@ describe("getInstrumentList", () => {
             }
         ).reply(200, []);
 
-        await getQuestionnaireList("DST", "James", new Date("2022-01-02"), new Date("2022-02-05"));
+        await getInstrumentList("DST", "James", new Date("2022-01-02"), new Date("2022-02-05"));
     });
 
     it("returns the instruments", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, ["INST_01", "INST_02"]);
-        expect(await getQuestionnaireList(
+        expect(await getInstrumentList(
             "DST",
             "James",
             new Date("2022-01-02"),
@@ -42,7 +42,7 @@ describe("getInstrumentList", () => {
         mockAdapter.onPost("/api/questionnaires").reply(500, "error");
         expect.assertions(1);
         try {
-            await getQuestionnaireList(
+            await getInstrumentList(
                 "DST",
                 "James",
                 new Date("2022-01-02"),
@@ -57,7 +57,7 @@ describe("getInstrumentList", () => {
         mockAdapter.onPost("/api/questionnaires").reply(201, "error");
         expect.assertions(1);
         try {
-            await getQuestionnaireList(
+            await getInstrumentList(
                 "DST",
                 "James",
                 new Date("2022-01-02"),

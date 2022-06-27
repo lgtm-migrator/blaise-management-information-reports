@@ -38,7 +38,7 @@ function AppointmentResourcePlanning(): ReactElement {
                 console.log(`Steps instruments ${instruments}`);
                 return (<RenderAppointmentResourcePlanningReport reportDate={reportDate}
                                                             surveyTla={surveyTla}
-                                                            questionnaires={instruments}
+                                                            instruments={instruments}
                                                             navigateBack={_navigateBack}
                                                             navigateBackTwoSteps={_navigateBackTwoSteps}/>);
         }

@@ -53,7 +53,7 @@ describe("the interviewer details page renders correctly", () => {
                                      startDate={ new Date("2022-01-01") }
                                      endDate={ new Date("2022-01-05") }
                                      surveyTla="LMS"
-                                     questionnaires={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
+                                     instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
                                      submitFunction={ submit }
                                      navigateBack={ () => {
                                       return;

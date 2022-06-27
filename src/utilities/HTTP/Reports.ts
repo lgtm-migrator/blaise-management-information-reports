@@ -16,7 +16,7 @@ function axiosConfig(): AxiosRequestConfig {
     };
 }
 
-async function getQuestionnaireList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
+async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
     const url = "/api/questionnaires";
 
     const formData = new FormData();
@@ -140,7 +140,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tl
 }
 
 export {
-    getQuestionnaireList,
+    getInstrumentList,
     getInterviewerCallHistoryStatus,
     getInterviewerCallHistoryReport,
     getInterviewerCallPatternReport,
