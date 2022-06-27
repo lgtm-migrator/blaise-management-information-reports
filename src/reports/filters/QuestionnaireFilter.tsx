@@ -9,7 +9,7 @@ interface QuestionnaireFilterPageProps {
     startDate: Date
     endDate: Date
     surveyTla: string
-    instruments: string[]
+    questionnaires: string[]
     setInstruments: (string: string[]) => void
     submitFunction: () => void
     navigateBack: () => void

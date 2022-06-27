@@ -31,7 +31,7 @@ function InterviewerCallPattern(): ReactElement {
                                              startDate={startDate}
                                              endDate={endDate}
                                              surveyTla={surveyTla}
-                                             instruments={instruments} setInstruments={setInstruments}
+                                             questionnaires={instruments} setInstruments={setInstruments}
                                              submitFunction={_handleSubmit}
                                              navigateBack={_navigateBack}/>);
             case Step.RenderReport:

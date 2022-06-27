@@ -84,12 +84,12 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/interviewer-call-history", auth.Middleware, async function (req: Request, res: Response) {
         console.log("interviewer-call-history endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const {interviewer, start_date, end_date, survey_tla, instruments} = req.body;
+        const {interviewer, start_date, end_date, survey_tla, questionnaires} = req.body;
         const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
         const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
-        console.log(`instruments ${instruments}`);
-        const instrumentsQuery = instruments.length > 0 ? `&questionnaires=${instruments}` : "";
-        const url = `${config.BertUrl}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}${instrumentsQuery}`;
+        console.log(`questionnaires ${questionnaires}`);
+        const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
+        const url = `${config.BertUrl}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -99,12 +99,12 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/interviewer-call-pattern", auth.Middleware, async function (req: Request, res: Response) {
         console.log("interviewer-call-pattern endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const {interviewer, start_date, end_date, survey_tla, instruments} = req.body;
+        const {interviewer, start_date, end_date, survey_tla, questionnaires} = req.body;
         const startDateFormatted = dateFormatter(start_date).format("YYYY-MM-DD");
         const endDateFormatted = dateFormatter(end_date).format("YYYY-MM-DD");
-        console.log(`instruments ${instruments}`);
-        const instrumentsQuery = instruments.length > 0 ? `&questionnaires=${instruments}` : "";
-        const url = `${config.BertUrl}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}${instrumentsQuery}`;
+        console.log(`questionnaires ${questionnaires}`);
+        const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
+        const url = `${config.BertUrl}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
