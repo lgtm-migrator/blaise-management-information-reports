@@ -11,11 +11,11 @@ import {
 } from "blaise-design-system-react-components";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
 
-interface AppointmentInstrumentFilterPageProps {
+interface AppointmentQuestionnaireFilterPageProps {
     reportDate: Date
     surveyTla: string
-    instruments: string[]
-    setInstruments: (string: string[]) => void
+    questionnaire: string[]
+    setQuestionnaires: (string: string[]) => void
     submitFunction: () => void
     navigateBack: () => void
 }
@@ -27,44 +27,44 @@ function axiosConfig(): AxiosRequestConfig {
     };
 }
 
-function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps): ReactElement {
+function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPageProps): ReactElement {
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [numberOfInstruments, setNumberOfInstruments] = useState(0);
+    const [numberOfQuestionnaires, setNumberOfQuestionnaires] = useState(0);
     const {
         reportDate,
         surveyTla,
         submitFunction,
         navigateBack,
-        instruments,
-        setInstruments,
+        questionnaire,
+        setQuestionnaires,
     } = props;
 
 
     useEffect(() => {
-            getInstrumentList().then(setupForm);
+            getQuestionnaireList().then(setupForm);
         }, []
     );
 
-    function setupForm(allInstruments: string[]) {
+    function setupForm(allQuestionnaires: string[]) {
         setFields([
             {
                 name: "questionnaires",
                 type: "checkbox",
-                initial_value: instruments,
-                checkboxOptions: allInstruments.map(name => ({
+                initial_value: questionnaire,
+                checkboxOptions: allQuestionnaires.map(name => ({
                     id: name,
                     value: name,
                     label: name,
                 })),
             },
         ]);
-        setNumberOfInstruments(allInstruments.length);
+        setNumberOfQuestionnaires(allQuestionnaires.length);
         setIsLoading(false);
     }
 
-    async function getInstrumentList(): Promise<string[]> {
+    async function getQuestionnaireList(): Promise<string[]> {
         const url = "/api/appointments/questionnaires";
     
         const formData = new FormData();
@@ -89,7 +89,7 @@ function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps
     }
 
     function handleSubmit(values: any) {
-        setInstruments(values["questionnaires"]);
+        setQuestionnaires(values["questionnaires"]);
         submitFunction();
     }
 
@@ -97,7 +97,7 @@ function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps
         if (isLoading) {
             return <ONSLoadingPanel/>;
         }
-        if (numberOfInstruments === 0) {
+        if (numberOfQuestionnaires === 0) {
             return <ONSPanel> No questionnaires found for given parameters.</ONSPanel>;
         }
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
@@ -134,4 +134,4 @@ function AppointmentInstrumentFilter(props: AppointmentInstrumentFilterPageProps
     );
 }
 
-export default AppointmentInstrumentFilter;
+export default AppointmentQuestionnaireFilter;

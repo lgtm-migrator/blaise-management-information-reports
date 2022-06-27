@@ -12,7 +12,7 @@ import AppointmentSummary from "./AppointmentSummary";
 interface RenderAppointmentResourcePlanningReportPageProps {
     reportDate: Date
     surveyTla: string
-    instruments: string[]
+    questionnaires: string[]
     navigateBack: () => void
     navigateBackTwoSteps: () => void
 }
@@ -34,7 +34,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
     const {
         reportDate,
         surveyTla,
-        instruments,
+        questionnaires,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
@@ -102,7 +102,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 </h1>
                 <h3 className="u-mb-m">
                         Date: {dateFormatter(reportDate).format("DD/MM/YYYY")}<br/>
-                        Questionnaire{instruments.length > 1 ? ("s:") : ":"} {formatList(instruments)}{" "}
+                        Questionnaire{questionnaires.length > 1 ? ("s:") : ":"} {formatList(questionnaires)}{" "}
                 </h3>
                 <AppointmentResourceDaybatchWarning/>
 
