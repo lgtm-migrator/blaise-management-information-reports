@@ -1,7 +1,3 @@
-//TODO:
-// Sort out breadcrumbs
-// Wording
-// Spinning loading
 import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import {CSVLink} from "react-csv";
@@ -22,10 +18,10 @@ interface RenderInterviewerCallHistoryReportPageProps {
     navigateBackTwoSteps: () => void
 }
 
-function formatList(listOfInstruments: string[]): string {
-    if (listOfInstruments.length === 1) return listOfInstruments[0];
-    const firsts = listOfInstruments.slice(0, listOfInstruments.length - 1);
-    const last = listOfInstruments[listOfInstruments.length - 1];
+function formatList(listOfQuestionnaires: string[]): string {
+    if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
+    const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
+    const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
     return firsts.join(", ") + " and " + last;
 }
 
