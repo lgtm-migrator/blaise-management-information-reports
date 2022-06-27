@@ -5,15 +5,15 @@ import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient, { User } from "blaise-api-node-client";
 import { Auth } from "blaise-login-react-server";
 import { Request, Response, NextFunction } from "express";
-import axios from "axios"
-import MockAdapter from "axios-mock-adapter"
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
 
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-dateFormatter.extend(customParseFormat)
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dateFormatter.extend(customParseFormat);
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
@@ -26,7 +26,7 @@ const config : Config = {
     SessionSecret: "",
     SessionTimeout: "",
     Roles: []
-}
+};
 
 const mockAuthProvider : BlaiseIapNodeProvider = {
     CLIENT_ID: undefined,
@@ -57,7 +57,7 @@ const mockAuth: Auth = {
     Middleware: async function (request: Request, response: Response, next: NextFunction): Promise<void | Response> {
         next();
     }
-} 
+};
 
 const app = newServer(config, mockAuthProvider, mockAuth, blaiseApiClient);
 const request = supertest(app);
@@ -77,11 +77,11 @@ describe("Test appointment resource planning questionnaires endpoint", () => {
     it("should return a 200 status and the expected list of questionnaires", async () => {
         axiosMock.onGet("http://bert.com/api/appointment-resource-planning/2022-10-27/questionnaires?survey-tla=NPM")
                         .reply(200, questionnairesReturned);
-        const response: supertest.Response = await request.post("/api/appointments/instruments")
-                                                          .field('date', '2022-10-27')
-                                                          .field('survey_tla', 'NPM');
+        const response: supertest.Response = await request.post("/api/appointments/questionnaires")
+                                                          .field("date", "2022-10-27")
+                                                          .field("survey_tla", "NPM");
         console.log(response.body);
         expect(response.status).toEqual(200);
         expect(response.body).toEqual(questionnairesReturned);
     });
-})
+});

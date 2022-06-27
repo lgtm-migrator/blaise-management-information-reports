@@ -40,7 +40,7 @@ function InterviewerCallPattern(): ReactElement {
                                                             startDate={startDate}
                                                             endDate={endDate}
                                                             surveyTla={surveyTla}
-                                                            instruments={instruments}
+                                                            questionnaires={instruments}
                                                             navigateBack={_navigateBack}
                                                             navigateBackTwoSteps={_navigateBackTwoSteps}/>);
         }
