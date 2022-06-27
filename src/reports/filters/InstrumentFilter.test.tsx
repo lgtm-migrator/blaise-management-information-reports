@@ -15,7 +15,7 @@ import axios from "axios";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-
+import subtractYears from "../../utilities/Helpers";
 const mockAdapter = new MockAdapter(axios);
 
 const instrumentDataReturned: string[] = [
@@ -25,12 +25,6 @@ const instrumentDataReturned: string[] = [
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
-
-function subtractYears(numOfYears: any, date: Date = new Date()) {
-    date.setFullYear(date.getFullYear() - numOfYears);
-
-    return date;
-}
 
 describe("the interviewer details page renders correctly", () => {
     let history: History;

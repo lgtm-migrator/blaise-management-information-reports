@@ -16,16 +16,12 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import subtractYears from "../utilities/Helpers";
 
 const mockAdapter = new MockAdapter(axios);
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
-
-function subtractYears(numOfYears: any, date: Date = new Date()) {
-    date.setFullYear(date.getFullYear() - numOfYears);
-    return date;
-}
 
 const time = subtractYears(1)
 
