@@ -21,7 +21,7 @@ describe("QuestionnaireSelector tests", () => {
     
     beforeEach(async () =>{
         const axiosMock = new MockAdapter(axios);
-        axiosMock.onPost("/api/instruments").reply(200, questionnairesReturned);
+        axiosMock.onPost("/api/questionnaires").reply(200, questionnairesReturned);
         setInstruments = jest.fn();
         submit = jest.fn();
         await act(async () => {
@@ -40,7 +40,7 @@ describe("QuestionnaireSelector tests", () => {
                                   endDate={ new Date("2022-05-05") }
                                   surveyTla="LMS"
                                   instruments={ questionnairesReturned } 
-                                  setInstruments={ setInstruments }
+                                  setQuestionnaires={ setInstruments }
                                   submitFunction={ submit }/>
         );
     }
