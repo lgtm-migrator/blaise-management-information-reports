@@ -34,6 +34,10 @@ describe("call history last updated status with data", () => {
     });
 
     it("matches snapshot", async () => {
+        // This snapshot will need to be updated in 1 years time (28/06/2023)
+        mockAdapter
+            .onGet("/api/reports/call-history-status")
+            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>

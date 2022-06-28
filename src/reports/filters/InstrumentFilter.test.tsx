@@ -16,6 +16,7 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import subtractYears from "../../utilities/Helpers";
+
 const mockAdapter = new MockAdapter(axios);
 
 const instrumentDataReturned: string[] = [
@@ -91,7 +92,11 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("matches snapshot", async () => {
+        // This snapshot will need to be updated in 1 years time (28/06/2023)
         mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter
+            .onGet("/api/reports/call-history-status")
+            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
         const wrapper = renderComponent();
         await screen.findByText("LMS2101_AA1");
         expect(wrapper).toMatchSnapshot();
