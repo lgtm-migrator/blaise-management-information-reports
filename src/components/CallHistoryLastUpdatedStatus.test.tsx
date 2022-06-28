@@ -17,13 +17,12 @@ import timezone from "dayjs/plugin/timezone";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import subtractYears from "../utilities/Helpers";
-
 const mockAdapter = new MockAdapter(axios);
 
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 
-const dateOneYearAgo = subtractYears(1)
+const dateOneYearAgo = subtractYears(1);
 
 describe("call history last updated status with data", () => {
     beforeEach(() => {
@@ -67,7 +66,7 @@ describe("call history last updated status with data", () => {
             await flushPromises();
         });
         await waitFor(() => {
-            expect(screen.getByText(dateFormatter(dateOneYearAgo).format("(DD/MM/YYYY HH:mm:ss)"))).toBeVisible();
+            expect(screen.getByText(dateFormatter(dateOneYearAgo).tz("Europe/London").format("(DD/MM/YYYY HH:mm:ss)"))).toBeVisible();
         });
     });
 
