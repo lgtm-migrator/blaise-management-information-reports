@@ -3,11 +3,11 @@
  */
 
 import "@testing-library/jest-dom";
-import { createMemoryHistory, History } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
-import { Router } from "react-router";
-import { act } from "react-dom/test-utils";
-import { fireEvent, screen } from "@testing-library/dom";
+import {createMemoryHistory, History} from "history";
+import {cleanup, render, waitFor} from "@testing-library/react";
+import {Router} from "react-router";
+import {act} from "react-dom/test-utils";
+import {fireEvent, screen} from "@testing-library/dom";
 import React from "react";
 import InstrumentFilter from "./InstrumentFilter";
 import MockAdapter from "axios-mock-adapter";
@@ -15,6 +15,7 @@ import axios from "axios";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import subtractYears from "../../utilities/Helpers";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -34,7 +35,8 @@ describe("the interviewer details page renders correctly", () => {
     beforeEach(() => {
         mockAdapter
             .onGet("/api/reports/call-history-status")
-            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            //.reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            .reply(200, {last_updated: subtractYears(1)});
         history = createMemoryHistory();
         setInstruments = jest.fn();
         submit = jest.fn();
@@ -46,16 +48,16 @@ describe("the interviewer details page renders correctly", () => {
 
     function renderComponent() {
         return render(
-            <Router history={ history }>
+            <Router history={history}>
                 <InstrumentFilter interviewer="James"
-                                  startDate={ new Date("2022-01-01") }
-                                  endDate={ new Date("2022-01-05") }
+                                  startDate={new Date("2022-01-01")}
+                                  endDate={new Date("2022-01-05")}
                                   surveyTla="LMS"
-                                  instruments={ ["LMS2101_AA1"] } setInstruments={ setInstruments }
-                                  submitFunction={ submit }
-                                  navigateBack={ () => {
+                                  instruments={["LMS2101_AA1"]} setInstruments={setInstruments}
+                                  submitFunction={submit}
+                                  navigateBack={() => {
                                       return;
-                                  } }/>
+                                  }}/>
             </Router>
         );
     }
@@ -90,7 +92,11 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     it("matches snapshot", async () => {
+        // This snapshot will need to be updated in 1 years time (28/06/2023)
         mockAdapter.onPost("/api/instruments").reply(200, instrumentDataReturned);
+        mockAdapter
+            .onGet("/api/reports/call-history-status")
+            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
         const wrapper = renderComponent();
         await screen.findByText("LMS2101_AA1");
         expect(wrapper).toMatchSnapshot();
@@ -106,7 +112,7 @@ describe("the interviewer details page renders correctly", () => {
         expect(screen.queryByText(/Select questionnaire/i)).toBeVisible();
         expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
 
-        expect(screen.queryByText(/22 years ago/i)).toBeVisible();
+        expect(screen.queryByText(/1 year ago/i)).toBeVisible();
 
         expect(screen.queryByText(/Interviewer: James/i)).toBeVisible();
         expect(screen.queryByText(/Period: 01\/01\/2022–05\/01\/2022/i)).toBeVisible();
