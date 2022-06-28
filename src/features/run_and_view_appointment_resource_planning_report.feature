@@ -6,8 +6,8 @@ Feature: Run and view appointment resource planning report
   # Scenario 1:
   Scenario: Run and view appointment resource planning report
     Given A survey tla and date has been specified
-    When I click next to retrieve a list of instruments
-    When I select an instrument and click on run report
+    When I click next to retrieve a list of questionnaires
+    When I select a questionnaire and click on run report
     Then I will receive a list of the following information for appointments made:
     """
       * Questionnaire

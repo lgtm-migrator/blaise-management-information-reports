@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "./App";
 import "@testing-library/jest-dom";
 import flushPromises from "./tests/utilities";
@@ -30,9 +30,7 @@ describe("management information reports homepage", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("renders correctly", async () => {

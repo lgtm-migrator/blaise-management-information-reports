@@ -1,6 +1,6 @@
 import { FormFieldObject, ONSLoadingPanel, ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement, useEffect, useState } from "react";
-import { getInstrumentList } from "../utilities/HTTP";
+import { getQuestionnaireList } from "../utilities/HTTP";
 
 
 interface QuestionnaireSelectorProps{
@@ -8,12 +8,12 @@ interface QuestionnaireSelectorProps{
     startDate: Date
     endDate: Date
     surveyTla: string
-    instruments: string[]
-    setInstruments: (string: string[]) => void
+    questionnaires: string[]
+    setQuestionnaires: (string: string[]) => void
     submitFunction: () => void
 }
 
-function FetchInstrumentsError() {
+function FetchQuestionnairesError() {
     return (
         <div role="alert">
             <ONSPanel status="error">
@@ -31,24 +31,24 @@ type Status = "loading" | "loaded" | "loading_failed";
 function QuestionnaireSelector(props: QuestionnaireSelectorProps): ReactElement {
     const [status, setStatus] = useState<Status>("loading");
     const [fields, setFields] = useState<FormFieldObject[]>([]);
-    const [numberOfInstruments, setNumberOfInstruments] = useState(0);
+    const [numberOfQuestionnaires, setNumberOfQuestionnaires] = useState(0);
     const {
         interviewer,
         startDate,
         endDate,
         surveyTla,
         submitFunction,
-        instruments,
-        setInstruments,
+        questionnaires,
+        setQuestionnaires,
     } = props;
 
     useEffect(() => {
         const abortController = new AbortController();
-        async function fetchInstruments(): Promise<string[]> {
-            return getInstrumentList(surveyTla, interviewer, startDate, endDate);
+        async function fetchQuestionnaires(): Promise<string[]> {
+            return getQuestionnaireList(surveyTla, interviewer, startDate, endDate);
         }
 
-        fetchInstruments()
+        fetchQuestionnaires()
             .then(setupForm)
             .catch((error: Error) => {
                 setStatus("loading_failed");
@@ -59,14 +59,14 @@ function QuestionnaireSelector(props: QuestionnaireSelectorProps): ReactElement 
         };
     }, []); 
 
-    function setupForm(allInstruments: string[]) {
+    function setupForm(allQuestionnaires: string[]) {
         setFields([
             {
                 name: "questionnaires",
                 type: "checkbox",
-                initial_value: instruments,
+                initial_value: questionnaires,
                 validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
-                checkboxOptions: allInstruments.map(name => ({
+                checkboxOptions: allQuestionnaires.map(name => ({
                     id: name,
                     value: name,
                     label: name,
@@ -74,23 +74,23 @@ function QuestionnaireSelector(props: QuestionnaireSelectorProps): ReactElement 
                 })),
             },
         ]);
-        setNumberOfInstruments(allInstruments.length);
+        setNumberOfQuestionnaires(allQuestionnaires.length);
         setStatus("loaded");
     }
 
     function handleSubmit(values: any) {
-        setInstruments(values["questionnaires"]);
+        setQuestionnaires(values["questionnaires"]);
         submitFunction();
     }
 
     function displayCheckboxes() {
         if (status === "loading_failed") {
-            return <FetchInstrumentsError/>;
+            return <FetchQuestionnairesError/>;
         }
         if (status === "loading") {
             return <ONSLoadingPanel/>;
         }
-        if (numberOfInstruments === 0) {
+        if (numberOfQuestionnaires === 0) {
             return <ONSPanel>No questionnaires found for given parameters.</ONSPanel>;
         }
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;

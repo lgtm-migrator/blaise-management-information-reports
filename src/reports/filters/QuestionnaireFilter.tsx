@@ -4,18 +4,18 @@ import dateFormatter from "dayjs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import QuestionnaireSelector from "../../components/QuestionnaireSelector";
 
-interface InstrumentFilterPageProps {
+interface QuestionnaireFilterPageProps {
     interviewer: string
     startDate: Date
     endDate: Date
     surveyTla: string
-    instruments: string[]
-    setInstruments: (string: string[]) => void
+    questionnaires: string[]
+    setQuestionnaires: (string: string[]) => void
     submitFunction: () => void
     navigateBack: () => void
 }
 
-function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
+function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement {
     const {
         interviewer,
         startDate,
@@ -46,4 +46,4 @@ function InstrumentFilter(props: InstrumentFilterPageProps): ReactElement {
     );
 }
 
-export default InstrumentFilter;
+export default QuestionnaireFilter;

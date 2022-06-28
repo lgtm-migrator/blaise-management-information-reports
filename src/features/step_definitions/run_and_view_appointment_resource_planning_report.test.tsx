@@ -4,7 +4,7 @@
 
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { createMemoryHistory } from "history";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Router } from "react-router-dom";
 import App from "../../App";
 import React from "react";
@@ -16,6 +16,7 @@ import { AuthManager } from "blaise-login-react-client";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -60,18 +61,14 @@ const ReportSummary = [
 const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"]
 
 defineFeature(feature, test => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        jest.resetModules();
-        cleanup();
-    });
-
     beforeEach(() => {
-        cleanup();
-        mockAdapter.reset();
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
         mockAdapter.onPost("/api/reports/appointment-resource-planning/").reply(200, reportDataReturned);
-        mockAdapter.onPost("/api/appointments/instruments").reply(200, questionnairesReturned);
+        mockAdapter.onPost("/api/appointments/questionnaires").reply(200, questionnairesReturned);
+    });
+
+    afterEach(() => {
+        mockAdapter.reset();
     });
 
     test("Run and view appointment resource planning report", ({ given, when, then, and }) => {
@@ -106,7 +103,7 @@ defineFeature(feature, test => {
             });
         });
 
-        when("I click next to retrieve a list of instruments", async () => {
+        when("I click next to retrieve a list of questionnaires", async () => {
             userEvent.click(screen.getByTestId(/submit-button/i));
 
             await act(async () => {
@@ -114,7 +111,7 @@ defineFeature(feature, test => {
             });
         });
 
-        when("I select an instrument and click on run report", async () => {
+        when("I select a questionnaire and click on run report", async () => {
             userEvent.click(screen.getByLabelText(/LMS2101_AA1/i));
             userEvent.click(screen.getByTestId(/submit-button/i));
 
@@ -125,10 +122,10 @@ defineFeature(feature, test => {
 
         then("I will receive a list of the following information for appointments made:", async (docString) => {
             await waitFor(() => {
-                expect(screen.getByText("Questionnaire")).toBeDefined();
-                expect(screen.getByText("Appointment Time")).toBeDefined();
-                expect(screen.getByText("Appointment Language")).toBeDefined();
-                expect(screen.getByText("Total")).toBeDefined();
+                expect(screen.getByText("Questionnaire")).toBeInTheDocument();
+                expect(screen.getByText("Appointment Time")).toBeInTheDocument();
+                expect(screen.getByText("Appointment Language")).toBeInTheDocument();
+                expect(screen.getByText("Total")).toBeInTheDocument();
 
                 const list = screen.queryAllByTestId(/report-table-row/i);
                 const listItemOne = list[0].textContent;
@@ -137,7 +134,7 @@ defineFeature(feature, test => {
         });
 
         and("the information will be displayed in time intervals of quarter of an hour, e.g. 09:00, 09:15, 09:30, 09:45, 10:00, 10:15, etc.", async (docString) => {
-            expect(screen.getByText("10:00")).toBeDefined();
+            expect(screen.getByText("10:00")).toBeInTheDocument();
         });
     });
 

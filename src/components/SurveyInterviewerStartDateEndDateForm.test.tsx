@@ -5,7 +5,7 @@
 import "@testing-library/jest-dom";
 import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Router } from "react-router";
 import SurveyInterviewerStartDateEndDateForm from "./SurveyInterviewerStartDateEndDateForm";
 import { act } from "react-dom/test-utils";
@@ -16,12 +16,12 @@ import MockDate from "mockdate";
 const christmasEve97 = "1997-12-24";
 
 describe("form - survey, interviewer, start date, end date", () => {
-    afterEach(() => {
-        MockDate.reset();
-    });
-
     beforeEach(() => {
         MockDate.set(new Date(christmasEve97));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
     });
 
     it("matches snapshot", async () => {
@@ -36,9 +36,7 @@ describe("form - survey, interviewer, start date, end date", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("renders correctly", async () => {
@@ -61,8 +59,5 @@ describe("form - survey, interviewer, start date, end date", () => {
         expect(screen.queryByText("End date")).toBeVisible();
         expect(screen.queryByText("Run")).toBeVisible();
 
-    });
-    afterAll(() => {
-        cleanup();
     });
 });

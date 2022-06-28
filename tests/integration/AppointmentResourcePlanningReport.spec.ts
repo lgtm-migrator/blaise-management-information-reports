@@ -1,19 +1,19 @@
 import {expect, test} from "@playwright/test";
 import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
-import {deleteTestUser, setupInstrument, setupTestUser, unInstallInstrument,} from "./helpers/BlaiseHelpers";
+import {deleteTestUser, setupQuestionnaire, setupTestUser, unInstallQuestionnaire,} from "./helpers/BlaiseHelpers";
 import {setupAppointment, clearCATIData} from "./helpers/CatiHelpers";
 import {loginMIR, mirTomorrow} from "./helpers/MirHelpers";
 
 const restApiUrl = process.env.REST_API_URL || "http://localhost:8000";
 const restApiClientId = process.env.REST_API_CLIENT_ID || undefined;
-const instrumentName = process.env.TEST_INSTRUMENT;
+const questionnaireName = process.env.TEST_QUESTIONNAIRE;
 const serverPark = process.env.SERVER_PARK;
 const blaiseApiClient = new BlaiseApiClient(restApiUrl, {blaiseApiClientId: restApiClientId});
 
 let userCredentials: NewUser;
 
-// if (!instrumentName) {
-//     console.error("Instrument name is undefined");
+// if (!questionnaireName) {
+//     console.error("Questionnaire name is undefined");
 //     process.exit(1);
 // }
 //
@@ -21,6 +21,7 @@ let userCredentials: NewUser;
 //     console.error("Server park is undefined");
 //     process.exit(1);
 // }
+//
 //
 // test.describe("Without data", () => {
 //     test.beforeEach(async ({ page }, testInfo) => {
@@ -70,8 +71,8 @@ let userCredentials: NewUser;
 //         testInfo.setTimeout(300000);
 //
 //         userCredentials = await setupTestUser(blaiseApiClient, serverPark);
-//         await setupInstrument(blaiseApiClient, instrumentName, serverPark);
-//         await setupAppointment(page, instrumentName, userCredentials);
+//         await setupQuestionnaire(blaiseApiClient, questionnaireName, serverPark);
+//         await setupAppointment(page, questionnaireName, userCredentials);
 //
 //         console.log(`Finished running before each hook for test ${testInfo.title}`);
 //     });
@@ -80,8 +81,8 @@ let userCredentials: NewUser;
 //         console.log(`Started running after each hook for test ${testInfo.title}`);
 //
 //         await deleteTestUser(blaiseApiClient, serverPark, userCredentials.name);
-//         await clearCATIData(page, instrumentName, userCredentials);
-//         await unInstallInstrument(blaiseApiClient, serverPark, instrumentName);
+//         await clearCATIData(page, questionnaireName, userCredentials);
+//         await unInstallQuestionnaire(blaiseApiClient, serverPark, questionnaireName);
 //
 //         console.log(`Finished running after each hook for test ${testInfo.title}`);
 //     });
@@ -118,7 +119,3 @@ test.describe("Placeholder test that always passes", () => {
         expect("True");
     });
 });
-
-
-
-
