@@ -15,14 +15,14 @@ const mockAdapter = new MockAdapter(axios);
 
 const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 describe("QuestionnaireSelector tests", () => {
-    let setInstruments: (instruments: string[]) => void;
+    let setQuestionnaires: (questionnaires: string[]) => void;
     let submit: () => void;
     let wrapper: RenderResult;
     
     beforeEach(async () =>{
         const axiosMock = new MockAdapter(axios);
         axiosMock.onPost("/api/questionnaires").reply(200, questionnairesReturned);
-        setInstruments = jest.fn();
+        setQuestionnaires = jest.fn();
         submit = jest.fn();
         await act(async () => {
             wrapper = renderComponent();
@@ -39,14 +39,14 @@ describe("QuestionnaireSelector tests", () => {
                                   startDate={ new Date("2022-05-04") }
                                   endDate={ new Date("2022-05-05") }
                                   surveyTla="LMS"
-                                  instruments={ questionnairesReturned } 
-                                  setQuestionnaires={ setInstruments }
+                                  questionnaires={ questionnairesReturned } 
+                                  setQuestionnaires={ setQuestionnaires }
                                   submitFunction={ submit }/>
         );
     }
 
     it("matches snapshot", async () => {
-        mockAdapter.onPost("/api/instruments").reply(200, questionnairesReturned);
+        mockAdapter.onPost("/api/questionnaires").reply(200, questionnairesReturned);
         await screen.findByText("LMS2101_AA1");
         expect(wrapper).toMatchSnapshot();
     });
