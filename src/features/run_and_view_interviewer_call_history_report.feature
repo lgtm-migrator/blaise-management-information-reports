@@ -6,8 +6,8 @@ Feature: Run and view interviewer call history report
   # Scenario 1:
   Scenario: Run and view interviewer call history report
     Given An interviewer ID and time period (start date and end date) has been specified
-    When I click next to retrieve a list of instruments
-    When I select an instrument and click on run report
+    When I click next to retrieve a list of questionnaires
+    When I select a questionnaire and click on run report
     Then I will receive a list of the following information relating to that interviewer for each call worked on, during the time period specified:
     """
       * Questionnaire

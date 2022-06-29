@@ -43,19 +43,19 @@ export async function deleteTestUser(blaiseApiClient: BlaiseApiClient, serverPar
     }
 }
 
-export async function setupInstrument(blaiseApiClient: BlaiseApiClient, instrumentName: string, serverPark: string): Promise<void> {
+export async function setupQuestionnaire(blaiseApiClient: BlaiseApiClient, questionnaireName: string, serverPark: string): Promise<void> {
     const today = new Date();
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
 
-    console.log(`Attempting to install and configure instrument ${instrumentName} on server park ${serverPark}`);
+    console.log(`Attempting to install and configure questionnaire ${questionnaireName} on server park ${serverPark}`);
 
     await connectToRestApi(blaiseApiClient);
-    await installInstrument(blaiseApiClient, serverPark, instrumentName);
-    await addSurveyDays(blaiseApiClient, serverPark, today, tomorrow, instrumentName);
-    await addDaybatch(blaiseApiClient, serverPark, today, instrumentName);
+    await installQuestionnaire(blaiseApiClient, serverPark, questionnaireName);
+    await addSurveyDays(blaiseApiClient, serverPark, today, tomorrow, questionnaireName);
+    await addDaybatch(blaiseApiClient, serverPark, today, questionnaireName);
 
-    console.log(`Installed and configured instrument ${instrumentName} on server park ${serverPark}`);
+    console.log(`Installed and configured questionnaire ${questionnaireName} on server park ${serverPark}`);
 }
 
 async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
@@ -67,15 +67,19 @@ async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
     }
 }
 
-async function installInstrument(blaiseApiClient: BlaiseApiClient, serverPark: string, instrumentName: string) {
+async function installQuestionnaire(blaiseApiClient: BlaiseApiClient, serverPark: string, questionnaireName: string) {
     try {
-        await blaiseApiClient.installInstrument(serverPark, {instrumentFile: `${instrumentName}.bpkg`});
+        const installQuestionnaireObject = {
+            questionnaireFile: `${questionnaireName}.bpkg`,
+        };
+
+        await blaiseApiClient.installQuestionnaire(serverPark, installQuestionnaireObject);
         for (let attempts = 0; attempts <= 12; attempts++) {
-            const instrumentDetails = await blaiseApiClient.getInstrument(serverPark, `${instrumentName}`);
-            if (instrumentDetails.status == "Active") {
+            const questionnaireDetails = await blaiseApiClient.getQuestionnaire(serverPark, `${questionnaireName}`);
+            if (questionnaireDetails.status == "Active") {
                 break;
             } else {
-                console.log(`Instrument ${instrumentName} is not active, waiting to add cases`);
+                console.log(`Questionnaire ${questionnaireName} is not active, waiting to add cases`);
                 await new Promise(f => setTimeout(f, 20000));
             }
         }
@@ -88,38 +92,38 @@ async function installInstrument(blaiseApiClient: BlaiseApiClient, serverPark: s
                 "qdatabag.sampsname": "sname",
                 "qdatabag.name": "name"
             };
-            await blaiseApiClient.addCase(serverPark, `${instrumentName}`, caseID.toString(), caseFields);
+            await blaiseApiClient.addCase(serverPark, `${questionnaireName}`, caseID.toString(), caseFields);
         }
     } catch (error) {
-        console.error(`Failed to install instrument: ${error}`);
+        console.error(`Failed to install questionnaire: ${error}`);
         throw(error);
     }
 }
 
-export async function unInstallInstrument(blaiseApiClient: BlaiseApiClient, serverPark: string, instrumentName: string): Promise<void>
+export async function unInstallQuestionnaire(blaiseApiClient: BlaiseApiClient, serverPark: string, questionnaireName: string): Promise<void>
 {
     try {
-        console.log(`Uninstalling test instrument ${instrumentName}`);
-        await blaiseApiClient.deleteInstrument(serverPark, `${instrumentName}`);
-        console.log(`Uninstalled test instrument ${instrumentName}`);
+        console.log(`Uninstalling test questionnaire ${questionnaireName}`);
+        await blaiseApiClient.deleteQuestionnaire(serverPark, `${questionnaireName}`);
+        console.log(`Uninstalled test questionnaire ${questionnaireName}`);
     }
     catch (error) {
-        console.error(`Failed to uninstall instrument: ${error}`);
+        console.error(`Failed to uninstall questionnaire: ${error}`);
     }
 }
 
-async function addSurveyDays(blaiseApiClient: BlaiseApiClient, serverPark: string, today: Date, tomorrow: Date, instrumentName: string) {
+async function addSurveyDays(blaiseApiClient: BlaiseApiClient, serverPark: string, today: Date, tomorrow: Date, questionnaireName: string) {
     try {
-        await blaiseApiClient.addSurveyDays(serverPark, `${instrumentName}`, [today.toISOString(), tomorrow.toISOString()]);
+        await blaiseApiClient.addSurveyDays(serverPark, `${questionnaireName}`, [today.toISOString(), tomorrow.toISOString()]);
     } catch (error) {
         console.error(`Failed to add survey days: ${error}`);
         throw(error);
     }
 }
 
-async function addDaybatch(blaiseApiClient: BlaiseApiClient, serverPark: string, today: Date, instrumentName: string) {
+async function addDaybatch(blaiseApiClient: BlaiseApiClient, serverPark: string, today: Date, questionnaireName: string) {
     try {
-        await blaiseApiClient.addDaybatch(serverPark, `${instrumentName}`, {
+        await blaiseApiClient.addDaybatch(serverPark, `${questionnaireName}`, {
             dayBatchDate: today.toISOString(),
             checkForTreatedCases: false
         });

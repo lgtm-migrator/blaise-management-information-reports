@@ -1,11 +1,11 @@
 import React, {ReactElement, useState} from "react";
 import InterviewerFilter from "../filters/InterviewerFilter";
-import InstrumentFilter from "../filters/InstrumentFilter";
+import QuestionnaireFilter from "../filters/QuestionnaireFilter";
 import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
 
 enum Step {
     InterviewerFilter,
-    InstrumentFilter,
+    QuestionnaireFilter,
     RenderReport,
 }
 
@@ -15,7 +15,7 @@ function InterviewerCallHistory(): ReactElement {
     const [startDate, setStartDate] = useState<Date>(new Date());
     const [endDate, setEndDate] = useState<Date>(new Date());
     const [surveyTla, setSurveyTla] = useState<string>("");
-    const [instruments, setInstruments] = useState<string[]>([]);
+    const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
     function _renderStepContent(step: number) {
         switch (step) {
@@ -26,21 +26,21 @@ function InterviewerCallHistory(): ReactElement {
                                            endDate={endDate} setEndDate={setEndDate}
                                            surveyTla={surveyTla} setSurveyTla={setSurveyTla}
                                            submitFunction={_handleSubmit}/>);
-            case Step.InstrumentFilter:
-                return (<InstrumentFilter interviewer={interviewer}
-                                          startDate={startDate}
-                                          endDate={endDate}
-                                          surveyTla={surveyTla}
-                                          instruments={instruments} setInstruments={setInstruments}
-                                          submitFunction={_handleSubmit}
-                                          navigateBack={_navigateBack}/>);
+            case Step.QuestionnaireFilter:
+                return (<QuestionnaireFilter interviewer={interviewer}
+                                             startDate={startDate}
+                                             endDate={endDate}
+                                             surveyTla={surveyTla}
+                                             questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
+                                             submitFunction={_handleSubmit}
+                                             navigateBack={_navigateBack}/>);
             case Step.RenderReport:
-                console.log(`Steps instruments ${instruments}`);
+                console.log(`Steps questionnaires ${questionnaires}`);
                 return (<RenderInterviewerCallHistoryReport interviewer={interviewer}
                                                             startDate={startDate}
                                                             endDate={endDate}
                                                             surveyTla={surveyTla}
-                                                            instruments={instruments}
+                                                            questionnaires={questionnaires}
                                                             navigateBack={_navigateBack}
                                                             navigateBackTwoSteps={_navigateBackTwoSteps}/>);
         }
@@ -49,13 +49,13 @@ function InterviewerCallHistory(): ReactElement {
     async function _handleSubmit() {
         switch (activeStep) {
             case Step.InterviewerFilter:
-                setActiveStep(Step.InstrumentFilter);
+                setActiveStep(Step.QuestionnaireFilter);
                 break;
-            case Step.InstrumentFilter:
+            case Step.QuestionnaireFilter:
                 setActiveStep(Step.RenderReport);
                 break;
             default:
-                setActiveStep(Step.InstrumentFilter);
+                setActiveStep(Step.QuestionnaireFilter);
         }
     }
 

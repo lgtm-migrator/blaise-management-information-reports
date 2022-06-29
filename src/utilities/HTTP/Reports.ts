@@ -16,8 +16,8 @@ function axiosConfig(): AxiosRequestConfig {
     };
 }
 
-async function getInstrumentList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
-    const url = "/api/instruments";
+async function getQuestionnaireList(surveyTla: string, interviewer: string, startDate: Date, endDate: Date): Promise<string[]> {
+    const url = "/api/questionnaires";
 
     const formData = new FormData();
     formData.append("survey_tla", surveyTla);
@@ -58,10 +58,10 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     formData.append("interviewer", form.interviewer);
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
-    formData.append("instruments", form.instruments);
+    formData.append("questionnaires", form.questionnaires);
 
-    function toReport(instrument: Record<string, unknown>): InterviewerCallHistoryReport {
-        const report = { ...instrument };
+    function toReport(questionnaire: Record<string, unknown>): InterviewerCallHistoryReport {
+        const report = { ...questionnaire };
         if (!("dial_secs" in report) || report.dial_secs === "") {
             report.dial_secs = 0;
         }
@@ -89,7 +89,7 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     formData.append("interviewer", form.interviewer);
     formData.append("start_date", form.start_date);
     formData.append("end_date", form.end_date);
-    formData.append("instruments", form.instruments);
+    formData.append("questionnaires", form.questionnaires);
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         if (response.status === 200 && Object.keys(response.data).length) {
@@ -140,7 +140,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tl
 }
 
 export {
-    getInstrumentList,
+    getQuestionnaireList,
     getInterviewerCallHistoryStatus,
     getInterviewerCallHistoryReport,
     getInterviewerCallPatternReport,
