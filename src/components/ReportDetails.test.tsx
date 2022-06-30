@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Router } from "react-router";
 import ReportDetails from "./ReportDetails";
 import { act } from "react-dom/test-utils";
@@ -20,9 +20,7 @@ describe("ReportDetails", () => {
             await flushPromises();
         });
 
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+        expect(await wrapper).toMatchSnapshot();
     });
     it("renders correctly", async () => {
         const history = createMemoryHistory();
@@ -35,9 +33,5 @@ describe("ReportDetails", () => {
         });
         expect(screen.queryByText("blah-title")).toBeVisible();
         expect(screen.queryByText("blah-description")).toBeVisible();
-    });
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
     });
 });

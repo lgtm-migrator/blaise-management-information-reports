@@ -3,7 +3,7 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import AppointmentFilter from "../filters/AppointmentFilter";
-import AppointmentInstrumentFilter from "../filters/AppointmentInstrumentFilter";
+import AppointmentQuestionnaireFilter from "../filters/AppointmentQuestionnaireFilter";
 import RenderAppointmentResourcePlanningReport from "./RenderAppointmentResourcePlanningReport";
 
 dateFormatter.extend(utc);
@@ -11,7 +11,7 @@ dateFormatter.extend(timezone);
 
 enum Step {
     AppointmentFilter,
-    InstrumentFilter,
+    QuestionnaireFilter,
     RenderReport,
 }
 
@@ -19,7 +19,7 @@ function AppointmentResourcePlanning(): ReactElement {
     const [activeStep, setActiveStep] = useState<Step>(Step.AppointmentFilter);
     const [reportDate, setReportDate] = useState<Date>(new Date());
     const [surveyTla, setSurveyTla] = useState<string>("");
-    const [instruments, setInstruments] = useState<string[]>([]);
+    const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
     function _renderStepContent(step: number) {
         switch (step) {
@@ -28,17 +28,17 @@ function AppointmentResourcePlanning(): ReactElement {
                                            reportDate={reportDate} setReportDate={setReportDate}
                                            surveyTla={surveyTla} setSurveyTla={setSurveyTla}
                                            submitFunction={_handleSubmit}/>);
-            case Step.InstrumentFilter:
-                return (<AppointmentInstrumentFilter reportDate={reportDate}
-                                          surveyTla={surveyTla}
-                                          instruments={instruments} setInstruments={setInstruments}
-                                          submitFunction={_handleSubmit}
-                                          navigateBack={_navigateBack}/>);
+            case Step.QuestionnaireFilter:
+                return (<AppointmentQuestionnaireFilter reportDate={reportDate}
+                                                        surveyTla={surveyTla}
+                                                        questionnaire={questionnaires} setQuestionnaires={setQuestionnaires}
+                                                        submitFunction={_handleSubmit}
+                                                        navigateBack={_navigateBack}/>);
             case Step.RenderReport:
-                console.log(`Steps instruments ${instruments}`);
+                console.log(`Steps questionnaires ${questionnaires}`);
                 return (<RenderAppointmentResourcePlanningReport reportDate={reportDate}
                                                             surveyTla={surveyTla}
-                                                            instruments={instruments}
+                                                            questionnaires={questionnaires}
                                                             navigateBack={_navigateBack}
                                                             navigateBackTwoSteps={_navigateBackTwoSteps}/>);
         }
@@ -48,9 +48,9 @@ function AppointmentResourcePlanning(): ReactElement {
     async function _handleSubmit() {
         switch (activeStep) {
             case Step.AppointmentFilter:
-                setActiveStep(Step.InstrumentFilter);
+                setActiveStep(Step.QuestionnaireFilter);
                 break;
-            case Step.InstrumentFilter:
+            case Step.QuestionnaireFilter:
                 setActiveStep(Step.RenderReport);
                 break;
             default:

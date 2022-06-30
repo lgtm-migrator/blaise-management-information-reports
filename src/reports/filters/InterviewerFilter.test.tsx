@@ -4,7 +4,7 @@
 
 import "@testing-library/jest-dom";
 import {createMemoryHistory} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
+import {cleanup, render} from "@testing-library/react";
 import {Router} from "react-router";
 import {act} from "react-dom/test-utils";
 import {screen} from "@testing-library/dom";
@@ -37,9 +37,8 @@ describe("the interviewer details page renders correctly", () => {
         );
 
         jest.useRealTimers();
-        await waitFor(() => {
-            expect(wrapper).toMatchSnapshot();
-        });
+
+        expect(await wrapper).toMatchSnapshot();
     });
 
     it("renders correctly", async () => {
@@ -70,9 +69,5 @@ describe("the interviewer details page renders correctly", () => {
 
         expect(screen.queryByText(/Start date/i)).toBeVisible();
         expect(screen.queryByText(/End date/i)).toBeVisible();
-    });
-
-    afterAll(() => {
-        cleanup();
     });
 });

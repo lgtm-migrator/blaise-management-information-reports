@@ -1,11 +1,6 @@
 import { loadConfigFromEnv } from "./Config";
 
 describe("Config setup", () => {
-    afterEach(() => {
-        jest.clearAllMocks();
-        jest.resetModules();
-    });
-
     it("should return the correct environment variables", () => {
         process.env = Object.assign({
             PROJECT_ID: "mock-project-id",

@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
@@ -60,13 +60,6 @@ describe("Appointment Summary Section", () => {
             </Router>
         );
 
-        await waitFor(() => {
-            expect(screen.queryByText("Failed to get appointment language summary")).toBeVisible();
-        });
-    });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-        cleanup();
+        expect(await screen.queryByText("Failed to get appointment language summary")).toBeVisible();
     });
 });
