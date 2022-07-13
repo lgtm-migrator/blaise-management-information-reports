@@ -103,12 +103,12 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     });
 }
 
-async function getAppointmentResourcePlanningReport(date: Date, survey_tla: string, questionnaires: string): Promise<AppointmentResourcePlanningReportData[]> {
+async function getAppointmentResourcePlanningReport(date: Date, survey_tla: string, questionnaires: string[]): Promise<AppointmentResourcePlanningReportData[]> {
     const url = "/api/reports/appointment-resource-planning/";
     const formData = new FormData();
     formData.append("date", date.toString());
     formData.append("survey_tla", survey_tla);
-    formData.append("questionnaires", questionnaires);
+    formData.append("questionnaires", questionnaires.join(","));
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
@@ -122,12 +122,12 @@ async function getAppointmentResourcePlanningReport(date: Date, survey_tla: stri
     });
 }
 
-async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tla: string, questionnaires: string): Promise<AppointmentResourcePlanningSummaryReportData[]> {
+async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tla: string, questionnaires: string[]): Promise<AppointmentResourcePlanningSummaryReportData[]> {
     const url = "/api/reports/appointment-resource-planning-summary";
     const formData = new FormData();
     formData.append("date", date.toString());
     formData.append("survey_tla", survey_tla);
-    formData.append("questionnaires", questionnaires);
+    formData.append("questionnaires", questionnaires.join(","));
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
