@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { AuthManager } from "blaise-login-react-client";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import {AuthManager} from "blaise-login-react-client";
 import {
     AppointmentResourcePlanningReportData,
     AppointmentResourcePlanningSummaryReportData,
@@ -27,7 +27,7 @@ async function getQuestionnaireList(surveyTla: string, interviewer: string, star
 
     const response = await axios.post(url, formData, axiosConfig());
 
-    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+    console.log(`Response: Status ${response.status}, data ${response.data}`);
 
     if (response.status !== 200) {
         throw new Error("Response was not 200");
@@ -61,7 +61,7 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     formData.append("questionnaires", form.questionnaires);
 
     function toReport(questionnaire: Record<string, unknown>): InterviewerCallHistoryReport {
-        const report = { ...questionnaire };
+        const report = {...questionnaire};
         if (!("dial_secs" in report) || report.dial_secs === "") {
             report.dial_secs = 0;
         }
@@ -71,7 +71,7 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     try {
         const response: AxiosResponse = await axios.post(url, formData, axiosConfig());
 
-        console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+        console.log(`Response: Status ${response.status}, data ${response.data}`);
         if (response.status === 200) {
             return response.data.map(toReport);
         }
@@ -103,11 +103,12 @@ async function getInterviewerCallPatternReport(form: Record<string, any>): Promi
     });
 }
 
-async function getAppointmentResourcePlanningReport(date: Date, survey_tla: string): Promise<AppointmentResourcePlanningReportData[]> {
+async function getAppointmentResourcePlanningReport(date: Date, survey_tla: string, questionnaires: string): Promise<AppointmentResourcePlanningReportData[]> {
     const url = "/api/reports/appointment-resource-planning/";
     const formData = new FormData();
     formData.append("date", date.toString());
     formData.append("survey_tla", survey_tla);
+    formData.append("questionnaires", questionnaires);
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
@@ -121,11 +122,12 @@ async function getAppointmentResourcePlanningReport(date: Date, survey_tla: stri
     });
 }
 
-async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tla: string): Promise<AppointmentResourcePlanningSummaryReportData[]> {
+async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tla: string, questionnaires: string): Promise<AppointmentResourcePlanningSummaryReportData[]> {
     const url = "/api/reports/appointment-resource-planning-summary";
     const formData = new FormData();
     formData.append("date", date.toString());
     formData.append("survey_tla", survey_tla);
+    formData.append("questionnaires", questionnaires);
 
     return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
         console.log(`Response: Status ${response.status}, data ${response.data}`);
