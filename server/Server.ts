@@ -13,7 +13,7 @@ import {Auth} from "blaise-login-react-server";
 import PinoHttp from "pino-http";
 
 class RequestLogger {
-    logger: PinoHttp.HttpLogger
+    logger: PinoHttp.HttpLogger;
 
     constructor(logger: PinoHttp.HttpLogger) {
         this.logger = logger;
@@ -114,9 +114,10 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/appointment-resource-planning", auth.Middleware, async function (req: Request, res: Response) {
         console.log("appointment-resource-planning endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const {date, survey_tla} = req.body;
+        const {date, survey_tla, questionnaires} = req.body;
         const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
-        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}?survey-tla=${survey_tla}`;
+        const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}?survey-tla=${survey_tla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -139,9 +140,10 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/appointment-resource-planning-summary", auth.Middleware, async function (req: Request, res: Response) {
         console.log("appointment-resource-planning-summary endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const {date, survey_tla} = req.body;
-        const dateFormatted = dateFormatter(date).format("YYYY-MM-DD");
-        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}?survey-tla=${survey_tla}`;
+        const {date, survey_tla, questionnaires} = req.body;
+        const dateFormatted = dateFormatter(date).format("YYYY-MM-DD")
+        const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}?survey-tla=${survey_tla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
