@@ -39,7 +39,8 @@
       "error",
       "always"
     ],
-    "no-undef": "off"
+    "no-undef": "off",
+    "@typescript-eslint/no-empty-function": "off"
   },
   "overrides": [
     {
