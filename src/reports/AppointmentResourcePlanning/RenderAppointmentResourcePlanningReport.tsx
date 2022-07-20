@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import {CSVLink} from "react-csv";
-import {AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData} from "../../interfaces";
+import { CSVLink } from "react-csv";
+import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
 import dateFormatter from "dayjs";
-import {getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport} from "../../utilities/HTTP";
+import { getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport } from "../../utilities/HTTP";
 import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWarning";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
-import {AppointmentResults} from "./AppointmentResults";
+import { AppointmentResults } from "./AppointmentResults";
 import AppointmentSummary from "./AppointmentSummary";
 
 interface RenderAppointmentResourcePlanningReportPageProps {
@@ -40,20 +40,20 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
     } = props;
 
     const reportExportHeaders = [
-        {label: "Questionnaire", key: "questionnaire_name"},
-        {label: "Appointment Time", key: "appointment_time"},
-        {label: "Appointment Language", key: "appointment_language"},
-        {label: "Total", key: "total"}
+        { label: "Questionnaire", key: "questionnaire_name" },
+        { label: "Appointment Time", key: "appointment_time" },
+        { label: "Appointment Language", key: "appointment_language" },
+        { label: "Total", key: "total" }
     ];
 
     useEffect(() => {
-            runAppointmentResourcePlanningReport();
-        }, []
+        runAppointmentResourcePlanningReport();
+    }, []
     );
 
     useEffect(() => {
-            runAppointmentSummary();
-        }, []
+        runAppointmentSummary();
+    }, []
     );
 
     async function runAppointmentResourcePlanningReport(): Promise<void> {
@@ -88,17 +88,17 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 console.log(summaryReport);
                 setSummaryData(summaryReport);
             }).catch(() => {
-            setSummaryFailed(true);
-        });
+                setSummaryFailed(true);
+            });
     }
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={[{link: "/", title: "Reports"}, {
+            <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Reports" }, {
                 link: "#",
                 onClickFunction: navigateBackTwoSteps,
                 title: "Appointment details"
-            }, {link: "#", onClickFunction: navigateBack, title: "Questionnaires"}]}/>
+            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}/>
             <main id="main-content" className="page__main u-mt-s">
 
                 <h1 className="u-mb-m">
@@ -115,10 +115,10 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 <AppointmentSummary data={summaryData} failed={summaryFailed}/>
                 <div className=" u-mt-m">
                     <CSVLink hidden={reportData === null || reportData.length === 0}
-                             data={reportData}
-                             headers={reportExportHeaders}
-                             target="_blank"
-                             filename={`appointment-resource-planning-report-${reportDate}.csv`}>
+                        data={reportData}
+                        headers={reportExportHeaders}
+                        target="_blank"
+                        filename={`appointment-resource-planning-report-${reportDate}.csv`}>
                         Export report as Comma-Separated Values (CSV) file
                     </CSVLink>
                 </div>

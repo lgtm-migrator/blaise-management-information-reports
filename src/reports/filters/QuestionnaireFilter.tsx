@@ -1,4 +1,4 @@
-import React, { ReactElement} from "react";
+import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
@@ -27,7 +27,7 @@ function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement 
         <>
             <div>
                 <Breadcrumbs
-                    BreadcrumbList={[{link: "/", title: "Reports"}, {
+                    BreadcrumbList={[{ link: "/", title: "Reports" }, {
                         link: "#",
                         onClickFunction: navigateBack,
                         title: "Interviewer details"

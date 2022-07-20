@@ -1,13 +1,13 @@
-import React, {ReactElement} from "react";
-import {AppointmentResourcePlanningSummaryReportData} from "../../interfaces";
-import {ONSPanel} from "blaise-design-system-react-components";
+import React, { ReactElement } from "react";
+import { AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
+import { ONSPanel } from "blaise-design-system-react-components";
 
 interface Props {
     data: AppointmentResourcePlanningSummaryReportData[];
     failed: boolean;
 }
 
-const AppointmentSummary = ({data, failed}: Props): ReactElement => {
+const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
     if (failed) {
         return <ONSPanel status={"error"}><p>Failed to get appointment language summary</p></ONSPanel>;
     }
@@ -23,26 +23,26 @@ const AppointmentSummary = ({data, failed}: Props): ReactElement => {
                     <h2 className="summary__group-title">Appointment language summary</h2>
                     <table className="summary__items u-mt-s">
                         <thead className="u-vh">
-                        <tr>
-                            <th>Language</th>
-                            <th>Total appointments</th>
-                        </tr>
+                            <tr>
+                                <th>Language</th>
+                                <th>Total appointments</th>
+                            </tr>
                         </thead>
                         {
-                            data.map(({language, total}: AppointmentResourcePlanningSummaryReportData) => {
+                            data.map(({ language, total }: AppointmentResourcePlanningSummaryReportData) => {
                                 return (
                                     <tbody className="summary__item" key={language}>
-                                    <tr className="summary__row summary__row--has-values"
-                                        data-testid={"summary-table-row"}>
-                                        <td className="summary__item-title">
-                                            <div className="summary__item--text">
-                                                {language}
-                                            </div>
-                                        </td>
-                                        <td className="summary__values">
-                                            {total}
-                                        </td>
-                                    </tr>
+                                        <tr className="summary__row summary__row--has-values"
+                                            data-testid={"summary-table-row"}>
+                                            <td className="summary__item-title">
+                                                <div className="summary__item--text">
+                                                    {language}
+                                                </div>
+                                            </td>
+                                            <td className="summary__values">
+                                                {total}
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 );
                             })

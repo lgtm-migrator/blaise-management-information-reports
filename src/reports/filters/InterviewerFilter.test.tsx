@@ -3,11 +3,11 @@
  */
 
 import "@testing-library/jest-dom";
-import {createMemoryHistory} from "history";
-import {cleanup, render} from "@testing-library/react";
-import {Router} from "react-router";
-import {act} from "react-dom/test-utils";
-import {screen} from "@testing-library/dom";
+import { createMemoryHistory } from "history";
+import { cleanup, render } from "@testing-library/react";
+import { Router } from "react-router";
+import { act } from "react-dom/test-utils";
+import { screen } from "@testing-library/dom";
 import React from "react";
 import InterviewerFilter from "./InterviewerFilter";
 
@@ -18,21 +18,21 @@ describe("the interviewer details page renders correctly", () => {
         const wrapper = render(
             <Router history={history}>
                 <InterviewerFilter title=""
-                                   interviewer={"James"} setInterviewer={() => {
-                    return;
-                }}
-                                   startDate={new Date("2021-01-01")} setStartDate={() => {
-                    return;
-                }}
-                                   endDate={new Date("2021-01-05")} setEndDate={() => {
-                    return;
-                }}
-                                   surveyTla={"LMS"} setSurveyTla={() => {
-                    return;
-                }}
-                                   submitFunction={() => {
-                                       return true;
-                                   }}/>
+                    interviewer={"James"} setInterviewer={() => {
+                        return;
+                    }}
+                    startDate={new Date("2021-01-01")} setStartDate={() => {
+                        return;
+                    }}
+                    endDate={new Date("2021-01-05")} setEndDate={() => {
+                        return;
+                    }}
+                    surveyTla={"LMS"} setSurveyTla={() => {
+                        return;
+                    }}
+                    submitFunction={() => {
+                        return true;
+                    }}/>
             </Router>
         );
 
@@ -48,11 +48,11 @@ describe("the interviewer details page renders correctly", () => {
             render(
                 <Router history={history}>
                     <InterviewerFilter title=""
-                                       interviewer={"James"} setInterviewer={() => {return;}}
-                                       startDate={new Date("2021-01-01")} setStartDate={() => {return;}}
-                                       endDate={new Date("2021-01-05")} setEndDate={() => {return;}}
-                                       surveyTla={"LMS"} setSurveyTla={() => {return;}}
-                                       submitFunction={() => {return true;}}/>
+                        interviewer={"James"} setInterviewer={() => {return;}}
+                        startDate={new Date("2021-01-01")} setStartDate={() => {return;}}
+                        endDate={new Date("2021-01-05")} setEndDate={() => {return;}}
+                        surveyTla={"LMS"} setSurveyTla={() => {return;}}
+                        submitFunction={() => {return true;}}/>
                 </Router>
             );
         });

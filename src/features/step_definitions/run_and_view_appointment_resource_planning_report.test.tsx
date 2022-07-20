@@ -25,7 +25,6 @@ AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
     return Promise.resolve(true);
 });
 
-
 const feature = loadFeature(
     "./src/features/run_and_view_appointment_resource_planning_report.feature",
     { tagFilter: "not @server and not @integration" }
@@ -58,7 +57,7 @@ const ReportSummary = [
     { language: "Other", total: 1 },
 ];
 
-const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"]
+const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 
 defineFeature(feature, test => {
     beforeEach(() => {
