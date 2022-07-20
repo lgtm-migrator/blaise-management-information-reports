@@ -1,8 +1,8 @@
-import React, {ReactElement, useEffect, useState, Fragment} from "react";
+import React, { ReactElement, useEffect, useState, Fragment } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import dateFormatter from "dayjs";
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {AuthManager} from "blaise-login-react-client";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AuthManager } from "blaise-login-react-client";
 import {
     FormFieldObject,
     ONSLoadingPanel,
@@ -41,10 +41,9 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
         setQuestionnaires,
     } = props;
 
-
     useEffect(() => {
-            getQuestionnaireList().then(setupForm);
-        }, []
+        getQuestionnaireList().then(setupForm);
+    }, []
     );
 
     function setupForm(allQuestionnaires: string[]) {
@@ -107,7 +106,7 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
         <>
             <div>
                 <Breadcrumbs
-                    BreadcrumbList={[{link: "/", title: "Reports"}, {
+                    BreadcrumbList={[{ link: "/", title: "Reports" }, {
                         link: "#",
                         onClickFunction: navigateBack,
                         title: "Appointment Details"

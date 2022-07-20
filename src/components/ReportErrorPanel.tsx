@@ -1,11 +1,11 @@
-import React, {ReactElement, useEffect} from "react";
-import {ONSPanel} from "blaise-design-system-react-components";
+import React, { ReactElement, useEffect } from "react";
+import { ONSPanel } from "blaise-design-system-react-components";
 
 interface Props {
     error: boolean;
 }
 
-const ReportErrorPanel = ({error}: Props): ReactElement => {
+const ReportErrorPanel = ({ error }: Props): ReactElement => {
     let errorFocus: HTMLDivElement | null;
 
     useEffect(() => {
