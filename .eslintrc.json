@@ -47,7 +47,8 @@
       "max": 1
     }],
     "space-in-parens": ["error", "never"],
-    "no-multi-spaces": "error"
+    "no-multi-spaces": "error",
+    "comma-spacing": ["error", { "before": false, "after": true }]
   },
   "overrides": [
     {
