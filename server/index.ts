@@ -10,7 +10,7 @@ import { Auth } from "blaise-login-react-server";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 if (process.env.NODE_ENV !== "production") {
-  dotenv.config({ path: __dirname + "/../.env" });
+    dotenv.config({ path: __dirname + "/../.env" });
 }
 
 dateFormatter.extend(customParseFormat);

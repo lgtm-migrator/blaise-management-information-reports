@@ -50,10 +50,10 @@ export async function clearCATIData(page: Page, questionnaireName: string, userC
         await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
 
         console.log(`Cleared CATI data for ${questionnaireName}`);
-        }
-        catch (error) {
-            console.log(`Error clearing down CATI data: ${error}`);
-        }
+    }
+    catch (error) {
+        console.log(`Error clearing down CATI data: ${error}`);
+    }
 }
 
 async function loginCATI(page: Page, userCredentials: NewUser) {
