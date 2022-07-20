@@ -22,7 +22,7 @@ const defaultPinoConf = {
             };
         },
         log(info: never) {
-            return {info};
+            return { info };
         },
     },
     serializers: {
@@ -35,7 +35,7 @@ const defaultPinoConf = {
 };
 
 
-export default function createLogger(options: any = {autoLogging: false}): PinoHttp.HttpLogger {
+export default function createLogger(options: any = { autoLogging: false }): PinoHttp.HttpLogger {
     let pinoConfig = {};
     if (process.env.NODE_ENV === "production") {
         pinoConfig = defaultPinoConf;
