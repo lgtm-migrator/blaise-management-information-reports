@@ -23,7 +23,6 @@ const authProvider = new BlaiseIapNodeProvider(config.BertClientId);
 const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
 const auth = new Auth(config);
 
-
 const app = newServer(config, authProvider, auth, blaiseApiClient);
 
 const port: string = process.env.PORT || "5004";
