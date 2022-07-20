@@ -46,7 +46,8 @@
     "no-multiple-empty-lines": ["error", {
       "max": 1
     }],
-    "space-in-parens": ["error", "never"]
+    "space-in-parens": ["error", "never"],
+    "no-multi-spaces": "error"
   },
   "overrides": [
     {
