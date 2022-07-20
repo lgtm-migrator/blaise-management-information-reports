@@ -7,7 +7,7 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import { Auth } from "blaise-login-react-server";
-import customParseFormat from 'dayjs/plugin/customParseFormat'
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: __dirname + "/../.env" });
