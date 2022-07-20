@@ -135,14 +135,14 @@ describe("getInterviewerCallHistoryReport", () => {
     });
 
     it("defaults dial_secs to 0 if not in the response", async () => {
-        const response: Record<string, unknown> = {...testQuestionnaireResponse};
+        const response: Record<string, unknown> = { ...testQuestionnaireResponse };
         delete response.dial_secs;
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, [response]);
         expect(await getInterviewerCallHistoryReport(testFormParameters)).toEqual([{ ...response, dial_secs: 0 }]);
     });
 
     it("defaults dial_secs to 0 if it is an empty string", async () => {
-        const response: Record<string, unknown> = {...testQuestionnaireResponse};
+        const response: Record<string, unknown> = { ...testQuestionnaireResponse };
         mockAdapter.onPost("/api/reports/interviewer-call-history")
             .reply(200, [{ ...response, dial_secs: "" }]);
         expect(await getInterviewerCallHistoryReport(testFormParameters))

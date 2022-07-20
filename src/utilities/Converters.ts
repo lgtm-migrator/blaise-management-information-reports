@@ -4,4 +4,4 @@ function convertSecondsToMinutesAndSeconds(seconds: number): string {
     return convertedMinutes + ":" + convertedSeconds;
 }
 
-export {convertSecondsToMinutesAndSeconds};
+export { convertSecondsToMinutesAndSeconds };
