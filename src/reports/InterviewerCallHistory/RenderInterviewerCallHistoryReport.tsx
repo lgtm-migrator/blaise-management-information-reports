@@ -108,7 +108,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
 
                 <br/>
                 <CSVLink hidden={reportData === null || reportData.length === 0}
-                    data={reportData}
+                    data={reportData?.map(row => ({ ...row, call_start_time:    dateFormatter(row.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss") }))}
                     headers={reportExportHeaders}
                     target="_blank"
                     filename={`interviewer-call-history-${interviewerID}.csv`}>
