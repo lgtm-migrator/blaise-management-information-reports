@@ -3,10 +3,10 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
 import { ErrorBoundary, ONSPanel } from "blaise-design-system-react-components";
 import { InterviewerCallHistoryReport } from "../../interfaces";
-import dateFormatter from "dayjs";
 import { convertSecondsToMinutesAndSeconds } from "../../utilities/Converters";
 import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
+import { bstDateFormatter, bstStringDateFormatterWithTime } from "../../utilities/Helpers";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string
@@ -97,7 +97,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 <h1>Call History Report</h1>
                 <h3 className="u-mb-m">
                     Interviewer: {interviewer} <br></br>
-                    Period: {dateFormatter(startDate).format("DD/MM/YYYY")}–{dateFormatter(endDate).format("DD/MM/YYYY")}<br></br>
+                    Period: {bstDateFormatter(startDate)}–{bstDateFormatter(endDate)}<br></br>
                     Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
                 </h3>
                 <CallHistoryLastUpdatedStatus/>
@@ -108,7 +108,11 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
 
                 <br/>
                 <CSVLink hidden={reportData === null || reportData.length === 0}
-                    data={reportData?.map(row => ({ ...row, call_start_time:    dateFormatter(row.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss") }))}
+                    data={
+                        reportData?.map(row => (
+                            { ...row, call_start_time: bstStringDateFormatterWithTime(row.call_start_time) }
+                        ))
+                    }
                     headers={reportExportHeaders}
                     target="_blank"
                     filename={`interviewer-call-history-${interviewerID}.csv`}>
@@ -152,7 +156,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                                                         {callHistory.serial_number}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {dateFormatter(callHistory.call_start_time).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss")}
+                                                        {bstStringDateFormatterWithTime(callHistory.call_start_time)}
                                                     </td>
                                                     <td className="table__cell ">
                                                         {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}
