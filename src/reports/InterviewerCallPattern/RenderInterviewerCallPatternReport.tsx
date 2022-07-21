@@ -6,9 +6,7 @@ import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
-import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import { bstDateFormatter } from "../../utilities/Helpers";
 
 interface RenderInterviewerCallPatternReportPageProps {
     interviewer: string
@@ -26,9 +24,6 @@ function formatList(listOfQuestionnaires: string[]): string {
     const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
     return firsts.join(", ") + " and " + last;
 }
-
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
     if (!numerator) {
@@ -189,7 +184,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                 <h1>Call Pattern Report</h1>
                 <h3 className="u-mb-m">
                     Interviewer: {interviewer} <br></br>
-                    Period: {dateFormatter(startDate).format("DD/MM/YYYY")}–{dateFormatter(endDate).format("DD/MM/YYYY")}<br></br>
+                    Period: {bstDateFormatter(startDate)}–{bstDateFormatter(endDate)}<br></br>
                     Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
                 </h3>
                 <ReportErrorPanel error={reportFailed}/>
