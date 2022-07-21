@@ -17,7 +17,6 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 
-
 const mockAdapter = new MockAdapter(axios);
 
 const ReportSummary = [
@@ -47,10 +46,9 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
     }
 ];
 
-const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"]
+const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 
 const christmasEve97 = "1997-12-24";
-
 
 describe("appointment resource planning report without data", () => {
     beforeEach(() => {

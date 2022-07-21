@@ -35,13 +35,13 @@ describe("QuestionnaireSelector tests", () => {
     
     function renderComponent(){
         return render(
-                <QuestionnaireSelector interviewer="Cal"
-                                  startDate={ new Date("2022-05-04") }
-                                  endDate={ new Date("2022-05-05") }
-                                  surveyTla="LMS"
-                                  questionnaires={ questionnairesReturned } 
-                                  setQuestionnaires={ setQuestionnaires }
-                                  submitFunction={ submit }/>
+            <QuestionnaireSelector interviewer="Cal"
+                startDate={ new Date("2022-05-04") }
+                endDate={ new Date("2022-05-05") }
+                surveyTla="LMS"
+                questionnaires={ questionnairesReturned } 
+                setQuestionnaires={ setQuestionnaires }
+                submitFunction={ submit }/>
         );
     }
 
@@ -93,7 +93,7 @@ describe("QuestionnaireSelector tests", () => {
 });
 
 function expectSelectAllToBeDefined(){
-    expect(screen.getByRole("button", {name: "Unselect All following checkboxes"})).toBeVisible();
+    expect(screen.getByRole("button", { name: "Unselect All following checkboxes" })).toBeVisible();
 }
 
 function expectAvailableQuestionnairesToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
@@ -104,13 +104,13 @@ function expectAvailableQuestionnairesToBeDefined(wrapper: RenderResult, questio
 
 function expectCheckboxesForEachQuestionnaireToBeDefined(wrapper: RenderResult, questionnairesReturned: string[]){
     questionnairesReturned.forEach((questionnaire) => {
-        expect(wrapper.getByRole("checkbox", {name: questionnaire})).toBeVisible();
+        expect(wrapper.getByRole("checkbox", { name: questionnaire })).toBeVisible();
     });
 }
 function expectTickWhenAQuestionnaireIsSelected(wrapper: RenderResult){
-    const checkBox = wrapper.getByRole("checkbox", {name: "LMS2101_AA1"}, {checked: true});
+    const checkBox = wrapper.getByRole("checkbox", { name: "LMS2101_AA1" }, { checked: true });
     fireEvent.click(checkBox);
-    expect(wrapper.getByRole("checkbox", {name: "LMS2101_AA1"}, {checked: false}));
+    expect(wrapper.getByRole("checkbox", { name: "LMS2101_AA1" }, { checked: false }));
 }
 
 async function expectSelectAllToSelectAllQuestionnaires(wrapper: RenderResult, questionnairesReturned: string[]){
@@ -118,7 +118,7 @@ async function expectSelectAllToSelectAllQuestionnaires(wrapper: RenderResult, q
         fireEvent.click(await screen.findByText(/Select all/));
     });
     questionnairesReturned.forEach((questionnaire) => {
-        expect(wrapper.getByRole("checkbox", {name: questionnaire}, {checked: true}));
+        expect(wrapper.getByRole("checkbox", { name: questionnaire }, { checked: true }));
     });
 }
 
@@ -135,7 +135,7 @@ async function expectUnselectAllToUnselectAllQuestionnaires(wrapper: RenderResul
         fireEvent.click(await screen.findByText(/Unselect all/));
     });
     questionnairesReturned.forEach((questionnaire) => {
-        expect(wrapper.getByRole("checkbox", {name: questionnaire}, {checked: false}));
+        expect(wrapper.getByRole("checkbox", { name: questionnaire }, { checked: false }));
     });
 }
 

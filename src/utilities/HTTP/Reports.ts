@@ -1,5 +1,5 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {AuthManager} from "blaise-login-react-client";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AuthManager } from "blaise-login-react-client";
 import {
     AppointmentResourcePlanningReportData,
     AppointmentResourcePlanningSummaryReportData,
@@ -61,7 +61,7 @@ async function getInterviewerCallHistoryReport(form: Record<string, any>): Promi
     formData.append("questionnaires", form.questionnaires);
 
     function toReport(questionnaire: Record<string, unknown>): InterviewerCallHistoryReport {
-        const report = {...questionnaire};
+        const report = { ...questionnaire };
         if (!("dial_secs" in report) || report.dial_secs === "") {
             report.dial_secs = 0;
         }

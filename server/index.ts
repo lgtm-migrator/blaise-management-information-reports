@@ -7,10 +7,10 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import { Auth } from "blaise-login-react-server";
-import customParseFormat from 'dayjs/plugin/customParseFormat'
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 if (process.env.NODE_ENV !== "production") {
-  dotenv.config({ path: __dirname + "/../.env" });
+    dotenv.config({ path: __dirname + "/../.env" });
 }
 
 dateFormatter.extend(customParseFormat);
@@ -22,7 +22,6 @@ const config = loadConfigFromEnv();
 const authProvider = new BlaiseIapNodeProvider(config.BertClientId);
 const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
 const auth = new Auth(config);
-
 
 const app = newServer(config, authProvider, auth, blaiseApiClient);
 

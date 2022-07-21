@@ -1,5 +1,5 @@
-import {StyledForm} from "blaise-design-system-react-components";
-import React, {ReactElement} from "react";
+import { StyledForm } from "blaise-design-system-react-components";
+import React, { ReactElement } from "react";
 import dateFormatter from "dayjs";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
@@ -47,9 +47,9 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
             type: "radio",
             initial_value: surveyTla,
             radioOptions: [
-                {id: "all", value: "", label: "Show all surveys"},
-                {id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey"},
-                {id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey"}
+                { id: "all", value: "", label: "Show all surveys" },
+                { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
+                { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
             ]
         },
         {
@@ -60,12 +60,11 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
         }
     ];
 
-
     return (
         <>
             <div>
                 <Breadcrumbs
-                    BreadcrumbList={[{link: "/", title: "Reports"}]}/>
+                    BreadcrumbList={[{ link: "/", title: "Reports" }]}/>
                 <main id="main-content" className="page__main u-mt-s">
                     <h1 className="u-mb-m">Run {title} report</h1>
                     <AppointmentResourceDaybatchWarning/>

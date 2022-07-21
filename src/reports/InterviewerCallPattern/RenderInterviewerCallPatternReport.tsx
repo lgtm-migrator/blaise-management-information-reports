@@ -1,11 +1,11 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import {ErrorBoundary, Group, GroupedSummary, ONSPanel, SummaryGroupTable} from "blaise-design-system-react-components";
-import {CSVLink} from "react-csv";
+import { ErrorBoundary, Group, GroupedSummary, ONSPanel, SummaryGroupTable } from "blaise-design-system-react-components";
+import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
-import {InterviewerCallPatternReport} from "../../interfaces";
-import {getInterviewerCallPatternReport} from "../../utilities/HTTP";
+import { InterviewerCallPatternReport } from "../../interfaces";
+import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -95,12 +95,11 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
     return !callPatternReport.total_valid_cases;
 }
 
-
 function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps) {
     const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [reportData, setReportData] = useState<InterviewerCallPatternReport>();
-    const [invalidFields, setInvalidFields] = useState<Group>({title: "Invalid fields", records: {}});
+    const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [message, setMessage] = useState<string>("");
@@ -120,7 +119,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         setReportFailed(false);
         setGroupedSummary(new GroupedSummary([]));
         setInterviewerID("");
-        setInvalidFields({title: "Invalid fields", records: {}});
+        setInvalidFields({ title: "Invalid fields", records: {} });
         setAllInvalid(false);
     }
 
@@ -153,8 +152,8 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     }
 
     useEffect(() => {
-            runInterviewerCallPatternReport();
-        }, []
+        runInterviewerCallPatternReport();
+    }, []
     );
 
     async function runInterviewerCallPatternReport(): Promise<void> {
@@ -191,14 +190,13 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         groupData(callHistory);
     }
 
-
     return (
         <>
-            <Breadcrumbs BreadcrumbList={[{link: "/", title: "Reports"}, {
+            <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Reports" }, {
                 link: "#",
                 onClickFunction: navigateBackTwoSteps,
                 title: "Interviewer details"
-            }, {link: "#", onClickFunction: navigateBack, title: "Questionnaires"}]}/>
+            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
                 <h3 className="u-mb-m">
