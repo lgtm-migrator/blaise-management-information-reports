@@ -21,3 +21,7 @@ export function bstDateFormatterWithTime(date: Date): string {
 export function bstStringDateFormatterWithTime(date: string): string {
     return dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss");
 }
+
+export function mirStandardFormatForNewDate(): string {
+    return dateFormatter(new Date()).format("DD-MM-YYYY");
+}
