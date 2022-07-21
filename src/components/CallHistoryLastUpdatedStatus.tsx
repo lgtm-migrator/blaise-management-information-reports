@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import TimeAgo from "react-timeago";
-import dateFormatter from "dayjs";
 import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
+import { bstDateFormatterWithTime, bstStringDateFormatterWithTime } from "../utilities/Helpers";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const [reportStatus, setReportStatus] = useState<Date | "">("");
@@ -25,7 +25,7 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         return (
             <>
                 {<TimeAgo live={false} date={reportStatus}/>}
-                {(reportStatus ? "" + dateFormatter(reportStatus).tz("Europe/London").format(" (DD/MM/YYYY HH:mm:ss)") : "Loading")}
+                {(reportStatus ? "" + bstDateFormatterWithTime(reportStatus) : "Loading")}
             </>
         );
     };
