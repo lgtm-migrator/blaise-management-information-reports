@@ -6,7 +6,7 @@ import { InterviewerCallHistoryReport } from "../../interfaces";
 import { convertSecondsToMinutesAndSeconds } from "../../utilities/Converters";
 import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { bstDateFormatter } from "../../utilities/Helpers";
+import { mirBstDateFormatter } from "../../utilities/Helpers";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string
@@ -97,7 +97,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 <h1>Call History Report</h1>
                 <h3 className="u-mb-m">
                     Interviewer: {interviewer} <br></br>
-                    Period: {bstDateFormatter(startDate)}–{bstDateFormatter(endDate)}<br></br>
+                    Period: {mirBstDateFormatter(startDate)}–{mirBstDateFormatter(endDate)}<br></br>
                     Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
                 </h3>
                 <CallHistoryLastUpdatedStatus/>
@@ -110,7 +110,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 <CSVLink hidden={reportData === null || reportData.length === 0}
                     data={
                         reportData?.map(row => (
-                            { ...row, call_start_time: bstDateFormatter(row.call_start_time, true) }
+                            { ...row, call_start_time: mirBstDateFormatter(row.call_start_time, true) }
                         ))
                     }
                     headers={reportExportHeaders}
@@ -156,7 +156,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                                                         {callHistory.serial_number}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {bstDateFormatter(callHistory.call_start_time, true)}
+                                                        {mirBstDateFormatter(callHistory.call_start_time, true)}
                                                     </td>
                                                     <td className="table__cell ">
                                                         {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}

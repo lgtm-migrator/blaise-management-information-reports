@@ -16,7 +16,7 @@ export function mirDateFormat(delimeter = "/"): string {
     return `DD${delimeter}MM${delimeter}YYYY`;
 }
 
-export function bstDateFormatter(date: Date | string, includeTime = false): string {
+export function mirBstDateFormatter(date: Date | string, includeTime = false): string {
     if (includeTime) {
         return dateFormatter(date).tz("Europe/London").format(`${mirDateFormat()} HH:mm:ss`);
     }

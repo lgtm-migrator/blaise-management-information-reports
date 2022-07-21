@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import QuestionnaireSelector from "../../components/QuestionnaireSelector";
-import { bstDateFormatter } from "../../utilities/Helpers";
+import { mirBstDateFormatter } from "../../utilities/Helpers";
 
 interface QuestionnaireFilterPageProps {
     interviewer: string
@@ -36,7 +36,7 @@ function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement 
                     <h1>Select questionnaires for</h1>
                     <h3 className="u-mb-m">
                         Interviewer: {interviewer}<br></br>
-                        Period: {bstDateFormatter(startDate)}–{bstDateFormatter(endDate)}
+                        Period: {mirBstDateFormatter(startDate)}–{mirBstDateFormatter(endDate)}
                     </h3>
                     <CallHistoryLastUpdatedStatus/>
                     <QuestionnaireSelector {...props}/>
