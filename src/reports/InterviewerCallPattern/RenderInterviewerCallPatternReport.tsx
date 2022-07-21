@@ -111,15 +111,6 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         navigateBackTwoSteps,
     } = props;
 
-    // function defaultState() {
-    //     setMessageNoData("");
-    //     setReportFailed(false);
-    //     setGroupedSummary(new GroupedSummary([]));
-    //     setInterviewerID("");
-    //     setInvalidFields({ title: "Invalid fields", records: {} });
-    //     setAllInvalid(false);
-    // }
-
     function groupData(callPatternReport: InterviewerCallPatternReport) {
         const callTimes: Group = callTimeSection(callPatternReport);
         const callStatus: Group = callStatusSection(callPatternReport);
