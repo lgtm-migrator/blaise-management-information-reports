@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
 import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
-import dateFormatter from "dayjs";
 import { getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport } from "../../utilities/HTTP";
 import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWarning";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { AppointmentResults } from "./AppointmentResults";
 import AppointmentSummary from "./AppointmentSummary";
+import { bstDateFormatter } from "../../utilities/Helpers";
 
 interface RenderAppointmentResourcePlanningReportPageProps {
     reportDate: Date;
@@ -105,7 +105,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                     Appointment Resource Planning Report
                 </h1>
                 <h3 className="u-mb-m">
-                    Date: {dateFormatter(reportDate).format("DD/MM/YYYY")}<br/>
+                    Date: {bstDateFormatter(reportDate)}<br/>
                     Questionnaire{questionnaires.length > 1 ? ("s:") : ":"} {formatList(questionnaires)}{" "}
                 </h3>
                 <AppointmentResourceDaybatchWarning/>
