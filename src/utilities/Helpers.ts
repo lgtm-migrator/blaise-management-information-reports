@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import dateFormatter from "dayjs";
 
-export default function subtractYears(numOfYears: any, date: Date = new Date()) {
+export default function subtractYears(numOfYears: number, date: Date = new Date()): Date {
     return dayjs(date).subtract(numOfYears, "year").toDate();
 }
 
