@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import TimeAgo from "react-timeago";
 import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
-import { bstDateFormatterWithTime } from "../utilities/Helpers";
+import { bstDateFormatter } from "../utilities/Helpers";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const [reportStatus, setReportStatus] = useState<Date | "">("");
@@ -18,6 +18,14 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         });
     }, []);
 
+    const DisplayResult = () => {
+        const date = bstDateFormatter(reportStatus, true);
+        if (date == "Invalid Date") {
+            return date;
+        }
+        return ` (${date})`;
+    };
+
     const ReportStatusText = () => {
         if (reportStatusFailed) {
             return (<>Unknown</>);
@@ -25,7 +33,9 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         return (
             <>
                 {<TimeAgo live={false} date={reportStatus}/>}
-                {(reportStatus ? "" + bstDateFormatterWithTime(reportStatus) : "Loading")}
+                {(reportStatus ?
+                    DisplayResult() :
+                    "Loading")}
             </>
         );
     };

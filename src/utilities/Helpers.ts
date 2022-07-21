@@ -20,15 +20,6 @@ export function bstDateFormatter(date: Date | string, includeTime = false): stri
 
 }
 
-export function bstDateFormatterWithTime(date: Date): string {
-    // I am aware this is horrific but it keeps the tests passing for now.
-    const valid_date = dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss");
-    if (valid_date == "Invalid Date") {
-        return valid_date;
-    }
-    return ` (${valid_date})`;
-}
-
 export function mirStandardNewDateFormatter(): string {
     return dateFormatter(new Date()).format("DD-MM-YYYY");
 }
