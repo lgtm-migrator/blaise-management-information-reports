@@ -2,7 +2,6 @@ import { FormFieldObject, ONSLoadingPanel, ONSPanel, StyledForm } from "blaise-d
 import React, { ReactElement, useEffect, useState } from "react";
 import { getQuestionnaireList } from "../utilities/HTTP";
 
-
 interface QuestionnaireSelectorProps{
     interviewer: string
     startDate: Date

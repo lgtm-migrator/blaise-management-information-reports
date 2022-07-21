@@ -1,5 +1,5 @@
-import {Page} from "@playwright/test";
-import {NewUser} from "blaise-api-node-client";
+import { Page } from "@playwright/test";
+import { NewUser } from "blaise-api-node-client";
 
 const CATI_URL = process.env.CATI_URL;
 
@@ -47,19 +47,19 @@ export async function clearCATIData(page: Page, questionnaireName: string, userC
         await page.uncheck("#BackupDialHistory");
         await page.uncheck("#BackupEvents");
         await page.click("#chkClearAll");
-        await page.click("input[type=submit]:has-text('Execute')", {timeout: 20000});
+        await page.click("input[type=submit]:has-text('Execute')", { timeout: 20000 });
 
         console.log(`Cleared CATI data for ${questionnaireName}`);
-        }
-        catch (error) {
-            console.log(`Error clearing down CATI data: ${error}`);
-        }
+    }
+    catch (error) {
+        console.log(`Error clearing down CATI data: ${error}`);
+    }
 }
 
 async function loginCATI(page: Page, userCredentials: NewUser) {
     await page.goto(`${CATI_URL}/blaise`);
     const loginHeader = page.locator("h1:has-text('Login')");
-    if (await loginHeader.isVisible({timeout: 20000})) {
+    if (await loginHeader.isVisible({ timeout: 20000 })) {
         await page.locator("#Username").type(`${userCredentials.name}`);
         await page.locator("#Password").type(`${userCredentials.password}`);
         await page.click("button[type=submit]");
@@ -67,11 +67,11 @@ async function loginCATI(page: Page, userCredentials: NewUser) {
 }
 
 async function filterCATIQuestionnaire(page: Page, questionnaireName: string) {
-    await page.waitForSelector("#MVCGrid_Loading_CaseInfoGrid", {state: "hidden"});
+    await page.waitForSelector("#MVCGrid_Loading_CaseInfoGrid", { state: "hidden" });
     await page.click(".filter-state:has-text('Filters')");
     await page.check(`text=${questionnaireName}`);
     await page.click("button:has-text('Apply')");
-    await page.waitForSelector("#MVCGrid_Loading_CaseInfoGrid", {state: "hidden"});
+    await page.waitForSelector("#MVCGrid_Loading_CaseInfoGrid", { state: "hidden" });
 }
 
 function catiTomorrow10am(): number {

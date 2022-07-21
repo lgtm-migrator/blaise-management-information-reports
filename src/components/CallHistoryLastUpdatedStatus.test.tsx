@@ -4,12 +4,12 @@
 
 import "@testing-library/jest-dom";
 import flushPromises from "../tests/utilities";
-import {createMemoryHistory} from "history";
-import {render} from "@testing-library/react";
-import {Router} from "react-router";
+import { createMemoryHistory } from "history";
+import { render } from "@testing-library/react";
+import { Router } from "react-router";
 import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
-import {act} from "react-dom/test-utils";
-import {screen} from "@testing-library/dom";
+import { act } from "react-dom/test-utils";
+import { screen } from "@testing-library/dom";
 import React from "react";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -28,7 +28,7 @@ const dateOneYearAgo = subtractYears(1);
 describe("call history last updated status with data", () => {
     beforeEach(() => {
         mockAdapter.onGet("/api/reports/call-history-status").reply(200,
-            {"last_updated": dateOneYearAgo});
+            { "last_updated": dateOneYearAgo });
     });
 
     afterEach(() => {
@@ -39,7 +39,7 @@ describe("call history last updated status with data", () => {
         // This snapshot will need to be updated in 1 years time (28/06/2023)
         mockAdapter
             .onGet("/api/reports/call-history-status")
-            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            .reply(200, { last_updated: "Sat, 01 Jan 2000 10:00:00 GMT" });
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>

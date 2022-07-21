@@ -1,5 +1,5 @@
-import BlaiseApiClient, {NewUser} from "blaise-api-node-client";
-import {v4 as uuidv4} from "uuid";
+import BlaiseApiClient, { NewUser } from "blaise-api-node-client";
+import { v4 as uuidv4 } from "uuid";
 
 export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark :string): Promise<NewUser> {
     await connectToRestApi(blaiseApiClient);

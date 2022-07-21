@@ -32,7 +32,7 @@ const mockAuthProvider : BlaiseIapNodeProvider = {
     CLIENT_ID: undefined,
     token: undefined,
     getAuthHeader: async function (): Promise<{ Authorization: string; }> {
-        return {Authorization : "example token"};
+        return { Authorization : "example token" };
     },
     isValidToken: undefined
 } as unknown as BlaiseIapNodeProvider;
@@ -76,10 +76,10 @@ describe("Test appointment resource planning questionnaires endpoint", () => {
 
     it("should return a 200 status and the expected list of questionnaires", async () => {
         axiosMock.onGet("http://bert.com/api/appointment-resource-planning/2022-10-27/questionnaires?survey-tla=NPM")
-                        .reply(200, questionnairesReturned);
+            .reply(200, questionnairesReturned);
         const response: supertest.Response = await request.post("/api/appointments/questionnaires")
-                                                          .field("date", "2022-10-27")
-                                                          .field("survey_tla", "NPM");
+            .field("date", "2022-10-27")
+            .field("survey_tla", "NPM");
         console.log(response.body);
         expect(response.status).toEqual(200);
         expect(response.body).toEqual(questionnairesReturned);

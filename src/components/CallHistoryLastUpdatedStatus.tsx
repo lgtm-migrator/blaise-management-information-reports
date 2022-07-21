@@ -1,8 +1,8 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import TimeAgo from "react-timeago";
 import dateFormatter from "dayjs";
-import {getInterviewerCallHistoryStatus} from "../utilities/HTTP";
-import {CallHistoryStatus} from "../interfaces";
+import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
+import { CallHistoryStatus } from "../interfaces";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const [reportStatus, setReportStatus] = useState<Date | "">("");
@@ -34,8 +34,8 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         <>
             <p className="u-fs-s u-mt-s" aria-live="polite">
                 Data in this report was last updated: <b>
-                <ReportStatusText/>
-            </b>
+                    <ReportStatusText/>
+                </b>
             </p>
             <p className="u-fs-s">
                 Data in this report only goes back to the last 12 months.

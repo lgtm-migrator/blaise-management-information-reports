@@ -3,11 +3,11 @@
  */
 
 import "@testing-library/jest-dom";
-import {createMemoryHistory, History} from "history";
-import {cleanup, render, waitFor} from "@testing-library/react";
-import {Router} from "react-router";
-import {act} from "react-dom/test-utils";
-import {fireEvent, screen} from "@testing-library/dom";
+import { createMemoryHistory, History } from "history";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Router } from "react-router";
+import { act } from "react-dom/test-utils";
+import { fireEvent, screen } from "@testing-library/dom";
 import React from "react";
 import QuestionnaireFilter from "./QuestionnaireFilter";
 import MockAdapter from "axios-mock-adapter";
@@ -36,7 +36,7 @@ describe("the interviewer details page renders correctly", () => {
         mockAdapter
             .onGet("/api/reports/call-history-status")
             //.reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
-            .reply(200, {last_updated: subtractYears(1)});
+            .reply(200, { last_updated: subtractYears(1) });
         history = createMemoryHistory();
         setQuestionnaires = jest.fn();
         submit = jest.fn();
@@ -50,14 +50,14 @@ describe("the interviewer details page renders correctly", () => {
         return render(
             <Router history={ history }>
                 <QuestionnaireFilter interviewer="James"
-                                     startDate={ new Date("2022-01-01") }
-                                     endDate={ new Date("2022-01-05") }
-                                     surveyTla="LMS"
-                                     questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
-                                     submitFunction={ submit }
-                                     navigateBack={ () => {
-                                      return;
-                                  }}/>
+                    startDate={ new Date("2022-01-01") }
+                    endDate={ new Date("2022-01-05") }
+                    surveyTla="LMS"
+                    questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
+                    submitFunction={ submit }
+                    navigateBack={ () => {
+                        return;
+                    }}/>
             </Router>
         );
     }
@@ -96,7 +96,7 @@ describe("the interviewer details page renders correctly", () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         mockAdapter
             .onGet("/api/reports/call-history-status")
-            .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            .reply(200, { last_updated: "Sat, 01 Jan 2000 10:00:00 GMT" });
         const wrapper = renderComponent();
         await screen.findByText("LMS2101_AA1");
         expect(wrapper).toMatchSnapshot();
