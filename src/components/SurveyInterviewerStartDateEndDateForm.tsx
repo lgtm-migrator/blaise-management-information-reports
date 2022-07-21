@@ -49,14 +49,12 @@ const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): Rea
         {
             name: "Start date",
             type: "date",
-            // TODO: Changing these formats breaks tests
             initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
             validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            // TODO: Changing these formats breaks tests
             initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
             validate: validateDate
         }
