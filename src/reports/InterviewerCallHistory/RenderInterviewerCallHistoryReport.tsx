@@ -6,7 +6,7 @@ import { InterviewerCallHistoryReport } from "../../interfaces";
 import { convertSecondsToMinutesAndSeconds } from "../../utilities/Converters";
 import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { bstDateFormatter, bstStringDateFormatterWithTime } from "../../utilities/Helpers";
+import { bstDateFormatter } from "../../utilities/Helpers";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string
@@ -110,7 +110,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 <CSVLink hidden={reportData === null || reportData.length === 0}
                     data={
                         reportData?.map(row => (
-                            { ...row, call_start_time: bstStringDateFormatterWithTime(row.call_start_time) }
+                            { ...row, call_start_time: bstDateFormatter(row.call_start_time, true) }
                         ))
                     }
                     headers={reportExportHeaders}
@@ -156,7 +156,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                                                         {callHistory.serial_number}
                                                     </td>
                                                     <td className="table__cell ">
-                                                        {bstStringDateFormatterWithTime(callHistory.call_start_time)}
+                                                        {bstDateFormatter(callHistory.call_start_time, true)}
                                                     </td>
                                                     <td className="table__cell ">
                                                         {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}

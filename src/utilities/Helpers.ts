@@ -12,8 +12,12 @@ export default function subtractYears(numOfYears: number, date: Date = new Date(
     return dayjs(date).subtract(numOfYears, "year").toDate();
 }
 
-export function bstDateFormatter(date: Date): string {
+export function bstDateFormatter(date: Date | string, includeTime = false): string {
+    if (includeTime) {
+        return dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss");
+    }
     return dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY");
+
 }
 
 export function bstDateFormatterWithTime(date: Date): string {
@@ -25,10 +29,6 @@ export function bstDateFormatterWithTime(date: Date): string {
     return ` (${valid_date})`;
 }
 
-export function bstStringDateFormatterWithTime(date: string): string {
-    return dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss");
-}
-
-export function mirStandardFormatForNewDate(): string {
+export function mirStandardNewDateFormatter(): string {
     return dateFormatter(new Date()).format("DD-MM-YYYY");
 }

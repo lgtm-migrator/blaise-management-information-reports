@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import { mirStandardFormatForNewDate } from "../utilities/Helpers";
+import { mirStandardNewDateFormatter } from "../utilities/Helpers";
 
 interface Props {
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
@@ -23,7 +23,7 @@ const SurveyDateForm = ({ onSubmitFunction }: Props): ReactElement => {
         {
             name: "Date",
             type: "date",
-            initial_value: mirStandardFormatForNewDate(),
+            initial_value: mirStandardNewDateFormatter(),
         }
     ];
 
