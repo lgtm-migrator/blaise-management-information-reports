@@ -7,7 +7,7 @@ import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWar
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { AppointmentResults } from "./AppointmentResults";
 import AppointmentSummary from "./AppointmentSummary";
-import { mirBstDateFormatter } from "../../utilities/DateFormatter";
+import { formatDate } from "../../utilities/DateFormatter";
 
 interface RenderAppointmentResourcePlanningReportPageProps {
     reportDate: Date;
@@ -105,7 +105,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                     Appointment Resource Planning Report
                 </h1>
                 <h3 className="u-mb-m">
-                    Date: {mirBstDateFormatter(reportDate)}<br/>
+                    Date: {formatDate(reportDate)}<br/>
                     Questionnaire{questionnaires.length > 1 ? ("s:") : ":"} {formatList(questionnaires)}{" "}
                 </h3>
                 <AppointmentResourceDaybatchWarning/>

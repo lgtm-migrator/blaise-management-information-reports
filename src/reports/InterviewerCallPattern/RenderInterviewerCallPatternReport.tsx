@@ -6,7 +6,7 @@ import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
-import { mirBstDateFormatter } from "../../utilities/DateFormatter";
+import { formatDate } from "../../utilities/DateFormatter";
 
 interface RenderInterviewerCallPatternReportPageProps {
     interviewer: string
@@ -184,7 +184,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                 <h1>Call Pattern Report</h1>
                 <h3 className="u-mb-m">
                     Interviewer: {interviewer} <br></br>
-                    Period: {mirBstDateFormatter(startDate)}–{mirBstDateFormatter(endDate)}<br></br>
+                    Period: {formatDate(startDate)}–{formatDate(endDate)}<br></br>
                     Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
                 </h3>
                 <ReportErrorPanel error={reportFailed}/>

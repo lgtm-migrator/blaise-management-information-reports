@@ -12,14 +12,14 @@ export default function subtractYears(numOfYears: number, date: Date = new Date(
     return dayjs(date).subtract(numOfYears, "year").toDate();
 }
 
-export function mirDateFormat(delimeter = "/"): string {
+export function dateFormat(delimeter = "/"): string {
     return `DD${delimeter}MM${delimeter}YYYY`;
 }
 
-export function mirBstDateFormatter(date: Date | string, includeTime = false): string {
+export function formatDate(date: Date | string, includeTime = false): string {
     if (includeTime) {
-        return dateFormatter(date).tz("Europe/London").format(`${mirDateFormat()} HH:mm:ss`);
+        return dateFormatter(date).tz("Europe/London").format(`${dateFormat()} HH:mm:ss`);
     }
-    return dateFormatter(date).tz("Europe/London").format(mirDateFormat());
+    return dateFormatter(date).tz("Europe/London").format(dateFormat());
 
 }

@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import { mirDateFormat } from "../utilities/DateFormatter";
+import { dateFormat } from "../utilities/DateFormatter";
 import dateFormatter from "dayjs";
 
 interface Props {
@@ -24,7 +24,7 @@ const SurveyDateForm = ({ onSubmitFunction }: Props): ReactElement => {
         {
             name: "Date",
             type: "date",
-            initial_value: dateFormatter(new Date()).format(mirDateFormat("-"))
+            initial_value: dateFormatter(new Date()).format(dateFormat("-"))
 
         }
     ];
