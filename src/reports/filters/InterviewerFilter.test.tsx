@@ -4,7 +4,7 @@
 
 import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
-import { cleanup, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Router } from "react-router";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
