@@ -21,7 +21,7 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const DisplayResult = () => {
         const date = formatDateAndTime(reportStatus);
         if (date === "Invalid Date") {
-            return date;
+            return "Invalid Date";
         }
         return ` (${date})`;
     };
