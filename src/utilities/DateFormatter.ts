@@ -16,10 +16,18 @@ export function outputDateFormat(): string {
     return "DD/MM/YYYY";
 }
 
+export function isoDateFormat(): string {
+    return "YYYY-MM-DD";
+}
+
 export function formatDate(date: Date | string): string {
     return dateFormatter(date).tz("Europe/London").format(outputDateFormat());
 }
 
 export function formatDateAndTime(date: Date | string): string {
     return dateFormatter(date).tz("Europe/London").format(`${outputDateFormat()} HH:mm:ss`);
+}
+
+export function formatISODate(date: Date | string): string {
+    return dateFormatter(date).tz("Europe/London").format(isoDateFormat());
 }

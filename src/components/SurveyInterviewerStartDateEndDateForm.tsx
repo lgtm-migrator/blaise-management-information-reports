@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import dateFormatter from "dayjs";
+import { formatISODate } from "../utilities/DateFormatter";
 
 interface Props {
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
@@ -49,13 +49,13 @@ const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): Rea
         {
             name: "Start date",
             type: "date",
-            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
+            initial_value: formatISODate(new Date()),
             validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            initial_value: dateFormatter(new Date()).format("YYYY-MM-DD"),
+            initial_value: formatISODate(new Date()),
             validate: validateDate
         }
     ];

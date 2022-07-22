@@ -1,8 +1,8 @@
 import { StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement } from "react";
-import dateFormatter from "dayjs";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
+import { formatISODate, isoDateFormat } from "../../utilities/DateFormatter";
 
 interface InterviewerFilterPageProps {
     title: string
@@ -82,13 +82,13 @@ function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
         {
             name: "Start date",
             type: "date",
-            initial_value: dateFormatter(startDate).format("YYYY-MM-DD"),
+            initial_value: formatISODate(startDate),
             validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            initial_value: dateFormatter(endDate).format("YYYY-MM-DD"),
+            initial_value: formatISODate(endDate),
             validate: validateDate
         }
     ];

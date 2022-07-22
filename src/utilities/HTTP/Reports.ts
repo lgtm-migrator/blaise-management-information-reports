@@ -7,7 +7,7 @@ import {
     InterviewerCallHistoryReport,
     InterviewerCallPatternReport
 } from "../../interfaces";
-import dateFormatter from "dayjs";
+import { formatISODate } from "../DateFormatter";
 
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
@@ -22,8 +22,8 @@ async function getQuestionnaireList(surveyTla: string, interviewer: string, star
     const formData = new FormData();
     formData.append("survey_tla", surveyTla);
     formData.append("interviewer", interviewer);
-    formData.append("start_date", dateFormatter(startDate).format("YYYY-MM-DD"));
-    formData.append("end_date", dateFormatter(endDate).format("YYYY-MM-DD"));
+    formData.append("start_date", formatISODate(startDate));
+    formData.append("end_date", formatISODate(endDate));
 
     const response = await axios.post(url, formData, axiosConfig());
 
