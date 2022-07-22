@@ -91,7 +91,7 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
 }
 
 function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps) {
-    const [reportFailed, setReportFailed] = useState<boolean>(false);
+    const [reportFailed] = useState<boolean>(false);
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
     const [interviewerID, setInterviewerID] = useState<string>("");

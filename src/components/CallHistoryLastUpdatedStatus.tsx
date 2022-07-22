@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import TimeAgo from "react-timeago";
 import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
-import { formatDate, formatDateAndTime } from "../utilities/DateFormatter";
+import { formatDateAndTime } from "../utilities/DateFormatter";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const [reportStatus, setReportStatus] = useState<Date | "">("");
