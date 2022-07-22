@@ -9,7 +9,7 @@ import {
     StyledForm
 } from "blaise-design-system-react-components";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
-import { formatDate, formatISODate, isoDateFormat } from "../../utilities/DateFormatter";
+import { formatDate, formatISODate } from "../../utilities/DateFormatter";
 
 interface AppointmentQuestionnaireFilterPageProps {
     reportDate: Date

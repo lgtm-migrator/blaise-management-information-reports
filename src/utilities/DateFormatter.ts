@@ -12,22 +12,14 @@ export default function subtractYears(numOfYears: number, date: Date = new Date(
     return dayjs(date).subtract(numOfYears, "year").toDate();
 }
 
-export function outputDateFormat(): string {
-    return "DD/MM/YYYY";
-}
-
-export function isoDateFormat(): string {
-    return "YYYY-MM-DD";
-}
-
 export function formatDate(date: Date | string): string {
-    return dateFormatter(date).tz("Europe/London").format(outputDateFormat());
+    return dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY");
 }
 
 export function formatDateAndTime(date: Date | string): string {
-    return dateFormatter(date).tz("Europe/London").format(`${outputDateFormat()} HH:mm:ss`);
+    return dateFormatter(date).tz("Europe/London").format("DD/MM/YYYY HH:mm:ss");
 }
 
 export function formatISODate(date: Date | string): string {
-    return dateFormatter(date).tz("Europe/London").format(isoDateFormat());
+    return dateFormatter(date).tz("Europe/London").format("YYYY-MM-DD");
 }

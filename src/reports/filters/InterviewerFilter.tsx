@@ -2,7 +2,7 @@ import { StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { formatISODate, isoDateFormat } from "../../utilities/DateFormatter";
+import { formatISODate } from "../../utilities/DateFormatter";
 
 interface InterviewerFilterPageProps {
     title: string
