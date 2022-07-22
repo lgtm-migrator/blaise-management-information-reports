@@ -1,13 +1,13 @@
-import subtractYears, { dateFormat, formatDate, formatDateAndTime } from "./DateFormatter";
+import subtractYears, { outputDateFormat, formatDate, formatDateAndTime } from "./DateFormatter";
 
 test("test date returned is 1 year less than date given", () => {
     const date = new Date("1990-06-30");
     expect(String(subtractYears(1, date)) == "1989-06-30");
 });
 
-describe("dateFormat", () => {
+describe("outputDateFormat", () => {
     it("returns a human-readable string format for Brits", async () => {});
-    expect(dateFormat()).toBe("DD/MM/YYYY");
+    expect(outputDateFormat()).toBe("DD/MM/YYYY");
 });
 
 describe("formatDate", () => {

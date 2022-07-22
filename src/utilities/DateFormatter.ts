@@ -12,15 +12,14 @@ export default function subtractYears(numOfYears: number, date: Date = new Date(
     return dayjs(date).subtract(numOfYears, "year").toDate();
 }
 
-export function dateFormat(delimeter = "/"): string {
-    return `DD${delimeter}MM${delimeter}YYYY`;
+export function outputDateFormat(): string {
+    return "DD/MM/YYYY";
 }
 
 export function formatDate(date: Date | string): string {
-    return dateFormatter(date).tz("Europe/London").format(dateFormat());
-
+    return dateFormatter(date).tz("Europe/London").format(outputDateFormat());
 }
 
 export function formatDateAndTime(date: Date | string): string {
-    return dateFormatter(date).tz("Europe/London").format(`${dateFormat()} HH:mm:ss`);
+    return dateFormatter(date).tz("Europe/London").format(`${outputDateFormat()} HH:mm:ss`);
 }
