@@ -47,3 +47,22 @@ describe("formatDateAndTime", () => {
         expect(formatDateAndTime(fooString)).toBe("Invalid Date");
     });
 });
+
+describe("formatISODate", () => {
+    afterEach(() => {});
+
+    it("returns a date string when given a date object", async () => {
+        const dateObject = new Date("2022-12-31");
+        expect(formatISODate(dateObject)).toBe("2022-12-31");
+    });
+
+    it("returns a date string when given a date string", async () => {
+        const dateString = "2022-12-31";
+        expect(formatISODate(dateString)).toBe("2022-12-31");
+    });
+
+    it("returns 'Invalid Date' when given an invalid date string", async () => {
+        const fooString = "foo";
+        expect(formatISODate(fooString)).toBe("Invalid Date");
+    });
+});
