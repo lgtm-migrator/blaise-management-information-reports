@@ -5,7 +5,7 @@ import { CallHistoryStatus } from "../interfaces";
 import { formatDateAndTime } from "../utilities/DateFormatter";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
-    const [reportStatus, setReportStatus] = useState<Date | "">("");
+    const [reportLastUpdatedDate, setReportLastUpdatedDate] = useState<Date | "">("");
     const [reportStatusFailed, setReportStatusFailed] = useState<boolean>(false);
 
     useEffect(() => {
@@ -14,12 +14,12 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
                 setReportStatusFailed(true);
                 return;
             }
-            setReportStatus(new Date(callHistoryStatus.last_updated));
+            setReportLastUpdatedDate(new Date(callHistoryStatus.last_updated));
         });
     }, []);
 
     const DisplayResult = () => {
-        const date = formatDateAndTime(reportStatus);
+        const date = formatDateAndTime(reportLastUpdatedDate);
         if (date === "Invalid Date") {
             return "Invalid Date";
         }
@@ -30,10 +30,11 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         if (reportStatusFailed) {
             return (<>Unknown</>);
         }
+
         return (
             <>
-                {<TimeAgo live={false} date={reportStatus}/>}
-                {reportStatus ? DisplayResult() : "Loading"}
+                {<TimeAgo live={false} date={reportLastUpdatedDate}/>}
+                {reportLastUpdatedDate ? DisplayResult() : "Loading"}
             </>
         );
     };
