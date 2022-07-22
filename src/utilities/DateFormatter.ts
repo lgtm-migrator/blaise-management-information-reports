@@ -16,10 +16,11 @@ export function dateFormat(delimeter = "/"): string {
     return `DD${delimeter}MM${delimeter}YYYY`;
 }
 
-export function formatDate(date: Date | string, includeTime = false): string {
-    if (includeTime) {
-        return dateFormatter(date).tz("Europe/London").format(`${dateFormat()} HH:mm:ss`);
-    }
+export function formatDate(date: Date | string): string {
     return dateFormatter(date).tz("Europe/London").format(dateFormat());
 
+}
+
+export function formatDateAndTime(date: Date | string): string {
+    return dateFormatter(date).tz("Europe/London").format(`${dateFormat()} HH:mm:ss`);
 }

@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import TimeAgo from "react-timeago";
 import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
-import { formatDate } from "../utilities/DateFormatter";
+import { formatDate, formatDateAndTime } from "../utilities/DateFormatter";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
     const [reportStatus, setReportStatus] = useState<Date | "">("");
@@ -19,7 +19,7 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
     }, []);
 
     const DisplayResult = () => {
-        const date = formatDate(reportStatus, true);
+        const date = formatDateAndTime(reportStatus);
         if (date === "Invalid Date") {
             return date;
         }
