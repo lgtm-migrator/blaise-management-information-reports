@@ -33,9 +33,7 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         return (
             <>
                 {<TimeAgo live={false} date={reportStatus}/>}
-                {reportStatus ?
-                    DisplayResult() :
-                    "Loading"}
+                {reportStatus ? DisplayResult() : "Loading"}
             </>
         );
     };
