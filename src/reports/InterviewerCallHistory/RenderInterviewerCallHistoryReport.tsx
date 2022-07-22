@@ -29,12 +29,10 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
     const [reportData, setReportData] = useState<InterviewerCallHistoryReport[]>([]);
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [message, setMessage] = useState<string>("");
     const {
         interviewer,
         startDate,
         endDate,
-        surveyTla,
         questionnaires,
         navigateBack,
         navigateBackTwoSteps,
@@ -57,7 +55,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
     async function runInterviewerCallHistoryReport(): Promise<void> {
         const formValues: Record<string, any> = {};
         setMessageNoData("");
-        //setReportFailed(false);
         setReportData([]);
         setInterviewerID(props.interviewer);
         formValues.survey_tla = props.surveyTla;
