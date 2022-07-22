@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import QuestionnaireSelector from "../../components/QuestionnaireSelector";
-import { mirBstDateFormatter } from "../../utilities/Helpers";
+import { mirBstDateFormatter } from "../../utilities/DateFormatter";
 
 interface QuestionnaireFilterPageProps {
     interviewer: string

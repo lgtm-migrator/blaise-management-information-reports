@@ -6,7 +6,7 @@ import { InterviewerCallHistoryReport } from "../../interfaces";
 import { convertSecondsToMinutesAndSeconds } from "../../utilities/Converters";
 import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { mirBstDateFormatter } from "../../utilities/Helpers";
+import { mirBstDateFormatter } from "../../utilities/DateFormatter";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string

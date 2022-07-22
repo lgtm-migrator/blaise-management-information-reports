@@ -7,7 +7,7 @@ import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWar
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { AppointmentResults } from "./AppointmentResults";
 import AppointmentSummary from "./AppointmentSummary";
-import { mirBstDateFormatter } from "../../utilities/Helpers";
+import { mirBstDateFormatter } from "../../utilities/DateFormatter";
 
 interface RenderAppointmentResourcePlanningReportPageProps {
     reportDate: Date;

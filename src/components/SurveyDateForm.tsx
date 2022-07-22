@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import { mirDateFormat } from "../utilities/Helpers";
+import { mirDateFormat } from "../utilities/DateFormatter";
 import dateFormatter from "dayjs";
 
 interface Props {

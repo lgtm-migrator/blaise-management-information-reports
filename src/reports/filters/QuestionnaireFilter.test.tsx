@@ -15,7 +15,7 @@ import axios from "axios";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import subtractYears from "../../utilities/Helpers";
+import subtractYears from "../../utilities/DateFormatter";
 
 const mockAdapter = new MockAdapter(axios);
 

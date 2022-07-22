@@ -6,7 +6,7 @@ import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
-import { mirBstDateFormatter } from "../../utilities/Helpers";
+import { mirBstDateFormatter } from "../../utilities/DateFormatter";
 
 interface RenderInterviewerCallPatternReportPageProps {
     interviewer: string
