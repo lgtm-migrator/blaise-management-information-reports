@@ -1,8 +1,8 @@
 import { StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement } from "react";
-import dateFormatter from "dayjs";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
+import { formatISODate } from "../../utilities/DateFormatter";
 
 interface AppointmentFilterPageProps {
     title: string
@@ -55,7 +55,7 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
         {
             name: "Date",
             type: "date",
-            initial_value: dateFormatter(reportDate).format("YYYY-MM-DD"),
+            initial_value: formatISODate(reportDate),
             validate: validateDate
         }
     ];

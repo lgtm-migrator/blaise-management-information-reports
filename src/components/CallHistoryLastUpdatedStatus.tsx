@@ -1,11 +1,11 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import TimeAgo from "react-timeago";
-import dateFormatter from "dayjs";
 import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
+import { formatDateAndTime } from "../utilities/DateFormatter";
 
 const CallHistoryLastUpdatedStatus = (): ReactElement => {
-    const [reportStatus, setReportStatus] = useState<Date | "">("");
+    const [reportLastUpdatedDate, setReportLastUpdatedDate] = useState<Date | "">("");
     const [reportStatusFailed, setReportStatusFailed] = useState<boolean>(false);
 
     useEffect(() => {
@@ -14,18 +14,27 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
                 setReportStatusFailed(true);
                 return;
             }
-            setReportStatus(new Date(callHistoryStatus.last_updated));
+            setReportLastUpdatedDate(new Date(callHistoryStatus.last_updated));
         });
     }, []);
+
+    const DisplayResult = () => {
+        const date = formatDateAndTime(reportLastUpdatedDate);
+        if (date === "Invalid Date") {
+            return "Invalid Date";
+        }
+        return ` (${date})`;
+    };
 
     const ReportStatusText = () => {
         if (reportStatusFailed) {
             return (<>Unknown</>);
         }
+
         return (
             <>
-                {<TimeAgo live={false} date={reportStatus}/>}
-                {(reportStatus ? "" + dateFormatter(reportStatus).tz("Europe/London").format(" (DD/MM/YYYY HH:mm:ss)") : "Loading")}
+                {<TimeAgo live={false} date={reportLastUpdatedDate}/>}
+                {reportLastUpdatedDate ? DisplayResult() : "Loading"}
             </>
         );
     };

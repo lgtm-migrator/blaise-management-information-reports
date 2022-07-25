@@ -185,13 +185,14 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
     it("should render correctly", async () => {
         const history = createMemoryHistory();
+        render(
+            <Router history={history}>
+                <InterviewerCallPattern />
+            </Router>
+        );
 
         await act(async () => {
-            render(
-                <Router history={history}>
-                    <InterviewerCallPattern />
-                </Router>
-            );
+            await flushPromises();
         });
 
         expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();

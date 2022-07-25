@@ -1,13 +1,7 @@
 import React, { ReactElement, useState } from "react";
-import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import AppointmentFilter from "../filters/AppointmentFilter";
 import AppointmentQuestionnaireFilter from "../filters/AppointmentQuestionnaireFilter";
 import RenderAppointmentResourcePlanningReport from "./RenderAppointmentResourcePlanningReport";
-
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 enum Step {
     AppointmentFilter,

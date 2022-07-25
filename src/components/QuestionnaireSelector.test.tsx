@@ -5,7 +5,7 @@
 import "@testing-library/jest-dom";
 import QuestionnaireSelector from "./QuestionnaireSelector";
 import React from "react";
-import { cleanup, render, RenderResult } from "@testing-library/react";
+import { render, RenderResult } from "@testing-library/react";
 import { fireEvent, screen } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
 import MockAdapter from "axios-mock-adapter";
@@ -85,10 +85,6 @@ describe("QuestionnaireSelector tests", () => {
         it("changes to select all", () =>{
             expectUnselectAllToChangeSelectAll(wrapper);
         });
-    });
-
-    afterAll(() => {
-        cleanup();
     });
 });
 

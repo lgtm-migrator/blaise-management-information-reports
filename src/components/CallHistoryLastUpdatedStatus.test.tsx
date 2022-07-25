@@ -11,17 +11,11 @@ import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
-import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import subtractYears from "../utilities/Helpers";
+import subtractYears, { formatDateAndTime } from "../utilities/DateFormatter";
 
 const mockAdapter = new MockAdapter(axios);
-
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 const dateOneYearAgo = subtractYears(1);
 
@@ -67,7 +61,7 @@ describe("call history last updated status with data", () => {
         await act(async () => {
             await flushPromises();
         });
-        expect(await screen.findByText(dateFormatter(dateOneYearAgo).tz("Europe/London").format("(DD/MM/YYYY HH:mm:ss)"))).toBeVisible();
+        expect(await screen.findByText(`(${formatDateAndTime(dateOneYearAgo)})`)).toBeVisible();
     });
 });
 

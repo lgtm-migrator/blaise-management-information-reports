@@ -3,19 +3,11 @@ import { loadConfigFromEnv } from "./Config";
 import { newServer } from "./Server";
 import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient from "blaise-api-node-client";
-import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import { Auth } from "blaise-login-react-server";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({ path: __dirname + "/../.env" });
 }
-
-dateFormatter.extend(customParseFormat);
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 const config = loadConfigFromEnv();
 
