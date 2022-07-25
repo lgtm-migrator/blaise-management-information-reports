@@ -158,7 +158,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
         logger(req, res);
         req.log.error(err, err.message);
-        res.render("../views/500.html", {});
+        res.render("../../views/500.html", {});
     });
 
     return server;
