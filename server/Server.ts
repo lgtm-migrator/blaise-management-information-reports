@@ -44,7 +44,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     const loginHandler = newLoginHandler(auth, blaiseApiClient);
 
     // where ever the react built package is
-    const buildFolder = "../build";
+    const buildFolder = "../../build";
 
     // treat the index.html as a template and substitute the values at runtime
     server.set("views", path.join(__dirname, buildFolder));
