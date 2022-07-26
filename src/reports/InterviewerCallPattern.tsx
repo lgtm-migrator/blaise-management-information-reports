@@ -1,18 +1,12 @@
 import React, { ReactElement, useState } from "react";
 import { ErrorBoundary, ONSPanel, SummaryGroupTable, GroupedSummary, Group } from "blaise-design-system-react-components";
 import { getInterviewerCallPatternReport } from "../utilities/HTTP";
-import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import { CSVLink } from "react-csv";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../components/SurveyInterviewerStartDateEndDateForm";
 import ReportErrorPanel from "../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../interfaces";
-
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
     if (!numerator) {

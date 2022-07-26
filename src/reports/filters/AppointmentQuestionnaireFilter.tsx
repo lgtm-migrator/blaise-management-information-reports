@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState, Fragment } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import dateFormatter from "dayjs";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { AuthManager } from "blaise-login-react-client";
 import {
@@ -10,6 +9,7 @@ import {
     StyledForm
 } from "blaise-design-system-react-components";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
+import { formatDate, formatISODate } from "../../utilities/DateFormatter";
 
 interface AppointmentQuestionnaireFilterPageProps {
     reportDate: Date
@@ -69,7 +69,7 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
         const formData = new FormData();
         setMessageNoData("");
         formData.append("survey_tla", surveyTla);
-        formData.append("date", dateFormatter(reportDate).format("YYYY-MM-DD"));
+        formData.append("date", formatISODate(reportDate));
 
         return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
             console.log(`Response: Status ${response.status}, data ${response.data}`);
@@ -116,7 +116,7 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
                     
                     <h1 className="u-mb-m">Select questionnaires for </h1>
                     <h3 className="u-mb-m">
-                        Date: {dateFormatter(reportDate).format("DD/MM/YYYY")}
+                        Date: {formatDate(reportDate)}
                     </h3>
                     <AppointmentResourceDaybatchWarning/>
                     <br/>

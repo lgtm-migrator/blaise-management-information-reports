@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import dateFormatter from "dayjs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import QuestionnaireSelector from "../../components/QuestionnaireSelector";
+import { formatDate } from "../../utilities/DateFormatter";
 
 interface QuestionnaireFilterPageProps {
     interviewer: string
@@ -36,7 +36,7 @@ function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement 
                     <h1>Select questionnaires for</h1>
                     <h3 className="u-mb-m">
                         Interviewer: {interviewer}<br></br>
-                        Period: {dateFormatter(startDate).format("DD/MM/YYYY")}–{dateFormatter(endDate).format("DD/MM/YYYY")}
+                        Period: {formatDate(startDate)}–{formatDate(endDate)}
                     </h3>
                     <CallHistoryLastUpdatedStatus/>
                     <QuestionnaireSelector {...props}/>
