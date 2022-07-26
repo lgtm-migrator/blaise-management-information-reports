@@ -7,14 +7,12 @@ import { Auth } from "blaise-login-react-server";
 import { Request, Response, NextFunction } from "express";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-
 import customParseFormat from "dayjs/plugin/customParseFormat";
-dateFormatter.extend(customParseFormat);
 
+dateFormatter.extend(customParseFormat);
 dateFormatter.extend(utc);
 dateFormatter.extend(timezone);
 

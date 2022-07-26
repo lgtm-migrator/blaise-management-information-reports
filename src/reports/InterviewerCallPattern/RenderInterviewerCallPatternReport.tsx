@@ -6,9 +6,7 @@ import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
-import dateFormatter from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import { formatDate } from "../../utilities/DateFormatter";
 
 interface RenderInterviewerCallPatternReportPageProps {
     interviewer: string
@@ -26,9 +24,6 @@ function formatList(listOfQuestionnaires: string[]): string {
     const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
     return firsts.join(", ") + " and " + last;
 }
-
-dateFormatter.extend(utc);
-dateFormatter.extend(timezone);
 
 function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
     if (!numerator) {
@@ -96,32 +91,20 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
 }
 
 function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps) {
-    const [reportFailed, setReportFailed] = useState<boolean>(false);
+    const [reportFailed] = useState<boolean>(false);
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
-    const [reportData, setReportData] = useState<InterviewerCallPatternReport>();
     const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
-    const [message, setMessage] = useState<string>("");
     const [allInvalid, setAllInvalid] = useState<boolean>(false);
     const {
         interviewer,
         startDate,
         endDate,
-        surveyTla,
         questionnaires,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
-
-    function defaultState() {
-        setMessageNoData("");
-        setReportFailed(false);
-        setGroupedSummary(new GroupedSummary([]));
-        setInterviewerID("");
-        setInvalidFields({ title: "Invalid fields", records: {} });
-        setAllInvalid(false);
-    }
 
     function groupData(callPatternReport: InterviewerCallPatternReport) {
         const callTimes: Group = callTimeSection(callPatternReport);
@@ -201,7 +184,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                 <h1>Call Pattern Report</h1>
                 <h3 className="u-mb-m">
                     Interviewer: {interviewer} <br></br>
-                    Period: {dateFormatter(startDate).format("DD/MM/YYYY")}–{dateFormatter(endDate).format("DD/MM/YYYY")}<br></br>
+                    Period: {formatDate(startDate)}–{formatDate(endDate)}<br></br>
                     Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
                 </h3>
                 <ReportErrorPanel error={reportFailed}/>

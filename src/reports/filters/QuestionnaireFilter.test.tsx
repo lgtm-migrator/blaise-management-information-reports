@@ -4,7 +4,7 @@
 
 import "@testing-library/jest-dom";
 import { createMemoryHistory, History } from "history";
-import { cleanup, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import { act } from "react-dom/test-utils";
 import { fireEvent, screen } from "@testing-library/dom";
@@ -15,7 +15,7 @@ import axios from "axios";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import subtractYears from "../../utilities/Helpers";
+import subtractYears from "../../utilities/DateFormatter";
 
 const mockAdapter = new MockAdapter(axios);
 
