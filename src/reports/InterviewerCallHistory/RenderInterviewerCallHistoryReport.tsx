@@ -6,7 +6,8 @@ import { InterviewerCallHistoryReport } from "../../interfaces";
 import { convertSecondsToMinutesAndSeconds } from "../../utilities/Converters";
 import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { formatDate, formatDateAndTime } from "../../utilities/DateFormatter";
+import { formatDateAndTime } from "../../utilities/DateFormatter";
+import FilterSummary from "../../components/FilterSummary";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string
@@ -16,13 +17,6 @@ interface RenderInterviewerCallHistoryReportPageProps {
     questionnaires: string[]
     navigateBack: () => void
     navigateBackTwoSteps: () => void
-}
-
-function formatList(listOfQuestionnaires: string[]): string {
-    if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
-    const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
-    const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
-    return firsts.join(", ") + " and " + last;
 }
 
 function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps): ReactElement {
@@ -92,11 +86,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
             }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call History Report</h1>
-                <h3 className="u-mb-m">
-                    Interviewer: {interviewer} <br></br>
-                    Period: {formatDate(startDate)}–{formatDate(endDate)}<br></br>
-                    Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
-                </h3>
+                <FilterSummary {...props}/>
                 <CallHistoryLastUpdatedStatus/>
 
                 <div>
