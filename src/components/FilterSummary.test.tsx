@@ -40,11 +40,11 @@ describe("FilterSummary tests", () => {
     describe("it renders correctly when questionnaires are filtered", () => {
         it("displays one questionnaire and the relevant information", () =>{
             wrapper = renderComponent(singleQuestionnaire);
-            expect(wrapper.getByText(/Questionnaire:LMS/)).toBeVisible();
+            expect(wrapper.getByText(/Questionnaire: LMS/)).toBeVisible();
         });
         it("displays multiple questionnaires and the relevant information", () =>{
             wrapper = renderComponent(multipleQuestionnaires);
-            expect(wrapper.getByText(/Questionnaires:LMS and OPN/)).toBeVisible();
+            expect(wrapper.getByText(/Questionnaires: LMS and OPN/)).toBeVisible();
         });
     });
 });

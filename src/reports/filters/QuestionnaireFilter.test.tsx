@@ -117,7 +117,7 @@ describe("the interviewer details page renders correctly", () => {
         expect(screen.queryByText(/Interviewer: James/i)).toBeVisible();
         expect(screen.queryByText(/Period: 01\/01\/2022–05\/01\/2022/i)).toBeVisible();
 
-        expect(screen.queryByText(/Questionnaire:LMS2101_AA1/i)).toBeVisible();
+        expect(screen.queryByText(/Questionnaire: LMS2101_AA1/i)).toBeVisible();
         expect(screen.queryByText(/Run report/i)).toBeVisible();
     });
 
