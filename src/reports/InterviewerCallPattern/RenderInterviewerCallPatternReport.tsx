@@ -6,7 +6,7 @@ import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
-import { formatDate } from "../../utilities/DateFormatter";
+import FilterSummary from "../../components/FilterSummary";
 
 interface RenderInterviewerCallPatternReportPageProps {
     interviewer: string
@@ -16,13 +16,6 @@ interface RenderInterviewerCallPatternReportPageProps {
     questionnaires: string[]
     navigateBack: () => void
     navigateBackTwoSteps: () => void
-}
-
-function formatList(listOfQuestionnaires: string[]): string {
-    if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
-    const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
-    const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
-    return firsts.join(", ") + " and " + last;
 }
 
 function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
@@ -182,11 +175,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
             }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
-                <h3 className="u-mb-m">
-                    Interviewer: {interviewer} <br></br>
-                    Period: {formatDate(startDate)}–{formatDate(endDate)}<br></br>
-                    Questionnaire{questionnaires.length > 1 ? ("s") : ""}: {formatList(questionnaires)}
-                </h3>
+                <FilterSummary {...props}/>
                 <ReportErrorPanel error={reportFailed}/>
                 <CallHistoryLastUpdatedStatus/>
                 <div className="u-mb-m">
