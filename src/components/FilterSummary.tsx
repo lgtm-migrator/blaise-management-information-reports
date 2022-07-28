@@ -15,8 +15,7 @@ function FilterSummary(FilterSummaryProps: FilterSummaryProps): ReactElement {
                 <h3 className="u-mb-m">
                 Interviewer: {FilterSummaryProps.interviewer} <br></br>
                 Period: {formatDate(FilterSummaryProps.startDate)}–{formatDate(FilterSummaryProps.endDate)}<br></br>
-                Questionnaire{FilterSummaryProps.questionnaires.length > 1 ? ("s") : ""}: 
-                    {formatList(FilterSummaryProps.questionnaires)}
+                Questionnaire{FilterSummaryProps.questionnaires.length > 1 ? ("s") : ""}: {formatList(FilterSummaryProps.questionnaires)}
                 </h3>
             </>
         );
