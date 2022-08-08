@@ -1,7 +1,13 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { ErrorBoundary, Group, GroupedSummary, ONSPanel, SummaryGroupTable } from "blaise-design-system-react-components";
+import {
+    ErrorBoundary,
+    Group,
+    GroupedSummary,
+    ONSPanel,
+    SummaryGroupTable
+} from "blaise-design-system-react-components";
 import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
@@ -128,8 +134,8 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     }
 
     useEffect(() => {
-        runInterviewerCallPatternReport();
-    }, []
+            runInterviewerCallPatternReport();
+        }, []
     );
 
     async function runInterviewerCallPatternReport(): Promise<void> {
@@ -228,5 +234,5 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     );
 }
 
-export { formatToFractionAndPercentage, callStatusSection };
+export { formatToFractionAndPercentage, callStatusSection, noContactBreakdownSection, invalidFieldsGroup, isAllInvalid };
 export default RenderInterviewerCallPatternReport;
