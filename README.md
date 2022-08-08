@@ -60,10 +60,20 @@ Run the following command to export your environment variables:
 export $(cat .env | xargs)
 ```
 
-Install the project dependencies:
+To get the service working locally, you need
+to [obtain a JSON service account key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys), this
+will need to be a service account with create and list permissions. Save the service account key
+as  `keys.json` and place in the root of the project. Providing the NODE_ENV is not production, then the GCP storage
+config will attempt to use this file.  **DO NOT COMMIT THIS FILE**
 
-```shell script
-yarn install
+To create a keys.json file:
+```shell
+gcloud iam service-accounts keys create keys.json --iam-account ons-blaise-v2-dev-<sandbox>@appspot.gserviceaccount.com`
+```
+
+To export the `Google application credentials` as a runtime variable:
+```shell
+export GOOGLE_APPLICATION_CREDENTIALS=keys.json
 ```
 
 To authenticate MIR login, you'll need to
@@ -88,8 +98,13 @@ gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:<PORT> 
 NB Port 5004 is already in use by the server.
 
 ##### Run commands
+In a new terminal install the project dependencies:
 
-In a new terminal run Node.js and React.js via the package.json script:
+```shell script
+yarn install
+```
+
+Run Node.js and React.js via the package.json script:
 
 ```shell script
 yarn dev
