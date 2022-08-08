@@ -155,7 +155,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         res.render("index.html");
     });
 
-    server.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
+    server.use(function (err: Error, req: Request, res: Response) {
         logger(req, res);
         req.log.error(err, err.message);
         res.render("../../views/500.html", {});
