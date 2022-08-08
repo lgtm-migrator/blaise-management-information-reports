@@ -17,9 +17,6 @@ interface QuestionnaireFilterPageProps {
 
 function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement {
     const {
-        interviewer,
-        startDate,
-        endDate,
         navigateBack,
     } = props;
 
