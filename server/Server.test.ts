@@ -2,7 +2,7 @@ import { newServer } from "./Server";
 import supertest from "supertest";
 import { Config } from "./Config";
 import BlaiseIapNodeProvider from "blaise-iap-node-provider";
-import BlaiseApiClient, { User } from "blaise-api-node-client";
+import BlaiseApiClient from "blaise-api-node-client";
 import { Auth } from "blaise-login-react-server";
 import { Request, Response, NextFunction } from "express";
 import axios from "axios";
