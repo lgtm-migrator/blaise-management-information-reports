@@ -24,10 +24,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
     const [interviewerID, setInterviewerID] = useState<string>("");
     const [messageNoData, setMessageNoData] = useState<string>("");
     const {
-        interviewer,
-        startDate,
-        endDate,
-        questionnaires,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
