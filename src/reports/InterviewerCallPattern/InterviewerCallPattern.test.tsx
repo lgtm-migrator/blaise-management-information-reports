@@ -50,3 +50,20 @@ describe("function callStatusSection()", () => {
         });
     });
 });
+
+describe("function callStatusSection()", () => {
+    it("should return the relevant section from data", () => {
+        const callSection = callStatusSection(mockDataWithInvalidCases);
+        expect(callSection).toEqual({
+            "records": {
+                "refusals": "4/133, 3.01%",
+                "completed_successfully": "0/133, 0.00%",
+                "appointments_for_contacts": "81/133, 60.90%",
+                "web_nudge": "5/133, 3.76%",
+                "no_contacts": "11/133, 8.27%",
+                "discounted_invalid_cases": "29/162, 17.90%",
+            },
+            "title": "Call status",
+        });
+    });
+});
