@@ -228,5 +228,5 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     );
 }
 
-export { formatToFractionAndPercentage };
+export { formatToFractionAndPercentage, callStatusSection };
 export default RenderInterviewerCallPatternReport;
