@@ -43,13 +43,13 @@ const mockAuth: Auth = {
         Roles: [],
         BlaiseApiUrl: ""
     },
-    SignToken: function (user: User): string {
+    SignToken: function (): string {
         throw new Error("Function not implemented.");
     },
-    ValidateToken: function (token: string): boolean {
+    ValidateToken: function (): boolean {
         throw new Error("Function not implemented.");
     },
-    UserHasRole: function (user: User): boolean {
+    UserHasRole: function (): boolean {
         throw new Error("Function not implemented.");
     },
     Middleware: async function (request: Request, response: Response, next: NextFunction): Promise<void | Response> {
