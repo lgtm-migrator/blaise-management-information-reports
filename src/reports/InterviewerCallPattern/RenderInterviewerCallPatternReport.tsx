@@ -134,8 +134,8 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     }
 
     useEffect(() => {
-            runInterviewerCallPatternReport();
-        }, []
+        runInterviewerCallPatternReport();
+    }, []
     );
 
     async function runInterviewerCallPatternReport(): Promise<void> {
