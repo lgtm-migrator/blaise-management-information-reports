@@ -119,7 +119,7 @@ defineFeature(feature, test => {
             });
         });
 
-        then("I will receive a list of the following information for appointments made:", async (docString) => {
+        then("I will receive a list of the following information for appointments made:", async () => {
             await waitFor(() => {
                 expect(screen.getByText("Questionnaire")).toBeInTheDocument();
                 expect(screen.getByText("Appointment Time")).toBeInTheDocument();
@@ -132,7 +132,7 @@ defineFeature(feature, test => {
             });
         });
 
-        and("the information will be displayed in time intervals of quarter of an hour, e.g. 09:00, 09:15, 09:30, 09:45, 10:00, 10:15, etc.", async (docString) => {
+        and("the information will be displayed in time intervals of quarter of an hour, e.g. 09:00, 09:15, 09:30, 09:45, 10:00, 10:15, etc.", async () => {
             expect(screen.getByText("10:00")).toBeInTheDocument();
         });
     });

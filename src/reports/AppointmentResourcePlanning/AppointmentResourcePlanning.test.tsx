@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 
-import { AppointmentResourcePlanningReportData } from "../../interfaces";
 import "@testing-library/jest-dom";
 import flushPromises from "../../tests/utilities";
 import { createMemoryHistory } from "history";
@@ -18,35 +17,6 @@ import axios from "axios";
 import userEvent from "@testing-library/user-event";
 
 const mockAdapter = new MockAdapter(axios);
-
-const ReportSummary = [
-    { language: "English", total: 1 },
-    { language: "Welsh", total: 1 },
-    { language: "Other", total: 1 },
-];
-
-const reportDataReturned: AppointmentResourcePlanningReportData[] = [
-    {
-        questionnaire_name: "LMS2101_AA1",
-        appointment_time: "10:00",
-        appointment_language: "English",
-        total: 42
-    },
-    {
-        questionnaire_name: "LMS2101_BB1",
-        appointment_time: "12:30",
-        appointment_language: "Welsh",
-        total: 1908
-    },
-    {
-        questionnaire_name: "LMS2101_CC1",
-        appointment_time: "15:15",
-        appointment_language: "Other",
-        total: 408
-    }
-];
-
-const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 
 const christmasEve97 = "1997-12-24";
 
