@@ -15,14 +15,12 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import MockDate from "mockdate";
 import { createMemoryHistory } from "history";
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Router } from "react-router";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import flushPromises from "../../tests/utilities";
 import { screen } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
-import { formatDate } from "../../utilities/DateFormatter";
 
 const mockAdapter = new MockAdapter(axios);
 

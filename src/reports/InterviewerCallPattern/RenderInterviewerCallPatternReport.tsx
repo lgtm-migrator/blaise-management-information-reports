@@ -89,7 +89,7 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
     return !callPatternReport.total_valid_cases;
 }
 
-function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps) {
+function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps): ReactElement {
     const [reportFailed] = useState<boolean>(false);
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
@@ -97,10 +97,6 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [allInvalid, setAllInvalid] = useState<boolean>(false);
     const {
-        interviewer,
-        startDate,
-        endDate,
-        questionnaires,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
