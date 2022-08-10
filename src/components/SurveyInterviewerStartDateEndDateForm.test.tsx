@@ -57,7 +57,7 @@ describe("form - survey, interviewer, start date, end date", () => {
         expect(screen.queryByText("Interviewer ID")).toBeVisible();
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
-        expect(screen.queryByText("Run")).toBeVisible();
+        expect(screen.queryByText("Next")).toBeVisible();
 
     });
 });

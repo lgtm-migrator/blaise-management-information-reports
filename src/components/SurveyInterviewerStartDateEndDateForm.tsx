@@ -3,10 +3,20 @@ import { StyledForm } from "blaise-design-system-react-components";
 import { formatISODate } from "../utilities/DateFormatter";
 
 interface Props {
+    surveyTLA: string
+    interviewer: string
+    startDate: Date
+    endDate: Date
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
-const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): ReactElement => {
+const SurveyInterviewerStartDateEndDateForm = ({
+    surveyTLA,
+    interviewer,
+    startDate,
+    endDate,
+    onSubmitFunction
+}: Props): ReactElement => {
 
     const validateInterviewer = (value: string) => {
         let error;
@@ -34,7 +44,7 @@ const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): Rea
             name: "Survey TLA",
             description: "Select survey",
             type: "radio",
-            initial_value: "undefined",
+            initial_value: surveyTLA,
             radioOptions: [
                 { id: "all", value: "undefined", label: "Show all surveys" },
                 { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
@@ -44,25 +54,26 @@ const SurveyInterviewerStartDateEndDateForm = ({ onSubmitFunction }: Props): Rea
         {
             name: "Interviewer ID",
             type: "text",
+            initial_value: interviewer,
             validate: validateInterviewer
         },
         {
             name: "Start date",
             type: "date",
-            initial_value: formatISODate(new Date()),
+            initial_value: formatISODate(startDate),
             validate: validateDate
         },
         {
             name: "End date",
             type: "date",
-            initial_value: formatISODate(new Date()),
+            initial_value: formatISODate(endDate),
             validate: validateDate
         }
     ];
 
     return (
         <>
-            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Run"} />
+            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Next"}/>
         </>
     );
 };

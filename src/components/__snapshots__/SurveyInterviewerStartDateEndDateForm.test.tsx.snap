@@ -27,10 +27,8 @@ Object {
                 class="radio"
               >
                 <input
-                  checked=""
                   class="radio__input js-radio"
                   id="all"
-                  initial_value="undefined"
                   name="Survey TLA"
                   type="radio"
                   value="undefined"
@@ -54,7 +52,6 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="lms"
-                  initial_value="undefined"
                   name="Survey TLA"
                   type="radio"
                   value="lms"
@@ -84,7 +81,6 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="opn"
-                  initial_value="undefined"
                   name="Survey TLA"
                   type="radio"
                   value="opn"
@@ -169,7 +165,7 @@ Object {
           <span
             class="btn__inner"
           >
-            Run
+            Next
           </span>
         </button>
       </form>
@@ -198,10 +194,8 @@ Object {
               class="radio"
             >
               <input
-                checked=""
                 class="radio__input js-radio"
                 id="all"
-                initial_value="undefined"
                 name="Survey TLA"
                 type="radio"
                 value="undefined"
@@ -225,7 +219,6 @@ Object {
               <input
                 class="radio__input js-radio"
                 id="lms"
-                initial_value="undefined"
                 name="Survey TLA"
                 type="radio"
                 value="lms"
@@ -255,7 +248,6 @@ Object {
               <input
                 class="radio__input js-radio"
                 id="opn"
-                initial_value="undefined"
                 name="Survey TLA"
                 type="radio"
                 value="opn"
@@ -340,7 +332,7 @@ Object {
         <span
           class="btn__inner"
         >
-          Run
+          Next
         </span>
       </button>
     </form>
