@@ -3,16 +3,16 @@ import { StyledForm } from "blaise-design-system-react-components";
 import { formatISODate } from "../utilities/DateFormatter";
 
 interface Props {
-    surveyTLA: string
     interviewer: string
+    surveyTLA: string
     startDate: Date
     endDate: Date
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
 const SurveyInterviewerStartDateEndDateForm = ({
-    surveyTLA,
     interviewer,
+    surveyTLA,
     startDate,
     endDate,
     onSubmitFunction
