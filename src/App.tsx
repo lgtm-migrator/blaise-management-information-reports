@@ -7,7 +7,6 @@ import "./style.css";
 import { LoginForm, AuthManager } from "blaise-login-react-client";
 import InterviewerCallHistory from "./reports/InterviewerCallHistory/InterviewerCallHistory";
 import ReportDetails from "./components/ReportDetails";
-import AppointmentResourcePlanningSteps from "./reports/AppointmentResourcePlanning/AppointmentResourcePlanning";
 
 const divStyle = {
     minHeight: "calc(72vh)"

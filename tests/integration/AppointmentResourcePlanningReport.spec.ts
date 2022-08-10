@@ -1,16 +1,16 @@
 import { expect, test } from "@playwright/test";
-import BlaiseApiClient, { NewUser } from "blaise-api-node-client";
-import { deleteTestUser, setupQuestionnaire, setupTestUser, unInstallQuestionnaire, } from "./helpers/BlaiseHelpers";
-import { setupAppointment, clearCATIData } from "./helpers/CatiHelpers";
-import { loginMIR, mirTomorrow } from "./helpers/MirHelpers";
+// import BlaiseApiClient, { NewUser } from "blaise-api-node-client";
+// import { deleteTestUser, setupQuestionnaire, setupTestUser, unInstallQuestionnaire, } from "./helpers/BlaiseHelpers";
+// import { setupAppointment, clearCATIData } from "./helpers/CatiHelpers";
+// import { loginMIR, mirTomorrow } from "./helpers/MirHelpers";
 
-const restApiUrl = process.env.REST_API_URL || "http://localhost:8000";
-const restApiClientId = process.env.REST_API_CLIENT_ID || undefined;
-const questionnaireName = process.env.TEST_QUESTIONNAIRE;
-const serverPark = process.env.SERVER_PARK;
-const blaiseApiClient = new BlaiseApiClient(restApiUrl, { blaiseApiClientId: restApiClientId });
+// const restApiUrl = process.env.REST_API_URL || "http://localhost:8000";
+// const restApiClientId = process.env.REST_API_CLIENT_ID || undefined;
+// const questionnaireName = process.env.TEST_QUESTIONNAIRE;
+// const serverPark = process.env.SERVER_PARK;
+// const blaiseApiClient = new BlaiseApiClient(restApiUrl, { blaiseApiClientId: restApiClientId });
 
-let userCredentials: NewUser;
+// let userCredentials: NewUser;
 
 // if (!questionnaireName) {
 //     console.error("Questionnaire name is undefined");

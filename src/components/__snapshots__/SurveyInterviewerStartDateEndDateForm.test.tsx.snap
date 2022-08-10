@@ -30,10 +30,10 @@ Object {
                   checked=""
                   class="radio__input js-radio"
                   id="all"
-                  initial_value="undefined"
+                  initial_value=""
                   name="Survey TLA"
                   type="radio"
-                  value="undefined"
+                  value=""
                 />
                 <label
                   class="radio__label "
@@ -54,7 +54,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="lms"
-                  initial_value="undefined"
+                  initial_value=""
                   name="Survey TLA"
                   type="radio"
                   value="lms"
@@ -84,7 +84,7 @@ Object {
                 <input
                   class="radio__input js-radio"
                   id="opn"
-                  initial_value="undefined"
+                  initial_value=""
                   name="Survey TLA"
                   type="radio"
                   value="opn"
@@ -119,6 +119,7 @@ Object {
           <input
             class="input input--text input-type__input "
             id="Interviewer ID"
+            initial_value=""
             name="Interviewer ID"
             type="text"
             value=""
@@ -169,7 +170,7 @@ Object {
           <span
             class="btn__inner"
           >
-            Run
+            Next
           </span>
         </button>
       </form>
@@ -201,10 +202,10 @@ Object {
                 checked=""
                 class="radio__input js-radio"
                 id="all"
-                initial_value="undefined"
+                initial_value=""
                 name="Survey TLA"
                 type="radio"
-                value="undefined"
+                value=""
               />
               <label
                 class="radio__label "
@@ -225,7 +226,7 @@ Object {
               <input
                 class="radio__input js-radio"
                 id="lms"
-                initial_value="undefined"
+                initial_value=""
                 name="Survey TLA"
                 type="radio"
                 value="lms"
@@ -255,7 +256,7 @@ Object {
               <input
                 class="radio__input js-radio"
                 id="opn"
-                initial_value="undefined"
+                initial_value=""
                 name="Survey TLA"
                 type="radio"
                 value="opn"
@@ -290,6 +291,7 @@ Object {
         <input
           class="input input--text input-type__input "
           id="Interviewer ID"
+          initial_value=""
           name="Interviewer ID"
           type="text"
           value=""
@@ -340,7 +342,7 @@ Object {
         <span
           class="btn__inner"
         >
-          Run
+          Next
         </span>
       </button>
     </form>

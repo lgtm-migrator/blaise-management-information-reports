@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
 import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
@@ -24,7 +24,7 @@ function formatList(listOfQuestionnaires: string[]): string {
     return firsts.join(", ") + " and " + last;
 }
 
-function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourcePlanningReportPageProps) {
+function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourcePlanningReportPageProps): ReactElement {
     const [reportFailed, setReportFailed] = useState<boolean>(false);
     const [reportData, setReportData] = useState<AppointmentResourcePlanningReportData[]>([]);
     const [messageNoData, setMessageNoData] = useState<string>("");
