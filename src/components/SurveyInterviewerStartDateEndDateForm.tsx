@@ -73,7 +73,7 @@ const SurveyInterviewerStartDateEndDateForm = ({
 
     return (
         <>
-            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Next"}/>
+            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Next"} />
         </>
     );
 };
