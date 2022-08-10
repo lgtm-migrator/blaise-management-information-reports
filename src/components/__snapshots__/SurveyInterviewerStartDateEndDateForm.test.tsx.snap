@@ -27,12 +27,13 @@ Object {
                 class="radio"
               >
                 <input
+                  checked=""
                   class="radio__input js-radio"
                   id="all"
                   initial_value=""
                   name="Survey TLA"
                   type="radio"
-                  value="undefined"
+                  value=""
                 />
                 <label
                   class="radio__label "
@@ -198,12 +199,13 @@ Object {
               class="radio"
             >
               <input
+                checked=""
                 class="radio__input js-radio"
                 id="all"
                 initial_value=""
                 name="Survey TLA"
                 type="radio"
-                value="undefined"
+                value=""
               />
               <label
                 class="radio__label "

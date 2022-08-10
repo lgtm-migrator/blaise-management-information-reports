@@ -3,8 +3,8 @@ import { StyledForm } from "blaise-design-system-react-components";
 import { formatISODate } from "../utilities/DateFormatter";
 
 interface Props {
-    interviewer: string
-    surveyTLA: string
+    interviewer: string | undefined
+    surveyTLA: string | undefined
     startDate: Date
     endDate: Date
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
@@ -46,7 +46,7 @@ const SurveyInterviewerStartDateEndDateForm = ({
             type: "radio",
             initial_value: surveyTLA,
             radioOptions: [
-                { id: "all", value: "undefined", label: "Show all surveys" },
+                { id: "all", value: "", label: "Show all surveys" },
                 { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
                 { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
             ]
