@@ -97,7 +97,7 @@ defineFeature(feature, test => {
 
         });
 
-        then("I will receive a list of the following information relating to that interviewer for each call worked on, during the time period specified:", async (docString) => {
+        then("I will receive a list of the following information relating to that interviewer for each call worked on, during the time period specified:", async () => {
             await waitFor(() => {
                 expect(screen.findAllByText(/LMS2101_AA1/)).toBeDefined();
                 expect(screen.getByText(/1337/)).toBeInTheDocument();
