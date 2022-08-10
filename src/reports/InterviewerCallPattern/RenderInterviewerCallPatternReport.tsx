@@ -1,7 +1,13 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { ErrorBoundary, Group, GroupedSummary, ONSPanel, SummaryGroupTable } from "blaise-design-system-react-components";
+import {
+    ErrorBoundary,
+    Group,
+    GroupedSummary,
+    ONSPanel,
+    SummaryGroupTable
+} from "blaise-design-system-react-components";
 import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
@@ -83,7 +89,7 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
     return !callPatternReport.total_valid_cases;
 }
 
-function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps) {
+function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps): ReactElement {
     const [reportFailed] = useState<boolean>(false);
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
@@ -91,10 +97,6 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     const [messageNoData, setMessageNoData] = useState<string>("");
     const [allInvalid, setAllInvalid] = useState<boolean>(false);
     const {
-        interviewer,
-        startDate,
-        endDate,
-        questionnaires,
         navigateBack,
         navigateBackTwoSteps,
     } = props;
@@ -228,4 +230,5 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     );
 }
 
+export { formatToFractionAndPercentage, callStatusSection, noContactBreakdownSection, invalidFieldsGroup, isAllInvalid };
 export default RenderInterviewerCallPatternReport;
