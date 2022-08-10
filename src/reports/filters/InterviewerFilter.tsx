@@ -1,8 +1,7 @@
-import { StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { formatISODate } from "../../utilities/DateFormatter";
+import SurveyInterviewerStartDateEndDateForm from "../../components/SurveyInterviewerStartDateEndDateForm";
 
 interface InterviewerFilterPageProps {
     title: string
@@ -40,59 +39,6 @@ function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
         submitFunction();
     }
 
-    const validateInterviewer = (value: string) => {
-        let error;
-        if (value === "" || value === undefined) {
-            error = "Enter a interviewer ID";
-        }
-        return error;
-    };
-
-    const validateDate = (value: string) => {
-        let error;
-        if (value === "" || value === undefined) {
-            error = "Enter a date";
-            return error;
-        }
-
-        if (value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
-            error = "Enter a valid date";
-        }
-        return error;
-    };
-
-    const fields = [
-        {
-            name: "Survey TLA",
-            description: "Select survey",
-            type: "radio",
-            initial_value: surveyTla,
-            radioOptions: [
-                { id: "all", value: "", label: "Show all surveys" },
-                { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
-                { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
-            ]
-        },
-        {
-            name: "Interviewer ID",
-            type: "text",
-            initial_value: interviewer,
-            validate: validateInterviewer
-        },
-        {
-            name: "Start date",
-            type: "date",
-            initial_value: formatISODate(startDate),
-            validate: validateDate
-        },
-        {
-            name: "End date",
-            type: "date",
-            initial_value: formatISODate(endDate),
-            validate: validateDate
-        }
-    ];
-
     return (
         <>
             <div>
@@ -101,7 +47,12 @@ function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
                 <main id="main-content" className="page__main u-mt-s">
                     <h1 className="u-mb-m">Run interviewer {title} report</h1>
                     <CallHistoryLastUpdatedStatus/>
-                    <StyledForm fields={fields} onSubmitFunction={submitInterviewerFilters} submitLabel={"Next"}/>
+                    <SurveyInterviewerStartDateEndDateForm
+                        interviewer={interviewer}
+                        surveyTLA={surveyTla}
+                        startDate={startDate}
+                        endDate={endDate}
+                        onSubmitFunction={submitInterviewerFilters} />
                 </main>
             </div>
         </>
