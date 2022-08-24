@@ -28,7 +28,7 @@ describe("form - survey, date", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <SurveyDateForm onSubmitFunction="" />
+                <SurveyDateForm onSubmitFunction={() => {return true;}} />
             </Router>
         );
 
