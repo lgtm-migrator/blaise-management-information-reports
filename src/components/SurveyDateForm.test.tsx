@@ -44,7 +44,7 @@ describe("form - survey, date", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <SurveyDateForm onSubmitFunction="" />
+                    <SurveyDateForm onSubmitFunction={() => {return true;}} />
                 </Router>
             );
         });
