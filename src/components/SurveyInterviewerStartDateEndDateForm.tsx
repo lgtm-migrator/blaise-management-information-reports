@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
 import { formatISODate } from "../utilities/DateFormatter";
+import { SurveyField } from "./SurveyField";
 
 interface Props {
     interviewer: string | undefined
@@ -40,17 +41,7 @@ const SurveyInterviewerStartDateEndDateForm = ({
     };
 
     const fields = [
-        {
-            name: "Survey TLA",
-            description: "Select survey",
-            type: "radio",
-            initial_value: surveyTLA,
-            radioOptions: [
-                { id: "all", value: "", label: "Show all surveys" },
-                { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
-                { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
-            ]
-        },
+        SurveyField(surveyTLA),
         {
             name: "Interviewer ID",
             type: "text",

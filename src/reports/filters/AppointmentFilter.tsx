@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
 import { formatISODate } from "../../utilities/DateFormatter";
+import { SurveyField } from "../../components/SurveyField";
 
 interface AppointmentFilterPageProps {
     title: string
@@ -41,17 +42,7 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
     };
 
     const fields = [
-        {
-            name: "Survey TLA",
-            description: "Select survey",
-            type: "radio",
-            initial_value: surveyTla,
-            radioOptions: [
-                { id: "all", value: "", label: "Show all surveys" },
-                { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
-                { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
-            ]
-        },
+        SurveyField(surveyTla),
         {
             name: "Date",
             type: "date",
