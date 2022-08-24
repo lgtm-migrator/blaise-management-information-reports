@@ -21,20 +21,22 @@ The application calls API endpoints from the BERT application to receive the man
 
 ![Flow](.github/bert-ernie-flow.png)
 
-### Setup
-
-#### Prerequisites
+### First-time setup
 
 To run Blaise Management Information Reports locally, you'll need to have [Node installed](https://nodejs.org/en/), as
 well as [yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable).
 
 Clone the repository:
-
 ```shell script
 git clone https://github.com/ONSdigital/blaise-management-information-reports.git
 ```
 
-Create an .env file in the root of the project and add the following variables:
+and install the project dependencies:
+```shell script
+yarn install
+```
+
+Create a .env file in the root of the project and add the following variables:
 
 | Variable | Description | Example |
 | --- | --- | --- |
@@ -45,8 +47,7 @@ Create an .env file in the root of the project and add the following variables:
 
 To find the `X_CLIENT_ID`, navigate to the GCP console, search for `IAP`, click the three dots on right of the service and select `OAuth`. `Client Id` will be on the right.
 
-The .env file should be setup as below
-
+The .env file should be setup as below. **DO NOT COMMIT THIS FILE**
 ```.env
 PROJECT_ID=ons-blaise-v2-dev-<sandbox>
 BERT_URL=https://dev-<sandbox>-bert.social-surveys.gcp.onsdigital.uk
@@ -54,34 +55,26 @@ BERT_CLIENT_ID=foo.apps.googleusercontent.com
 BLAISE_API_URL=http://localhost:8011
 ```
 
-Run the following command to export your environment variables:
-
-```shell script
-export $(cat .env | xargs)
-```
-
 To get the service working locally, you need
 to [obtain a JSON service account key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys), this
 will need to be a service account with create and list permissions. Save the service account key
 as  `keys.json` and place in the root of the project. Providing the NODE_ENV is not production, then the GCP storage
-config will attempt to use this file.  **DO NOT COMMIT THIS FILE**
+config will attempt to use this file. **DO NOT COMMIT THIS FILE**
+
 
 To create a keys.json file:
 ```shell
 gcloud iam service-accounts keys create keys.json --iam-account ons-blaise-v2-dev-<sandbox>@appspot.gserviceaccount.com`
 ```
 
-To export the `Google application credentials` as a runtime variable:
-```shell
-export GOOGLE_APPLICATION_CREDENTIALS=keys.json
-```
+### Running MIR locally
 
 To authenticate MIR login, you'll need to
 have [Blaise Rest API](https://github.com/ONSdigital/blaise-api-rest) running locally (On a Windows machine), or you
 can [create an Identity-Aware Proxy (IAP) tunnel](https://cloud.google.com/sdk/gcloud/reference/compute/start-iap-tunnel)
 from a GCP Compute Instance running the rest API in a sandbox.
 
-First, authenticate with Google:
+Authenticate with Google:
 ```shell
 gcloud auth login
 ```
@@ -97,40 +90,50 @@ gcloud compute start-iap-tunnel restapi-1 80 --local-host-port=localhost:<PORT> 
 ```
 NB Port 5004 is already in use by the server.
 
-##### Run commands
-In a new terminal install the project dependencies:
-
-```shell script
-yarn install
+In a new terminal export the `Google application credentials` as a runtime variable:
+```shell
+export GOOGLE_APPLICATION_CREDENTIALS=keys.json
 ```
 
 Run Node.js and React.js via the package.json script:
-
 ```shell script
 yarn dev
 ```
 
 The UI should now be accessible via:
-
 http://localhost:3000/
 
-Tests can be run via the package.json script:
+### Executing tests
 
+Tests can be run via the package.json script:
 ```shell script
 yarn test
 ```
 
 To prevent tests from printing messages through the console tests can be run silently via the package.json script:
-
 ```shell script
 yarn test --silent
 ```
 
 Test snapshots can be updated via:
-
 ```shell script
 yarn test -u
 ```
+
+### Troubleshooting
+
+Trying to run the application locally and getting the following error?
+```
+Proxy error: Could not proxy request /api/login/users/password/validate from localhost:3000 to http://localhost:5004.
+```
+
+Exporting the environment variables in the same terminal as ```yarn dev``` worked for me:
+```shell script
+export $(cat .env | xargs)
+```
+
+
+
 
 ### Playwright tests 
 
