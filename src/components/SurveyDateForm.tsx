@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import { formatISODate } from "../utilities/DateFormatter";
+import { DateField, SurveyField } from "./FormFields";
 
 interface Props {
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
@@ -9,22 +9,8 @@ interface Props {
 const SurveyDateForm = ({ onSubmitFunction }: Props): ReactElement => {
 
     const fields = [
-        {
-            name: "Survey TLA",
-            description: "Select survey",
-            type: "radio",
-            initial_value: "undefined",
-            radioOptions: [
-                { id: "all", value: "undefined", label: "Show all surveys" },
-                { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
-                { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
-            ]
-        },
-        {
-            name: "Date",
-            type: "date",
-            initial_value: formatISODate(new Date()),
-        }
+        SurveyField("undefined"),
+        DateField()
     ];
 
     return (
