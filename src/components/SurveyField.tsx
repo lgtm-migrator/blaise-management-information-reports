@@ -1,4 +1,4 @@
-export function SurveyField(surveyTLA: string | undefined): Record<string, any> {
+export function SurveyField(surveyTLA: string | undefined): any {
     return {
         name: "Survey TLA",
         description: "Select survey",
