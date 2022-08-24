@@ -2,8 +2,7 @@ import { StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
-import { formatISODate } from "../../utilities/DateFormatter";
-import { SurveyField } from "../../components/SurveyField";
+import { DateField, SurveyField } from "../../components/FormFields";
 
 interface AppointmentFilterPageProps {
     title: string
@@ -17,7 +16,6 @@ interface AppointmentFilterPageProps {
 function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
     const {
         title,
-        reportDate,
         setReportDate,
         surveyTla,
         setSurveyTla,
@@ -31,24 +29,9 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
         submitFunction();
     }
 
-    const validateDate = (value: string) => {
-        if (value === "" || value === undefined) {
-            return "Enter a date";
-        }
-
-        if (value.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) === null) {
-            return "Enter a valid date";
-        }
-    };
-
     const fields = [
         SurveyField(surveyTla),
-        {
-            name: "Date",
-            type: "date",
-            initial_value: formatISODate(reportDate),
-            validate: validateDate
-        }
+        DateField()
     ];
 
     return (
