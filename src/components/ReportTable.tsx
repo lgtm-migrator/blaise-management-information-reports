@@ -1,13 +1,17 @@
-import {InterviewerCallHistoryReport} from "../interfaces";
-import {formatDateAndTime} from "../utilities/DateFormatter";
-import {convertSecondsToMinutesAndSeconds} from "../utilities/Converters";
-import React from "react";
+import { InterviewerCallHistoryReport } from "../interfaces";
+import { formatDateAndTime } from "../utilities/DateFormatter";
+import { convertSecondsToMinutesAndSeconds } from "../utilities/Converters";
+import React, { ReactElement } from "react";
+import { ONSPanel } from "blaise-design-system-react-components";
 
-async function reportTable() {
+interface ReportTableProps {
+    reportData: any
+    messageNoData: string
+}
 
-
+function ReportTable(ReportTableProps: ReportTableProps): ReactElement{
     return (
-        reportData && reportData.length > 0
+        ReportTableProps.reportData && ReportTableProps.reportData.length > 0
             ?
             <table id="report-table" className="table u-mt-s">
                 <thead className="table__head u-mt-m">
@@ -31,7 +35,7 @@ async function reportTable() {
                 </thead>
                 <tbody className="table__body">
                     {
-                        reportData.map((callHistory: InterviewerCallHistoryReport) => {
+                        ReportTableProps.reportData.map((callHistory: InterviewerCallHistoryReport) => {
                             return (
                                 <tr className="table__row" key={callHistory.call_start_time}
                                     data-testid={"report-table-row"}>
@@ -57,6 +61,8 @@ async function reportTable() {
                 </tbody>
             </table>
             :
-            <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
+            <ONSPanel hidden={ReportTableProps.messageNoData === "" && true}>{ReportTableProps.messageNoData}</ONSPanel>
     );
 }
+
+export default ReportTable;
