@@ -7,7 +7,7 @@ import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import { formatDateAndTime } from "../../utilities/DateFormatter";
 import FilterSummary from "../../components/FilterSummary";
-import ReportTable from "../../components/ReportTable";
+import CallHistoryReportTable from "../../components/CallHistoryReportTable";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string
@@ -102,7 +102,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
-                    <ReportTable messageNoData={messageNoData} reportData={reportData}/>
+                    <CallHistoryReportTable messageNoData={messageNoData} reportData={reportData}/>
                     <br/>
                 </ErrorBoundary>
             </main>

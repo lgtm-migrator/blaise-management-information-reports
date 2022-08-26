@@ -4,14 +4,14 @@ import { convertSecondsToMinutesAndSeconds } from "../utilities/Converters";
 import React, { ReactElement } from "react";
 import { ONSPanel } from "blaise-design-system-react-components";
 
-interface ReportTableProps {
+interface CallHistoryReportTableProps {
     reportData: any
     messageNoData: string
 }
 
-function ReportTable(ReportTableProps: ReportTableProps): ReactElement{
+function CallHistoryReportTable(CallHistoryReportTableProps: CallHistoryReportTableProps): ReactElement{
     return (
-        ReportTableProps.reportData && ReportTableProps.reportData.length > 0
+        CallHistoryReportTableProps.reportData && CallHistoryReportTableProps.reportData.length > 0
             ?
             <table id="report-table" className="table u-mt-s">
                 <thead className="table__head u-mt-m">
@@ -35,7 +35,7 @@ function ReportTable(ReportTableProps: ReportTableProps): ReactElement{
                 </thead>
                 <tbody className="table__body">
                     {
-                        ReportTableProps.reportData.map((callHistory: InterviewerCallHistoryReport) => {
+                        CallHistoryReportTableProps.reportData.map((callHistory: InterviewerCallHistoryReport) => {
                             return (
                                 <tr className="table__row" key={callHistory.call_start_time}
                                     data-testid={"report-table-row"}>
@@ -61,8 +61,8 @@ function ReportTable(ReportTableProps: ReportTableProps): ReactElement{
                 </tbody>
             </table>
             :
-            <ONSPanel hidden={ReportTableProps.messageNoData === "" && true}>{ReportTableProps.messageNoData}</ONSPanel>
+            <ONSPanel hidden={CallHistoryReportTableProps.messageNoData === "" && true}>{CallHistoryReportTableProps.messageNoData}</ONSPanel>
     );
 }
 
-export default ReportTable;
+export default CallHistoryReportTable;
