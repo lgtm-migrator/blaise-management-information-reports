@@ -7,22 +7,23 @@ import { act } from "react-dom/test-utils";
 import React from "react";
 import { screen } from "@testing-library/dom";
 import flushPromises from "../tests/utilities";
+import { InterviewerCallHistoryReport } from "../interfaces";
 
-const reportData = {
+const reportData: InterviewerCallHistoryReport = {
     appointment_info: "foo",
-    busy_dials: "1",
-    call_number: "1",
+    busy_dials: 1,
+    call_number: 1,
     cohort: "1",
     update_info: "FOO",
     wave: "1",
     questionnaire_id: "LMS",
     interviewer: "James",
-    outcome_code: "310",
-    dial_number: "1",
+    outcome_code: 310,
+    dial_number: 1,
     status: "1",
     survey: "LMS",
     call_result: "310",
-    dial_secs: "100",
+    dial_secs: 100,
     questionnaire_name: "LMS2101_AA1",
     serial_number: "900001",
     call_start_time: "09:00 31/01/2022"
@@ -34,7 +35,7 @@ describe("CallHistoryReportTable", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryReportTable messageNoData={messageNoData} reportData={reportData}/>
+                <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
             </Router>
         );
         await act(async () => {
@@ -48,7 +49,7 @@ describe("CallHistoryReportTable", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={reportData}/>
+                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
                 </Router>
             );
         });
