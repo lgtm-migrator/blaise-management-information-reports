@@ -9,10 +9,17 @@ interface CallHistoryReportTableProps {
     messageNoData: string
 }
 
-function callHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement{
+function isEmpty(reportData: any): boolean {
+    return !(reportData && reportData.length > 0);
+}
+
+export default function callHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement{
+    if(isEmpty(reportData)){
+        return <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>;
+    }
+
     return (
-        reportData && reportData.length > 0
-            ?
+        <>
             <table id="report-table" className="table u-mt-s">
                 <thead className="table__head u-mt-m">
                     <tr className="table__row">
@@ -60,9 +67,6 @@ function callHistoryReportTable({ reportData, messageNoData }: CallHistoryReport
                     }
                 </tbody>
             </table>
-            :
-            <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
+        </>
     );
 }
-
-export default callHistoryReportTable;
