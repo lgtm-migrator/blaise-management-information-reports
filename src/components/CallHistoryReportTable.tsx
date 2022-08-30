@@ -9,9 +9,9 @@ interface CallHistoryReportTableProps {
     messageNoData: string
 }
 
-function CallHistoryReportTable(CallHistoryReportTableProps: CallHistoryReportTableProps): ReactElement{
+function CallHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement{
     return (
-        CallHistoryReportTableProps.reportData && CallHistoryReportTableProps.reportData.length > 0
+        reportData && reportData.length > 0
             ?
             <table id="report-table" className="table u-mt-s">
                 <thead className="table__head u-mt-m">
@@ -35,7 +35,7 @@ function CallHistoryReportTable(CallHistoryReportTableProps: CallHistoryReportTa
                 </thead>
                 <tbody className="table__body">
                     {
-                        CallHistoryReportTableProps.reportData.map((callHistory: InterviewerCallHistoryReport) => {
+                        reportData.map((callHistory: InterviewerCallHistoryReport) => {
                             return (
                                 <tr className="table__row" key={callHistory.call_start_time}
                                     data-testid={"report-table-row"}>
@@ -61,7 +61,7 @@ function CallHistoryReportTable(CallHistoryReportTableProps: CallHistoryReportTa
                 </tbody>
             </table>
             :
-            <ONSPanel hidden={CallHistoryReportTableProps.messageNoData === "" && true}>{CallHistoryReportTableProps.messageNoData}</ONSPanel>
+            <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
     );
 }
 
