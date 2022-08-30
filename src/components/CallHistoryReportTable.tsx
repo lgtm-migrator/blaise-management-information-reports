@@ -9,7 +9,7 @@ interface CallHistoryReportTableProps {
     messageNoData: string
 }
 
-function CallHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement{
+function callHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement{
     return (
         reportData && reportData.length > 0
             ?
@@ -65,4 +65,4 @@ function CallHistoryReportTable({ reportData, messageNoData }: CallHistoryReport
     );
 }
 
-export default CallHistoryReportTable;
+export default callHistoryReportTable;
