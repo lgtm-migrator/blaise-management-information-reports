@@ -1,13 +1,13 @@
 import "@testing-library/jest-dom";
-import {createMemoryHistory} from "history";
-import {render} from "@testing-library/react";
-import {Router} from "react-router";
+import { createMemoryHistory } from "history";
+import { render } from "@testing-library/react";
+import { Router } from "react-router";
 import CallHistoryReportTable from "./CallHistoryReportTable";
-import {act} from "react-dom/test-utils";
+import { act } from "react-dom/test-utils";
 import React from "react";
-import {screen} from "@testing-library/dom";
+import { screen } from "@testing-library/dom";
 import flushPromises from "../tests/utilities";
-import {InterviewerCallHistoryReport} from "../interfaces";
+import { InterviewerCallHistoryReport } from "../interfaces";
 
 const reportData: InterviewerCallHistoryReport = {
     call_result: "Appointment",
