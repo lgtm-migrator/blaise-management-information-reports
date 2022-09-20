@@ -5,6 +5,7 @@ process.env = Object.assign(process.env, {
 });
 
 module.exports = {
+    testTimeout: 10000,
     moduleNameMapper: {
         "\\.(css|less|scss)$": "identity-obj-proxy",
         "\\.(jpg)$": "identity-obj-proxy"
