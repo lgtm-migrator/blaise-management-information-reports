@@ -22,7 +22,6 @@ interface RenderInterviewerCallHistoryReportPageProps {
 function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps): ReactElement {
     const [reportData, setReportData] = useState<InterviewerCallHistoryReport[]>([]);
     const [interviewerID, setInterviewerID] = useState<string>("");
-    const [messageNoData, setMessageNoData] = useState<string>("");
     const {
         navigateBack,
         navigateBackTwoSteps,
@@ -44,7 +43,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
 
     async function runInterviewerCallHistoryReport(): Promise<void> {
         const formValues: Record<string, any> = {};
-        setMessageNoData("");
         setReportData([]);
         setInterviewerID(props.interviewer);
         formValues.survey_tla = props.surveyTla;
@@ -61,11 +59,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
             return;
         } finally {
             //setSubmitting(false);
-        }
-
-        if (callHistory.length === 0) {
-            setMessageNoData("No data found for parameters given.");
-            return;
         }
 
         console.log(callHistory);
@@ -96,7 +89,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={reportData}/>
+                    <CallHistoryReportTable messageNoData="No data found for parameters given." reportData={reportData}/>
                 </ErrorBoundary>
             </main>
         </>
