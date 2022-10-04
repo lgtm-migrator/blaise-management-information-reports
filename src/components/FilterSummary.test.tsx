@@ -1,60 +1,55 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { createMemoryHistory } from "history";
-import { render, RenderResult } from "@testing-library/react";
-import { Router } from "react-router";
+import { render, screen } from "@testing-library/react";
 import FilterSummary from "./FilterSummary";
-import { act } from "react-dom/test-utils";
 
 describe("FilterSummary tests", () => {
-    let wrapper: RenderResult;
     const multipleQuestionnaires: string[] = ["LMS", "OPN"];
     const singleQuestionnaire: string[] = ["LMS"];
     const noQuestionnaires: string[] = [];
-    
-    beforeEach(async () =>{
-        await act(async () => {
-            wrapper = renderComponent(noQuestionnaires);
-        });
-    });
 
-    it("matches snapshot", async () => {
-        expect(await wrapper).toMatchSnapshot();
+    it("matches snapshot", () => {
+        expect(renderComponent(noQuestionnaires)).toMatchSnapshot();
     });
 
     describe("renders interviewer and period correctly", () => {
-        it("displays interviewer and the relevant information", () =>{
-            expect(wrapper.getByText(/Interviewer: Cal/)).toBeVisible();
+        it("displays interviewer and the relevant information", () => {
+            renderComponent(noQuestionnaires);
+            expect(screen.getByRole("heading", { name: /Interviewer: Cal/ })).toBeVisible();
         });
-        it("displays period and the relevant information", () =>{
-            expect(wrapper.getByText(/Period: 04\/05\/2022–05\/05\/2022/)).toBeVisible();
+
+        it("displays period and the relevant information", () => {
+            renderComponent(noQuestionnaires);
+            expect(screen.getByRole("heading", { name: /Period: 04\/05\/2022–05\/05\/2022/ })).toBeVisible();
         });
     });
 
     describe("renders correctly without questionnaires being filtered", () => {
-        it("does not display questionnaire when no questionnaires have been passed through", () =>{
-            expect(wrapper.queryByText(/Questionnaire/)).toBeNull();
+        it("does not display questionnaire when no questionnaires have been passed through", () => {
+            renderComponent(noQuestionnaires);
+            expect(screen.queryByText(/Questionnaire/)).not.toBeInTheDocument();
         });
     });
 
     describe("it renders correctly when questionnaires are filtered", () => {
-        it("displays one questionnaire and the relevant information", () =>{
-            wrapper = renderComponent(singleQuestionnaire);
-            expect(wrapper.getByText(/Questionnaire: LMS/)).toBeVisible();
+        it("displays one questionnaire and the relevant information", () => {
+            renderComponent(singleQuestionnaire);
+            expect(screen.getByRole("heading", { name: /Questionnaire: LMS/ })).toBeVisible();
         });
-        it("displays multiple questionnaires and the relevant information", () =>{
-            wrapper = renderComponent(multipleQuestionnaires);
-            expect(wrapper.getByText(/Questionnaires: LMS and OPN/)).toBeVisible();
+
+        it("displays multiple questionnaires and the relevant information", () => {
+            renderComponent(multipleQuestionnaires);
+            expect(screen.getByRole("heading", { name: /Questionnaires: LMS and OPN/ })).toBeVisible();
         });
     });
 });
 
-function renderComponent(questionnaires: string[]){
-    const history = createMemoryHistory();
+function renderComponent(questionnaires: string[]) {
     return render(
-        <Router history={history}>
-            <FilterSummary startDate={ new Date("2022-05-04") } endDate={ new Date("2022-05-05") } 
-                interviewer="Cal" questionnaires={questionnaires}/>
-        </Router>
+        <FilterSummary
+            startDate={ new Date("2022-05-04") }
+            endDate={ new Date("2022-05-05") }
+            interviewer="Cal"
+            questionnaires={ questionnaires }/>
     );
 }
