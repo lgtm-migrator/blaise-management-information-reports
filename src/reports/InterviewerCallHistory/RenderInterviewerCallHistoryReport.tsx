@@ -70,7 +70,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
 
         console.log(callHistory);
         setReportData(callHistory);
-
     }
 
     return (
@@ -98,7 +97,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 </CSVLink>
                 <ErrorBoundary errorMessageText={"Failed to load"}>
                     <CallHistoryReportTable messageNoData={messageNoData} reportData={reportData}/>
-                    <br/>
                 </ErrorBoundary>
             </main>
         </>
