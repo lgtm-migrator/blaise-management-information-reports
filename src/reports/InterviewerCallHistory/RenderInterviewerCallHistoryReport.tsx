@@ -84,11 +84,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 <h1>Call History Report</h1>
                 <FilterSummary {...props}/>
                 <CallHistoryLastUpdatedStatus/>
-
-                <div>
-
-                </div>
-
                 <br/>
                 <CSVLink hidden={reportData === null || reportData.length === 0}
                     data={
