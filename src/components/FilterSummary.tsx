@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { formatDate } from "../utilities/DateFormatter";
 
 interface FilterSummaryProps{
@@ -8,22 +8,18 @@ interface FilterSummaryProps{
     questionnaires: string[]
 }
 
-function FilterSummary(FilterSummaryProps: FilterSummaryProps): ReactElement {
-    if (FilterSummaryProps.questionnaires.length > 0) {
-        return (
-            <>
-                <h3 className="u-mb-m">
-                Interviewer: {FilterSummaryProps.interviewer} <br></br>
-                Period: {formatDate(FilterSummaryProps.startDate)}–{formatDate(FilterSummaryProps.endDate)}<br></br>
-                Questionnaire{FilterSummaryProps.questionnaires.length > 1 ? ("s") : ""}: {formatList(FilterSummaryProps.questionnaires)}
-                </h3>
-            </>
-        );
-    } return (
+function FilterSummary({ interviewer, startDate, endDate, questionnaires }: FilterSummaryProps): ReactElement {
+    let questionaires: ReactNode = null;
+    if (questionnaires.length > 0) {
+        const questionnaireHeading = `Questionnaire${ questionnaires.length > 1 ? "s" : "" }:`;
+        questionaires = <>{questionnaireHeading} {formatList(questionnaires)}</>;
+    }
+    return (
         <>
             <h3 className="u-mb-m">
-            Interviewer: {FilterSummaryProps.interviewer} <br></br>
-            Period: {formatDate(FilterSummaryProps.startDate)}–{formatDate(FilterSummaryProps.endDate)}<br></br>
+                Interviewer: {interviewer}<br/>
+                Period: {formatDate(startDate)}–{formatDate(endDate)}<br/>
+                {questionaires}
             </h3>
         </>
     );
