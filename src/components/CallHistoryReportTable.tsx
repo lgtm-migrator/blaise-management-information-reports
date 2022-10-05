@@ -42,9 +42,9 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                 </thead>
                 <tbody className="table__body">
                     {
-                        reportData.map((callHistory: InterviewerCallHistoryReport) => {
+                        reportData.map((callHistory: InterviewerCallHistoryReport, index: number) => {
                             return (
-                                <tr className="table__row" key={callHistory.call_start_time}
+                                <tr className="table__row" key={index}
                                     data-testid={"report-table-row"}>
                                     <td className="table__cell ">
                                         {callHistory.questionnaire_name}

@@ -44,7 +44,7 @@ export type InterviewerCallHistoryReport = {
     wave?: string,
     questionnaire_id?: string,
     interviewer?: string,
-    outcome_code?: number,
+    outcome_code?: string,
     dial_number?: number,
     status?: string,
     survey?: string,
