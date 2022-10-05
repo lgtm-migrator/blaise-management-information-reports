@@ -81,11 +81,11 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={ [{ link: "/", title: "Reports" }, {
-                link: "#",
-                onClickFunction: navigateBackTwoSteps,
-                title: "Interviewer details"
-            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }] }/>
+            <Breadcrumbs BreadcrumbList={ [
+                { link: "/", title: "Reports" },
+                { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
+                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
+            ] }/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call History Report</h1>
                 <FilterSummary { ...props }/>
