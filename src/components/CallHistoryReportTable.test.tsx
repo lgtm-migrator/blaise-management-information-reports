@@ -10,7 +10,8 @@ const reportData: InterviewerCallHistoryReport = {
     dial_secs: 90,
     questionnaire_name: "LMS2101_AA1",
     serial_number: "900001",
-    call_start_time: "2022-01-31T09:00-0000"
+    call_start_time: "2022-01-31T09:00-0000",
+    outcome_code: "320"
 };
 const messageNoData = "No data found for parameters given.";
 
@@ -57,6 +58,13 @@ describe("CallHistoryReportTable", () => {
         expect(screen.queryByText("Call Result")).toBeVisible();
     });
 
+    it("displays a heading of 'Outcome Code'", async () => {
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
+        expect(screen.queryByText("Outcome Code")).toBeVisible();
+    });
+
     it("displays the relevant information for each heading", async () => {
         render(
             <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
@@ -66,5 +74,6 @@ describe("CallHistoryReportTable", () => {
         expect(screen.queryByText("31/01/2022 09:00:00")).toBeVisible();
         expect(screen.queryByText("01:30")).toBeVisible();
         expect(screen.queryByText("Appointment")).toBeVisible();
+        expect(screen.queryByText("320")).toBeVisible();
     });
 });

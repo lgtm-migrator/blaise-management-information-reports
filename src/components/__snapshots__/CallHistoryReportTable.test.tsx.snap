@@ -99,7 +99,9 @@ Object {
             </td>
             <td
               class="table__cell "
-            />
+            >
+              320
+            </td>
           </tr>
         </tbody>
       </table>
@@ -200,7 +202,9 @@ Object {
           </td>
           <td
             class="table__cell "
-          />
+          >
+            320
+          </td>
         </tr>
       </tbody>
     </table>
