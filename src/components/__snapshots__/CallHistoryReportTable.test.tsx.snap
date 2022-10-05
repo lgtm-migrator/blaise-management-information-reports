@@ -55,6 +55,14 @@ Object {
                 Call Result
               </span>
             </th>
+            <th
+              class="table__header "
+              scope="col"
+            >
+              <span>
+                Outcome Code
+              </span>
+            </th>
           </tr>
         </thead>
         <tbody
@@ -89,6 +97,9 @@ Object {
             >
               Appointment
             </td>
+            <td
+              class="table__cell "
+            />
           </tr>
         </tbody>
       </table>
@@ -145,6 +156,14 @@ Object {
               Call Result
             </span>
           </th>
+          <th
+            class="table__header "
+            scope="col"
+          >
+            <span>
+              Outcome Code
+            </span>
+          </th>
         </tr>
       </thead>
       <tbody
@@ -179,6 +198,9 @@ Object {
           >
             Appointment
           </td>
+          <td
+            class="table__cell "
+          />
         </tr>
       </tbody>
     </table>

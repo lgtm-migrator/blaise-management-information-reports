@@ -151,14 +151,16 @@ describe("RenderInterviewerCallHistoryReport", () => {
                     serial_number: "101010",
                     call_start_time: "Mon, 01 Aug 2022 01:02:03 GMT",
                     dial_secs: 83,
-                    call_result: "Appointment"
+                    call_result: "Appointment",
+                    outcome_code: "320"
                 },
                 {
                     questionnaire_name: "DST2111Z",
                     serial_number: "202020",
                     call_start_time: "Thu, 06 Jan 2022 04:05:06 GMT",
                     dial_secs: 3,
-                    call_result: "Busy"
+                    call_result: "Busy",
+                    outcome_code: ""
                 },
             ];
             http.onPost("/api/reports/interviewer-call-history").reply(200, results);
@@ -177,6 +179,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
             expect(cells[2]).toHaveTextContent("Call Start Time");
             expect(cells[3]).toHaveTextContent("Call Length");
             expect(cells[4]).toHaveTextContent("Call Result");
+            expect(cells[5]).toHaveTextContent("Outcome Code");
         });
 
         it("displays the calls", () => {
@@ -188,6 +191,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
             expect(row1[2]).toHaveTextContent("01/08/2022 02:02:03"); // BST adds an hour
             expect(row1[3]).toHaveTextContent("01:23");
             expect(row1[4]).toHaveTextContent("Appointment");
+            expect(row1[5]).toHaveTextContent("320");
 
             const row2 = within(rows[2]).getAllByRole("cell");
             expect(row2[0]).toHaveTextContent("DST2111Z");
@@ -195,6 +199,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
             expect(row2[2]).toHaveTextContent("06/01/2022 04:05:06");
             expect(row2[3]).toHaveTextContent("00:03");
             expect(row2[4]).toHaveTextContent("Busy");
+            expect(row2[5]).toHaveTextContent("");
         });
     });
 });
