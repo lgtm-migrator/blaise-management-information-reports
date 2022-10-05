@@ -23,7 +23,6 @@ type ReportState = "loading" | "loaded" | "failed"
 
 function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps): ReactElement {
     const [reportData, setReportData] = useState<InterviewerCallHistoryReport[]>([]);
-    const [interviewerID, setInterviewerID] = useState<string>("");
     const [reportState, setReportState] = useState<ReportState>("loading");
     const {
         navigateBack,
@@ -46,7 +45,6 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
     async function runInterviewerCallHistoryReport(): Promise<void> {
         const formValues: Record<string, any> = {};
         setReportData([]);
-        setInterviewerID(props.interviewer);
         formValues.survey_tla = props.surveyTla;
         formValues.interviewer = props.interviewer;
         formValues.start_date = props.startDate;
@@ -100,7 +98,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                     }
                     headers={ reportExportHeaders }
                     target="_blank"
-                    filename={ `interviewer-call-history-${ interviewerID }.csv` }>
+                    filename={ `interviewer-call-history-${ props.interviewer }.csv` }>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
                 { report() }
