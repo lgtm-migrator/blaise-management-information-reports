@@ -1,12 +1,8 @@
 import "@testing-library/jest-dom";
-import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
-import { Router } from "react-router";
 import CallHistoryReportTable from "./CallHistoryReportTable";
-import { act } from "react-dom/test-utils";
 import React from "react";
 import { screen } from "@testing-library/dom";
-import flushPromises from "../tests/utilities";
 import { InterviewerCallHistoryReport } from "../interfaces";
 
 const reportData: InterviewerCallHistoryReport = {
@@ -20,87 +16,51 @@ const messageNoData = "No data found for parameters given.";
 
 describe("CallHistoryReportTable", () => {
     it("matches snapshot", async () => {
-        const history = createMemoryHistory();
         const wrapper = render(
-            <Router history={history}>
-                <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-            </Router>
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
         );
-        await act(async () => {
-            await flushPromises();
-        });
         expect(await wrapper).toMatchSnapshot();
     });
 
     it("displays a heading of 'Questionnaire'", async () => {
-        const history = createMemoryHistory();
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-                </Router>
-            );
-        });
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
         expect(screen.queryByText("Questionnaire")).toBeVisible();
     });
 
     it("displays a heading of 'Serial number'", async () => {
-        const history = createMemoryHistory();
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-                </Router>
-            );
-        });
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
         expect(screen.queryByText("Serial Number")).toBeVisible();
     });
 
     it("displays a heading of 'Call Start Time'", async () => {
-        const history = createMemoryHistory();
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-                </Router>
-            );
-        });
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
         expect(screen.queryByText("Call Start Time")).toBeVisible();
     });
 
     it("displays a heading of 'Call Length'", async () => {
-        const history = createMemoryHistory();
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-                </Router>
-            );
-        });
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
         expect(screen.queryByText("Call Length")).toBeVisible();
     });
 
     it("displays a heading of 'Call Result'", async () => {
-        const history = createMemoryHistory();
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-                </Router>
-            );
-        });
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
         expect(screen.queryByText("Call Result")).toBeVisible();
     });
 
     it("displays the relevant information for each heading", async () => {
-        const history = createMemoryHistory();
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <CallHistoryReportTable messageNoData={messageNoData} reportData={[reportData]}/>
-                </Router>
-            );
-        });
+        render(
+            <CallHistoryReportTable messageNoData={ messageNoData } reportData={ [reportData] }/>
+        );
         expect(screen.queryByText("LMS2101_AA1")).toBeVisible();
         expect(screen.queryByText("900001")).toBeVisible();
         expect(screen.queryByText("31/01/2022 09:00:00")).toBeVisible();
