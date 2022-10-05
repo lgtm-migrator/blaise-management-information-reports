@@ -102,36 +102,27 @@ describe("RenderInterviewerCallHistoryReport", () => {
     });
 
     describe("when no results are found", () => {
-        beforeEach(async () => {
+        it("displays the not found message", async () => {
             http.onPost("/api/reports/interviewer-call-history").reply(200, []);
             renderComponent();
-        });
-
-        it("displays the not found message", async () => {
             await screen.findByText("No data found for parameters given.");
         });
     });
 
-    xdescribe("when the server returned an error fetching report", () => {
-        beforeEach(async () => {
+    describe("when the server returned an error fetching report", () => {
+        it("displays the not found message", async () => {
             http.onPost("/api/reports/interviewer-call-history").reply(500, "");
             renderComponent();
-        });
-
-        it("displays the not found message", async () => {
             await screen.findByText("Failed to load");
         });
     });
 
-    xdescribe("when error occurred while fetching report", () => {
-        beforeEach(async () => {
+    describe("when error occurred while fetching report", () => {
+        it("displays the not found message", async () => {
             http.onPost("/api/reports/interviewer-call-history").reply(() => {
                 throw new Error("Boom!");
             });
             renderComponent();
-        });
-
-        it("displays the not found message", async () => {
             await screen.findByText("Failed to load");
         });
     });
