@@ -38,6 +38,9 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                         <th scope="col" className="table__header ">
                             <span>Call Result</span>
                         </th>
+                        <th scope="col" className="table__header ">
+                            <span>Outcome Code</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody className="table__body">
@@ -60,6 +63,9 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                                     </td>
                                     <td className="table__cell ">
                                         {(callHistory.call_result === null ? "Unknown" : callHistory.call_result)}
+                                    </td>
+                                    <td className="table__cell ">
+                                        {callHistory.outcome_code}
                                     </td>
                                 </tr>
                             );
