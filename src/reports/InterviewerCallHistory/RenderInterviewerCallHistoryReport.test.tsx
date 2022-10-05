@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
-import { render, screen, within } from "@testing-library/react";
+import { render, RenderResult, screen, within } from "@testing-library/react";
 import { createMemoryHistory, History } from "history";
 import { Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
@@ -29,8 +29,8 @@ describe("RenderInterviewerCallHistoryReport", () => {
             .reply(200, { "last_updated": "Tue, 04 Oct 2022 00:00:06 GMT" });
     });
 
-    function renderComponent() {
-        render(
+    function renderComponent(): RenderResult {
+        return render(
             <Router history={ history }>
                 <RenderInterviewerCallHistoryReport
                     interviewer="rich"
@@ -62,7 +62,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
             }
         ).reply(200, []);
         renderComponent();
-        await screen.findByText(/No/);
+        await screen.findByText(/No data found for parameters given/);
     });
 
     it("displays the call the last updated message", async () => {
@@ -99,6 +99,12 @@ describe("RenderInterviewerCallHistoryReport", () => {
         expect(screen.getByRole("heading", { name: /Interviewer:\s*rich/ })).toBeVisible();
         expect(screen.getByRole("heading", { name: /Period:\s*18\/09\/2022\s*–\s*17\/10\/2022/ })).toBeVisible();
         expect(screen.getByRole("heading", { name: /Questionnaires:\s*LMS1111 and LMS2222/ })).toBeVisible();
+    });
+
+    it("displays spinners while the status and report are loading", async () => {
+        renderComponent();
+        expect(screen.getAllByText("Loading")).toHaveLength(2);
+        await screen.findByText("Failed to load");
     });
 
     describe("when no results are found", () => {
@@ -150,7 +156,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
             await screen.findByRole("columnheader", { name: "Questionnaire" });
         });
 
-        xit("displays the CVS link", () => {
+        it("displays the CVS link", () => {
             expect(screen.getByText(/Export report as Comma-Separated Values \(CSV\) file/)).toBeVisible();
         });
 

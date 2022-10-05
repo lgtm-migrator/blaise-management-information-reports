@@ -7,7 +7,7 @@ import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdate
 import { formatDateAndTime } from "../../utilities/DateFormatter";
 import FilterSummary from "../../components/FilterSummary";
 import CallHistoryReportTable from "../../components/CallHistoryReportTable";
-import { ONSPanel } from "blaise-design-system-react-components";
+import { ONSPanel, ONSLoadingPanel } from "blaise-design-system-react-components";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string;
@@ -75,7 +75,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 </ONSPanel>
             );
         default:
-            return null;
+            return <ONSLoadingPanel/>;
         }
     }
 
