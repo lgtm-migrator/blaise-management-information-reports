@@ -47,64 +47,74 @@ describe("RenderInterviewerCallHistoryReport", () => {
 
     it("posts the search parameters to the backend", async () => {
         expect.assertions(5);
+        let formData = new FormData();
         http.onPost(
             "/api/reports/interviewer-call-history",
             {
-                // If these don't match then the tests fail with a 404
-                asymmetricMatch: (formData: FormData) => {
-                    expect(formData.get("survey_tla")).toBe("LMS");
-                    expect(formData.get("interviewer")).toBe("rich");
-                    expect(formData.get("start_date")).toBe("Sun Sep 18 2022 01:23:00 GMT+0100 (British Summer Time)");
-                    expect(formData.get("end_date")).toBe("Mon Oct 17 2022 04:56:00 GMT+0100 (British Summer Time)");
-                    expect(formData.get("questionnaires")).toBe("LMS1111,LMS2222");
+                asymmetricMatch: (fd: FormData) => {
+                    formData = fd;
                     return true;
                 }
             }
         ).reply(200, []);
         renderComponent();
         await screen.findByText(/No data found for parameters given/);
-    });
+        await screen.findByText(/Data in this report was last updated/);
 
-    it("displays the call the last updated message", async () => {
-        renderComponent();
-        await screen.findByText(/Data in this report was last updated:/);
-        await screen.findByText(/\(04\/10\/2022 01:00:06\)/);
-    });
-
-    it("displays the header", () => {
-        renderComponent();
-        expect(screen.getByRole("heading", { name: "Call History Report" })).toBeVisible();
-    });
-
-    it("navigates to / when Reports is clicked", () => {
-        renderComponent();
-        userEvent.click(screen.getByRole("link", { name: "Reports" }));
-        expect(history.location.pathname).toBe("/");
-    });
-
-    it("calls navigateBackTwoSteps when Interview details is clicked", () => {
-        renderComponent();
-        userEvent.click(screen.getByRole("link", { name: "Interviewer details" }));
-        expect(navigateBackTwoSteps).toHaveBeenCalled();
-    });
-
-    it("calls navigateBack when Questionnaires is clicked", () => {
-        renderComponent();
-        userEvent.click(screen.getByRole("link", { name: "Questionnaires" }));
-        expect(navigateBack).toHaveBeenCalled();
-    });
-
-    it("displays the filter summary", () => {
-        renderComponent();
-        expect(screen.getByRole("heading", { name: /Interviewer:\s*rich/ })).toBeVisible();
-        expect(screen.getByRole("heading", { name: /Period:\s*18\/09\/2022\s*–\s*17\/10\/2022/ })).toBeVisible();
-        expect(screen.getByRole("heading", { name: /Questionnaires:\s*LMS1111 and LMS2222/ })).toBeVisible();
+        expect(formData.get("survey_tla")).toBe("LMS");
+        expect(formData.get("interviewer")).toBe("rich");
+        expect(new Date(formData.get("start_date") as string)).toEqual(new Date("September 18, 2022 01:23:00"));
+        expect(new Date(formData.get("end_date") as string)).toEqual(new Date("October 17, 2022 04:56:00"));
+        expect(formData.get("questionnaires")).toBe("LMS1111,LMS2222");
     });
 
     it("displays spinners while the status and report are loading", async () => {
+        http.onPost("/api/reports/interviewer-call-history").reply(200, []);
         renderComponent();
         expect(screen.getAllByText("Loading")).toHaveLength(2);
-        await screen.findByText("Failed to load");
+
+        // Wait for the load to avoid act warnings
+        await screen.findByText(/No data found for parameters given/);
+        await screen.findByText(/Data in this report was last updated/);
+    });
+
+    describe("content which is always present", () => {
+        beforeEach(async () => {
+            http.onPost("/api/reports/interviewer-call-history").reply(200, []);
+            renderComponent();
+            await screen.findByText(/No data found for parameters given/);
+            await screen.findByText(/Data in this report was last updated/);
+        });
+
+        it("displays the call the last updated message", async () => {
+            await screen.findByText(/Data in this report was last updated:/);
+            await screen.findByText(/\(04\/10\/2022 01:00:06\)/);
+        });
+
+        it("displays the header", () => {
+            expect(screen.getByRole("heading", { name: "Call History Report" })).toBeVisible();
+        });
+
+        it("navigates to / when Reports is clicked", () => {
+            userEvent.click(screen.getByRole("link", { name: "Reports" }));
+            expect(history.location.pathname).toBe("/");
+        });
+
+        it("calls navigateBackTwoSteps when Interview details is clicked", () => {
+            userEvent.click(screen.getByRole("link", { name: "Interviewer details" }));
+            expect(navigateBackTwoSteps).toHaveBeenCalled();
+        });
+
+        it("calls navigateBack when Questionnaires is clicked", () => {
+            userEvent.click(screen.getByRole("link", { name: "Questionnaires" }));
+            expect(navigateBack).toHaveBeenCalled();
+        });
+
+        it("displays the filter summary", () => {
+            expect(screen.getByRole("heading", { name: /Interviewer:\s*rich/ })).toBeVisible();
+            expect(screen.getByRole("heading", { name: /Period:\s*18\/09\/2022\s*–\s*17\/10\/2022/ })).toBeVisible();
+            expect(screen.getByRole("heading", { name: /Questionnaires:\s*LMS1111 and LMS2222/ })).toBeVisible();
+        });
     });
 
     describe("when no results are found", () => {
