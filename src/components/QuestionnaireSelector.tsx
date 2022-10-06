@@ -1,5 +1,5 @@
 import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback } from "react";
 import { getQuestionnaireList } from "../utilities/HTTP";
 import { LoadData } from "./LoadData";
 
@@ -62,13 +62,15 @@ function QuestionnaireSelector({
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
     }
 
+    const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
+
     return (
         <>
             <div className="input-items">
                 <div className="checkboxes__items">
                     <LoadData
                         dataPromise={getQuestionnaireList(surveyTla, interviewer, startDate, endDate)}
-                        errorMessage={() => <FetchQuestionnairesError/>}
+                        errorMessage={errorMessage}
                     >
                         {(fields) => displayCheckboxes(fields)}
                     </LoadData>
