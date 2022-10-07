@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
 import { InterviewerCallHistoryReport } from "../../interfaces";
@@ -7,7 +7,7 @@ import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdate
 import { formatDateAndTime } from "../../utilities/DateFormatter";
 import FilterSummary from "../../components/FilterSummary";
 import CallHistoryReportTable from "../../components/CallHistoryReportTable";
-import { ONSPanel, ONSLoadingPanel } from "blaise-design-system-react-components";
+import { LoadData } from "../../components/LoadData";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewer: string;
@@ -19,11 +19,7 @@ interface RenderInterviewerCallHistoryReportPageProps {
     navigateBackTwoSteps: () => void;
 }
 
-type ReportState = "loading" | "loaded" | "failed"
-
 function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps): ReactElement {
-    const [reportData, setReportData] = useState<InterviewerCallHistoryReport[]>([]);
-    const [reportState, setReportState] = useState<ReportState>("loading");
     const {
         navigateBack,
         navigateBackTwoSteps,
@@ -38,13 +34,8 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
         { label: "Call Result", key: "call_result" }
     ];
 
-    useEffect(() => {
-        runInterviewerCallHistoryReport().catch(() => setReportState("failed"));
-    }, []);
-
-    async function runInterviewerCallHistoryReport(): Promise<void> {
+    async function runInterviewerCallHistoryReport(): Promise<InterviewerCallHistoryReport[]> {
         const formValues: Record<string, any> = {};
-        setReportData([]);
         formValues.survey_tla = props.surveyTla;
         formValues.interviewer = props.interviewer;
         formValues.start_date = props.startDate;
@@ -52,29 +43,9 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
         formValues.questionnaires = props.questionnaires;
 
         const callHistory = await getInterviewerCallHistoryReport(formValues);
-        setReportData(callHistory);
         console.log(callHistory);
-        setReportState("loaded");
-    }
 
-    function report(): ReactNode {
-        switch (reportState) {
-
-        case "loaded":
-            return (
-                <CallHistoryReportTable
-                    messageNoData="No data found for parameters given."
-                    reportData={ reportData }/>
-            );
-        case "failed":
-            return (
-                <ONSPanel status="error">
-                    <p>Failed to load</p>
-                </ONSPanel>
-            );
-        default:
-            return <ONSLoadingPanel/>;
-        }
+        return callHistory;
     }
 
     return (
@@ -89,19 +60,30 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                 <FilterSummary { ...props }/>
                 <CallHistoryLastUpdatedStatus/>
                 <br/>
-                <CSVLink
-                    hidden={ reportData === null || reportData.length === 0 }
-                    data={
-                        reportData?.map(row => (
-                            { ...row, call_start_time: formatDateAndTime(row.call_start_time) }
-                        ))
-                    }
-                    headers={ reportExportHeaders }
-                    target="_blank"
-                    filename={ `interviewer-call-history-${ props.interviewer }.csv` }>
-                    Export report as Comma-Separated Values (CSV) file
-                </CSVLink>
-                { report() }
+                <LoadData
+                    dataPromise={ runInterviewerCallHistoryReport() }
+                    errorMessage="Failed to load"
+                >
+                    { (reportData) => (
+                        <>
+                            <CSVLink
+                                hidden={ reportData === null || reportData.length === 0 }
+                                data={
+                                    reportData?.map(row => (
+                                        { ...row, call_start_time: formatDateAndTime(row.call_start_time) }
+                                    ))
+                                }
+                                headers={ reportExportHeaders }
+                                target="_blank"
+                                filename={ `interviewer-call-history-${ props.interviewer }.csv` }>
+                                Export report as Comma-Separated Values (CSV) file
+                            </CSVLink>
+                            <CallHistoryReportTable
+                                messageNoData="No data found for parameters given."
+                                reportData={ reportData }/>
+                        </>
+                    ) }
+                </LoadData>
             </main>
         </>
     );
