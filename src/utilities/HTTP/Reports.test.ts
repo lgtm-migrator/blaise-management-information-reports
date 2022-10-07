@@ -83,6 +83,7 @@ describe("getInterviewerCallHistoryReport", () => {
         serial_number: "9001",
         call_start_time: "2022-01-02 10:05:20",
         dial_secs: 50,
+        outcome_code: "310",
     };
 
     afterEach(() => {
