@@ -70,6 +70,7 @@ function noContactBreakdownSection(callPatternReport: InterviewerCallPatternRepo
             disconnect: formatToFractionAndPercentage(callPatternReport.no_contact_disconnect, callPatternReport.no_contacts),
             no_answer: formatToFractionAndPercentage(callPatternReport.no_contact_no_answer, callPatternReport.no_contacts),
             other: formatToFractionAndPercentage(callPatternReport.no_contact_other, callPatternReport.no_contacts),
+            invalid_telephone_number: formatToFractionAndPercentage(callPatternReport.no_contact_invalid_telephone_number, callPatternReport.no_contacts),
         }
     };
 }
