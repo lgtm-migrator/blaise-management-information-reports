@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import {
@@ -90,13 +90,29 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
     return !callPatternReport.total_valid_cases;
 }
 
+function InvalidCaseInfo({ invalidFields }:{invalidFields:Group}): ReactElement {
+    console.log(invalidFields);
+    if (!invalidFields.records.discounted_invalid_cases) {
+        return <></>;
+    }
+    const total = `${invalidFields.records.discounted_invalid_cases}/${invalidFields.records.total_records}`;
+    const percentage = invalidFields.records.discounted_invalid_cases / invalidFields.records.total_records * 100;
+    
+    return (
+        <ONSPanel>
+            <p>Information: {total} records ({percentage.toFixed(2)}%) were discounted due to the following
+                invalid fields: {invalidFields.records.invalid_fields}</p>
+        </ONSPanel>
+    );
+}
+
+type SummaryState = "loading" | "no data" | "all invalid fields" | "loaded"
+
 function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps): ReactElement {
     const [reportFailed] = useState<boolean>(false);
     const [groupedSummary, setGroupedSummary] = useState<GroupedSummary>(new GroupedSummary([]));
     const [invalidFields, setInvalidFields] = useState<Group>({ title: "Invalid fields", records: {} });
-    const [interviewerID, setInterviewerID] = useState<string>("");
-    const [messageNoData, setMessageNoData] = useState<string>("");
-    const [allInvalid, setAllInvalid] = useState<boolean>(false);
+    const [summaryState, setSummaryState] = useState<SummaryState>("loading");
     const {
         navigateBack,
         navigateBackTwoSteps,
@@ -106,28 +122,10 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         const callTimes: Group = callTimeSection(callPatternReport);
         const callStatus: Group = callStatusSection(callPatternReport);
         const noContactBreakdown: Group = noContactBreakdownSection(callPatternReport);
-        const groupedSummary = new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
+        const groupedResult = new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
 
-        console.log(groupedSummary);
-        setGroupedSummary(groupedSummary);
-        setInvalidFields(invalidFieldsGroup(callPatternReport));
-        return;
-    }
-
-    function InvalidCaseInfo(): ReactElement {
-        console.log(invalidFields);
-        if (invalidFields.records.discounted_invalid_cases) {
-            const total = `${invalidFields.records.discounted_invalid_cases}/${invalidFields.records.total_records}`;
-            const percentage = invalidFields.records.discounted_invalid_cases / invalidFields.records.total_records * 100;
-
-            return (
-                <ONSPanel>
-                    <p>Information: {total} records ({percentage.toFixed(2)}%) were discounted due to the following
-                        invalid fields: {invalidFields.records.invalid_fields}</p>
-                </ONSPanel>
-            );
-        }
-        return (<></>);
+        console.log(groupedResult);
+        return groupedResult;
     }
 
     useEffect(() => {
@@ -136,9 +134,8 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     );
 
     async function runInterviewerCallPatternReport(): Promise<void> {
+        setSummaryState("loading");
         const formValues: Record<string, any> = {};
-        setMessageNoData("");
-        setInterviewerID(props.interviewer);
         formValues.survey_tla = props.surveyTla;
         formValues.interviewer = props.interviewer;
         formValues.start_date = props.startDate;
@@ -149,11 +146,12 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         try {
             callHistory = await getInterviewerCallPatternReport(formValues);
         } catch {
+            //load failed
             return;
         }
 
         if (callHistory === undefined) {
-            setMessageNoData("No data found for parameters given.");
+            setSummaryState("no data");
             return;
         }
 
@@ -161,12 +159,32 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
             + (callHistory.total_valid_cases || 0);
 
         if (isAllInvalid(callHistory)) {
+            setSummaryState("all invalid fields");
             setInvalidFields(invalidFieldsGroup(callHistory));
-            setAllInvalid(true);
             return;
         }
 
-        groupData(callHistory);
+        setSummaryState("loaded");
+        setGroupedSummary(groupData(callHistory));
+        setInvalidFields(invalidFieldsGroup(callHistory));
+    }
+
+    function report(): ReactNode {
+        if (summaryState === "all invalid fields"){
+            return null;
+        }
+        if (groupedSummary.groups.length === 0){
+            return <ONSPanel hidden={summaryState !== "no data"}>No data found for parameters given.</ONSPanel>;
+        }
+        return (
+            <>           
+                <div className="summary u-mt-m">
+                    <div className="summary__group" id="report-table">
+                        <SummaryGroupTable groupedSummary={groupedSummary}/>
+                    </div>
+                </div>
+            </>
+        );
     }
 
     return (
@@ -200,32 +218,14 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                     hidden={groupedSummary.groups.length === 0}
                     data={groupedSummary.csv()}
                     target="_blank"
-                    filename={`interviewer-call-pattern-${interviewerID}.csv`}>
+                    filename={`interviewer-call-pattern-${props.interviewer}.csv`}>
                     Export report as Comma-Separated Values (CSV) file
                 </CSVLink>
-                <ErrorBoundary errorMessageText={"Failed to load"}>
-                    {
-
-                        allInvalid
-                            ?
-                            <InvalidCaseInfo/>
-                            :
-
-                            groupedSummary.groups.length > 0
-                                ?
-                                <>
-                                    <InvalidCaseInfo/>
-                                    <div className="summary u-mt-m">
-                                        <div className="summary__group" id="report-table">
-                                            <SummaryGroupTable groupedSummary={groupedSummary}/>
-                                        </div>
-                                    </div>
-                                </>
-                                :
-                                <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
-                    }
-                    <br/>
-                </ErrorBoundary>
+                <InvalidCaseInfo invalidFields={invalidFields}/>
+                {
+                    report()
+                }
+                <br/>
             </main>
         </>
     );
