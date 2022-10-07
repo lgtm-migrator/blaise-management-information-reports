@@ -38,13 +38,16 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                         <th scope="col" className="table__header ">
                             <span>Call Result</span>
                         </th>
+                        <th scope="col" className="table__header ">
+                            <span>Outcome Code</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody className="table__body">
                     {
-                        reportData.map((callHistory: InterviewerCallHistoryReport) => {
+                        reportData.map((callHistory: InterviewerCallHistoryReport, index: number) => {
                             return (
-                                <tr className="table__row" key={callHistory.call_start_time}
+                                <tr className="table__row" key={index}
                                     data-testid={"report-table-row"}>
                                     <td className="table__cell ">
                                         {callHistory.questionnaire_name}
@@ -60,6 +63,9 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                                     </td>
                                     <td className="table__cell ">
                                         {(callHistory.call_result === null ? "Unknown" : callHistory.call_result)}
+                                    </td>
+                                    <td className="table__cell ">
+                                        {callHistory.outcome_code}
                                     </td>
                                 </tr>
                             );
