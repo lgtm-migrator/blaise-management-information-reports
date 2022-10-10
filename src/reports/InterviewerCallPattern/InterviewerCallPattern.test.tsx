@@ -134,8 +134,8 @@ describe("function noContactBreakdownSection()", () => {
                 "busy": "1/11, 9.09%",
                 "disconnect": "2/11, 18.18%",
                 "no_answer": "3/11, 27.27%",
+                "invalid_telephone_number": "5/11, 45.45%",
                 "other": "4/11, 36.36%",
-                "invalid_telephone_number": "5/11, 45.45%"
             },
             "title": "Breakdown of No Contact calls",
         });
@@ -273,10 +273,10 @@ describe("function InterviewerCallPattern() with happy data", () => {
         expect(screen.getByText("2/11, 18.18%")).toBeVisible();
         expect(screen.getByText("No answer")).toBeVisible();
         expect(screen.getByText("3/11, 27.27%")).toBeVisible();
-        expect(screen.getByText("Other")).toBeVisible();
-        expect(screen.getAllByText("4/11, 36.36%")[1]).toBeVisible();
         expect(screen.getByText("Invalid telephone number")).toBeVisible();
         expect(screen.getByText("5/11, 45.45%")).toBeVisible();
+        expect(screen.getByText("Other")).toBeVisible();
+        expect(screen.getAllByText("4/11, 36.36%")[1]).toBeVisible();
 
         expect(screen.queryByText(/were discounted due to the following invalid fields/i)).not.toBeInTheDocument();
     });
@@ -390,10 +390,10 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         expect(screen.getByText("2/11, 18.18%")).toBeVisible();
         expect(screen.getByText("No answer")).toBeVisible();
         expect(screen.getByText("3/11, 27.27%")).toBeVisible();
-        expect(screen.getByText("Other")).toBeVisible();
-        expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
         expect(screen.getByText("Invalid telephone number")).toBeVisible();
         expect(screen.getByText("5/11, 45.45%")).toBeVisible();
+        expect(screen.getByText("Other")).toBeVisible();
+        expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
 
         expect(screen.getByText(/were discounted due to the following invalid fields/i)).toBeVisible();
     });
