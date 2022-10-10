@@ -87,7 +87,7 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
 
 function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElement {
     console.log(invalidFields);
-    if (!invalidFields || !invalidFields.records.discounted_invalid_cases) {
+    if (!invalidFields.records.discounted_invalid_cases) {
         return <></>;
     }
     const total = `${ invalidFields.records.discounted_invalid_cases }/${ invalidFields.records.total_records }`;
@@ -123,7 +123,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         navigateBackTwoSteps,
     } = props;
 
-    async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group | undefined]> {
+    async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group]> {
         const formValues: Record<string, any> = {};
         formValues.survey_tla = props.surveyTla;
         formValues.interviewer = props.interviewer;
@@ -136,11 +136,11 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
             callHistory = await getInterviewerCallPatternReport(formValues);
         } catch {
             //load failed
-            return ["loading", new GroupedSummary([]), undefined];
+            return ["loading", new GroupedSummary([]), { title: "", records: {} }];
         }
 
         if (callHistory === undefined) {
-            return ["no data", new GroupedSummary([]), undefined];
+            return ["no data", new GroupedSummary([]), { title: "", records: {} }];
         }
 
         callHistory.total_records = callHistory.discounted_invalid_cases
@@ -213,7 +213,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                     { ([state, groupedSummary, invalidFields]) => (
                         <>
                             { csvLink(groupedSummary) }
-                            <InvalidCaseInfo invalidFields={ invalidFields as Group }/>
+                            <InvalidCaseInfo invalidFields={ invalidFields }/>
                             { report(groupedSummary, state) }
                         </>
                     ) }
