@@ -40,7 +40,7 @@ async function getInterviewerCallHistoryStatus(): Promise<CallHistoryStatus | un
     const url = "/api/reports/call-history-status";
 
     return axios.get(url, axiosConfig()).then((response: AxiosResponse) => {
-        console.log(`Response: Status ${response.status}, data ${response.data}`);
+        console.log(`Response: Status ${response.status}, data ${JSON.stringify(response.data)}`);
         if (response.status === 200) {
             return response.data;
         }
