@@ -165,25 +165,25 @@ function RenderInterviewerCallPatternReport({
         formValues.end_date = endDate;
         formValues.questionnaires = questionnaires;
 
-        let callHistory: InterviewerCallPatternReport | undefined;
         try {
-            callHistory = await getInterviewerCallPatternReport(formValues);
+            const callHistory: InterviewerCallPatternReport | undefined = await getInterviewerCallPatternReport(formValues);
+
+            if (callHistory === undefined) {
+                return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
+            }
+
+            callHistory.total_records = callHistory.discounted_invalid_cases
+                + (callHistory.total_valid_cases || 0);
+
+            if (isAllInvalid(callHistory)) {
+                return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
+            }
+
+            return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
         } catch {
             return ["load_failed", new GroupedSummary([]), { title: "", records: {} }];
         }
 
-        if (callHistory === undefined) {
-            return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
-        }
-
-        callHistory.total_records = callHistory.discounted_invalid_cases
-            + (callHistory.total_valid_cases || 0);
-
-        if (isAllInvalid(callHistory)) {
-            return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
-        }
-
-        return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
     }
 
     const displayReport = useCallback(
