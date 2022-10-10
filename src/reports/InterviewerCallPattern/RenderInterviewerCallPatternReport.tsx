@@ -105,13 +105,7 @@ function groupData(callPatternReport: InterviewerCallPatternReport) {
     const callTimes: Group = callTimeSection(callPatternReport);
     const callStatus: Group = callStatusSection(callPatternReport);
     const noContactBreakdown: Group = noContactBreakdownSection(callPatternReport);
-    const groupedResult = new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
-
-    console.log("input");
-    console.table(callPatternReport);
-    console.log("result");
-    console.table(groupedResult);
-    return groupedResult;
+    return new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
 }
 
 type SummaryState = "loading" | "no data" | "all invalid fields" | "loaded"
