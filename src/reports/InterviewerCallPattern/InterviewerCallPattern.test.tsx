@@ -528,3 +528,81 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
     });
 });
 
+describe("function InterviewerCallPattern() with request error", () => {
+    beforeEach(() => {
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
+            () => {
+                throw new Error("Request failed");
+            }
+        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
+        MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
+    });
+
+    it("should match the snapshot", async () => {
+        const history = createMemoryHistory();
+
+        const wrapper = render(
+            <Router history={history}>
+                <InterviewerCallPattern
+                    interviewer={mockProps.interviewer}
+                    startDate={mockProps.startDate}
+                    endDate={mockProps.endDate}
+                    surveyTla={mockProps.surveyTla}
+                    questionnaires={mockProps.questionnaires}
+                    navigateBack={mockProps.navigateBack}
+                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
+                />
+            </Router>
+        );
+
+        await screen.findByText("Error: Request failed");
+
+        expect(await wrapper).toMatchSnapshot();
+    });
+
+    it("should render correctly", async () => {
+        const history = createMemoryHistory();
+
+        await act(async () => {
+            render(
+                <Router history={history}>
+                    <InterviewerCallPattern
+                        interviewer={mockProps.interviewer}
+                        startDate={mockProps.startDate}
+                        endDate={mockProps.endDate}
+                        surveyTla={mockProps.surveyTla}
+                        questionnaires={mockProps.questionnaires}
+                        navigateBack={mockProps.navigateBack}
+                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
+                    />
+                </Router>
+            );
+        });
+
+        await screen.findByText("Error: Request failed");
+
+        expect(screen.queryByText("Reports")).toBeVisible();
+        expect(screen.getByText("Interviewer details")).toBeVisible();
+        expect(screen.getByText("Call Pattern Report")).toBeVisible();
+        expect(screen.getByText(/Interviewer:/)).toBeVisible();
+        expect(screen.getByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.getByText(/2 days ago/i)).toBeVisible();
+        expect(screen.getByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
+        expect(screen.getByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
+
+        expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeInTheDocument();
+        expect(screen.queryByText("Call times")).not.toBeInTheDocument();
+        expect(screen.queryByText("Call status")).not.toBeInTheDocument();
+        expect(screen.queryByText("Breakdown of no Contact calls")).not.toBeInTheDocument();
+        expect(screen.queryByText("Invalid Fields")).not.toBeInTheDocument();
+    });
+});
+
