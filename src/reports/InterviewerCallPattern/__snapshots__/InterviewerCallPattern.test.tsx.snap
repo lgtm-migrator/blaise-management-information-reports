@@ -2971,9 +2971,7 @@ Object {
           <div
             class="panel__body "
           >
-            <p>
-              Error: Request failed
-            </p>
+            <p />
           </div>
         </div>
         <br />
@@ -3158,9 +3156,7 @@ Object {
         <div
           class="panel__body "
         >
-          <p>
-            Error: Request failed
-          </p>
+          <p />
         </div>
       </div>
       <br />

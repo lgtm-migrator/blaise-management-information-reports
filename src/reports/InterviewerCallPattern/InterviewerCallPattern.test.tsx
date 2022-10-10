@@ -563,7 +563,7 @@ describe("function InterviewerCallPattern() with request error", () => {
             </Router>
         );
 
-        await screen.findByText("Error: Request failed");
+        await screen.findByRole("heading", { name: "Failed to run the report" });
 
         expect(await wrapper).toMatchSnapshot();
     });
@@ -587,8 +587,9 @@ describe("function InterviewerCallPattern() with request error", () => {
             );
         });
 
-        await screen.findByText("Error: Request failed");
         await screen.findByRole("heading", { name: "Failed to run the report" });
+
+        expect(screen.queryByText("Error: Request failed")).not.toBeInTheDocument();
 
         expect(screen.queryByText("Reports")).toBeVisible();
         expect(screen.getByText("Interviewer details")).toBeVisible();
@@ -606,4 +607,3 @@ describe("function InterviewerCallPattern() with request error", () => {
         expect(screen.queryByText("Invalid Fields")).not.toBeInTheDocument();
     });
 });
-
