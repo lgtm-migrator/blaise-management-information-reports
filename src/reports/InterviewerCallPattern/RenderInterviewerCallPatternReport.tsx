@@ -229,7 +229,7 @@ function RenderInterviewerCallPatternReport({
                 <LoadData
                     dataPromise={ runInterviewerCallPatternReport() }
                     onError={() => setReportFailed(true) }
-                    errorMessage={() => <></>}>{ displayReport }</LoadData>
+                    errorMessage={ false }>{ displayReport }</LoadData>
                 <br/>
             </main>
         </>

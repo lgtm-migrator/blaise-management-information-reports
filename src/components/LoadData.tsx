@@ -5,7 +5,7 @@ export type DataRenderer<T> = (data: T) => ReactNode
 
 interface LoaderProps<T> {
     dataPromise: Promise<T>;
-    errorMessage?: string | ((error: Error) => ReactNode);
+    errorMessage?: string | false | ((error: Error) => ReactNode);
     onError?: (error: Error) => void;
     children: DataRenderer<T>;
 }
@@ -47,6 +47,11 @@ export function LoadData<T>({ children, dataPromise, errorMessage, onError }: Lo
             return errorMessage;
         }
 
+        if (errorMessage === false)
+        {
+            return null;
+        }
+
         if (errorMessage !== undefined) {
             return errorMessage(error);
         }
@@ -60,6 +65,10 @@ export function LoadData<T>({ children, dataPromise, errorMessage, onError }: Lo
         }
 
         if (loadState instanceof ErroredState) {
+            if (errorMessage === false) {
+                return null;
+            }
+
             return (
                 <ONSPanel status="error">
                     <p>{ getErrorMessage(loadState.error) }</p>

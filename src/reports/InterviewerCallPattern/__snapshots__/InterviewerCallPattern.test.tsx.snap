@@ -2965,15 +2965,6 @@ Object {
           </div>
         </div>
         <br />
-        <div
-          class="panel panel--error panel--no-title  u-mt-m"
-        >
-          <div
-            class="panel__body "
-          >
-            <p />
-          </div>
-        </div>
         <br />
       </main>
     </div>
@@ -3150,15 +3141,6 @@ Object {
         </div>
       </div>
       <br />
-      <div
-        class="panel panel--error panel--no-title  u-mt-m"
-      >
-        <div
-          class="panel__body "
-        >
-          <p />
-        </div>
-      </div>
       <br />
     </main>
   </div>,
