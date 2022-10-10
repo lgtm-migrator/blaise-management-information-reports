@@ -110,20 +110,24 @@ function groupData(callPatternReport: InterviewerCallPatternReport) {
 
 type SummaryState = "load_failed" | "no_data" | "all_invalid_fields" | "loaded"
 
-function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps): ReactElement {
+function RenderInterviewerCallPatternReport({
+    surveyTla,
+    interviewer,
+    startDate,
+    endDate,
+    questionnaires,
+    navigateBack,
+    navigateBackTwoSteps,
+}: RenderInterviewerCallPatternReportPageProps): ReactElement {
     const [reportFailed] = useState<boolean>(false);
-    const {
-        navigateBack,
-        navigateBackTwoSteps,
-    } = props;
 
     async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group]> {
         const formValues: Record<string, any> = {};
-        formValues.survey_tla = props.surveyTla;
-        formValues.interviewer = props.interviewer;
-        formValues.start_date = props.startDate;
-        formValues.end_date = props.endDate;
-        formValues.questionnaires = props.questionnaires;
+        formValues.survey_tla = surveyTla;
+        formValues.interviewer = interviewer;
+        formValues.start_date = startDate;
+        formValues.end_date = endDate;
+        formValues.questionnaires = questionnaires;
 
         let callHistory: InterviewerCallPatternReport | undefined;
         try {
@@ -151,7 +155,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
                 hidden={ groupedSummary.groups.length === 0 }
                 data={ groupedSummary.csv() }
                 target="_blank"
-                filename={ `interviewer-call-pattern-${ props.interviewer }.csv` }>
+                filename={ `interviewer-call-pattern-${ interviewer }.csv` }>
                 Export report as Comma-Separated Values (CSV) file
             </CSVLink>
         );
@@ -184,7 +188,12 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
             ] }/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
-                <FilterSummary { ...props }/>
+                <FilterSummary
+                    interviewer={ interviewer }
+                    startDate={ startDate }
+                    endDate={ endDate }
+                    questionnaires={ questionnaires }
+                />
                 <ReportErrorPanel error={ reportFailed }/>
                 <CallHistoryLastUpdatedStatus/>
                 <div className="u-mb-m">
