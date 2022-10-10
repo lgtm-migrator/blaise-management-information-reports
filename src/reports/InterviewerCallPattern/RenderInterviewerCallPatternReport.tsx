@@ -108,7 +108,7 @@ function groupData(callPatternReport: InterviewerCallPatternReport) {
     return new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
 }
 
-type SummaryState = "loading" | "no data" | "all invalid fields" | "loaded"
+type SummaryState = "load_failed" | "no_data" | "all_invalid_fields" | "loaded"
 
 function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternReportPageProps): ReactElement {
     const [reportFailed] = useState<boolean>(false);
@@ -129,19 +129,18 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
         try {
             callHistory = await getInterviewerCallPatternReport(formValues);
         } catch {
-            //load failed
-            return ["loading", new GroupedSummary([]), { title: "", records: {} }];
+            return ["load_failed", new GroupedSummary([]), { title: "", records: {} }];
         }
 
         if (callHistory === undefined) {
-            return ["no data", new GroupedSummary([]), { title: "", records: {} }];
+            return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
         }
 
         callHistory.total_records = callHistory.discounted_invalid_cases
             + (callHistory.total_valid_cases || 0);
 
         if (isAllInvalid(callHistory)) {
-            return ["all invalid fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
+            return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
         }
         return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
     }
@@ -159,7 +158,7 @@ function RenderInterviewerCallPatternReport(props: RenderInterviewerCallPatternR
     }
 
     function report(groupedSummary: GroupedSummary, summaryState: SummaryState): ReactNode {
-        if (summaryState === "no data") {
+        if (summaryState === "no_data") {
             return <ONSPanel>No data found for parameters given.</ONSPanel>;
         }
         if (groupedSummary.groups.length === 0) {
