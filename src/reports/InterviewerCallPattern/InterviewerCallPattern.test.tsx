@@ -201,10 +201,6 @@ describe("function InterviewerCallPattern() with happy data", () => {
             </Router>
         );
 
-        await act(async () => {
-            await flushPromises();
-        });
-
         await screen.findByText("Questionnaires");
 
         expect(await wrapper).toMatchSnapshot();
@@ -225,10 +221,6 @@ describe("function InterviewerCallPattern() with happy data", () => {
                 />
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         expect(await screen.findByText("Reports")).toBeVisible();
         expect(screen.getByText("Interviewer details")).toBeVisible();
@@ -314,10 +306,6 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
                 />
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         await screen.findByText("Questionnaires");
 
@@ -432,10 +420,6 @@ describe("function InterviewerCallPattern() without data", () => {
             </Router>
         );
 
-        await act(async () => {
-            await flushPromises();
-        });
-
         await screen.findByText("Questionnaires");
 
         expect(await wrapper).toMatchSnapshot();
@@ -500,10 +484,6 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
                 />
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         expect(await screen.findByText("Reports")).toBeVisible();
 
