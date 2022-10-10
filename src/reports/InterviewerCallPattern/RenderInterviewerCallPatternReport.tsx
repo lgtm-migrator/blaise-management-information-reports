@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useCallback, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import { Group, GroupedSummary, ONSPanel, SummaryGroupTable } from "blaise-design-system-react-components";
@@ -85,6 +85,13 @@ function isAllInvalid(callPatternReport: InterviewerCallPatternReport): boolean 
     return !callPatternReport.total_valid_cases;
 }
 
+function groupData(callPatternReport: InterviewerCallPatternReport) {
+    const callTimes: Group = callTimeSection(callPatternReport);
+    const callStatus: Group = callStatusSection(callPatternReport);
+    const noContactBreakdown: Group = noContactBreakdownSection(callPatternReport);
+    return new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
+}
+
 function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElement {
     console.log(invalidFields);
     if (!invalidFields.records.discounted_invalid_cases) {
@@ -101,11 +108,40 @@ function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElem
     );
 }
 
-function groupData(callPatternReport: InterviewerCallPatternReport) {
-    const callTimes: Group = callTimeSection(callPatternReport);
-    const callStatus: Group = callStatusSection(callPatternReport);
-    const noContactBreakdown: Group = noContactBreakdownSection(callPatternReport);
-    return new GroupedSummary([callTimes, callStatus, noContactBreakdown]);
+function DownloadCSVLink(
+    { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string }
+): ReactElement {
+    return (
+        <CSVLink
+            hidden={ groupedSummary.groups.length === 0 }
+            data={ groupedSummary.csv() }
+            target="_blank"
+            filename={ filename }>
+            Export report as Comma-Separated Values (CSV) file
+        </CSVLink>
+    );
+}
+
+function ReportData(
+    { groupedSummary, summaryState }: { groupedSummary: GroupedSummary, summaryState: SummaryState }
+): ReactElement {
+    if (summaryState === "no_data") {
+        return <ONSPanel>No data found for parameters given.</ONSPanel>;
+    }
+
+    if (groupedSummary.groups.length === 0) {
+        return <></>;
+    }
+
+    return (
+        <>
+            <div className="summary u-mt-m">
+                <div className="summary__group" id="report-table">
+                    <SummaryGroupTable groupedSummary={ groupedSummary }/>
+                </div>
+            </div>
+        </>
+    );
 }
 
 type SummaryState = "load_failed" | "no_data" | "all_invalid_fields" | "loaded"
@@ -146,38 +182,22 @@ function RenderInterviewerCallPatternReport({
         if (isAllInvalid(callHistory)) {
             return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
         }
+
         return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
     }
 
-    function csvLink(groupedSummary: GroupedSummary): ReactNode {
-        return (
-            <CSVLink
-                hidden={ groupedSummary.groups.length === 0 }
-                data={ groupedSummary.csv() }
-                target="_blank"
-                filename={ `interviewer-call-pattern-${ interviewer }.csv` }>
-                Export report as Comma-Separated Values (CSV) file
-            </CSVLink>
-        );
-    }
-
-    function report(groupedSummary: GroupedSummary, summaryState: SummaryState): ReactNode {
-        if (summaryState === "no_data") {
-            return <ONSPanel>No data found for parameters given.</ONSPanel>;
-        }
-        if (groupedSummary.groups.length === 0) {
-            return null;
-        }
-        return (
+    const displayReport = useCallback(
+        ([state, groupedSummary, invalidFields]: [SummaryState, GroupedSummary, Group]): ReactNode => (
             <>
-                <div className="summary u-mt-m">
-                    <div className="summary__group" id="report-table">
-                        <SummaryGroupTable groupedSummary={ groupedSummary }/>
-                    </div>
-                </div>
+                <DownloadCSVLink
+                    groupedSummary={ groupedSummary }
+                    filename={ `interviewer-call-pattern-${ interviewer }.csv` }/>
+                <InvalidCaseInfo invalidFields={ invalidFields }/>
+                <ReportData groupedSummary={ groupedSummary } summaryState={ state }/>
             </>
-        );
-    }
+        ),
+        []
+    );
 
     return (
         <>
@@ -211,15 +231,7 @@ function RenderInterviewerCallPatternReport({
                     </ONSPanel>
                 </div>
                 <br/>
-                <LoadData dataPromise={ runInterviewerCallPatternReport() }>
-                    { ([state, groupedSummary, invalidFields]) => (
-                        <>
-                            { csvLink(groupedSummary) }
-                            <InvalidCaseInfo invalidFields={ invalidFields }/>
-                            { report(groupedSummary, state) }
-                        </>
-                    ) }
-                </LoadData>
+                <LoadData dataPromise={ runInterviewerCallPatternReport() }>{ displayReport }</LoadData>
                 <br/>
             </main>
         </>
