@@ -5,7 +5,8 @@ export type DataRenderer<T> = (data: T) => ReactNode
 
 interface LoaderProps<T> {
     dataPromise: Promise<T>;
-    errorMessage?: string | ((error: Error) => ReactNode)
+    errorMessage?: string | ((error: Error) => ReactNode);
+    onError?: (error: Error) => void;
     children: DataRenderer<T>;
 }
 
@@ -21,7 +22,7 @@ class ErroredState {
 
 type LoadState<T> = LoadingState | LoadedState<T> | ErroredState
 
-export function LoadData<T>({ children, dataPromise, errorMessage }: LoaderProps<T>): ReactElement {
+export function LoadData<T>({ children, dataPromise, errorMessage, onError }: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
 
     useEffect(() => {
@@ -31,7 +32,12 @@ export function LoadData<T>({ children, dataPromise, errorMessage }: LoaderProps
             setLoadState(new LoadedState(await dataPromise));
         }
 
-        loadData().catch((error) => setLoadState(new ErroredState(error)));
+        loadData().catch((error) => {
+            setLoadState(new ErroredState(error));
+            if (onError) {
+                onError(error);
+            }
+        });
     }, [dataPromise]);
 
     function getErrorMessage(error: Error): ReactNode {

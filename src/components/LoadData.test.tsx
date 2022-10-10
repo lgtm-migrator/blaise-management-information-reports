@@ -90,6 +90,18 @@ describe("LoadData", () => {
             await screen.findByText("There was an error");
             expect(screen.queryByText("Loading")).not.toBeInTheDocument();
         });
+
+        it("calls onError", async () => {
+            const onError = jest.fn();
+            render(
+                <LoadData
+                    dataPromise={ Promise.reject("There was an error") }
+                    onError={onError}
+                >{ display }</LoadData>
+            );
+            await screen.findByText("There was an error");
+            expect(onError).toHaveBeenCalledWith("There was an error");
+        });
     });
 
     describe("dataPromise props changing", () => {
