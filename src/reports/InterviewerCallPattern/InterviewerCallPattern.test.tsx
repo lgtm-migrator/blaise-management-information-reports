@@ -394,7 +394,6 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         expect(screen.getByText("5/11, 45.45%")).toBeVisible();
         expect(screen.getByText("Other")).toBeVisible();
         expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
-        
 
         expect(screen.getByText(/were discounted due to the following invalid fields/i)).toBeVisible();
     });
