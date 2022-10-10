@@ -538,7 +538,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         expect(screen.getByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
         expect(screen.getByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
 
-        expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
+        expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeInTheDocument();
         expect(screen.queryByText("Call times")).not.toBeInTheDocument();
         expect(screen.queryByText("Call status")).not.toBeInTheDocument();
         expect(screen.queryByText("Breakdown of no Contact calls")).not.toBeInTheDocument();

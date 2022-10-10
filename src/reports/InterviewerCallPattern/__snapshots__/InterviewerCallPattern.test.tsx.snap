@@ -2534,15 +2534,6 @@ Object {
           </div>
         </div>
         <br />
-        <a
-          download="interviewer-call-pattern-thorne1.csv"
-          hidden=""
-          href="data:text/csv;charset=utf-8,﻿
-"
-          target="_self"
-        >
-          Export report as Comma-Separated Values (CSV) file
-        </a>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
         >
@@ -2707,15 +2698,6 @@ Object {
         </div>
       </div>
       <br />
-      <a
-        download="interviewer-call-pattern-thorne1.csv"
-        hidden=""
-        href="data:text/csv;charset=utf-8,﻿
-"
-        target="_self"
-      >
-        Export report as Comma-Separated Values (CSV) file
-      </a>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
       >
@@ -2931,15 +2913,6 @@ Object {
           </div>
         </div>
         <br />
-        <a
-          download="interviewer-call-pattern-thorne1.csv"
-          hidden=""
-          href="data:text/csv;charset=utf-8,﻿
-"
-          target="_self"
-        >
-          Export report as Comma-Separated Values (CSV) file
-        </a>
         <div
           class="panel panel--info panel--no-title  u-mt-m"
         >
@@ -3091,15 +3064,6 @@ Object {
         </div>
       </div>
       <br />
-      <a
-        download="interviewer-call-pattern-thorne1.csv"
-        hidden=""
-        href="data:text/csv;charset=utf-8,﻿
-"
-        target="_self"
-      >
-        Export report as Comma-Separated Values (CSV) file
-      </a>
       <div
         class="panel panel--info panel--no-title  u-mt-m"
       >
