@@ -2891,6 +2891,34 @@ Object {
            
           foo
         </h3>
+        <div
+          role="alert"
+          tabindex="-1"
+        >
+          <div
+            class="panel panel--error panel--no-title  u-mt-m"
+          >
+            <div
+              class="panel__body "
+            >
+              <h2>
+                Failed to run the report
+              </h2>
+              <p>
+                Try again later.
+              </p>
+              <p>
+                If you are still experiencing problems 
+                <a
+                  href="https://ons.service-now.com/"
+                >
+                  report this issue
+                </a>
+                 to Service Desk
+              </p>
+            </div>
+          </div>
+        </div>
         <p
           aria-live="polite"
           class="u-fs-s u-mt-s"
@@ -3050,6 +3078,34 @@ Object {
          
         foo
       </h3>
+      <div
+        role="alert"
+        tabindex="-1"
+      >
+        <div
+          class="panel panel--error panel--no-title  u-mt-m"
+        >
+          <div
+            class="panel__body "
+          >
+            <h2>
+              Failed to run the report
+            </h2>
+            <p>
+              Try again later.
+            </p>
+            <p>
+              If you are still experiencing problems 
+              <a
+                href="https://ons.service-now.com/"
+              >
+                report this issue
+              </a>
+               to Service Desk
+            </p>
+          </div>
+        </div>
+      </div>
       <p
         aria-live="polite"
         class="u-fs-s u-mt-s"

@@ -25,19 +25,21 @@ type LoadState<T> = LoadingState | LoadedState<T> | ErroredState
 export function LoadData<T>({ children, dataPromise, errorMessage, onError }: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
 
+    async function loadData() {
+        setLoadState(new LoadedState(await dataPromise));
+    }
+
+    function setErroredState(error: Error): void {
+        if (onError) {
+            onError(error);
+        }
+        setLoadState(new ErroredState(error));
+    }
+
     useEffect(() => {
         setLoadState(new LoadingState());
 
-        async function loadData() {
-            setLoadState(new LoadedState(await dataPromise));
-        }
-
-        loadData().catch((error) => {
-            setLoadState(new ErroredState(error));
-            if (onError) {
-                onError(error);
-            }
-        });
+        loadData().catch(setErroredState);
     }, [dataPromise]);
 
     function getErrorMessage(error: Error): ReactNode {

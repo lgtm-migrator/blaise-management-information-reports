@@ -155,7 +155,7 @@ function RenderInterviewerCallPatternReport({
     navigateBack,
     navigateBackTwoSteps,
 }: RenderInterviewerCallPatternReportPageProps): ReactElement {
-    const [reportFailed] = useState<boolean>(false);
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
 
     async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group]> {
         const formValues: Record<string, any> = {};
@@ -226,7 +226,9 @@ function RenderInterviewerCallPatternReport({
                     </ONSPanel>
                 </div>
                 <br/>
-                <LoadData dataPromise={ runInterviewerCallPatternReport() }>{ displayReport }</LoadData>
+                <LoadData
+                    dataPromise={ runInterviewerCallPatternReport() }
+                    onError={() => setReportFailed(true) }>{ displayReport }</LoadData>
                 <br/>
             </main>
         </>

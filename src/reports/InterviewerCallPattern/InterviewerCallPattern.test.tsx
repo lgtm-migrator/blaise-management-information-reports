@@ -588,6 +588,7 @@ describe("function InterviewerCallPattern() with request error", () => {
         });
 
         await screen.findByText("Error: Request failed");
+        await screen.findByRole("heading", { name: "Failed to run the report" });
 
         expect(screen.queryByText("Reports")).toBeVisible();
         expect(screen.getByText("Interviewer details")).toBeVisible();
