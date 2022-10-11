@@ -11,23 +11,16 @@ export interface InterviewerFilterQuery {
 }
 
 interface InterviewerFilterPageProps {
-    title: string
-    interviewer: string | undefined
-    startDate: Date
-    endDate: Date
-    surveyTla: string | undefined
+    title: string;
+    query: InterviewerFilterQuery;
     submitFunction: (search: InterviewerFilterQuery) => void;
 }
 
-function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
-    const {
-        title,
-        interviewer,
-        startDate,
-        endDate,
-        surveyTla,
-        submitFunction
-    } = props;
+function InterviewerFilter({
+    query: { endDate, interviewer, startDate, surveyTla },
+    submitFunction,
+    title
+}: InterviewerFilterPageProps): ReactElement {
 
     async function submitInterviewerFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setSubmitting(true);
@@ -43,16 +36,16 @@ function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
         <>
             <div>
                 <Breadcrumbs
-                    BreadcrumbList={[{ link: "/", title: "Reports" }]}/>
+                    BreadcrumbList={ [{ link: "/", title: "Reports" }] }/>
                 <main id="main-content" className="page__main u-mt-s">
-                    <h1 className="u-mb-m">Run interviewer {title} report</h1>
+                    <h1 className="u-mb-m">Run interviewer { title } report</h1>
                     <CallHistoryLastUpdatedStatus/>
                     <SurveyInterviewerStartDateEndDateForm
-                        interviewer={interviewer}
-                        surveyTLA={surveyTla}
-                        startDate={startDate}
-                        endDate={endDate}
-                        onSubmitFunction={submitInterviewerFilters} />
+                        interviewer={ interviewer }
+                        surveyTLA={ surveyTla }
+                        startDate={ startDate }
+                        endDate={ endDate }
+                        onSubmitFunction={ submitInterviewerFilters }/>
                 </main>
             </div>
         </>

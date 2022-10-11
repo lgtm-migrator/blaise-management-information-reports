@@ -8,7 +8,7 @@ import { render, RenderResult, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import { screen } from "@testing-library/dom";
 import React from "react";
-import InterviewerFilter from "./InterviewerFilter";
+import InterviewerFilter, { InterviewerFilterQuery } from "./InterviewerFilter";
 import userEvent from "@testing-library/user-event";
 
 describe("the interviewer details page renders correctly", () => {
@@ -22,14 +22,18 @@ describe("the interviewer details page renders correctly", () => {
 
         const history = createMemoryHistory();
 
+        const initialQuery: InterviewerFilterQuery = {
+            interviewer: "James",
+            startDate: new Date("2021-01-01"),
+            endDate: new Date("2021-01-05"),
+            surveyTla: "LMS",
+        };
+
         view = render(
             <Router history={ history }>
                 <InterviewerFilter
                     title=""
-                    interviewer={ "James" }
-                    startDate={ new Date("2021-01-01") }
-                    endDate={ new Date("2021-01-05") }
-                    surveyTla={ "LMS" }
+                    query={ initialQuery }
                     submitFunction={ submitFunction }/>
             </Router>
         );
