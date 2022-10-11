@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { DataRenderer, LoadData } from "./LoadData";
 import { screen } from "@testing-library/dom";
 
@@ -81,6 +81,17 @@ describe("LoadData", () => {
             expect(await screen.findByText("HTML ERROR: There was an error")).toBeVisible();
         });
 
+        it("displays turns off the error message if given false", async () => {
+            render(
+                <LoadData
+                    dataPromise={ Promise.reject("There was an error") }
+                    errorMessage={ false }
+                >{ display }</LoadData>
+            );
+            await waitFor(() => { expect(screen.queryByText("Loading")).not.toBeInTheDocument(); });
+            expect(screen.queryByText("There was an error")).not.toBeInTheDocument();
+        });
+
         it("does not display the loading spinner", async () => {
             render(
                 <LoadData
@@ -89,6 +100,18 @@ describe("LoadData", () => {
             );
             await screen.findByText("There was an error");
             expect(screen.queryByText("Loading")).not.toBeInTheDocument();
+        });
+
+        it("calls onError", async () => {
+            const onError = jest.fn();
+            render(
+                <LoadData
+                    dataPromise={ Promise.reject("There was an error") }
+                    onError={onError}
+                >{ display }</LoadData>
+            );
+            await screen.findByText("There was an error");
+            expect(onError).toHaveBeenCalledWith("There was an error");
         });
     });
 

@@ -147,7 +147,7 @@ function ReportData(
     );
 }
 
-type SummaryState = "load_failed" | "no_data" | "all_invalid_fields" | "loaded"
+type SummaryState = "no_data" | "all_invalid_fields" | "loaded"
 
 function RenderInterviewerCallPatternReport({
     surveyTla,
@@ -158,7 +158,7 @@ function RenderInterviewerCallPatternReport({
     navigateBack,
     navigateBackTwoSteps,
 }: RenderInterviewerCallPatternReportPageProps): ReactElement {
-    const [reportFailed] = useState<boolean>(false);
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
 
     async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group]> {
         const formValues: Record<string, any> = {};
@@ -168,25 +168,20 @@ function RenderInterviewerCallPatternReport({
         formValues.end_date = endDate;
         formValues.questionnaires = questionnaires;
 
-        try {
-            const callHistory: InterviewerCallPatternReport | undefined = await getInterviewerCallPatternReport(formValues);
+        const callHistory: InterviewerCallPatternReport | undefined = await getInterviewerCallPatternReport(formValues);
 
-            if (callHistory === undefined) {
-                return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
-            }
-
-            callHistory.total_records = callHistory.discounted_invalid_cases
-                + (callHistory.total_valid_cases || 0);
-
-            if (isAllInvalid(callHistory)) {
-                return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
-            }
-
-            return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
-        } catch {
-            return ["load_failed", new GroupedSummary([]), { title: "", records: {} }];
+        if (callHistory === undefined) {
+            return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
         }
 
+        callHistory.total_records = callHistory.discounted_invalid_cases
+            + (callHistory.total_valid_cases || 0);
+
+        if (isAllInvalid(callHistory)) {
+            return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
+        }
+
+        return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
     }
 
     const displayReport = useCallback(
@@ -234,7 +229,10 @@ function RenderInterviewerCallPatternReport({
                     </ONSPanel>
                 </div>
                 <br/>
-                <LoadData dataPromise={ runInterviewerCallPatternReport() }>{ displayReport }</LoadData>
+                <LoadData
+                    dataPromise={ runInterviewerCallPatternReport() }
+                    onError={() => setReportFailed(true) }
+                    errorMessage={ false }>{ displayReport }</LoadData>
                 <br/>
             </main>
         </>
