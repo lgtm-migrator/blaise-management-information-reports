@@ -41,10 +41,6 @@ describe("RenderInterviewerCallHistoryReport", () => {
             <Router history={ history }>
                 <RenderInterviewerCallHistoryReport
                     interviewerFilterQuery={interviewerFilterQuery}
-                    interviewer="rich"
-                    startDate={ new Date("September 18, 2022 01:23:00") }
-                    endDate={ new Date("October 17, 2022 04:56:00") }
-                    surveyTla="LMS"
                     questionnaires={ ["LMS1111", "LMS2222"] }
                     navigateBack={ navigateBack }
                     navigateBackTwoSteps={ navigateBackTwoSteps }
