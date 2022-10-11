@@ -41,6 +41,7 @@ const mockDataWithInvalidCases: InterviewerCallPatternReport = {
     no_contact_disconnect: 2,
     no_contact_no_answer: 3,
     no_contact_other: 4,
+    no_contact_invalid_telephone_number: 5,
     invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data",
     total_records: 133 + 29,
 };
@@ -66,6 +67,7 @@ const mockData: InterviewerCallPatternReport = {
     no_contact_disconnect: 2,
     no_contact_no_answer: 3,
     no_contact_other: 4,
+    no_contact_invalid_telephone_number: 5,
     invalid_fields: "n/a",
     discounted_invalid_cases: 0,
 };
@@ -132,6 +134,7 @@ describe("function noContactBreakdownSection()", () => {
                 "busy": "1/11, 9.09%",
                 "disconnect": "2/11, 18.18%",
                 "no_answer": "3/11, 27.27%",
+                "invalid_telephone_number": "5/11, 45.45%",
                 "other": "4/11, 36.36%",
             },
             "title": "Breakdown of No Contact calls",
@@ -202,6 +205,8 @@ describe("function InterviewerCallPattern() with happy data", () => {
             await flushPromises();
         });
 
+        await screen.findByText("Questionnaires");
+
         expect(await wrapper).toMatchSnapshot();
     });
 
@@ -225,14 +230,14 @@ describe("function InterviewerCallPattern() with happy data", () => {
             await flushPromises();
         });
 
-        expect(screen.queryByText("Reports")).toBeVisible();
-        expect(screen.queryByText("Interviewer details")).toBeVisible();
-        expect(screen.queryByText("Call Pattern Report")).toBeVisible();
-        expect(screen.queryByText(/Interviewer:/)).toBeVisible();
-        expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
-        expect(screen.queryByText(/2 days ago/i)).toBeVisible();
-        expect(screen.queryByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
-        expect(screen.queryByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
+        expect(await screen.findByText("Reports")).toBeVisible();
+        expect(screen.getByText("Interviewer details")).toBeVisible();
+        expect(screen.getByText("Call Pattern Report")).toBeVisible();
+        expect(screen.getByText(/Interviewer:/)).toBeVisible();
+        expect(screen.getByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.getByText(/2 days ago/i)).toBeVisible();
+        expect(screen.getByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
+        expect(screen.getByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
         expect(screen.getByText("Export report as Comma-Separated Values (CSV) file")).toBeVisible();
 
         expect(screen.getByText("Call times")).toBeVisible();
@@ -261,15 +266,18 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
         expect(screen.getByText("Breakdown of No Contact calls")).toBeVisible();
         expect(screen.getByText("Answer service")).toBeVisible();
-        expect(screen.queryAllByText("4/11, 36.36%")[0]).toBeVisible();
+        expect(screen.getAllByText("4/11, 36.36%")[0]).toBeVisible();
         expect(screen.getByText("Busy")).toBeVisible();
         expect(screen.getByText("1/11, 9.09%")).toBeVisible();
         expect(screen.getByText("Disconnect")).toBeVisible();
         expect(screen.getByText("2/11, 18.18%")).toBeVisible();
         expect(screen.getByText("No answer")).toBeVisible();
         expect(screen.getByText("3/11, 27.27%")).toBeVisible();
+        expect(screen.getByText("Invalid telephone number")).toBeVisible();
+        expect(screen.getByText("5/11, 45.45%")).toBeVisible();
         expect(screen.getByText("Other")).toBeVisible();
-        expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
+        expect(screen.getAllByText("4/11, 36.36%")[1]).toBeVisible();
+
         expect(screen.queryByText(/were discounted due to the following invalid fields/i)).not.toBeInTheDocument();
     });
 });
@@ -311,6 +319,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
             await flushPromises();
         });
 
+        await screen.findByText("Questionnaires");
+
         expect(await wrapper).toMatchSnapshot();
     });
 
@@ -332,6 +342,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
                 </Router>
             );
         });
+
+        await screen.findByText("Questionnaires");
 
         expect(screen.queryByText("Reports")).toBeVisible();
         expect(screen.queryByText("Interviewer details")).toBeVisible();
@@ -378,6 +390,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         expect(screen.getByText("2/11, 18.18%")).toBeVisible();
         expect(screen.getByText("No answer")).toBeVisible();
         expect(screen.getByText("3/11, 27.27%")).toBeVisible();
+        expect(screen.getByText("Invalid telephone number")).toBeVisible();
+        expect(screen.getByText("5/11, 45.45%")).toBeVisible();
         expect(screen.getByText("Other")).toBeVisible();
         expect(screen.queryAllByText("4/11, 36.36%")[1]).toBeVisible();
 
@@ -421,6 +435,8 @@ describe("function InterviewerCallPattern() without data", () => {
         await act(async () => {
             await flushPromises();
         });
+
+        await screen.findByText("Questionnaires");
 
         expect(await wrapper).toMatchSnapshot();
     });
@@ -489,6 +505,8 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
             await flushPromises();
         });
 
+        expect(await screen.findByText("Reports")).toBeVisible();
+
         expect(await wrapper).toMatchSnapshot();
     });
 
@@ -511,14 +529,14 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
             );
         });
 
-        expect(screen.queryByText("Reports")).toBeVisible();
-        expect(screen.queryByText("Interviewer details")).toBeVisible();
-        expect(screen.queryByText("Call Pattern Report")).toBeVisible();
-        expect(screen.queryByText(/Interviewer:/)).toBeVisible();
-        expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
-        expect(screen.queryByText(/2 days ago/i)).toBeVisible();
-        expect(screen.queryByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
-        expect(screen.queryByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
+        expect(await screen.findByText("Reports")).toBeVisible();
+        expect(screen.getByText("Interviewer details")).toBeVisible();
+        expect(screen.getByText("Call Pattern Report")).toBeVisible();
+        expect(screen.getByText(/Interviewer:/)).toBeVisible();
+        expect(screen.getByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.getByText(/2 days ago/i)).toBeVisible();
+        expect(screen.getByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
+        expect(screen.getByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
 
         expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
         expect(screen.queryByText("Call times")).not.toBeInTheDocument();
