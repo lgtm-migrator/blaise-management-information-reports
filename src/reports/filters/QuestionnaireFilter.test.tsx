@@ -60,7 +60,7 @@ describe("the interviewer details page renders correctly", () => {
                 <QuestionnaireFilter
                     interviewerFilterQuery={interviewerFilterQuery}
                     questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
-                    submitFunction={ submit }
+                    onSubmit={ submit }
                     navigateBack={ () => {
                         return;
                     }}

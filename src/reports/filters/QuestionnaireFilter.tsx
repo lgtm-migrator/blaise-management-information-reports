@@ -9,7 +9,7 @@ interface QuestionnaireFilterPageProps {
     interviewerFilterQuery: InterviewerFilterQuery,
     questionnaires: string[]
     setQuestionnaires: (string: string[]) => void
-    submitFunction: () => void
+    onSubmit: () => void
     navigateBack: () => void
 }
 
@@ -18,7 +18,7 @@ function QuestionnaireFilter({
     navigateBack,
     questionnaires,
     setQuestionnaires,
-    submitFunction
+    onSubmit
 }: QuestionnaireFilterPageProps): ReactElement {
 
     return (
@@ -37,7 +37,7 @@ function QuestionnaireFilter({
                         interviewerFilterQuery={interviewerFilterQuery}
                         questionnaires={questionnaires}
                         setQuestionnaires={setQuestionnaires}
-                        submitFunction={submitFunction}
+                        submitFunction={onSubmit}
                     />
                 </main>
             </div>

@@ -30,7 +30,7 @@ function InterviewerCallPattern(): ReactElement {
             return (<QuestionnaireFilter
                 interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
-                submitFunction={_handleQuestionnaireFilterSubmit}
+                onSubmit={_handleQuestionnaireFilterSubmit}
                 navigateBack={_navigateBack}/>);
         case Step.RenderReport:
             console.log(`Steps questionnaires ${questionnaires}`);
