@@ -18,21 +18,11 @@ describe("the interviewer details page renders correctly", () => {
         const wrapper = render(
             <Router history={history}>
                 <InterviewerFilter title=""
-                    interviewer={"James"} setInterviewer={() => {
-                        return;
-                    }}
-                    startDate={new Date("2021-01-01")} setStartDate={() => {
-                        return;
-                    }}
-                    endDate={new Date("2021-01-05")} setEndDate={() => {
-                        return;
-                    }}
-                    surveyTla={"LMS"} setSurveyTla={() => {
-                        return;
-                    }}
-                    submitFunction={() => {
-                        return true;
-                    }}/>
+                    interviewer={"James"} setInterviewer={jest.fn()}
+                    startDate={new Date("2021-01-01")} setStartDate={jest.fn()}
+                    endDate={new Date("2021-01-05")} setEndDate={jest.fn()}
+                    surveyTla={"LMS"} setSurveyTla={jest.fn()}
+                    submitFunction={() => jest.fn()}/>
             </Router>
         );
 
@@ -44,30 +34,28 @@ describe("the interviewer details page renders correctly", () => {
     it("renders correctly", async () => {
         const history = createMemoryHistory();
 
-        await act(async () => {
-            render(
-                <Router history={history}>
-                    <InterviewerFilter title=""
-                        interviewer={"James"} setInterviewer={() => {return;}}
-                        startDate={new Date("2021-01-01")} setStartDate={() => {return;}}
-                        endDate={new Date("2021-01-05")} setEndDate={() => {return;}}
-                        surveyTla={"LMS"} setSurveyTla={() => {return;}}
-                        submitFunction={() => {return true;}}/>
-                </Router>
-            );
-        });
+        render(
+            <Router history={history}>
+                <InterviewerFilter title=""
+                    interviewer={"James"} setInterviewer={jest.fn()}
+                    startDate={new Date("2021-01-01")} setStartDate={jest.fn()}
+                    endDate={new Date("2021-01-05")} setEndDate={jest.fn()}
+                    surveyTla={"LMS"} setSurveyTla={jest.fn()}
+                    submitFunction={jest.fn()}/>
+            </Router>
+        );
 
-        expect(screen.queryByText(/Run interviewer/i)).toBeVisible();
-        expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.getByText(/Run interviewer/i)).toBeVisible();
+        expect(screen.getByText(/Data in this report was last updated:/i)).toBeVisible();
 
-        expect(screen.queryByText(/Select survey/i)).toBeVisible();
-        expect(screen.queryByText(/Show all surveys/i)).toBeVisible();
-        expect(screen.queryByText(/LMS/i)).toBeVisible();
-        expect(screen.queryByText(/OPN/i)).toBeVisible();
+        expect(screen.getByText(/Select survey/i)).toBeVisible();
+        expect(screen.getByText(/Show all surveys/i)).toBeVisible();
+        expect(screen.getByText(/LMS/i)).toBeVisible();
+        expect(screen.getByText(/OPN/i)).toBeVisible();
 
-        expect(screen.queryByText(/Interviewer ID/i)).toBeVisible();
+        expect(screen.getByText(/Interviewer ID/i)).toBeVisible();
 
-        expect(screen.queryByText(/Start date/i)).toBeVisible();
-        expect(screen.queryByText(/End date/i)).toBeVisible();
+        expect(screen.getByText(/Start date/i)).toBeVisible();
+        expect(screen.getByText(/End date/i)).toBeVisible();
     });
 });
