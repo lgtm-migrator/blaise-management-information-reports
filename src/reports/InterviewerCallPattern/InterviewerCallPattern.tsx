@@ -35,10 +35,7 @@ function InterviewerCallPattern(): ReactElement {
         case Step.RenderReport:
             console.log(`Steps questionnaires ${questionnaires}`);
             return (<RenderInterviewerCallPatternReport
-                interviewer={interviewerFilterQuery.interviewer}
-                startDate={interviewerFilterQuery.startDate}
-                endDate={interviewerFilterQuery.endDate}
-                surveyTla={interviewerFilterQuery.surveyTla}
+                interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={questionnaires}
                 navigateBack={_navigateBack}
                 navigateBackTwoSteps={_navigateBackTwoSteps}/>);
