@@ -23,6 +23,7 @@ export type InterviewerCallPatternReport = {
     no_contact_disconnect?: number,
     no_contact_no_answer?: number,
     no_contact_other?: number,
+    no_contact_invalid_telephone_number?: number,
     completed_successfully?: number,
     appointments_for_contacts?: number,
     web_nudge?: number,
