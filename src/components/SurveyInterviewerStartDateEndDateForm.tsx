@@ -7,7 +7,7 @@ interface Props {
     surveyTLA: string | undefined
     startDate: Date
     endDate: Date
-    onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
+    onSubmit: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
 const SurveyInterviewerStartDateEndDateForm = ({
@@ -15,7 +15,7 @@ const SurveyInterviewerStartDateEndDateForm = ({
     surveyTLA,
     startDate,
     endDate,
-    onSubmitFunction
+    onSubmit
 }: Props): ReactElement => {
 
     const fields = [
@@ -26,7 +26,7 @@ const SurveyInterviewerStartDateEndDateForm = ({
     ];
 
     return (
-        <><StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel={"Next"}/></>
+        <><StyledForm fields={fields} onSubmitFunction={onSubmit} submitLabel={"Next"}/></>
     );
 };
 

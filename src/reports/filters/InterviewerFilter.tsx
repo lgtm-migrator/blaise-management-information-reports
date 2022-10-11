@@ -45,7 +45,7 @@ function InterviewerFilter({
                         surveyTLA={ surveyTla }
                         startDate={ startDate }
                         endDate={ endDate }
-                        onSubmitFunction={ submitInterviewerFilters }/>
+                        onSubmit={ submitInterviewerFilters }/>
                 </main>
             </div>
         </>
