@@ -13,12 +13,13 @@ interface QuestionnaireFilterPageProps {
     navigateBack: () => void
 }
 
-function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement {
-    const {
-        navigateBack,
-        questionnaires,
-        interviewerFilterQuery,
-    } = props;
+function QuestionnaireFilter({
+    interviewerFilterQuery,
+    navigateBack,
+    questionnaires,
+    setQuestionnaires,
+    submitFunction
+}: QuestionnaireFilterPageProps): ReactElement {
 
     return (
         <>
@@ -33,10 +34,10 @@ function QuestionnaireFilter(props: QuestionnaireFilterPageProps): ReactElement 
                     <FilterSummary { ...interviewerFilterQuery } questionnaires={ questionnaires }/>
                     <CallHistoryLastUpdatedStatus/>
                     <QuestionnaireSelector
-                        { ...interviewerFilterQuery }
+                        interviewerFilterQuery={interviewerFilterQuery}
                         questionnaires={questionnaires}
-                        setQuestionnaires={props.setQuestionnaires}
-                        submitFunction={props.submitFunction}
+                        setQuestionnaires={setQuestionnaires}
+                        submitFunction={submitFunction}
                     />
                 </main>
             </div>
