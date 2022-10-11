@@ -3,40 +3,40 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../../components/SurveyInterviewerStartDateEndDateForm";
 
+export interface InterviewerFilterQuery {
+    interviewer: string;
+    startDate: Date;
+    endDate: Date;
+    surveyTla: string;
+}
+
 interface InterviewerFilterPageProps {
     title: string
     interviewer: string | undefined
-    setInterviewer: (string: string) => void
     startDate: Date
-    setStartDate: (Date: Date) => void
     endDate: Date
-    setEndDate: (Date: Date) => void
     surveyTla: string | undefined
-    setSurveyTla: (string: string) => void
-    submitFunction: () => void;
+    submitFunction: (search: InterviewerFilterQuery) => void;
 }
 
 function InterviewerFilter(props: InterviewerFilterPageProps): ReactElement {
     const {
         title,
         interviewer,
-        setInterviewer,
         startDate,
-        setStartDate,
         endDate,
-        setEndDate,
         surveyTla,
-        setSurveyTla,
         submitFunction
     } = props;
 
     async function submitInterviewerFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
-        setInterviewer(formValues["Interviewer ID"]);
-        setStartDate(formValues["Start date"]);
-        setEndDate(formValues["End date"]);
-        setSurveyTla(formValues["Survey TLA"]);
         setSubmitting(true);
-        submitFunction();
+        submitFunction({
+            interviewer: formValues["Interviewer ID"],
+            startDate: new Date(formValues["Start date"]),
+            endDate: new Date(formValues["End date"]),
+            surveyTla: formValues["Survey TLA"],
+        });
     }
 
     return (

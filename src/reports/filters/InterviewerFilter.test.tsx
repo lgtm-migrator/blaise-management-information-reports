@@ -13,19 +13,11 @@ import userEvent from "@testing-library/user-event";
 
 describe("the interviewer details page renders correctly", () => {
 
-    let setInterviewer: () => void;
-    let setStartDate: () => void;
-    let setEndDate: () => void;
-    let setSurveyTla: () => void;
     let submitFunction: () => void;
 
     let view: RenderResult;
 
     beforeEach(() => {
-        setInterviewer = jest.fn();
-        setStartDate = jest.fn();
-        setEndDate = jest.fn();
-        setSurveyTla = jest.fn();
         submitFunction = jest.fn();
 
         const history = createMemoryHistory();
@@ -35,13 +27,9 @@ describe("the interviewer details page renders correctly", () => {
                 <InterviewerFilter
                     title=""
                     interviewer={ "James" }
-                    setInterviewer={ setInterviewer }
                     startDate={ new Date("2021-01-01") }
-                    setStartDate={ setStartDate }
                     endDate={ new Date("2021-01-05") }
-                    setEndDate={ setEndDate }
                     surveyTla={ "LMS" }
-                    setSurveyTla={ setSurveyTla }
                     submitFunction={ submitFunction }/>
             </Router>
         );
@@ -87,11 +75,12 @@ describe("the interviewer details page renders correctly", () => {
         userEvent.click(screen.getByRole("button", { name: "Next" }));
 
         await waitFor(() => {
-            expect(setInterviewer).toHaveBeenCalledWith("rich");
-            expect(setStartDate).toHaveBeenCalledWith("2022-10-10");
-            expect(setEndDate).toHaveBeenCalledWith("2022-10-11");
-            expect(setSurveyTla).toHaveBeenCalledWith("lms");
-            expect(submitFunction).toHaveBeenCalled();
+            expect(submitFunction).toHaveBeenCalledWith({
+                interviewer: "rich",
+                startDate: new Date("2022-10-10"),
+                endDate: new Date("2022-10-11"),
+                surveyTla: "lms",
+            });
         });
     });
 });
