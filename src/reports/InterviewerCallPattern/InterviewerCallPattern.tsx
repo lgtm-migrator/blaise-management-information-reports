@@ -25,7 +25,7 @@ function InterviewerCallPattern(): ReactElement {
             return (<InterviewerFilter
                 title="call pattern"
                 query={interviewerFilterQuery}
-                submitFunction={_handleInterviewerFilterSubmit}/>);
+                onSubmit={_handleInterviewerFilterSubmit}/>);
         case Step.QuestionnaireFilter:
             return (<QuestionnaireFilter
                 interviewer={interviewerFilterQuery.interviewer}

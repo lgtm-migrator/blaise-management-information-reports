@@ -25,7 +25,7 @@ function InterviewerCallHistory(): ReactElement {
             return (<InterviewerFilter
                 title="call history"
                 query={ interviewerFilterQuery }
-                submitFunction={ _handleInterviewerFilterSubmit }/>);
+                onSubmit={ _handleInterviewerFilterSubmit }/>);
         case Step.QuestionnaireFilter:
             return (<QuestionnaireFilter
                 interviewer={ interviewerFilterQuery.interviewer }

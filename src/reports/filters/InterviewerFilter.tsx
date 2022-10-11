@@ -13,18 +13,18 @@ export interface InterviewerFilterQuery {
 interface InterviewerFilterPageProps {
     title: string;
     query: InterviewerFilterQuery;
-    submitFunction: (search: InterviewerFilterQuery) => void;
+    onSubmit: (search: InterviewerFilterQuery) => void;
 }
 
 function InterviewerFilter({
     query: { endDate, interviewer, startDate, surveyTla },
-    submitFunction,
+    onSubmit,
     title
 }: InterviewerFilterPageProps): ReactElement {
 
     async function submitInterviewerFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setSubmitting(true);
-        submitFunction({
+        onSubmit({
             interviewer: formValues["Interviewer ID"],
             startDate: new Date(formValues["Start date"]),
             endDate: new Date(formValues["End date"]),
