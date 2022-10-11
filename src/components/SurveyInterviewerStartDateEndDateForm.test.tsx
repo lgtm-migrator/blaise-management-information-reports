@@ -33,7 +33,7 @@ describe("form - survey, interviewer, start date, end date", () => {
                     surveyTLA={""}
                     startDate={new Date()}
                     endDate={new Date()}
-                    onSubmitFunction={() => {return true;}} />
+                    onSubmit={() => {return true;}} />
             </Router>
         );
 
@@ -54,7 +54,7 @@ describe("form - survey, interviewer, start date, end date", () => {
                         surveyTLA={""}
                         startDate={new Date()}
                         endDate={new Date()}
-                        onSubmitFunction={() => {return true;}} />
+                        onSubmit={() => {return true;}} />
                 </Router>
             );
         });

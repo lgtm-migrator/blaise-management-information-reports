@@ -8,12 +8,10 @@ import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
 import FilterSummary from "../../components/FilterSummary";
 import { LoadData } from "../../components/LoadData";
+import { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 
 interface RenderInterviewerCallPatternReportPageProps {
-    interviewer: string;
-    startDate: Date;
-    endDate: Date;
-    surveyTla: string;
+    interviewerFilterQuery: InterviewerFilterQuery;
     questionnaires: string[];
     navigateBack: () => void;
     navigateBackTwoSteps: () => void;
@@ -150,10 +148,7 @@ function ReportData(
 type SummaryState = "no_data" | "all_invalid_fields" | "loaded"
 
 function RenderInterviewerCallPatternReport({
-    surveyTla,
-    interviewer,
-    startDate,
-    endDate,
+    interviewerFilterQuery,
     questionnaires,
     navigateBack,
     navigateBackTwoSteps,
@@ -162,10 +157,10 @@ function RenderInterviewerCallPatternReport({
 
     async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group]> {
         const formValues: Record<string, any> = {};
-        formValues.survey_tla = surveyTla;
-        formValues.interviewer = interviewer;
-        formValues.start_date = startDate;
-        formValues.end_date = endDate;
+        formValues.survey_tla = interviewerFilterQuery.surveyTla;
+        formValues.interviewer = interviewerFilterQuery.interviewer;
+        formValues.start_date = interviewerFilterQuery.startDate;
+        formValues.end_date = interviewerFilterQuery.endDate;
         formValues.questionnaires = questionnaires;
 
         const callHistory: InterviewerCallPatternReport | undefined = await getInterviewerCallPatternReport(formValues);
@@ -189,7 +184,7 @@ function RenderInterviewerCallPatternReport({
             <>
                 <DownloadCSVLink
                     groupedSummary={ groupedSummary }
-                    filename={ `interviewer-call-pattern-${ interviewer }.csv` }/>
+                    filename={ `interviewer-call-pattern-${ interviewerFilterQuery.interviewer }.csv` }/>
                 <InvalidCaseInfo invalidFields={ invalidFields }/>
                 <ReportData groupedSummary={ groupedSummary } summaryState={ state }/>
             </>
@@ -207,9 +202,9 @@ function RenderInterviewerCallPatternReport({
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
                 <FilterSummary
-                    interviewer={ interviewer }
-                    startDate={ startDate }
-                    endDate={ endDate }
+                    interviewer={ interviewerFilterQuery.interviewer }
+                    startDate={ interviewerFilterQuery.startDate }
+                    endDate={ interviewerFilterQuery.endDate }
                     questionnaires={ questionnaires }
                 />
                 <ReportErrorPanel error={ reportFailed }/>

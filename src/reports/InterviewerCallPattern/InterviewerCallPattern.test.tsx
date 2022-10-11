@@ -73,6 +73,12 @@ const mockData: InterviewerCallPatternReport = {
 };
 
 const mockProps = {
+    interviewerFilterQuery: {
+        interviewer: "thorne1",
+        startDate: new Date(2022, 12, 31),
+        endDate: new Date(2023, 12, 31),
+        surveyTla: "foo",
+    },
     interviewer: "thorne1",
     startDate: new Date(2022, 12, 31),
     endDate: new Date(2023, 12, 31),
@@ -189,15 +195,7 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern { ... mockProps }/>
             </Router>
         );
 
@@ -210,15 +208,7 @@ describe("function InterviewerCallPattern() with happy data", () => {
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
 
@@ -295,15 +285,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
 
@@ -318,15 +300,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
@@ -408,14 +382,7 @@ describe("function InterviewerCallPattern() without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
+                <InterviewerCallPattern {...mockProps}
                 />
             </Router>
         );
@@ -431,15 +398,7 @@ describe("function InterviewerCallPattern() without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
@@ -473,15 +432,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
 
@@ -496,15 +447,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
@@ -551,15 +494,7 @@ describe("function InterviewerCallPattern() with request error", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
 
@@ -574,15 +509,7 @@ describe("function InterviewerCallPattern() with request error", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
