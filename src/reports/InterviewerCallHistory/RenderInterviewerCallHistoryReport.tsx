@@ -8,22 +8,21 @@ import { formatDateAndTime } from "../../utilities/DateFormatter";
 import FilterSummary from "../../components/FilterSummary";
 import CallHistoryReportTable from "../../components/CallHistoryReportTable";
 import { LoadData } from "../../components/LoadData";
+import { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 
 interface RenderInterviewerCallHistoryReportPageProps {
-    interviewer: string;
-    startDate: Date;
-    endDate: Date;
-    surveyTla: string;
+    interviewerFilterQuery: InterviewerFilterQuery,
     questionnaires: string[];
     navigateBack: () => void;
     navigateBackTwoSteps: () => void;
 }
 
-function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryReportPageProps): ReactElement {
-    const {
-        navigateBack,
-        navigateBackTwoSteps,
-    } = props;
+function RenderInterviewerCallHistoryReport({
+    interviewerFilterQuery,
+    navigateBack,
+    navigateBackTwoSteps,
+    questionnaires
+}: RenderInterviewerCallHistoryReportPageProps): ReactElement {
 
     const reportExportHeaders = [
         { label: "Interviewer", key: "interviewer" },
@@ -36,11 +35,11 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
 
     async function runInterviewerCallHistoryReport(): Promise<InterviewerCallHistoryReport[]> {
         const formValues: Record<string, any> = {};
-        formValues.survey_tla = props.surveyTla;
-        formValues.interviewer = props.interviewer;
-        formValues.start_date = props.startDate;
-        formValues.end_date = props.endDate;
-        formValues.questionnaires = props.questionnaires;
+        formValues.survey_tla = interviewerFilterQuery.surveyTla;
+        formValues.interviewer = interviewerFilterQuery.interviewer;
+        formValues.start_date = interviewerFilterQuery.startDate;
+        formValues.end_date = interviewerFilterQuery.endDate;
+        formValues.questionnaires = questionnaires;
 
         const callHistory = await getInterviewerCallHistoryReport(formValues);
         console.log(callHistory);
@@ -57,7 +56,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
             ] }/>
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call History Report</h1>
-                <FilterSummary { ...props }/>
+                <FilterSummary { ...interviewerFilterQuery } questionnaires={questionnaires}/>
                 <CallHistoryLastUpdatedStatus/>
                 <br/>
                 <LoadData
@@ -75,7 +74,7 @@ function RenderInterviewerCallHistoryReport(props: RenderInterviewerCallHistoryR
                                 }
                                 headers={ reportExportHeaders }
                                 target="_blank"
-                                filename={ `interviewer-call-history-${ props.interviewer }.csv` }>
+                                filename={ `interviewer-call-history-${ interviewerFilterQuery.interviewer }.csv` }>
                                 Export report as Comma-Separated Values (CSV) file
                             </CSVLink>
                             <CallHistoryReportTable

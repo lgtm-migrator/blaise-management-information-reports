@@ -35,10 +35,7 @@ function InterviewerCallHistory(): ReactElement {
         case Step.RenderReport:
             console.log(`Steps questionnaires ${ questionnaires }`);
             return (<RenderInterviewerCallHistoryReport
-                interviewer={ interviewerFilterQuery.interviewer }
-                startDate={ interviewerFilterQuery.startDate }
-                endDate={ interviewerFilterQuery.endDate }
-                surveyTla={ interviewerFilterQuery.surveyTla }
+                interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={ questionnaires }
                 navigateBack={ _navigateBack }
                 navigateBackTwoSteps={ _navigateBackTwoSteps }/>);
