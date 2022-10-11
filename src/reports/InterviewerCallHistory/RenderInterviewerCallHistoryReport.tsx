@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
 import { InterviewerCallHistoryReport } from "../../interfaces";
@@ -9,6 +9,7 @@ import FilterSummary from "../../components/FilterSummary";
 import CallHistoryReportTable from "../../components/CallHistoryReportTable";
 import { LoadData } from "../../components/LoadData";
 import { InterviewerFilterQuery } from "../filters/InterviewerFilter";
+import ReportErrorPanel from "../../components/ReportErrorPanel";
 
 interface RenderInterviewerCallHistoryReportPageProps {
     interviewerFilterQuery: InterviewerFilterQuery,
@@ -23,6 +24,7 @@ function RenderInterviewerCallHistoryReport({
     navigateBackTwoSteps,
     questionnaires
 }: RenderInterviewerCallHistoryReportPageProps): ReactElement {
+    const [reportFailed, setReportFailed] = useState(false);
 
     const reportExportHeaders = [
         { label: "Interviewer", key: "interviewer" },
@@ -57,11 +59,13 @@ function RenderInterviewerCallHistoryReport({
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call History Report</h1>
                 <FilterSummary { ...interviewerFilterQuery } questionnaires={questionnaires}/>
+                <ReportErrorPanel error={ reportFailed }/>
                 <CallHistoryLastUpdatedStatus/>
                 <br/>
                 <LoadData
                     dataPromise={ runInterviewerCallHistoryReport() }
-                    errorMessage="Failed to load"
+                    onError={() => setReportFailed(true) }
+                    errorMessage={ false }
                 >
                     { (reportData) => (
                         <>

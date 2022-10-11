@@ -133,7 +133,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
         it("displays the not found message", async () => {
             http.onPost("/api/reports/interviewer-call-history").reply(500, "");
             renderComponent();
-            await screen.findByText("Failed to load");
+            await screen.findByText(/Failed to run the report/);
         });
     });
 
@@ -143,7 +143,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
                 throw new Error("Boom!");
             });
             renderComponent();
-            await screen.findByText("Failed to load");
+            await screen.findByText(/Failed to run the report/);
         });
     });
 
