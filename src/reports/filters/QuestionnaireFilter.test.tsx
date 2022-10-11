@@ -16,6 +16,7 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import subtractYears from "../../utilities/DateFormatter";
+import { InterviewerFilterQuery } from "./InterviewerFilter";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -47,17 +48,23 @@ describe("the interviewer details page renders correctly", () => {
     });
 
     function renderComponent() {
+        const interviewerFilterQuery: InterviewerFilterQuery = {
+            interviewer: "James",
+            startDate: new Date("2022-01-01"),
+            endDate: new Date("2022-01-05"),
+            surveyTla: "LMS"
+        };
+
         return render(
             <Router history={ history }>
-                <QuestionnaireFilter interviewer="James"
-                    startDate={ new Date("2022-01-01") }
-                    endDate={ new Date("2022-01-05") }
-                    surveyTla="LMS"
+                <QuestionnaireFilter
+                    interviewerFilterQuery={interviewerFilterQuery}
                     questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
                     submitFunction={ submit }
                     navigateBack={ () => {
                         return;
-                    }}/>
+                    }}
+                />
             </Router>
         );
     }

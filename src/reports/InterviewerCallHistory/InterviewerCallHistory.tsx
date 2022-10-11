@@ -28,10 +28,7 @@ function InterviewerCallHistory(): ReactElement {
                 onSubmit={ _handleInterviewerFilterSubmit }/>);
         case Step.QuestionnaireFilter:
             return (<QuestionnaireFilter
-                interviewer={ interviewerFilterQuery.interviewer }
-                startDate={ interviewerFilterQuery.startDate }
-                endDate={ interviewerFilterQuery.endDate }
-                surveyTla={ interviewerFilterQuery.surveyTla }
+                interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={ questionnaires } setQuestionnaires={ setQuestionnaires }
                 submitFunction={ _handleQuestionnaireFilterSubmit }
                 navigateBack={ _navigateBack }/>);
