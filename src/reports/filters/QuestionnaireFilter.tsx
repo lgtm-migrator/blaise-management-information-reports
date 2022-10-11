@@ -37,7 +37,7 @@ function QuestionnaireFilter({
                         interviewerFilterQuery={interviewerFilterQuery}
                         questionnaires={questionnaires}
                         setQuestionnaires={setQuestionnaires}
-                        submitFunction={onSubmit}
+                        onSubmit={onSubmit}
                     />
                 </main>
             </div>

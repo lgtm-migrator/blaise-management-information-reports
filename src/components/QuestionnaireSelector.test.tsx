@@ -47,7 +47,7 @@ describe("QuestionnaireSelector tests", () => {
                 interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={ questionnairesReturned }
                 setQuestionnaires={ setQuestionnaires }
-                submitFunction={ submit }/>
+                onSubmit={ submit }/>
         );
     }
 

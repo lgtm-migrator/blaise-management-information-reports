@@ -8,7 +8,7 @@ interface QuestionnaireSelectorProps{
     interviewerFilterQuery: InterviewerFilterQuery
     questionnaires: string[]
     setQuestionnaires: (string: string[]) => void
-    submitFunction: () => void
+    onSubmit: () => void
 }
 
 function FetchQuestionnairesError() {
@@ -26,12 +26,12 @@ function QuestionnaireSelector({
     interviewerFilterQuery,
     questionnaires,
     setQuestionnaires,
-    submitFunction,
+    onSubmit,
 }: QuestionnaireSelectorProps): ReactElement {
 
     function handleSubmit(values: any) {
         setQuestionnaires(values["questionnaires"]);
-        submitFunction();
+        onSubmit();
     }
 
     function displayCheckboxes(results: string[]) {
