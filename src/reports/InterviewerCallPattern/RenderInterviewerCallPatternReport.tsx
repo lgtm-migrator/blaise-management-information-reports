@@ -111,9 +111,12 @@ function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElem
 function DownloadCSVLink(
     { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string }
 ): ReactElement {
+    if (groupedSummary.groups.length === 0) {
+        return <></>;
+    }
+
     return (
         <CSVLink
-            hidden={ groupedSummary.groups.length === 0 }
             data={ groupedSummary.csv() }
             target="_blank"
             filename={ filename }>
