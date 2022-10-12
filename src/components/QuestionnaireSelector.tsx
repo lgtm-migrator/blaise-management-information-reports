@@ -2,15 +2,13 @@ import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement, useCallback } from "react";
 import { getQuestionnaireList } from "../utilities/HTTP";
 import { LoadData } from "./LoadData";
+import { InterviewerFilterQuery } from "../reports/filters/InterviewerFilter";
 
 interface QuestionnaireSelectorProps{
-    interviewer: string
-    startDate: Date
-    endDate: Date
-    surveyTla: string
+    interviewerFilterQuery: InterviewerFilterQuery
     questionnaires: string[]
     setQuestionnaires: (string: string[]) => void
-    submitFunction: () => void
+    onSubmit: () => void
 }
 
 function FetchQuestionnairesError() {
@@ -25,18 +23,15 @@ function FetchQuestionnairesError() {
 }
 
 function QuestionnaireSelector({
-    endDate,
-    interviewer,
+    interviewerFilterQuery,
     questionnaires,
     setQuestionnaires,
-    startDate,
-    submitFunction,
-    surveyTla
+    onSubmit,
 }: QuestionnaireSelectorProps): ReactElement {
 
     function handleSubmit(values: any) {
         setQuestionnaires(values["questionnaires"]);
-        submitFunction();
+        onSubmit();
     }
 
     function displayCheckboxes(results: string[]) {
@@ -69,7 +64,12 @@ function QuestionnaireSelector({
             <div className="input-items">
                 <div className="checkboxes__items">
                     <LoadData
-                        dataPromise={getQuestionnaireList(surveyTla, interviewer, startDate, endDate)}
+                        dataPromise={getQuestionnaireList(
+                            interviewerFilterQuery.surveyTla,
+                            interviewerFilterQuery.interviewer,
+                            interviewerFilterQuery.startDate,
+                            interviewerFilterQuery.endDate
+                        )}
                         errorMessage={errorMessage}
                     >
                         {(fields) => displayCheckboxes(fields)}

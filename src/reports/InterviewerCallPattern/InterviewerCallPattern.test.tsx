@@ -73,6 +73,12 @@ const mockData: InterviewerCallPatternReport = {
 };
 
 const mockProps = {
+    interviewerFilterQuery: {
+        interviewer: "thorne1",
+        startDate: new Date(2022, 12, 31),
+        endDate: new Date(2023, 12, 31),
+        surveyTla: "foo",
+    },
     interviewer: "thorne1",
     startDate: new Date(2022, 12, 31),
     endDate: new Date(2023, 12, 31),
@@ -189,21 +195,9 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern { ... mockProps }/>
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         await screen.findByText("Questionnaires");
 
@@ -214,21 +208,9 @@ describe("function InterviewerCallPattern() with happy data", () => {
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         expect(await screen.findByText("Reports")).toBeVisible();
         expect(screen.getByText("Interviewer details")).toBeVisible();
@@ -303,21 +285,9 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         await screen.findByText("Questionnaires");
 
@@ -330,15 +300,7 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
@@ -420,21 +382,10 @@ describe("function InterviewerCallPattern() without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
+                <InterviewerCallPattern {...mockProps}
                 />
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         await screen.findByText("Questionnaires");
 
@@ -447,15 +398,7 @@ describe("function InterviewerCallPattern() without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
@@ -489,21 +432,9 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern
-                    interviewer={mockProps.interviewer}
-                    startDate={mockProps.startDate}
-                    endDate={mockProps.endDate}
-                    surveyTla={mockProps.surveyTla}
-                    questionnaires={mockProps.questionnaires}
-                    navigateBack={mockProps.navigateBack}
-                    navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                />
+                <InterviewerCallPattern {...mockProps}/>
             </Router>
         );
-
-        await act(async () => {
-            await flushPromises();
-        });
 
         expect(await screen.findByText("Reports")).toBeVisible();
 
@@ -516,15 +447,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern
-                        interviewer={mockProps.interviewer}
-                        startDate={mockProps.startDate}
-                        endDate={mockProps.endDate}
-                        surveyTla={mockProps.surveyTla}
-                        questionnaires={mockProps.questionnaires}
-                        navigateBack={mockProps.navigateBack}
-                        navigateBackTwoSteps={mockProps.navigateBackTwoSteps}
-                    />
+                    <InterviewerCallPattern {...mockProps}/>
                 </Router>
             );
         });
@@ -538,7 +461,7 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         expect(screen.getByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
         expect(screen.getByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
 
-        expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeVisible();
+        expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeInTheDocument();
         expect(screen.queryByText("Call times")).not.toBeInTheDocument();
         expect(screen.queryByText("Call status")).not.toBeInTheDocument();
         expect(screen.queryByText("Breakdown of no Contact calls")).not.toBeInTheDocument();
@@ -548,3 +471,66 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
     });
 });
 
+describe("function InterviewerCallPattern() with request error", () => {
+    beforeEach(() => {
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
+            () => {
+                throw new Error("Request failed");
+            }
+        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
+        );
+        MockDate.set(new Date(threeDaysFromTheNewMillennium));
+    });
+
+    afterEach(() => {
+        MockDate.reset();
+        mockAdapter.reset();
+    });
+
+    it("should match the snapshot", async () => {
+        const history = createMemoryHistory();
+
+        const wrapper = render(
+            <Router history={history}>
+                <InterviewerCallPattern {...mockProps}/>
+            </Router>
+        );
+
+        await screen.findByRole("heading", { name: "Failed to run the report" });
+
+        expect(await wrapper).toMatchSnapshot();
+    });
+
+    it("should render correctly", async () => {
+        const history = createMemoryHistory();
+
+        await act(async () => {
+            render(
+                <Router history={history}>
+                    <InterviewerCallPattern {...mockProps}/>
+                </Router>
+            );
+        });
+
+        await screen.findByRole("heading", { name: "Failed to run the report" });
+
+        expect(screen.queryByText("Error: Request failed")).not.toBeInTheDocument();
+
+        expect(screen.queryByText("Reports")).toBeVisible();
+        expect(screen.getByText("Interviewer details")).toBeVisible();
+        expect(screen.getByText("Call Pattern Report")).toBeVisible();
+        expect(screen.getByText(/Interviewer:/)).toBeVisible();
+        expect(screen.getByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(screen.getByText(/2 days ago/i)).toBeVisible();
+        expect(screen.getByText("Data in this report only goes back to the last 12 months.")).toBeVisible();
+        expect(screen.getByText("Incomplete data is removed from this report. This will impact the accuracy of the report.")).toBeVisible();
+
+        expect(screen.queryByText("Export report as Comma-Separated Values (CSV) file")).not.toBeInTheDocument();
+        expect(screen.queryByText("Call times")).not.toBeInTheDocument();
+        expect(screen.queryByText("Call status")).not.toBeInTheDocument();
+        expect(screen.queryByText("Breakdown of no Contact calls")).not.toBeInTheDocument();
+        expect(screen.queryByText("Invalid Fields")).not.toBeInTheDocument();
+    });
+});

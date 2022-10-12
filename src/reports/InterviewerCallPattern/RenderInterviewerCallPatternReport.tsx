@@ -8,12 +8,10 @@ import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
 import FilterSummary from "../../components/FilterSummary";
 import { LoadData } from "../../components/LoadData";
+import { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 
 interface RenderInterviewerCallPatternReportPageProps {
-    interviewer: string;
-    startDate: Date;
-    endDate: Date;
-    surveyTla: string;
+    interviewerFilterQuery: InterviewerFilterQuery;
     questionnaires: string[];
     navigateBack: () => void;
     navigateBackTwoSteps: () => void;
@@ -111,9 +109,12 @@ function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElem
 function DownloadCSVLink(
     { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string }
 ): ReactElement {
+    if (groupedSummary.groups.length === 0) {
+        return <></>;
+    }
+
     return (
         <CSVLink
-            hidden={ groupedSummary.groups.length === 0 }
             data={ groupedSummary.csv() }
             target="_blank"
             filename={ filename }>
@@ -144,46 +145,38 @@ function ReportData(
     );
 }
 
-type SummaryState = "load_failed" | "no_data" | "all_invalid_fields" | "loaded"
+type SummaryState = "no_data" | "all_invalid_fields" | "loaded"
 
 function RenderInterviewerCallPatternReport({
-    surveyTla,
-    interviewer,
-    startDate,
-    endDate,
+    interviewerFilterQuery,
     questionnaires,
     navigateBack,
     navigateBackTwoSteps,
 }: RenderInterviewerCallPatternReportPageProps): ReactElement {
-    const [reportFailed] = useState<boolean>(false);
+    const [reportFailed, setReportFailed] = useState<boolean>(false);
 
     async function runInterviewerCallPatternReport(): Promise<[SummaryState, GroupedSummary, Group]> {
         const formValues: Record<string, any> = {};
-        formValues.survey_tla = surveyTla;
-        formValues.interviewer = interviewer;
-        formValues.start_date = startDate;
-        formValues.end_date = endDate;
+        formValues.survey_tla = interviewerFilterQuery.surveyTla;
+        formValues.interviewer = interviewerFilterQuery.interviewer;
+        formValues.start_date = interviewerFilterQuery.startDate;
+        formValues.end_date = interviewerFilterQuery.endDate;
         formValues.questionnaires = questionnaires;
 
-        try {
-            const callHistory: InterviewerCallPatternReport | undefined = await getInterviewerCallPatternReport(formValues);
+        const callHistory: InterviewerCallPatternReport | undefined = await getInterviewerCallPatternReport(formValues);
 
-            if (callHistory === undefined) {
-                return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
-            }
-
-            callHistory.total_records = callHistory.discounted_invalid_cases
-                + (callHistory.total_valid_cases || 0);
-
-            if (isAllInvalid(callHistory)) {
-                return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
-            }
-
-            return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
-        } catch {
-            return ["load_failed", new GroupedSummary([]), { title: "", records: {} }];
+        if (callHistory === undefined) {
+            return ["no_data", new GroupedSummary([]), { title: "", records: {} }];
         }
 
+        callHistory.total_records = callHistory.discounted_invalid_cases
+            + (callHistory.total_valid_cases || 0);
+
+        if (isAllInvalid(callHistory)) {
+            return ["all_invalid_fields", new GroupedSummary([]), invalidFieldsGroup(callHistory)];
+        }
+
+        return ["loaded", groupData(callHistory), invalidFieldsGroup(callHistory)];
     }
 
     const displayReport = useCallback(
@@ -191,7 +184,7 @@ function RenderInterviewerCallPatternReport({
             <>
                 <DownloadCSVLink
                     groupedSummary={ groupedSummary }
-                    filename={ `interviewer-call-pattern-${ interviewer }.csv` }/>
+                    filename={ `interviewer-call-pattern-${ interviewerFilterQuery.interviewer }.csv` }/>
                 <InvalidCaseInfo invalidFields={ invalidFields }/>
                 <ReportData groupedSummary={ groupedSummary } summaryState={ state }/>
             </>
@@ -209,9 +202,9 @@ function RenderInterviewerCallPatternReport({
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
                 <FilterSummary
-                    interviewer={ interviewer }
-                    startDate={ startDate }
-                    endDate={ endDate }
+                    interviewer={ interviewerFilterQuery.interviewer }
+                    startDate={ interviewerFilterQuery.startDate }
+                    endDate={ interviewerFilterQuery.endDate }
                     questionnaires={ questionnaires }
                 />
                 <ReportErrorPanel error={ reportFailed }/>
@@ -231,7 +224,10 @@ function RenderInterviewerCallPatternReport({
                     </ONSPanel>
                 </div>
                 <br/>
-                <LoadData dataPromise={ runInterviewerCallPatternReport() }>{ displayReport }</LoadData>
+                <LoadData
+                    dataPromise={ runInterviewerCallPatternReport() }
+                    onError={() => setReportFailed(true) }
+                    errorMessage={ false }>{ displayReport }</LoadData>
                 <br/>
             </main>
         </>
