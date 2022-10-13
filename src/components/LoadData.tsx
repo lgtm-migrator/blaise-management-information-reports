@@ -5,7 +5,8 @@ export type DataRenderer<T> = (data: T) => ReactNode
 
 interface LoaderProps<T> {
     dataPromise: Promise<T>;
-    errorMessage?: string | ((error: Error) => ReactNode)
+    errorMessage?: string | false | ((error: Error) => ReactNode);
+    onError?: (error: Error) => void;
     children: DataRenderer<T>;
 }
 
@@ -21,22 +22,34 @@ class ErroredState {
 
 type LoadState<T> = LoadingState | LoadedState<T> | ErroredState
 
-export function LoadData<T>({ children, dataPromise, errorMessage }: LoaderProps<T>): ReactElement {
+export function LoadData<T>({ children, dataPromise, errorMessage, onError }: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
+
+    async function loadData() {
+        setLoadState(new LoadedState(await dataPromise));
+    }
+
+    function setErroredState(error: Error): void {
+        if (onError) {
+            onError(error);
+        }
+        setLoadState(new ErroredState(error));
+    }
 
     useEffect(() => {
         setLoadState(new LoadingState());
 
-        async function loadData() {
-            setLoadState(new LoadedState(await dataPromise));
-        }
-
-        loadData().catch((error) => setLoadState(new ErroredState(error)));
+        loadData().catch(setErroredState);
     }, [dataPromise]);
 
     function getErrorMessage(error: Error): ReactNode {
         if (typeof(errorMessage) === "string") {
             return errorMessage;
+        }
+
+        if (errorMessage === false)
+        {
+            return null;
         }
 
         if (errorMessage !== undefined) {
@@ -52,6 +65,10 @@ export function LoadData<T>({ children, dataPromise, errorMessage }: LoaderProps
         }
 
         if (loadState instanceof ErroredState) {
+            if (errorMessage === false) {
+                return null;
+            }
+
             return (
                 <ONSPanel status="error">
                     <p>{ getErrorMessage(loadState.error) }</p>

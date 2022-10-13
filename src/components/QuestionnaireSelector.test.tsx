@@ -10,6 +10,7 @@ import { fireEvent, screen } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { InterviewerFilterQuery } from "../reports/filters/InterviewerFilter";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -18,7 +19,7 @@ describe("QuestionnaireSelector tests", () => {
     let setQuestionnaires: (questionnaires: string[]) => void;
     let submit: () => void;
     let wrapper: RenderResult;
-    
+
     beforeEach(async () =>{
         const axiosMock = new MockAdapter(axios);
         axiosMock.onPost("/api/questionnaires").reply(200, questionnairesReturned);
@@ -32,16 +33,21 @@ describe("QuestionnaireSelector tests", () => {
     afterEach(() => {
         mockAdapter.reset();
     });
-    
+
     function renderComponent(){
+        const interviewerFilterQuery: InterviewerFilterQuery = {
+            interviewer: "Cal",
+            startDate: new Date("2022-05-04"),
+            endDate: new Date("2022-05-05"),
+            surveyTla: "LMS",
+        };
+
         return render(
-            <QuestionnaireSelector interviewer="Cal"
-                startDate={ new Date("2022-05-04") }
-                endDate={ new Date("2022-05-05") }
-                surveyTla="LMS"
-                questionnaires={ questionnairesReturned } 
+            <QuestionnaireSelector
+                interviewerFilterQuery={interviewerFilterQuery}
+                questionnaires={ questionnairesReturned }
                 setQuestionnaires={ setQuestionnaires }
-                submitFunction={ submit }/>
+                onSubmit={ submit }/>
         );
     }
 
