@@ -131,25 +131,19 @@ describe("the interviewer details page renders correctly", () => {
     it("displays a message when not questionnaires are returned", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, []);
         renderComponent();
-        await waitFor(() => {
-            screen.getByText("No questionnaires found for given parameters.");
-        });
+        await screen.findByText("No questionnaires found for given parameters.");
     });
 
     it("displays an error when an error HTTP status is returned", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(500, []);
         renderComponent();
-        await waitFor(() => {
-            screen.getByText("An error occurred while fetching the list of questionnaires");
-        });
+        await screen.findByText("An error occurred while fetching the list of questionnaires");
     });
 
     it("displays an error when a non-200 success HTTP status is returned", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(201, questionnaireDataReturned);
         renderComponent();
-        await waitFor(() => {
-            screen.getByText("An error occurred while fetching the list of questionnaires");
-        });
+        await screen.findByText("An error occurred while fetching the list of questionnaires");
     });
 
     it("checks all provided questionnaires by default", async () => {
