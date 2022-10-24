@@ -1,5 +1,5 @@
 import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
-import React, { ReactElement, useCallback } from "react";
+import React, { ReactElement } from "react";
 
 interface QuestionnaireSelectorProps {
     questionnaires: string[];

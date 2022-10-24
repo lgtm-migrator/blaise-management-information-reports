@@ -34,6 +34,35 @@ function FetchQuestionnairesError() {
     );
 }
 
+async function getQuestionnaireList(surveyTla: string, reportDate: Date): Promise<string[]> {
+    const url = "/api/appointments/questionnaires";
+
+    const formData = new FormData();
+    formData.append("survey_tla", surveyTla);
+    formData.append("date", formatISODate(reportDate));
+
+    let response: AxiosResponse<string[]|0>;
+
+    try {
+        response = await axios.post(url, formData, axiosConfig());
+    } catch (error) {
+        console.error(`Response: Error ${ error } - URL: ${ url }`);
+        throw error;
+    }
+
+    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+
+    if (response.data === 0) {
+        return [];
+    }
+
+    if (response.status === 200) {
+        return response.data;
+    }
+
+    throw ("Response was not 200");
+}
+
 function AppointmentQuestionnaireFilter({
     navigateBack,
     questionnaires,
@@ -42,28 +71,6 @@ function AppointmentQuestionnaireFilter({
     submitFunction,
     surveyTla
 }: AppointmentQuestionnaireFilterPageProps): ReactElement {
-    async function getQuestionnaireList(): Promise<string[]> {
-        const url = "/api/appointments/questionnaires";
-
-        const formData = new FormData();
-        formData.append("survey_tla", surveyTla);
-        formData.append("date", formatISODate(reportDate));
-
-        return axios.post(url, formData, axiosConfig()).then((response: AxiosResponse) => {
-            console.log(`Response: Status ${ response.status }, data ${ response.data }`);
-            if (response.data === 0) {
-                return;
-            }
-            if (response.status === 200) {
-                return response.data;
-            }
-            throw ("Response was not 200");
-        }).catch((error: Error) => {
-            console.error(`Response: Error ${ error } - URL: ${ url }`);
-            throw error;
-        });
-    }
-
     const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
 
     return (
@@ -83,7 +90,7 @@ function AppointmentQuestionnaireFilter({
                 <AppointmentResourceDaybatchWarning/>
                 <br/>
                 <LoadData
-                    dataPromise={ getQuestionnaireList() }
+                    dataPromise={ getQuestionnaireList(surveyTla, reportDate) }
                     errorMessage={ errorMessage }
                 >
                     { loadedQuestionnaires => <QuestionnaireSelector
