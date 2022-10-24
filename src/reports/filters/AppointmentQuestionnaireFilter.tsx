@@ -14,7 +14,7 @@ import { formatDate, formatISODate } from "../../utilities/DateFormatter";
 interface AppointmentQuestionnaireFilterPageProps {
     reportDate: Date
     surveyTla: string
-    questionnaire: string[]
+    questionnaires: string[]
     setQuestionnaires: (string: string[]) => void
     submitFunction: () => void
     navigateBack: () => void
@@ -37,21 +37,20 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
         surveyTla,
         submitFunction,
         navigateBack,
-        questionnaire,
+        questionnaires,
         setQuestionnaires,
     } = props;
 
     useEffect(() => {
         getQuestionnaireList().then(setupForm);
-    }, []
-    );
+    }, []);
 
     function setupForm(allQuestionnaires: string[]) {
         setFields([
             {
                 name: "questionnaires",
                 type: "checkbox",
-                initial_value: questionnaire,
+                initial_value: questionnaires,
                 checkboxOptions: allQuestionnaires.map(name => ({
                     id: name,
                     value: name,
@@ -65,7 +64,7 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
 
     async function getQuestionnaireList(): Promise<string[]> {
         const url = "/api/appointments/questionnaires";
-    
+
         const formData = new FormData();
         setMessageNoData("");
         formData.append("survey_tla", surveyTla);
@@ -113,7 +112,7 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
                     }]}/>
 
                 <main id="main-content" className="page__main u-mt-s">
-                    
+
                     <h1 className="u-mb-m">Select questionnaires for </h1>
                     <h3 className="u-mb-m">
                         Date: {formatDate(reportDate)}
