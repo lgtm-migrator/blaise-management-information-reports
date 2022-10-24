@@ -35,8 +35,8 @@ function QuestionnaireFilter({
                     <CallHistoryLastUpdatedStatus/>
                     <QuestionnaireSelector
                         interviewerFilterQuery={interviewerFilterQuery}
-                        questionnaires={questionnaires}
-                        setQuestionnaires={setQuestionnaires}
+                        selectedQuestionnaires={questionnaires}
+                        setSelectedQuestionnaires={setQuestionnaires}
                         onSubmit={onSubmit}
                     />
                 </main>

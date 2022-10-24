@@ -45,8 +45,8 @@ describe("QuestionnaireSelector tests", () => {
         return render(
             <QuestionnaireSelector
                 interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={ questionnairesReturned }
-                setQuestionnaires={ setQuestionnaires }
+                selectedQuestionnaires={ questionnairesReturned }
+                setSelectedQuestionnaires={ setQuestionnaires }
                 onSubmit={ submit }/>
         );
     }

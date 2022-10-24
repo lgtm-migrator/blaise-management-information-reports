@@ -6,8 +6,8 @@ import { InterviewerFilterQuery } from "../reports/filters/InterviewerFilter";
 
 interface QuestionnaireSelectorProps{
     interviewerFilterQuery: InterviewerFilterQuery
-    questionnaires: string[]
-    setQuestionnaires: (string: string[]) => void
+    selectedQuestionnaires: string[]
+    setSelectedQuestionnaires: (string: string[]) => void
     onSubmit: () => void
 }
 
@@ -24,13 +24,13 @@ function FetchQuestionnairesError() {
 
 function QuestionnaireSelector({
     interviewerFilterQuery,
-    questionnaires,
-    setQuestionnaires,
+    selectedQuestionnaires,
+    setSelectedQuestionnaires,
     onSubmit,
 }: QuestionnaireSelectorProps): ReactElement {
 
     function handleSubmit(values: any) {
-        setQuestionnaires(values["questionnaires"]);
+        setSelectedQuestionnaires(values["questionnaires"]);
         onSubmit();
     }
 
@@ -43,7 +43,7 @@ function QuestionnaireSelector({
             {
                 name: "questionnaires",
                 type: "checkbox",
-                initial_value: questionnaires,
+                initial_value: selectedQuestionnaires,
                 validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
                 checkboxOptions: results.map(name => ({
                     id: name,
