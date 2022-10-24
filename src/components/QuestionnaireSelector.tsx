@@ -4,11 +4,11 @@ import { getQuestionnaireList } from "../utilities/HTTP";
 import { LoadData } from "./LoadData";
 import { InterviewerFilterQuery } from "../reports/filters/InterviewerFilter";
 
-interface QuestionnaireSelectorProps{
-    interviewerFilterQuery: InterviewerFilterQuery
-    selectedQuestionnaires: string[]
-    setSelectedQuestionnaires: (string: string[]) => void
-    onSubmit: () => void
+interface QuestionnaireSelectorProps {
+    interviewerFilterQuery: InterviewerFilterQuery;
+    selectedQuestionnaires: string[];
+    setSelectedQuestionnaires: (string: string[]) => void;
+    onSubmit: () => void;
 }
 
 function FetchQuestionnairesError() {
@@ -54,29 +54,30 @@ function QuestionnaireSelector({
             },
         ];
 
-        return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
+        return <StyledForm fields={ fields } submitLabel="Run report" onSubmitFunction={ handleSubmit }/>;
     }
 
     const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
 
     return (
-        <>
-            <div className="input-items">
-                <div className="checkboxes__items">
-                    <LoadData
-                        dataPromise={getQuestionnaireList(
-                            interviewerFilterQuery.surveyTla,
-                            interviewerFilterQuery.interviewer,
-                            interviewerFilterQuery.startDate,
-                            interviewerFilterQuery.endDate
-                        )}
-                        errorMessage={errorMessage}
-                    >
-                        {(fields) => displayCheckboxes(fields)}
-                    </LoadData>
+        <LoadData
+            dataPromise={ getQuestionnaireList(
+                interviewerFilterQuery.surveyTla,
+                interviewerFilterQuery.interviewer,
+                interviewerFilterQuery.startDate,
+                interviewerFilterQuery.endDate
+            ) }
+            errorMessage={ errorMessage }
+        >
+            { (fields) =>
+                <div className="input-items">
+                    <div className="checkboxes__items">
+                        { displayCheckboxes(fields) }
+
+                    </div>
                 </div>
-            </div>
-        </>
+            }
+        </LoadData>
     );
 }
 
