@@ -96,7 +96,7 @@ function AppointmentQuestionnaireFilter(props: AppointmentQuestionnaireFilterPag
             return <ONSLoadingPanel/>;
         }
         if (numberOfQuestionnaires === 0) {
-            return <ONSPanel> No questionnaires found for given parameters.</ONSPanel>;
+            return <ONSPanel>No questionnaires found for given parameters.</ONSPanel>;
         }
         return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit}/>;
     }
