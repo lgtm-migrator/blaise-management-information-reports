@@ -116,13 +116,13 @@ describe("the interviewer details page renders correctly", () => {
         await screen.findByText("No questionnaires found for given parameters.");
     });
 
-    xit("displays an error when an error HTTP status is returned", async () => {
+    it("displays an error when an error HTTP status is returned", async () => {
         mockAdapter.onPost("/api/appointments/questionnaires").reply(500, []);
         renderComponent();
         await screen.findByText("An error occurred while fetching the list of questionnaires");
     });
 
-    xit("displays an error when a non-200 success HTTP status is returned", async () => {
+    it("displays an error when a non-200 success HTTP status is returned", async () => {
         mockAdapter.onPost("/api/appointments/questionnaires").reply(201, questionnaireDataReturned);
         renderComponent();
         await screen.findByText("An error occurred while fetching the list of questionnaires");
@@ -150,7 +150,7 @@ describe("the interviewer details page renders correctly", () => {
         expect(setQuestionnaires).toHaveBeenCalledWith(["LMS2101_AA2"]);
     });
 
-    xit("displays an error when submitting with no checkboxes selected", async () => {
+    it("displays an error when submitting with no checkboxes selected", async () => {
         mockAdapter.onPost("/api/appointments/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {

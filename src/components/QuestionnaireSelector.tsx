@@ -1,29 +1,15 @@
 import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
 import React, { ReactElement, useCallback } from "react";
-import { getQuestionnaireList } from "../utilities/HTTP";
-import { LoadData } from "./LoadData";
-import { InterviewerFilterQuery } from "../reports/filters/InterviewerFilter";
 
 interface QuestionnaireSelectorProps {
-    interviewerFilterQuery: InterviewerFilterQuery;
+    questionnaires: string[];
     selectedQuestionnaires: string[];
     setSelectedQuestionnaires: (string: string[]) => void;
     onSubmit: () => void;
 }
 
-function FetchQuestionnairesError() {
-    return (
-        <>
-            <h2>An error occurred while fetching the list of questionnaires</h2>
-            <p>Try again later.</p>
-            <p>If you are still experiencing problems <a href="https://ons.service-now.com/">report this
-                issue</a> to Service Desk</p>
-        </>
-    );
-}
-
 function QuestionnaireSelector({
-    interviewerFilterQuery,
+    questionnaires,
     selectedQuestionnaires,
     setSelectedQuestionnaires,
     onSubmit,
@@ -34,8 +20,8 @@ function QuestionnaireSelector({
         onSubmit();
     }
 
-    function displayCheckboxes(results: string[]) {
-        if (results.length === 0) {
+    function displayCheckboxes(items: string[]) {
+        if (items.length === 0) {
             return <ONSPanel>No questionnaires found for given parameters.</ONSPanel>;
         }
 
@@ -45,7 +31,7 @@ function QuestionnaireSelector({
                 type: "checkbox",
                 initial_value: selectedQuestionnaires,
                 validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
-                checkboxOptions: results.map(name => ({
+                checkboxOptions: items.map(name => ({
                     id: name,
                     value: name,
                     label: name,
@@ -57,27 +43,12 @@ function QuestionnaireSelector({
         return <StyledForm fields={ fields } submitLabel="Run report" onSubmitFunction={ handleSubmit }/>;
     }
 
-    const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
-
     return (
-        <LoadData
-            dataPromise={ getQuestionnaireList(
-                interviewerFilterQuery.surveyTla,
-                interviewerFilterQuery.interviewer,
-                interviewerFilterQuery.startDate,
-                interviewerFilterQuery.endDate
-            ) }
-            errorMessage={ errorMessage }
-        >
-            { (fields) =>
-                <div className="input-items">
-                    <div className="checkboxes__items">
-                        { displayCheckboxes(fields) }
-
-                    </div>
-                </div>
-            }
-        </LoadData>
+        <div className="input-items">
+            <div className="checkboxes__items">
+                { displayCheckboxes(questionnaires) }
+            </div>
+        </div>
     );
 }
 

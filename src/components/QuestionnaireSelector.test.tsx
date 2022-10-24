@@ -10,7 +10,6 @@ import { fireEvent, screen } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { InterviewerFilterQuery } from "../reports/filters/InterviewerFilter";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -21,8 +20,6 @@ describe("QuestionnaireSelector tests", () => {
     let view: RenderResult;
 
     beforeEach(async () => {
-        const axiosMock = new MockAdapter(axios);
-        axiosMock.onPost("/api/questionnaires").reply(200, questionnairesReturned);
         setSelectedQuestionnaires = jest.fn();
         submit = jest.fn();
         await act(async () => {
@@ -35,16 +32,9 @@ describe("QuestionnaireSelector tests", () => {
     });
 
     function renderComponent() {
-        const interviewerFilterQuery: InterviewerFilterQuery = {
-            interviewer: "Cal",
-            startDate: new Date("2022-05-04"),
-            endDate: new Date("2022-05-05"),
-            surveyTla: "LMS",
-        };
-
         return render(
             <QuestionnaireSelector
-                interviewerFilterQuery={ interviewerFilterQuery }
+                questionnaires={questionnairesReturned}
                 selectedQuestionnaires={ ["LMS2101_AA1"] }
                 setSelectedQuestionnaires={ setSelectedQuestionnaires }
                 onSubmit={ submit }/>
