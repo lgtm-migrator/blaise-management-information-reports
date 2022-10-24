@@ -30,7 +30,7 @@ Object {
                   <span
                     class="js-button-text"
                   >
-                    Unselect All
+                    Select All
                   </span>
                   <span
                     class="u-vh"
@@ -53,7 +53,7 @@ Object {
                       checked=""
                       class="checkbox__input js-checkbox"
                       id="LMS2101_AA1"
-                      initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                      initial_value="LMS2101_AA1"
                       name="questionnaires"
                       type="checkbox"
                       value="LMS2101_AA1"
@@ -75,10 +75,9 @@ Object {
                     class="checkbox"
                   >
                     <input
-                      checked=""
                       class="checkbox__input js-checkbox"
                       id="LMS2101_BB1"
-                      initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                      initial_value="LMS2101_AA1"
                       name="questionnaires"
                       type="checkbox"
                       value="LMS2101_BB1"
@@ -100,10 +99,9 @@ Object {
                     class="checkbox"
                   >
                     <input
-                      checked=""
                       class="checkbox__input js-checkbox"
                       id="LMS2101_CC1"
-                      initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                      initial_value="LMS2101_AA1"
                       name="questionnaires"
                       type="checkbox"
                       value="LMS2101_CC1"
@@ -163,7 +161,7 @@ Object {
                 <span
                   class="js-button-text"
                 >
-                  Unselect All
+                  Select All
                 </span>
                 <span
                   class="u-vh"
@@ -186,7 +184,7 @@ Object {
                     checked=""
                     class="checkbox__input js-checkbox"
                     id="LMS2101_AA1"
-                    initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                    initial_value="LMS2101_AA1"
                     name="questionnaires"
                     type="checkbox"
                     value="LMS2101_AA1"
@@ -208,10 +206,9 @@ Object {
                   class="checkbox"
                 >
                   <input
-                    checked=""
                     class="checkbox__input js-checkbox"
                     id="LMS2101_BB1"
-                    initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                    initial_value="LMS2101_AA1"
                     name="questionnaires"
                     type="checkbox"
                     value="LMS2101_BB1"
@@ -233,10 +230,9 @@ Object {
                   class="checkbox"
                 >
                   <input
-                    checked=""
                     class="checkbox__input js-checkbox"
                     id="LMS2101_CC1"
-                    initial_value="LMS2101_AA1,LMS2101_BB1,LMS2101_CC1"
+                    initial_value="LMS2101_AA1"
                     name="questionnaires"
                     type="checkbox"
                     value="LMS2101_CC1"
