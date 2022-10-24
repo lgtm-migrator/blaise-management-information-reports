@@ -7,7 +7,7 @@ import { createMemoryHistory, History } from "history";
 import { render, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import { act } from "react-dom/test-utils";
-import { fireEvent, screen } from "@testing-library/dom";
+import { screen } from "@testing-library/dom";
 import React from "react";
 import QuestionnaireFilter from "./QuestionnaireFilter";
 import MockAdapter from "axios-mock-adapter";
@@ -17,6 +17,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import subtractYears from "../../utilities/DateFormatter";
 import { InterviewerFilterQuery } from "./InterviewerFilter";
+import userEvent from "@testing-library/user-event";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -58,12 +59,12 @@ describe("the interviewer details page renders correctly", () => {
         return render(
             <Router history={ history }>
                 <QuestionnaireFilter
-                    interviewerFilterQuery={interviewerFilterQuery}
+                    interviewerFilterQuery={ interviewerFilterQuery }
                     questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
                     onSubmit={ submit }
                     navigateBack={ () => {
                         return;
-                    }}
+                    } }
                 />
             </Router>
         );
@@ -112,23 +113,21 @@ describe("the interviewer details page renders correctly", () => {
     it("renders correctly", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
 
-        await act(async () => {
-            renderComponent();
-        });
+        renderComponent();
 
-        expect(screen.queryByText(/Select questionnaire/i)).toBeVisible();
-        expect(screen.queryByText(/Data in this report was last updated:/i)).toBeVisible();
+        expect(await screen.findByText(/Select questionnaire/i)).toBeVisible();
+        expect(await screen.findByText(/Data in this report was last updated:/i)).toBeVisible();
 
-        expect(screen.queryByText(/1 year ago/i)).toBeVisible();
+        expect(screen.getByText(/1 year ago/i)).toBeVisible();
 
-        expect(screen.queryByText(/Interviewer: James/i)).toBeVisible();
-        expect(screen.queryByText(/Period: 01\/01\/2022–05\/01\/2022/i)).toBeVisible();
+        expect(screen.getByText(/Interviewer: James/i)).toBeVisible();
+        expect(screen.getByText(/Period: 01\/01\/2022–05\/01\/2022/i)).toBeVisible();
 
-        expect(screen.queryByText(/Questionnaire: LMS2101_AA1/i)).toBeVisible();
-        expect(screen.queryByText(/Run report/i)).toBeVisible();
+        expect(screen.getByText(/Questionnaire: LMS2101_AA1/i)).toBeVisible();
+        expect(screen.getByText(/Run report/i)).toBeVisible();
     });
 
-    it("displays a message when not questionnaires are returned", async () => {
+    it("displays a message when no questionnaires are returned", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, []);
         renderComponent();
         await screen.findByText("No questionnaires found for given parameters.");
@@ -146,34 +145,34 @@ describe("the interviewer details page renders correctly", () => {
         await screen.findByText("An error occurred while fetching the list of questionnaires");
     });
 
-    it("checks all provided questionnaires by default", async () => {
+    it("checks current value questionnaires by default", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {
-            fireEvent.click(await screen.findByText(/Run report/));
+            userEvent.click(await screen.findByText(/Run report/));
         });
+        await waitFor(() => expect(submit).toHaveBeenCalled());
         expect(setQuestionnaires).toHaveBeenCalledWith(["LMS2101_AA1"]);
-        expect(submit).toHaveBeenCalled();
     });
 
     it("returns the questionnaires when a checkbox is ticket", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {
-            fireEvent.click(await screen.findByLabelText(/LMS2101_AA1/));
-            fireEvent.click(await screen.findByLabelText(/LMS2101_AA2/));
-            fireEvent.click(await screen.findByText(/Run report/));
+            userEvent.click(await screen.findByLabelText(/LMS2101_AA1/));
+            userEvent.click(await screen.findByLabelText(/LMS2101_AA2/));
+            userEvent.click(await screen.findByText(/Run report/));
         });
+        await waitFor(() => expect(submit).toHaveBeenCalled());
         expect(setQuestionnaires).toHaveBeenCalledWith(["LMS2101_AA2"]);
-        expect(submit).toHaveBeenCalled();
     });
 
     it("displays an error when submitting with no checkboxes selected", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         renderComponent();
         await act(async () => {
-            fireEvent.click(await screen.findByLabelText(/LMS2101_AA1/));
-            fireEvent.click(await screen.findByText(/Run report/));
+            userEvent.click(await screen.findByLabelText(/LMS2101_AA1/));
+            userEvent.click(await screen.findByText(/Run report/));
         });
         const elements = await screen.findAllByText("At least one questionnaire must be selected");
         expect(elements[0]).toBeVisible();
