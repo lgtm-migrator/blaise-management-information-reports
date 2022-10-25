@@ -12,7 +12,9 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -27,28 +29,96 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
     "quotes": [
       "error",
       "double"
     ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "no-undef": "off",
-    "@typescript-eslint/no-empty-function": "off",
     "indent": ["error", 4],
-    "object-curly-spacing": ["error","always"],
-    "no-multiple-empty-lines": ["error", {
-      "max": 1
-    }],
-    "space-in-parens": ["error", "never"],
-    "no-multi-spaces": "error",
-    "comma-spacing": ["error", { "before": false, "after": true }]
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-multiple-empty-lines": "off",
+    "arrow-body-style": "off",
+    "arrow-parens":  "off",
+    "block-spacing": "off",
+    "brace-style":  "off",
+    "camelcase": "off",
+    "comma-dangle":  "off",
+    "command.": "off",
+    "consistent-return":  "off",
+    "default-case": "off",
+    "dot-notation":  "off",
+    "eol-last": "off",
+    "eqeqeq":  "off",
+    "func-names": "off",
+    "function-paren-newline":  "off",
+    "import/extensions": "off",
+    "import/no-duplicates":  "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved":  "off",
+    "import/order": "off",
+    "import/prefer-default-export":  "off",
+    "key-spacing": "off",
+    "keyword-spacing":  "off",
+    "max-classes-per-file": "off",
+    "max-len":  "off",
+    "no-await-in-loop": "off",
+    "no-confusing-arrow":  "off",
+    "no-console": "off",
+    "no-empty-function":  "off",
+    "no-mixed-operators": "off",
+    "no-param-reassign":  "off",
+    "no-path-concat": "off",
+    "no-plusplus":  "off",
+    "no-promise-executor-return": "off",
+    "no-return-assign":  "off",
+    "no-shadow": "off",
+    "no-throw-literal":  "off",
+    "no-trailing-spaces": "off",
+    "no-underscore-dangle":  "off",
+    "no-unused-vars": "off",
+    "no-use-before-define":  "off",
+    "no-useless-constructor": "off",
+    "no-useless-return":  "off",
+    "object-curly-newline": "off",
+    "object-shorthand":  "off",
+    "operator-linebreak": "off",
+    "option.":  "off",
+    "padded-blocks": "off",
+    "prefer-arrow-callback":  "off",
+    "prefer-destructuring": "off",
+    "prefer-object-spread":  "off",
+    "prefer-promise-reject-errors": "off",
+    "prefer-template":  "off",
+    "quote-props": "off",
+    "react-hooks/exhaustive-deps":  "off",
+    "react/destructuring-assignment": "off",
+    "react/function-component-definition":  "off",
+    "react/jsx-boolean-value": "off",
+    "react/jsx-closing-bracket-location":  "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/jsx-curly-brace-presence":  "off",
+    "react/jsx-curly-spacing": "off",
+    "react/jsx-filename-extension":  "off",
+    "react/jsx-first-prop-new-line": "off",
+    "react/jsx-indent":  "off",
+    "react/jsx-indent-props": "off",
+    "react/jsx-max-props-per-line":  "off",
+    "react/jsx-no-bind": "off",
+    "react/jsx-no-useless-fragment":  "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-multi-spaces":  "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-tag-spacing":  "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/no-array-index-key":  "off",
+    "react/no-unstable-nested-components": "off",
+    "react/no-unused-prop-types":  "off",
+    "react/require-default-props": "off",
+    "react/self-closing-comp":  "off",
+    "space-before-blocks": "off",
+    "space-unary-ops":  "off",
+    "spaced-comment": "off",
+    "template-curly-spacing":  "off"
   },
   "overrides": [
     {
@@ -57,6 +127,15 @@
       ],
       "rules": {
         "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      "env": {
+        "jest": true
       }
     }
   ],
