@@ -29,25 +29,23 @@ const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
                             </tr>
                         </thead>
                         {
-                            data.map(({ language, total }: AppointmentResourcePlanningSummaryReportData) => {
-                                return (
-                                    <tbody className="summary__item" key={language}>
-                                        <tr
-                                            className="summary__row summary__row--has-values"
-                                            data-testid="summary-table-row"
-                                        >
-                                            <td className="summary__item-title">
-                                                <div className="summary__item--text">
-                                                    {language}
-                                                </div>
-                                            </td>
-                                            <td className="summary__values">
-                                                {total}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                );
-                            })
+                            data.map(({ language, total }: AppointmentResourcePlanningSummaryReportData) => (
+                                <tbody className="summary__item" key={language}>
+                                    <tr
+                                        className="summary__row summary__row--has-values"
+                                        data-testid="summary-table-row"
+                                    >
+                                        <td className="summary__item-title">
+                                            <div className="summary__item--text">
+                                                {language}
+                                            </div>
+                                        </td>
+                                        <td className="summary__values">
+                                            {total}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            ))
                         }
                     </table>
                 </div>

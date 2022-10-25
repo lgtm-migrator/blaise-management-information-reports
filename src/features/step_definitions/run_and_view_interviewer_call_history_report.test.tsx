@@ -20,9 +20,7 @@ import "@testing-library/jest-dom";
 const mockAdapter = new MockAdapter(axios);
 
 jest.mock("blaise-login-react-client");
-AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
-    return Promise.resolve(true);
-});
+AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => Promise.resolve(true));
 
 const feature = loadFeature(
     "./src/features/run_and_view_interviewer_call_history_report.feature",
@@ -42,7 +40,7 @@ const questionnaireDataReturned: string[] = [
     "LMS2101_AA1",
 ];
 
-defineFeature(feature, test => {
+defineFeature(feature, (test) => {
     beforeEach(() => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, reportDataReturned);

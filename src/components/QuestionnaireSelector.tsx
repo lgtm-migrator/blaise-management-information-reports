@@ -30,8 +30,8 @@ function QuestionnaireSelector({
                 name: "questionnaires",
                 type: "checkbox",
                 initial_value: selectedQuestionnaires,
-                validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
-                checkboxOptions: items.map(name => ({
+                validate: (values: string[]) => (values.length > 0 ? undefined : "At least one questionnaire must be selected"),
+                checkboxOptions: items.map((name) => ({
                     id: name,
                     value: name,
                     label: name,

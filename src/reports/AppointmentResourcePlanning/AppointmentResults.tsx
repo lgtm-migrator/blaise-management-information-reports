@@ -32,28 +32,26 @@ export function AppointmentResults(props: Props): ReactElement {
                             </thead>
                             <tbody className="table__body">
                                 {
-                                    props.reportData.map((data: AppointmentResourcePlanningReportData) => {
-                                        return (
-                                            <tr
-                                                className="table__row"
-                                                key={`${data.questionnaire_name}-${data.appointment_time}-${data.appointment_language}`}
-                                                data-testid="report-table-row"
-                                            >
-                                                <td className="table__cell ">
-                                                    {data.questionnaire_name}
-                                                </td>
-                                                <td className="table__cell ">
-                                                    {data.appointment_time}
-                                                </td>
-                                                <td className="table__cell ">
-                                                    {data.appointment_language}
-                                                </td>
-                                                <td className="table__cell ">
-                                                    {data.total}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })
+                                    props.reportData.map((data: AppointmentResourcePlanningReportData) => (
+                                        <tr
+                                            className="table__row"
+                                            key={`${data.questionnaire_name}-${data.appointment_time}-${data.appointment_language}`}
+                                            data-testid="report-table-row"
+                                        >
+                                            <td className="table__cell ">
+                                                {data.questionnaire_name}
+                                            </td>
+                                            <td className="table__cell ">
+                                                {data.appointment_time}
+                                            </td>
+                                            <td className="table__cell ">
+                                                {data.appointment_language}
+                                            </td>
+                                            <td className="table__cell ">
+                                                {data.total}
+                                            </td>
+                                        </tr>
+                                    ))
                                 }
                             </tbody>
                         </table>

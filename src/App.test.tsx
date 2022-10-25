@@ -13,9 +13,7 @@ import { Router } from "react-router";
 import { AuthManager } from "blaise-login-react-client";
 
 jest.mock("blaise-login-react-client");
-AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
-    return Promise.resolve(true);
-});
+AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => Promise.resolve(true));
 
 describe("management information reports homepage", () => {
     it("matches snapshot", async () => {

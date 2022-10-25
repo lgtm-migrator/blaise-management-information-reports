@@ -73,7 +73,7 @@ function RenderInterviewerCallHistoryReport({
                             <CSVLink
                                 hidden={reportData === null || reportData.length === 0}
                                 data={
-                                    reportData?.map(row => (
+                                    reportData?.map((row) => (
                                         { ...row, call_start_time: formatDateAndTime(row.call_start_time) }
                                     ))
                                 }

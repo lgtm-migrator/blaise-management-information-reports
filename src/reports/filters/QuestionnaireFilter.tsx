@@ -56,7 +56,7 @@ function QuestionnaireFilter({
                     )}
                     errorMessage={errorMessage}
                 >
-                    { loadedQuestionnaires => (
+                    { (loadedQuestionnaires) => (
                         <QuestionnaireSelector
                             questionnaires={loadedQuestionnaires}
                             selectedQuestionnaires={questionnaires}

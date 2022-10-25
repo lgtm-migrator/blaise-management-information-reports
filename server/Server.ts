@@ -53,13 +53,13 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.use(requestLogger.logRequest);
 
     // health_check endpoint
-    server.get("/mir-ui/:version/health", async function (req: Request, res: Response) {
+    server.get("/mir-ui/:version/health", async (req: Request, res: Response) => {
         console.log("health_check endpoint called");
         res.status(200).json({ healthy: true });
     });
 
     // call-history-status endpoint
-    server.get("/api/reports/call-history-status", auth.Middleware, async function (req: Request, res: Response) {
+    server.get("/api/reports/call-history-status", auth.Middleware, async (req: Request, res: Response) => {
         console.log("call-history-status endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const url = `${config.BertUrl}/api/reports/call-history-status`;
@@ -68,7 +68,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     });
 
     // questionnaire endpoint
-    server.post("/api/questionnaires", auth.Middleware, async function (req: Request, res: Response) {
+    server.post("/api/questionnaires", auth.Middleware, async (req: Request, res: Response) => {
         console.log("questionnaire endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const { interviewer, start_date, end_date, survey_tla } = req.body;
@@ -81,7 +81,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     });
 
     // interviewer-call-history report endpoint
-    server.post("/api/reports/interviewer-call-history", auth.Middleware, async function (req: Request, res: Response) {
+    server.post("/api/reports/interviewer-call-history", auth.Middleware, async (req: Request, res: Response) => {
         console.log("interviewer-call-history endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const { interviewer, start_date, end_date, survey_tla, questionnaires } = req.body;
@@ -96,7 +96,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     });
 
     // interviewer-call-pattern report endpoint
-    server.post("/api/reports/interviewer-call-pattern", auth.Middleware, async function (req: Request, res: Response) {
+    server.post("/api/reports/interviewer-call-pattern", auth.Middleware, async (req: Request, res: Response) => {
         console.log("interviewer-call-pattern endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const { interviewer, start_date, end_date, survey_tla, questionnaires } = req.body;
@@ -111,7 +111,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     });
 
     // appointment-resource-planning report endpoint
-    server.post("/api/reports/appointment-resource-planning", auth.Middleware, async function (req: Request, res: Response) {
+    server.post("/api/reports/appointment-resource-planning", auth.Middleware, async (req: Request, res: Response) => {
         console.log("appointment-resource-planning endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const { date, survey_tla, questionnaires } = req.body;
@@ -124,7 +124,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     });
 
     // appointment-resource-planning-questionnaires endpoint
-    server.post("/api/appointments/questionnaires", auth.Middleware, async function (req: Request, res: Response) {
+    server.post("/api/appointments/questionnaires", auth.Middleware, async (req: Request, res: Response) => {
         console.log("appointment-resource-planning-questionnaires endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const { date, survey_tla } = req.body;
@@ -137,7 +137,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     });
 
     // appointment-resource-planning-summary report endpoint
-    server.post("/api/reports/appointment-resource-planning-summary", auth.Middleware, async function (req: Request, res: Response) {
+    server.post("/api/reports/appointment-resource-planning-summary", auth.Middleware, async (req: Request, res: Response) => {
         console.log("appointment-resource-planning-summary endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const { date, survey_tla, questionnaires } = req.body;
@@ -151,11 +151,11 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
 
     server.use("/", loginHandler);
 
-    server.get("*", function (req: Request, res: Response) {
+    server.get("*", (req: Request, res: Response) => {
         res.render("index.html");
     });
 
-    server.use(function (err: Error, req: Request, res: Response) {
+    server.use((err: Error, req: Request, res: Response) => {
         logger(req, res);
         req.log.error(err, err.message);
         res.render("../../views/500.html", {});

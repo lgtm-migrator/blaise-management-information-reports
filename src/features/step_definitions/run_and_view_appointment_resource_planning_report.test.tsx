@@ -21,9 +21,7 @@ import "@testing-library/jest-dom";
 const mockAdapter = new MockAdapter(axios);
 
 jest.mock("blaise-login-react-client");
-AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
-    return Promise.resolve(true);
-});
+AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => Promise.resolve(true));
 
 const feature = loadFeature(
     "./src/features/run_and_view_appointment_resource_planning_report.feature",
@@ -59,7 +57,7 @@ const ReportSummary = [
 
 const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 
-defineFeature(feature, test => {
+defineFeature(feature, (test) => {
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
         mockAdapter.onPost("/api/reports/appointment-resource-planning/").reply(200, reportDataReturned);

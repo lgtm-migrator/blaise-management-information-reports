@@ -45,34 +45,32 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                 </thead>
                 <tbody className="table__body">
                     {
-                        reportData.map((callHistory: InterviewerCallHistoryReport, index: number) => {
-                            return (
-                                <tr
-                                    className="table__row"
-                                    key={index}
-                                    data-testid="report-table-row"
-                                >
-                                    <td className="table__cell ">
-                                        {callHistory.questionnaire_name}
-                                    </td>
-                                    <td className="table__cell ">
-                                        {callHistory.serial_number}
-                                    </td>
-                                    <td className="table__cell ">
-                                        {formatDateAndTime(callHistory.call_start_time)}
-                                    </td>
-                                    <td className="table__cell ">
-                                        {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}
-                                    </td>
-                                    <td className="table__cell ">
-                                        {(callHistory.call_result === null ? "Unknown" : callHistory.call_result)}
-                                    </td>
-                                    <td className="table__cell ">
-                                        {callHistory.outcome_code}
-                                    </td>
-                                </tr>
-                            );
-                        })
+                        reportData.map((callHistory: InterviewerCallHistoryReport, index: number) => (
+                            <tr
+                                className="table__row"
+                                key={index}
+                                data-testid="report-table-row"
+                            >
+                                <td className="table__cell ">
+                                    {callHistory.questionnaire_name}
+                                </td>
+                                <td className="table__cell ">
+                                    {callHistory.serial_number}
+                                </td>
+                                <td className="table__cell ">
+                                    {formatDateAndTime(callHistory.call_start_time)}
+                                </td>
+                                <td className="table__cell ">
+                                    {convertSecondsToMinutesAndSeconds(callHistory.dial_secs)}
+                                </td>
+                                <td className="table__cell ">
+                                    {(callHistory.call_result === null ? "Unknown" : callHistory.call_result)}
+                                </td>
+                                <td className="table__cell ">
+                                    {callHistory.outcome_code}
+                                </td>
+                            </tr>
+                        ))
                     }
                 </tbody>
             </table>

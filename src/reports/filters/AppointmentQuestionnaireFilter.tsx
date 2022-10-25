@@ -94,7 +94,7 @@ function AppointmentQuestionnaireFilter({
                     dataPromise={getQuestionnaireList(surveyTla, reportDate)}
                     errorMessage={errorMessage}
                 >
-                    { loadedQuestionnaires => (
+                    { (loadedQuestionnaires) => (
                         <QuestionnaireSelector
                             questionnaires={loadedQuestionnaires}
                             selectedQuestionnaires={questionnaires}
