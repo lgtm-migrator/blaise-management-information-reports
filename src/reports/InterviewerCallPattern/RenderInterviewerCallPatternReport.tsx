@@ -117,7 +117,8 @@ function DownloadCSVLink(
         <CSVLink
             data={groupedSummary.csv()}
             target="_blank"
-            filename={filename}>
+            filename={filename}
+        >
             Export report as Comma-Separated Values (CSV) file
         </CSVLink>
     );
@@ -184,7 +185,8 @@ function RenderInterviewerCallPatternReport({
             <>
                 <DownloadCSVLink
                     groupedSummary={groupedSummary}
-                    filename={`interviewer-call-pattern-${interviewerFilterQuery.interviewer}.csv`} />
+                    filename={`interviewer-call-pattern-${interviewerFilterQuery.interviewer}.csv`}
+                />
                 <InvalidCaseInfo invalidFields={invalidFields} />
                 <ReportData groupedSummary={groupedSummary} summaryState={state} />
             </>
@@ -198,7 +200,8 @@ function RenderInterviewerCallPatternReport({
                 { link: "/", title: "Reports" },
                 { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
                 { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
-            ]} />
+            ]}
+            />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
                 <FilterSummary
@@ -227,7 +230,8 @@ function RenderInterviewerCallPatternReport({
                 <LoadData
                     dataPromise={runInterviewerCallPatternReport()}
                     onError={() => setReportFailed(true)}
-                    errorMessage={false}>{ displayReport }</LoadData>
+                    errorMessage={false}
+                >{ displayReport }</LoadData>
                 <br />
             </main>
         </>

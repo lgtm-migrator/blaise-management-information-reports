@@ -9,7 +9,7 @@ interface Props {
 
 const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
     if (failed) {
-        return <ONSPanel status={"error"}><p>Failed to get appointment language summary</p></ONSPanel>;
+        return <ONSPanel status="error"><p>Failed to get appointment language summary</p></ONSPanel>;
     }
 
     if (data.length === 0) {
@@ -32,8 +32,10 @@ const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
                             data.map(({ language, total }: AppointmentResourcePlanningSummaryReportData) => {
                                 return (
                                     <tbody className="summary__item" key={language}>
-                                        <tr className="summary__row summary__row--has-values"
-                                            data-testid={"summary-table-row"}>
+                                        <tr
+                                            className="summary__row summary__row--has-values"
+                                            data-testid="summary-table-row"
+                                        >
                                             <td className="summary__item-title">
                                                 <div className="summary__item--text">
                                                     {language}

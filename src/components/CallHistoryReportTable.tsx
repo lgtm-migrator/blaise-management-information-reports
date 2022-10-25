@@ -47,8 +47,11 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
                     {
                         reportData.map((callHistory: InterviewerCallHistoryReport, index: number) => {
                             return (
-                                <tr className="table__row" key={index}
-                                    data-testid={"report-table-row"}>
+                                <tr
+                                    className="table__row"
+                                    key={index}
+                                    data-testid="report-table-row"
+                                >
                                     <td className="table__cell ">
                                         {callHistory.questionnaire_name}
                                     </td>

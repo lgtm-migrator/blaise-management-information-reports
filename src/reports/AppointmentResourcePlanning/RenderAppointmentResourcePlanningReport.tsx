@@ -98,7 +98,8 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 link: "#",
                 onClickFunction: navigateBackTwoSteps,
                 title: "Appointment details"
-            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]} />
+            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}
+            />
             <main id="main-content" className="page__main u-mt-s">
 
                 <h1 className="u-mb-m">
@@ -114,11 +115,13 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
 
                 <AppointmentSummary data={summaryData} failed={summaryFailed} />
                 <div className=" u-mt-m">
-                    <CSVLink hidden={reportData === null || reportData.length === 0}
+                    <CSVLink
+                        hidden={reportData === null || reportData.length === 0}
                         data={reportData}
                         headers={reportExportHeaders}
                         target="_blank"
-                        filename={`appointment-resource-planning-report-${reportDate}.csv`}>
+                        filename={`appointment-resource-planning-report-${reportDate}.csv`}
+                    >
                         Export report as Comma-Separated Values (CSV) file
                     </CSVLink>
                 </div>

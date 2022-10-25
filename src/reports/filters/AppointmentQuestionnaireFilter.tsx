@@ -80,7 +80,8 @@ function AppointmentQuestionnaireFilter({
                     link: "#",
                     onClickFunction: navigateBack,
                     title: "Appointment Details"
-                }]} />
+                }]}
+            />
 
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Select questionnaires for </h1>
@@ -93,12 +94,14 @@ function AppointmentQuestionnaireFilter({
                     dataPromise={getQuestionnaireList(surveyTla, reportDate)}
                     errorMessage={errorMessage}
                 >
-                    { loadedQuestionnaires => <QuestionnaireSelector
-                        questionnaires={loadedQuestionnaires}
-                        selectedQuestionnaires={questionnaires}
-                        setSelectedQuestionnaires={setQuestionnaires}
-                        onSubmit={submitFunction}
-                    /> }
+                    { loadedQuestionnaires => (
+                        <QuestionnaireSelector
+                            questionnaires={loadedQuestionnaires}
+                            selectedQuestionnaires={questionnaires}
+                            setSelectedQuestionnaires={setQuestionnaires}
+                            onSubmit={submitFunction}
+                        />
+                    ) }
                 </LoadData>
             </main>
         </div>

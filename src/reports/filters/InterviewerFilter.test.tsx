@@ -34,7 +34,8 @@ describe("the interviewer details page renders correctly", () => {
                 <InterviewerFilter
                     title=""
                     query={initialQuery}
-                    onSubmit={submitFunction} />
+                    onSubmit={submitFunction}
+                />
             </Router>
         );
     });

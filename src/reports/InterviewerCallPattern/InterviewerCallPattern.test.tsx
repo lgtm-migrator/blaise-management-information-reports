@@ -381,8 +381,7 @@ describe("function InterviewerCallPattern() without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern {...mockProps}
-                />
+                <InterviewerCallPattern {...mockProps} />
             </Router>
         );
 

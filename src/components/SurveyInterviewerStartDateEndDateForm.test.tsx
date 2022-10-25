@@ -29,11 +29,12 @@ describe("form - survey, interviewer, start date, end date", () => {
         const wrapper = render(
             <Router history={history}>
                 <SurveyInterviewerStartDateEndDateForm
-                    interviewer={""}
-                    surveyTLA={""}
+                    interviewer=""
+                    surveyTLA=""
                     startDate={new Date()}
                     endDate={new Date()}
-                    onSubmit={() => { return true; }} />
+                    onSubmit={() => { return true; }}
+                />
             </Router>
         );
 
@@ -50,11 +51,12 @@ describe("form - survey, interviewer, start date, end date", () => {
             render(
                 <Router history={history}>
                     <SurveyInterviewerStartDateEndDateForm
-                        interviewer={""}
-                        surveyTLA={""}
+                        interviewer=""
+                        surveyTLA=""
                         startDate={new Date()}
                         endDate={new Date()}
-                        onSubmit={() => { return true; }} />
+                        onSubmit={() => { return true; }}
+                    />
                 </Router>
             );
         });

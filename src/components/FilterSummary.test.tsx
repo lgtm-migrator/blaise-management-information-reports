@@ -50,6 +50,7 @@ function renderComponent(questionnaires: string[]) {
             startDate={new Date("2022-05-04")}
             endDate={new Date("2022-05-05")}
             interviewer="Cal"
-            questionnaires={questionnaires} />
+            questionnaires={questionnaires}
+        />
     );
 }

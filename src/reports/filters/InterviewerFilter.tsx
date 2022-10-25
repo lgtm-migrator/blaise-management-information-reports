@@ -36,7 +36,8 @@ function InterviewerFilter({
         <>
             <div>
                 <Breadcrumbs
-                    BreadcrumbList={[{ link: "/", title: "Reports" }]} />
+                    BreadcrumbList={[{ link: "/", title: "Reports" }]}
+                />
                 <main id="main-content" className="page__main u-mt-s">
                     <h1 className="u-mb-m">Run interviewer { title } report</h1>
                     <CallHistoryLastUpdatedStatus />
@@ -45,7 +46,8 @@ function InterviewerFilter({
                         surveyTLA={surveyTla}
                         startDate={startDate}
                         endDate={endDate}
-                        onSubmit={submitInterviewerFilters} />
+                        onSubmit={submitInterviewerFilters}
+                    />
                 </main>
             </div>
         </>

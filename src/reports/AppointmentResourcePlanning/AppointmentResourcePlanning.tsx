@@ -18,23 +18,38 @@ function AppointmentResourcePlanning(): ReactElement {
     function _renderStepContent(step: number) {
         switch (step) {
         case Step.AppointmentFilter:
-            return (<AppointmentFilter title="appointment resource planning"
-                reportDate={reportDate} setReportDate={setReportDate}
-                surveyTla={surveyTla} setSurveyTla={setSurveyTla}
-                submitFunction={_handleSubmit} />);
+            return (
+                <AppointmentFilter
+                    title="appointment resource planning"
+                    reportDate={reportDate}
+                    setReportDate={setReportDate}
+                    surveyTla={surveyTla}
+                    setSurveyTla={setSurveyTla}
+                    submitFunction={_handleSubmit}
+                />
+            );
         case Step.QuestionnaireFilter:
-            return (<AppointmentQuestionnaireFilter reportDate={reportDate}
-                surveyTla={surveyTla}
-                questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
-                submitFunction={_handleSubmit}
-                navigateBack={_navigateBack} />);
+            return (
+                <AppointmentQuestionnaireFilter
+                    reportDate={reportDate}
+                    surveyTla={surveyTla}
+                    questionnaires={questionnaires}
+                    setQuestionnaires={setQuestionnaires}
+                    submitFunction={_handleSubmit}
+                    navigateBack={_navigateBack}
+                />
+            );
         case Step.RenderReport:
             console.log(`Steps questionnaires ${questionnaires}`);
-            return (<RenderAppointmentResourcePlanningReport reportDate={reportDate}
-                surveyTla={surveyTla}
-                questionnaires={questionnaires}
-                navigateBack={_navigateBack}
-                navigateBackTwoSteps={_navigateBackTwoSteps} />);
+            return (
+                <RenderAppointmentResourcePlanningReport
+                    reportDate={reportDate}
+                    surveyTla={surveyTla}
+                    questionnaires={questionnaires}
+                    navigateBack={_navigateBack}
+                    navigateBackTwoSteps={_navigateBackTwoSteps}
+                />
+            );
         }
 
     }

@@ -41,7 +41,8 @@ function QuestionnaireFilter({
                 BreadcrumbList={[
                     { link: "/", title: "Reports" },
                     { link: "#", onClickFunction: navigateBack, title: "Interviewer details" }
-                ]} />
+                ]}
+            />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Select questionnaires for</h1>
                 <FilterSummary {...interviewerFilterQuery} questionnaires={questionnaires} />
@@ -55,12 +56,14 @@ function QuestionnaireFilter({
                     )}
                     errorMessage={errorMessage}
                 >
-                    { loadedQuestionnaires => <QuestionnaireSelector
-                        questionnaires={loadedQuestionnaires}
-                        selectedQuestionnaires={questionnaires}
-                        setSelectedQuestionnaires={setQuestionnaires}
-                        onSubmit={onSubmit}
-                    /> }
+                    { loadedQuestionnaires => (
+                        <QuestionnaireSelector
+                            questionnaires={loadedQuestionnaires}
+                            selectedQuestionnaires={questionnaires}
+                            setSelectedQuestionnaires={setQuestionnaires}
+                            onSubmit={onSubmit}
+                        />
+                    ) }
                 </LoadData>
             </main>
         </div>

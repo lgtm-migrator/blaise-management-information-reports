@@ -56,7 +56,7 @@ describe("Appointment Summary Section", () => {
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <AppointmentSummary data={[]} failed={true} />
+                <AppointmentSummary data={[]} failed />
             </Router>
         );
 
