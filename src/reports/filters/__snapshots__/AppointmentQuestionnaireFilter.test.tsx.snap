@@ -43,7 +43,7 @@ Object {
                 class="breadcrumb__link"
                 href="/"
               >
-                Interviewer details
+                Appointment Details
               </a>
               <svg
                 class="svg-icon"
@@ -63,38 +63,32 @@ Object {
           class="page__main u-mt-s"
           id="main-content"
         >
-          <h1>
-            Select questionnaires for
+          <h1
+            class="u-mb-m"
+          >
+            Select questionnaires for 
           </h1>
           <h3
             class="u-mb-m"
           >
-            Interviewer: 
-            James
-            <br />
-            Period: 
-            01/01/2022
-            –
-            05/01/2022
-            <br />
-            Questionnaire:
-             
-            LMS2101_AA1
+            Date: 
+            21/01/2022
           </h3>
-          <p
-            aria-live="polite"
-            class="u-fs-s u-mt-s"
+          <div
+            class="panel panel--info panel--no-title  u-mt-m"
           >
-            Data in this report was last updated: 
-            <b>
-              Loading
-            </b>
-          </p>
-          <p
-            class="u-fs-s"
-          >
-            Data in this report only goes back to the last 12 months.
-          </p>
+            <div
+              class="panel__body "
+            >
+              <p>
+                Run a Daybatch first to obtain the most accurate results.
+              </p>
+              <p>
+                Appointments that have already been attempted will not be displayed.
+              </p>
+            </div>
+          </div>
+          <br />
           <div
             class="panel panel--info panel--no-title  u-mt-m"
           >
@@ -227,7 +221,7 @@ Object {
               class="breadcrumb__link"
               href="/"
             >
-              Interviewer details
+              Appointment Details
             </a>
             <svg
               class="svg-icon"
@@ -247,38 +241,32 @@ Object {
         class="page__main u-mt-s"
         id="main-content"
       >
-        <h1>
-          Select questionnaires for
+        <h1
+          class="u-mb-m"
+        >
+          Select questionnaires for 
         </h1>
         <h3
           class="u-mb-m"
         >
-          Interviewer: 
-          James
-          <br />
-          Period: 
-          01/01/2022
-          –
-          05/01/2022
-          <br />
-          Questionnaire:
-           
-          LMS2101_AA1
+          Date: 
+          21/01/2022
         </h3>
-        <p
-          aria-live="polite"
-          class="u-fs-s u-mt-s"
+        <div
+          class="panel panel--info panel--no-title  u-mt-m"
         >
-          Data in this report was last updated: 
-          <b>
-            Loading
-          </b>
-        </p>
-        <p
-          class="u-fs-s"
-        >
-          Data in this report only goes back to the last 12 months.
-        </p>
+          <div
+            class="panel__body "
+          >
+            <p>
+              Run a Daybatch first to obtain the most accurate results.
+            </p>
+            <p>
+              Appointments that have already been attempted will not be displayed.
+            </p>
+          </div>
+        </div>
+        <br />
         <div
           class="panel panel--info panel--no-title  u-mt-m"
         >
@@ -468,7 +456,7 @@ Object {
                 class="breadcrumb__link"
                 href="/"
               >
-                Interviewer details
+                Appointment Details
               </a>
               <svg
                 class="svg-icon"
@@ -488,44 +476,32 @@ Object {
           class="page__main u-mt-s"
           id="main-content"
         >
-          <h1>
-            Select questionnaires for
+          <h1
+            class="u-mb-m"
+          >
+            Select questionnaires for 
           </h1>
           <h3
             class="u-mb-m"
           >
-            Interviewer: 
-            James
-            <br />
-            Period: 
-            01/01/2022
-            –
-            05/01/2022
-            <br />
-            Questionnaire:
-             
-            LMS2101_AA1
+            Date: 
+            21/01/2022
           </h3>
-          <p
-            aria-live="polite"
-            class="u-fs-s u-mt-s"
+          <div
+            class="panel panel--info panel--no-title  u-mt-m"
           >
-            Data in this report was last updated: 
-            <b>
-              <time
-                datetime="2000-01-01T10:00:00.000Z"
-                title="2000-01-01 10:00"
-              >
-                23 years ago
-              </time>
-               (01/01/2000 10:00:00)
-            </b>
-          </p>
-          <p
-            class="u-fs-s"
-          >
-            Data in this report only goes back to the last 12 months.
-          </p>
+            <div
+              class="panel__body "
+            >
+              <p>
+                Run a Daybatch first to obtain the most accurate results.
+              </p>
+              <p>
+                Appointments that have already been attempted will not be displayed.
+              </p>
+            </div>
+          </div>
+          <br />
           <div
             class="input-items"
           >
@@ -673,7 +649,7 @@ Object {
               class="breadcrumb__link"
               href="/"
             >
-              Interviewer details
+              Appointment Details
             </a>
             <svg
               class="svg-icon"
@@ -693,44 +669,32 @@ Object {
         class="page__main u-mt-s"
         id="main-content"
       >
-        <h1>
-          Select questionnaires for
+        <h1
+          class="u-mb-m"
+        >
+          Select questionnaires for 
         </h1>
         <h3
           class="u-mb-m"
         >
-          Interviewer: 
-          James
-          <br />
-          Period: 
-          01/01/2022
-          –
-          05/01/2022
-          <br />
-          Questionnaire:
-           
-          LMS2101_AA1
+          Date: 
+          21/01/2022
         </h3>
-        <p
-          aria-live="polite"
-          class="u-fs-s u-mt-s"
+        <div
+          class="panel panel--info panel--no-title  u-mt-m"
         >
-          Data in this report was last updated: 
-          <b>
-            <time
-              datetime="2000-01-01T10:00:00.000Z"
-              title="2000-01-01 10:00"
-            >
-              23 years ago
-            </time>
-             (01/01/2000 10:00:00)
-          </b>
-        </p>
-        <p
-          class="u-fs-s"
-        >
-          Data in this report only goes back to the last 12 months.
-        </p>
+          <div
+            class="panel__body "
+          >
+            <p>
+              Run a Daybatch first to obtain the most accurate results.
+            </p>
+            <p>
+              Appointments that have already been attempted will not be displayed.
+            </p>
+          </div>
+        </div>
+        <br />
         <div
           class="input-items"
         >

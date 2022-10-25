@@ -25,7 +25,7 @@ function AppointmentResourcePlanning(): ReactElement {
         case Step.QuestionnaireFilter:
             return (<AppointmentQuestionnaireFilter reportDate={reportDate}
                 surveyTla={surveyTla}
-                questionnaire={questionnaires} setQuestionnaires={setQuestionnaires}
+                questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
                 submitFunction={_handleSubmit}
                 navigateBack={_navigateBack}/>);
         case Step.RenderReport:
@@ -36,8 +36,8 @@ function AppointmentResourcePlanning(): ReactElement {
                 navigateBack={_navigateBack}
                 navigateBackTwoSteps={_navigateBackTwoSteps}/>);
         }
-        
-    } 
+
+    }
 
     async function _handleSubmit() {
         switch (activeStep) {
