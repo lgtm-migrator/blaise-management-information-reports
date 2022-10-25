@@ -3,11 +3,9 @@
  */
 
 import "@testing-library/jest-dom";
-import flushPromises from "../../tests/utilities";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
@@ -15,6 +13,8 @@ import MockDate from "mockdate";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
+import AppointmentResourcePlanning from "./AppointmentResourcePlanning";
+import flushPromises from "../../tests/utilities";
 
 const mockAdapter = new MockAdapter(axios);
 

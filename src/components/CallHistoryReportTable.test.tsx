@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
-import CallHistoryReportTable from "./CallHistoryReportTable";
 import React from "react";
 import { screen } from "@testing-library/dom";
+import CallHistoryReportTable from "./CallHistoryReportTable";
 import { InterviewerCallHistoryReport } from "../interfaces";
 
 const reportData: InterviewerCallHistoryReport = {

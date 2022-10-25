@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import "@testing-library/jest-dom";
 import { render, waitFor } from "@testing-library/react";
-import { DataRenderer, LoadData } from "./LoadData";
 import { screen } from "@testing-library/dom";
+import { DataRenderer, LoadData } from "./LoadData";
 
 describe("LoadData", () => {
     const display: DataRenderer<ReactNode> = (data) => <h3>{ data }</h3>;

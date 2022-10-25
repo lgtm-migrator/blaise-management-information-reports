@@ -1,6 +1,4 @@
-import { newServer } from "./Server";
 import supertest from "supertest";
-import { Config } from "./Config";
 import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient from "blaise-api-node-client";
 import { Auth } from "blaise-login-react-server";
@@ -11,6 +9,8 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { Config } from "./Config";
+import { newServer } from "./Server";
 
 dateFormatter.extend(customParseFormat);
 dateFormatter.extend(utc);

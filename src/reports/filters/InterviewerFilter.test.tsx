@@ -8,8 +8,8 @@ import { render, RenderResult, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import { screen } from "@testing-library/dom";
 import React from "react";
-import InterviewerFilter, { InterviewerFilterQuery } from "./InterviewerFilter";
 import userEvent from "@testing-library/user-event";
+import InterviewerFilter, { InterviewerFilterQuery } from "./InterviewerFilter";
 
 describe("the interviewer details page renders correctly", () => {
 

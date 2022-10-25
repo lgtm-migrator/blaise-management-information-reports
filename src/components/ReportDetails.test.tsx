@@ -3,10 +3,10 @@ import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import ReportDetails from "./ReportDetails";
 import { act } from "react-dom/test-utils";
-import flushPromises from "../tests/utilities";
 import { screen } from "@testing-library/dom";
+import ReportDetails from "./ReportDetails";
+import flushPromises from "../tests/utilities";
 
 describe("ReportDetails", () => {
     it("matches snapshot", async () => {

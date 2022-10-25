@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
-import { AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
 import { ONSPanel } from "blaise-design-system-react-components";
+import { AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
 
 interface Props {
     data: AppointmentResourcePlanningSummaryReportData[];

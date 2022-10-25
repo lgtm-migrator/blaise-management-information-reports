@@ -3,16 +3,16 @@
  */
 
 import "@testing-library/jest-dom";
-import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
+import flushPromises from "../tests/utilities";
 import subtractYears, { formatDateAndTime } from "../utilities/DateFormatter";
 
 const mockAdapter = new MockAdapter(axios);

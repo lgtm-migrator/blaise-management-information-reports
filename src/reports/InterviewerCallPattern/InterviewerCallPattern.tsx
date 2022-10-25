@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import InterviewerFilter, { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 import QuestionnaireFilter from "../filters/QuestionnaireFilter";
-import RenderInterviewerCallPatternReport from "../InterviewerCallPattern/RenderInterviewerCallPatternReport";
+import RenderInterviewerCallPatternReport from "./RenderInterviewerCallPatternReport";
 
 enum Step {
     InterviewerFilter,

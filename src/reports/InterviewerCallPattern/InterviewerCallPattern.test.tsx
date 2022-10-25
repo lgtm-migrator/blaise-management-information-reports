@@ -3,14 +3,6 @@
  */
 
 import "@testing-library/jest-dom";
-import InterviewerCallPattern, {
-    callStatusSection,
-    formatToFractionAndPercentage,
-    invalidFieldsGroup,
-    isAllInvalid,
-    noContactBreakdownSection,
-} from "./RenderInterviewerCallPatternReport";
-import { InterviewerCallPatternReport } from "../../interfaces";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import MockDate from "mockdate";
@@ -20,6 +12,14 @@ import { Router } from "react-router";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
+import { InterviewerCallPatternReport } from "../../interfaces";
+import InterviewerCallPattern, {
+    callStatusSection,
+    formatToFractionAndPercentage,
+    invalidFieldsGroup,
+    isAllInvalid,
+    noContactBreakdownSection,
+} from "./RenderInterviewerCallPatternReport";
 
 const mockAdapter = new MockAdapter(axios);
 

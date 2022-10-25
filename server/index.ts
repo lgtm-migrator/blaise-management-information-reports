@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
-import { loadConfigFromEnv } from "./Config";
-import { newServer } from "./Server";
 import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient from "blaise-api-node-client";
 import { Auth } from "blaise-login-react-server";
+import { newServer } from "./Server";
+import { loadConfigFromEnv } from "./Config";
 
 if (process.env.NODE_ENV !== "production") {
     dotenv.config({ path: __dirname + "/../.env" });

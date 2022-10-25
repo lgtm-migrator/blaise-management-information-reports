@@ -3,15 +3,15 @@
  */
 
 import "@testing-library/jest-dom";
-import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import SurveyDateForm from "./SurveyDateForm";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
+import SurveyDateForm from "./SurveyDateForm";
+import flushPromises from "../tests/utilities";
 
 const christmasEve97 = "1997-12-24";
 

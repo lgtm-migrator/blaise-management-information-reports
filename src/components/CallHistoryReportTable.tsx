@@ -1,8 +1,8 @@
+import React, { ReactElement } from "react";
+import { ONSPanel } from "blaise-design-system-react-components";
 import { InterviewerCallHistoryReport } from "../interfaces";
 import { formatDateAndTime } from "../utilities/DateFormatter";
 import { convertSecondsToMinutesAndSeconds } from "../utilities/Converters";
-import React, { ReactElement } from "react";
-import { ONSPanel } from "blaise-design-system-react-components";
 
 interface CallHistoryReportTableProps {
     reportData: any

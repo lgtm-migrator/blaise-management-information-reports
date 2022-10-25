@@ -2,7 +2,10 @@
   "ignorePatterns": [
     "node_modules/*",
     "dist/*",
-    "build/*"
+    "build/*",
+    "tests/integration/*",
+    "server/*.test.ts",
+    "playwright.config.ts"
   ],
   "env": {
     "browser": true,
@@ -14,10 +17,12 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb"
+    "airbnb",
+    "airbnb-typescript"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -34,11 +39,24 @@
       "double"
     ],
     "indent": ["error", 4],
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/quotes": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/brace-style": "off",
+    "@typescript-eslint/dot-notation":"off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-shadow":"off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/no-use-before-define":"off",
+    "@typescript-eslint/parser.": "off",
+    "@typescript-eslint/semi":"off",
+    "@typescript-eslint/space-before-blocks": "off",
+    "@typescript-eslint/space-infix-ops":"off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
     "brace-style":  "off",
     "camelcase": "off",
-    "command.": "off",
     "consistent-return":  "off",
     "default-case": "off",
     "dot-notation":  "off",
@@ -46,12 +64,6 @@
     "eqeqeq":  "off",
     "func-names": "off",
     "function-paren-newline":  "off",
-    "import/extensions": "off",
-    "import/no-duplicates":  "off",
-    "import/no-extraneous-dependencies": "off",
-    "import/no-unresolved":  "off",
-    "import/order": "off",
-    "import/prefer-default-export":  "off",
     "max-classes-per-file": "off",
     "max-len":  "off",
     "no-await-in-loop": "off",
@@ -113,6 +125,14 @@
       ],
       "env": {
         "jest": true
+      }
+    },
+    {
+      "files": [
+        "server/*"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.server.json"
       }
     }
   ],

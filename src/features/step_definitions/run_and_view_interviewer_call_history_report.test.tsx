@@ -6,15 +6,15 @@ import { defineFeature, loadFeature } from "jest-cucumber";
 import { createMemoryHistory } from "history";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Router } from "react-router-dom";
-import App from "../../App";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import flushPromises from "../../tests/utilities";
-import { InterviewerCallHistoryReport } from "../../interfaces";
 import userEvent from "@testing-library/user-event";
 import { AuthManager } from "blaise-login-react-client";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import { InterviewerCallHistoryReport } from "../../interfaces";
+import flushPromises from "../../tests/utilities";
+import App from "../../App";
 import "@testing-library/jest-dom";
 
 const mockAdapter = new MockAdapter(axios);

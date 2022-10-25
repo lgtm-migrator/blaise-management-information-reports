@@ -4,13 +4,13 @@
 
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "./App";
+import { AuthManager } from "blaise-login-react-client";
+import { Router } from "react-router";
 import "@testing-library/jest-dom";
-import flushPromises from "./tests/utilities";
 import { act } from "react-dom/test-utils";
 import { createMemoryHistory } from "history";
-import { Router } from "react-router";
-import { AuthManager } from "blaise-login-react-client";
+import App from "./App";
+import flushPromises from "./tests/utilities";
 
 jest.mock("blaise-login-react-client");
 AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => Promise.resolve(true));
