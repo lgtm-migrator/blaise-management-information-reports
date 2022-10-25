@@ -175,12 +175,8 @@ describe("function isAllInvalid()", () => {
 
 describe("function InterviewerCallPattern() with happy data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, mockData,
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" },
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, mockData);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -265,12 +261,8 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
 describe("function InterviewerCallPattern() with data and invalid data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, mockDataWithInvalidCases,
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" },
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, mockDataWithInvalidCases);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -362,12 +354,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 
 describe("function InterviewerCallPattern() without data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, {},
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, {},
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, {});
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, {});
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -411,12 +399,8 @@ describe("function InterviewerCallPattern() without data", () => {
 
 describe("function InterviewerCallPattern() with only invalid data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, mockDataWithOnlyInvalidCases,
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" },
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, mockDataWithOnlyInvalidCases);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -476,9 +460,7 @@ describe("function InterviewerCallPattern() with request error", () => {
                 throw new Error("Request failed");
             },
         );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" },
-        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 

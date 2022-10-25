@@ -17,7 +17,9 @@ interface InterviewerFilterPageProps {
 }
 
 function InterviewerFilter({
-    query: { endDate, interviewer, startDate, surveyTla },
+    query: {
+        endDate, interviewer, startDate, surveyTla,
+    },
     onSubmit,
     title,
 }: InterviewerFilterPageProps): ReactElement {

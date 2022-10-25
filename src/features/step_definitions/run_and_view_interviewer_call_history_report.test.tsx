@@ -44,8 +44,10 @@ defineFeature(feature, (test) => {
     beforeEach(() => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnaireDataReturned);
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, reportDataReturned);
-        mockAdapter.onGet("/api/reports/call-history-status").reply(200,
-            { "last_updated": "Fri, 28 May 2021 10:00:00 GMT" });
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200,
+            { "last_updated": "Fri, 28 May 2021 10:00:00 GMT" },
+        );
     });
 
     afterEach(() => {

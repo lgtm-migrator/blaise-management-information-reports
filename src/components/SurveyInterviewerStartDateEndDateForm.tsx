@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import { EndDateField, InterviewerField, StartDateField, SurveyField } from "./FormFields";
+import {
+    EndDateField, InterviewerField, StartDateField, SurveyField,
+} from "./FormFields";
 
 interface Props {
     interviewer: string | undefined

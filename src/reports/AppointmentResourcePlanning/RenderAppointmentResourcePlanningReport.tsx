@@ -48,13 +48,11 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
 
     useEffect(() => {
         runAppointmentResourcePlanningReport();
-    }, [],
-    );
+    }, []);
 
     useEffect(() => {
         runAppointmentSummary();
-    }, [],
-    );
+    }, []);
 
     async function runAppointmentResourcePlanningReport(): Promise<void> {
         setMessageNoData("");

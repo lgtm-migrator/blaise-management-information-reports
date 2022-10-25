@@ -29,8 +29,12 @@ function SurveyField(surveyTLA: string | undefined): any {
         initial_value: surveyTLA,
         radioOptions: [
             { id: "all", value: "", label: "Show all surveys" },
-            { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
-            { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" },
+            {
+                id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey",
+            },
+            {
+                id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey",
+            },
         ],
     };
 }
@@ -71,4 +75,6 @@ function DateField(): any {
     };
 }
 
-export { SurveyField, InterviewerField, StartDateField, EndDateField, DateField };
+export {
+    SurveyField, InterviewerField, StartDateField, EndDateField, DateField,
+};

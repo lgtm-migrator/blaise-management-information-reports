@@ -1,4 +1,6 @@
-import express, { NextFunction, Request, Response, Express } from "express";
+import express, {
+    NextFunction, Request, Response, Express,
+} from "express";
 import path from "path";
 import ejs from "ejs";
 import multer from "multer";
@@ -70,7 +72,9 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/questionnaires", auth.Middleware, async (req: Request, res: Response) => {
         console.log("questionnaire endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { interviewer, start_date, end_date, survey_tla } = req.body;
+        const {
+            interviewer, start_date, end_date, survey_tla,
+        } = req.body;
         const startDateFormatted = formatISODate(start_date);
         const endDateFormatted = formatISODate(end_date);
         const url = `${config.BertUrl}/api/${interviewer}/questionnaires?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
@@ -83,7 +87,9 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/interviewer-call-history", auth.Middleware, async (req: Request, res: Response) => {
         console.log("interviewer-call-history endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { interviewer, start_date, end_date, survey_tla, questionnaires } = req.body;
+        const {
+            interviewer, start_date, end_date, survey_tla, questionnaires,
+        } = req.body;
         const startDateFormatted = formatISODate(start_date);
         const endDateFormatted = formatISODate(end_date);
         console.log(`questionnaires ${questionnaires}`);
@@ -98,7 +104,9 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/interviewer-call-pattern", auth.Middleware, async (req: Request, res: Response) => {
         console.log("interviewer-call-pattern endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { interviewer, start_date, end_date, survey_tla, questionnaires } = req.body;
+        const {
+            interviewer, start_date, end_date, survey_tla, questionnaires,
+        } = req.body;
         const startDateFormatted = formatISODate(start_date);
         const endDateFormatted = formatISODate(end_date);
         console.log(`questionnaires ${questionnaires}`);

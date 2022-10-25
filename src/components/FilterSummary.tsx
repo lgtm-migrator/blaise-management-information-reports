@@ -8,7 +8,9 @@ interface FilterSummaryProps{
     questionnaires: string[]
 }
 
-function FilterSummary({ interviewer, startDate, endDate, questionnaires }: FilterSummaryProps): ReactElement {
+function FilterSummary({
+    interviewer, startDate, endDate, questionnaires,
+}: FilterSummaryProps): ReactElement {
     let questionaires: ReactNode = null;
     if (questionnaires.length > 0) {
         const questionnaireHeading = `Questionnaire${questionnaires.length > 1 ? "s" : ""}:`;

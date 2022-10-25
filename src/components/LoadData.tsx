@@ -1,5 +1,7 @@
 import { ONSLoadingPanel, ONSPanel } from "blaise-design-system-react-components";
-import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import React, {
+    ReactElement, ReactNode, useEffect, useState,
+} from "react";
 
 export type DataRenderer<T> = (data: T) => ReactNode
 
@@ -22,7 +24,9 @@ class ErroredState {
 
 type LoadState<T> = LoadingState | LoadedState<T> | ErroredState
 
-export function LoadData<T>({ children, dataPromise, errorMessage, onError }: LoaderProps<T>): ReactElement {
+export function LoadData<T>({
+    children, dataPromise, errorMessage, onError,
+}: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
 
     async function loadData() {

@@ -1,6 +1,8 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, RenderResult, screen, within } from "@testing-library/react";
+import {
+    render, RenderResult, screen, within,
+} from "@testing-library/react";
 import { createMemoryHistory, History } from "history";
 import { Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";

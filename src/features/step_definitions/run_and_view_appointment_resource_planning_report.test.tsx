@@ -68,7 +68,9 @@ defineFeature(feature, (test) => {
         mockAdapter.reset();
     });
 
-    test("Run and view appointment resource planning report", ({ given, when, then, and }) => {
+    test("Run and view appointment resource planning report", ({
+        given, when, then, and,
+    }) => {
         given("A survey tla and date has been specified", async () => {
             const history = createMemoryHistory();
             render(
