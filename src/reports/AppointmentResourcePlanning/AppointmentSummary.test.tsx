@@ -20,7 +20,7 @@ describe("Appointment Summary Section", () => {
         render(
             <Router history={history}>
                 <AppointmentSummary data={languageSummary} failed={false} />
-            </Router>
+            </Router>,
         );
 
         await waitFor(() => {
@@ -57,7 +57,7 @@ describe("Appointment Summary Section", () => {
         render(
             <Router history={history}>
                 <AppointmentSummary data={[]} failed />
-            </Router>
+            </Router>,
         );
 
         expect(await screen.queryByText("Failed to get appointment language summary")).toBeVisible();

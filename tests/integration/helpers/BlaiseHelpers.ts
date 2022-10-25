@@ -10,9 +10,9 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
         name: userName,
         role: "DST",
         serverParks: [
-            serverPark
+            serverPark,
         ],
-        defaultServerPark: serverPark
+        defaultServerPark: serverPark,
     };
 
     try {
@@ -90,7 +90,7 @@ async function installQuestionnaire(blaiseApiClient: BlaiseApiClient, serverPark
                 "qdatabag.samptitle": "title",
                 "qdatabag.sampfname": "fname",
                 "qdatabag.sampsname": "sname",
-                "qdatabag.name": "name"
+                "qdatabag.name": "name",
             };
             await blaiseApiClient.addCase(serverPark, `${questionnaireName}`, caseID.toString(), caseFields);
         }
@@ -125,7 +125,7 @@ async function addDaybatch(blaiseApiClient: BlaiseApiClient, serverPark: string,
     try {
         await blaiseApiClient.addDaybatch(serverPark, `${questionnaireName}`, {
             dayBatchDate: today.toISOString(),
-            checkForTreatedCases: false
+            checkForTreatedCases: false,
         });
     } catch (error) {
         console.error(`Failed to add daybatch: ${error}`);

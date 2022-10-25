@@ -36,7 +36,7 @@ describe("the interviewer details page renders correctly", () => {
                     query={initialQuery}
                     onSubmit={submitFunction}
                 />
-            </Router>
+            </Router>,
         );
     });
 

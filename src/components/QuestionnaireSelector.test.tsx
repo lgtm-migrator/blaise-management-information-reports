@@ -38,7 +38,7 @@ describe("QuestionnaireSelector tests", () => {
                 selectedQuestionnaires={["LMS2101_AA1"]}
                 setSelectedQuestionnaires={setSelectedQuestionnaires}
                 onSubmit={submit}
-            />
+            />,
         );
     }
 

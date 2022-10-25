@@ -23,7 +23,7 @@ const config : Config = {
     BlaiseApiUrl: "",
     SessionSecret: "",
     SessionTimeout: "",
-    Roles: []
+    Roles: [],
 };
 
 const mockAuthProvider : BlaiseIapNodeProvider = {
@@ -32,7 +32,7 @@ const mockAuthProvider : BlaiseIapNodeProvider = {
     getAuthHeader: async function (): Promise<{ Authorization: string; }> {
         return { Authorization: "example token" };
     },
-    isValidToken: undefined
+    isValidToken: undefined,
 } as unknown as BlaiseIapNodeProvider;
 
 const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
@@ -41,7 +41,7 @@ const mockAuth: Auth = {
         SessionSecret: "",
         SessionTimeout: "",
         Roles: [],
-        BlaiseApiUrl: ""
+        BlaiseApiUrl: "",
     },
     SignToken: function (): string {
         throw new Error("Function not implemented.");
@@ -54,7 +54,7 @@ const mockAuth: Auth = {
     },
     Middleware: async function (request: Request, response: Response, next: NextFunction): Promise<void | Response> {
         next();
-    }
+    },
 };
 
 const app = newServer(config, mockAuthProvider, mockAuth, blaiseApiClient);

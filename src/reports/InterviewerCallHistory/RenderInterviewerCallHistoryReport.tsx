@@ -22,7 +22,7 @@ function RenderInterviewerCallHistoryReport({
     interviewerFilterQuery,
     navigateBack,
     navigateBackTwoSteps,
-    questionnaires
+    questionnaires,
 }: RenderInterviewerCallHistoryReportPageProps): ReactElement {
     const [reportFailed, setReportFailed] = useState(false);
 
@@ -32,7 +32,7 @@ function RenderInterviewerCallHistoryReport({
         { label: "Serial Number", key: "serial_number" },
         { label: "Call Start Time", key: "call_start_time" },
         { label: "Call Length (Seconds)", key: "dial_secs" },
-        { label: "Call Result", key: "call_result" }
+        { label: "Call Result", key: "call_result" },
     ];
 
     async function runInterviewerCallHistoryReport(): Promise<InterviewerCallHistoryReport[]> {
@@ -54,7 +54,7 @@ function RenderInterviewerCallHistoryReport({
             <Breadcrumbs BreadcrumbList={[
                 { link: "/", title: "Reports" },
                 { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
-                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
+                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" },
             ]}
             />
             <main id="main-content" className="page__main u-mt-s">

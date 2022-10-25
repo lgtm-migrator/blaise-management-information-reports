@@ -40,7 +40,6 @@
     "arrow-parens":  "off",
     "brace-style":  "off",
     "camelcase": "off",
-    "comma-dangle":  "off",
     "command.": "off",
     "consistent-return":  "off",
     "default-case": "off",

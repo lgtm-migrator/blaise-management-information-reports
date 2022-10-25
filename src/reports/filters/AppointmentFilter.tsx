@@ -19,7 +19,7 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
         setReportDate,
         surveyTla,
         setSurveyTla,
-        submitFunction
+        submitFunction,
     } = props;
 
     async function submitAppointmentFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
@@ -31,7 +31,7 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
 
     const fields = [
         SurveyField(surveyTla),
-        DateField()
+        DateField(),
     ];
 
     return (

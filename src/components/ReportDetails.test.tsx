@@ -14,7 +14,7 @@ describe("ReportDetails", () => {
         const wrapper = render(
             <Router history={history}>
                 <ReportDetails link="" title="" description="" />
-            </Router>
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -28,7 +28,7 @@ describe("ReportDetails", () => {
             render(
                 <Router history={history}>
                     <ReportDetails link="blah-link" title="blah-title" description="blah-description" />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("blah-title")).toBeVisible();

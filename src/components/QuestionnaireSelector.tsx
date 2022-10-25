@@ -35,7 +35,7 @@ function QuestionnaireSelector({
                     id: name,
                     value: name,
                     label: name,
-                    testid: name
+                    testid: name,
                 })),
             },
         ];

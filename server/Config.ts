@@ -44,7 +44,7 @@ export function loadConfigFromEnv(): Config {
         BlaiseApiUrl: BLAISE_API_URL,
         Roles: loadRoles(ROLES),
         SessionTimeout: SESSION_TIMEOUT,
-        SessionSecret: sessionSecret(SESSION_SECRET)
+        SessionSecret: sessionSecret(SESSION_SECRET),
     };
 }
 

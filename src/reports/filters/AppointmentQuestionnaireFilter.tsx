@@ -19,7 +19,7 @@ interface AppointmentQuestionnaireFilterPageProps {
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
     return {
-        headers: authManager.authHeader()
+        headers: authManager.authHeader(),
     };
 }
 
@@ -69,7 +69,7 @@ function AppointmentQuestionnaireFilter({
     reportDate,
     setQuestionnaires,
     submitFunction,
-    surveyTla
+    surveyTla,
 }: AppointmentQuestionnaireFilterPageProps): ReactElement {
     const errorMessage = useCallback(() => <FetchQuestionnairesError />, []);
 
@@ -79,7 +79,7 @@ function AppointmentQuestionnaireFilter({
                 BreadcrumbList={[{ link: "/", title: "Reports" }, {
                     link: "#",
                     onClickFunction: navigateBack,
-                    title: "Appointment Details"
+                    title: "Appointment Details",
                 }]}
             />
 

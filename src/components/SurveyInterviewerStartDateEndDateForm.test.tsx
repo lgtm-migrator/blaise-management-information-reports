@@ -35,7 +35,7 @@ describe("form - survey, interviewer, start date, end date", () => {
                     endDate={new Date()}
                     onSubmit={() => { return true; }}
                 />
-            </Router>
+            </Router>,
         );
 
         await act(async () => {
@@ -57,7 +57,7 @@ describe("form - survey, interviewer, start date, end date", () => {
                         endDate={new Date()}
                         onSubmit={() => { return true; }}
                     />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("Select survey")).toBeVisible();

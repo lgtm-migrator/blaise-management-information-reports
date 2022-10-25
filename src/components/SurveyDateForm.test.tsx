@@ -29,7 +29,7 @@ describe("form - survey, date", () => {
         const wrapper = render(
             <Router history={history}>
                 <SurveyDateForm onSubmitFunction={() => { return true; }} />
-            </Router>
+            </Router>,
         );
 
         await act(async () => {
@@ -45,7 +45,7 @@ describe("form - survey, date", () => {
             render(
                 <Router history={history}>
                     <SurveyDateForm onSubmitFunction={() => { return true; }} />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("Select survey")).toBeVisible();

@@ -27,7 +27,7 @@ AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
 
 const feature = loadFeature(
     "./src/features/run_and_view_appointment_resource_planning_report.feature",
-    { tagFilter: "not @server and not @integration" }
+    { tagFilter: "not @server and not @integration" },
 );
 
 const reportDataReturned: AppointmentResourcePlanningReportData[] = [
@@ -35,20 +35,20 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
         questionnaire_name: "LMS2101_AA1",
         appointment_time: "10:00",
         appointment_language: "English",
-        total: 42
+        total: 42,
     },
     {
         questionnaire_name: "LMS2101_BB1",
         appointment_time: "12:30",
         appointment_language: "Welsh",
-        total: 1908
+        total: 1908,
     },
     {
         questionnaire_name: "LMS2101_CC1",
         appointment_time: "15:15",
         appointment_language: "Other",
-        total: 408
-    }
+        total: 408,
+    },
 ];
 
 const ReportSummary = [
@@ -76,7 +76,7 @@ defineFeature(feature, test => {
             render(
                 <Router history={history}>
                     <App />
-                </Router>
+                </Router>,
             );
 
             await act(async () => {
@@ -97,8 +97,8 @@ defineFeature(feature, test => {
 
             fireEvent.input(screen.getByLabelText(/Date/i), {
                 target: {
-                    value: "2021-01-01"
-                }
+                    value: "2021-01-01",
+                },
             });
         });
 

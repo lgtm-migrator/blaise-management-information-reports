@@ -38,7 +38,7 @@ describe("call history last updated status with data", () => {
         const wrapper = render(
             <Router history={history}>
                 <CallHistoryLastUpdatedStatus />
-            </Router>
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -53,7 +53,7 @@ describe("call history last updated status with data", () => {
             render(
                 <Router history={history}>
                     <CallHistoryLastUpdatedStatus />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("Data in this report was last updated:")).toBeVisible();
@@ -79,7 +79,7 @@ describe("call history last updated status with invalid data", () => {
         const wrapper = render(
             <Router history={history}>
                 <CallHistoryLastUpdatedStatus />
-            </Router>
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -94,7 +94,7 @@ describe("call history last updated status with invalid data", () => {
             render(
                 <Router history={history}>
                     <CallHistoryLastUpdatedStatus />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("Data in this report was last updated:")).toBeVisible();

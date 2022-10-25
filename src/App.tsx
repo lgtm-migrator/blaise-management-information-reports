@@ -9,7 +9,7 @@ import InterviewerCallHistory from "./reports/InterviewerCallHistory/Interviewer
 import ReportDetails from "./components/ReportDetails";
 
 const divStyle = {
-    minHeight: "calc(72vh)"
+    minHeight: "calc(72vh)",
 };
 
 function App(): ReactElement {

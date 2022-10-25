@@ -31,7 +31,7 @@ function QuestionnaireFilter({
     navigateBack,
     questionnaires,
     setQuestionnaires,
-    onSubmit
+    onSubmit,
 }: QuestionnaireFilterPageProps): ReactElement {
     const errorMessage = useCallback(() => <FetchQuestionnairesError />, []);
 
@@ -40,7 +40,7 @@ function QuestionnaireFilter({
             <Breadcrumbs
                 BreadcrumbList={[
                     { link: "/", title: "Reports" },
-                    { link: "#", onClickFunction: navigateBack, title: "Interviewer details" }
+                    { link: "#", onClickFunction: navigateBack, title: "Interviewer details" },
                 ]}
             />
             <main id="main-content" className="page__main u-mt-s">
@@ -52,7 +52,7 @@ function QuestionnaireFilter({
                         interviewerFilterQuery.surveyTla,
                         interviewerFilterQuery.interviewer,
                         interviewerFilterQuery.startDate,
-                        interviewerFilterQuery.endDate
+                        interviewerFilterQuery.endDate,
                     )}
                     errorMessage={errorMessage}
                 >

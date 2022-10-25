@@ -53,7 +53,7 @@ describe("the interviewer details page renders correctly", () => {
             interviewer: "James",
             startDate: new Date("2022-01-01"),
             endDate: new Date("2022-01-05"),
-            surveyTla: "LMS"
+            surveyTla: "LMS",
         };
 
         return render(
@@ -67,7 +67,7 @@ describe("the interviewer details page renders correctly", () => {
                         return;
                     }}
                 />
-            </Router>
+            </Router>,
         );
     }
 
@@ -82,8 +82,8 @@ describe("the interviewer details page renders correctly", () => {
                     expect(formData.get("start_date")).toBe("2022-01-01");
                     expect(formData.get("end_date")).toBe("2022-01-05");
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, questionnaireDataReturned);
         renderComponent();
 

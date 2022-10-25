@@ -23,7 +23,7 @@ describe("management information reports homepage", () => {
         const wrapper = render(
             <Router history={history}>
                 <App />
-            </Router>
+            </Router>,
         );
 
         await act(async () => {
@@ -38,7 +38,7 @@ describe("management information reports homepage", () => {
         const { queryByText } = render(
             <Router history={history}>
                 <App />
-            </Router>
+            </Router>,
         );
 
         await act(async () => {

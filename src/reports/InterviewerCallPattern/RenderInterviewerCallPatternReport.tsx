@@ -35,8 +35,8 @@ function callTimeSection(callPatternReport: InterviewerCallPatternReport): Group
             hours_worked: callPatternReport.hours_worked,
             call_time: callPatternReport.call_time,
             hours_on_calls_percentage: `${(callPatternReport.hours_on_calls_percentage || 0).toFixed(2)}%`,
-            average_calls_per_hour: callPatternReport.average_calls_per_hour
-        }
+            average_calls_per_hour: callPatternReport.average_calls_per_hour,
+        },
     };
 }
 
@@ -50,7 +50,7 @@ function callStatusSection(callPatternReport: InterviewerCallPatternReport): Gro
             web_nudge: formatToFractionAndPercentage(callPatternReport.web_nudge, callPatternReport.total_valid_cases),
             no_contacts: formatToFractionAndPercentage(callPatternReport.no_contacts, callPatternReport.total_valid_cases),
             discounted_invalid_cases: formatToFractionAndPercentage(callPatternReport.discounted_invalid_cases, callPatternReport.total_records),
-        }
+        },
     };
 }
 
@@ -64,7 +64,7 @@ function noContactBreakdownSection(callPatternReport: InterviewerCallPatternRepo
             no_answer: formatToFractionAndPercentage(callPatternReport.no_contact_no_answer, callPatternReport.no_contacts),
             invalid_telephone_number: formatToFractionAndPercentage(callPatternReport.no_contact_invalid_telephone_number, callPatternReport.no_contacts),
             other: formatToFractionAndPercentage(callPatternReport.no_contact_other, callPatternReport.no_contacts),
-        }
+        },
     };
 }
 
@@ -74,8 +74,8 @@ function invalidFieldsGroup(callPatternReport: InterviewerCallPatternReport): Gr
         records: {
             invalid_fields: callPatternReport.invalid_fields,
             discounted_invalid_cases: callPatternReport.discounted_invalid_cases,
-            total_records: callPatternReport.total_records
-        }
+            total_records: callPatternReport.total_records,
+        },
     };
 }
 
@@ -107,7 +107,7 @@ function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElem
 }
 
 function DownloadCSVLink(
-    { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string }
+    { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string },
 ): ReactElement {
     if (groupedSummary.groups.length === 0) {
         return <></>;
@@ -125,7 +125,7 @@ function DownloadCSVLink(
 }
 
 function ReportData(
-    { groupedSummary, summaryState }: { groupedSummary: GroupedSummary, summaryState: SummaryState }
+    { groupedSummary, summaryState }: { groupedSummary: GroupedSummary, summaryState: SummaryState },
 ): ReactElement {
     if (summaryState === "no_data") {
         return <ONSPanel>No data found for parameters given.</ONSPanel>;
@@ -191,7 +191,7 @@ function RenderInterviewerCallPatternReport({
                 <ReportData groupedSummary={groupedSummary} summaryState={state} />
             </>
         ),
-        []
+        [],
     );
 
     return (
@@ -199,7 +199,7 @@ function RenderInterviewerCallPatternReport({
             <Breadcrumbs BreadcrumbList={[
                 { link: "/", title: "Reports" },
                 { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
-                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
+                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" },
             ]}
             />
             <main id="main-content" className="page__main u-mt-s">
@@ -243,6 +243,6 @@ export {
     callStatusSection,
     noContactBreakdownSection,
     invalidFieldsGroup,
-    isAllInvalid
+    isAllInvalid,
 };
 export default RenderInterviewerCallPatternReport;

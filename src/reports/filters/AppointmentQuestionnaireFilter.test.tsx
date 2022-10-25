@@ -58,7 +58,7 @@ describe("the interviewer details page renders correctly", () => {
                     submitFunction={submit}
                     navigateBack={() => {}}
                 />
-            </Router>
+            </Router>,
         );
     }
 
@@ -71,8 +71,8 @@ describe("the interviewer details page renders correctly", () => {
                     expect(formData.get("survey_tla")).toBe("LMS");
                     expect(formData.get("date")).toBe("2022-01-21");
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, questionnaireDataReturned);
         renderComponent();
 

@@ -10,7 +10,7 @@ const SurveyDateForm = ({ onSubmitFunction }: Props): ReactElement => {
 
     const fields = [
         SurveyField("undefined"),
-        DateField()
+        DateField(),
     ];
 
     return (

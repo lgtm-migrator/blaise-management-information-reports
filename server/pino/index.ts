@@ -29,7 +29,7 @@ const defaultPinoConf = {
         req: (req: any) => ({
             method: req.method,
             url: req.url,
-            user: req.raw.user
+            user: req.raw.user,
         }),
     },
 };

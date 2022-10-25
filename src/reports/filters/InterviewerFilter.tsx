@@ -19,7 +19,7 @@ interface InterviewerFilterPageProps {
 function InterviewerFilter({
     query: { endDate, interviewer, startDate, surveyTla },
     onSubmit,
-    title
+    title,
 }: InterviewerFilterPageProps): ReactElement {
 
     async function submitInterviewerFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {

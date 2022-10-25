@@ -26,7 +26,7 @@ AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
 
 const feature = loadFeature(
     "./src/features/run_and_view_interviewer_call_history_report.feature",
-    { tagFilter: "not @server and not @integration" }
+    { tagFilter: "not @server and not @integration" },
 );
 
 const reportDataReturned: InterviewerCallHistoryReport[] = [
@@ -39,7 +39,7 @@ const reportDataReturned: InterviewerCallHistoryReport[] = [
     }];
 
 const questionnaireDataReturned: string[] = [
-    "LMS2101_AA1"
+    "LMS2101_AA1",
 ];
 
 defineFeature(feature, test => {
@@ -60,7 +60,7 @@ defineFeature(feature, test => {
             render(
                 <Router history={history}>
                     <App />
-                </Router>
+                </Router>,
             );
 
             await act(async () => {

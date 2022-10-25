@@ -38,7 +38,7 @@ describe("appointment resource planning report without data", () => {
         const wrapper = render(
             <Router history={history}>
                 <AppointmentResourcePlanning />
-            </Router>
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -52,7 +52,7 @@ describe("appointment resource planning report without data", () => {
             render(
                 <Router history={history}>
                     <AppointmentResourcePlanning />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("Run appointment resource planning report")).toBeVisible();
