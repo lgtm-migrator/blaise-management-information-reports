@@ -43,7 +43,7 @@ export function LoadData<T>({ children, dataPromise, errorMessage, onError }: Lo
     }, [dataPromise]);
 
     function getErrorMessage(error: Error): ReactNode {
-        if (typeof(errorMessage) === "string") {
+        if (typeof (errorMessage) === "string") {
             return <p>{errorMessage}</p>;
         }
 
@@ -65,7 +65,7 @@ export function LoadData<T>({ children, dataPromise, errorMessage, onError }: Lo
         }
 
         if (!(loadState instanceof ErroredState)) {
-            return <ONSLoadingPanel/>;
+            return <ONSLoadingPanel />;
         }
 
         if (errorMessage === false) {

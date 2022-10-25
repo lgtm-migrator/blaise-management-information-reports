@@ -33,33 +33,33 @@ function QuestionnaireFilter({
     setQuestionnaires,
     onSubmit
 }: QuestionnaireFilterPageProps): ReactElement {
-    const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
+    const errorMessage = useCallback(() => <FetchQuestionnairesError />, []);
 
     return (
         <div>
             <Breadcrumbs
-                BreadcrumbList={ [
+                BreadcrumbList={[
                     { link: "/", title: "Reports" },
                     { link: "#", onClickFunction: navigateBack, title: "Interviewer details" }
-                ] }/>
+                ]} />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Select questionnaires for</h1>
-                <FilterSummary { ...interviewerFilterQuery } questionnaires={ questionnaires }/>
-                <CallHistoryLastUpdatedStatus/>
+                <FilterSummary {...interviewerFilterQuery} questionnaires={questionnaires} />
+                <CallHistoryLastUpdatedStatus />
                 <LoadData
-                    dataPromise={ getQuestionnaireList(
+                    dataPromise={getQuestionnaireList(
                         interviewerFilterQuery.surveyTla,
                         interviewerFilterQuery.interviewer,
                         interviewerFilterQuery.startDate,
                         interviewerFilterQuery.endDate
-                    ) }
-                    errorMessage={ errorMessage }
+                    )}
+                    errorMessage={errorMessage}
                 >
                     { loadedQuestionnaires => <QuestionnaireSelector
-                        questionnaires={ loadedQuestionnaires }
-                        selectedQuestionnaires={ questionnaires }
-                        setSelectedQuestionnaires={ setQuestionnaires }
-                        onSubmit={ onSubmit }
+                        questionnaires={loadedQuestionnaires}
+                        selectedQuestionnaires={questionnaires}
+                        setSelectedQuestionnaires={setQuestionnaires}
+                        onSubmit={onSubmit}
                     /> }
                 </LoadData>
             </main>

@@ -24,7 +24,7 @@ function Breadcrumbs({ BreadcrumbList }: Props): ReactElement {
                                     focusable="false">
                                     <path
                                         d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
-                                        transform="translate(-5.02 -1.59)"/>
+                                        transform="translate(-5.02 -1.59)" />
                                 </svg>
                             </li>
                         );

@@ -37,7 +37,7 @@ describe("call history last updated status with data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus/>
+                <CallHistoryLastUpdatedStatus />
             </Router>
         );
         await act(async () => {
@@ -52,7 +52,7 @@ describe("call history last updated status with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus/>
+                    <CallHistoryLastUpdatedStatus />
                 </Router>
             );
         });
@@ -78,7 +78,7 @@ describe("call history last updated status with invalid data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus/>
+                <CallHistoryLastUpdatedStatus />
             </Router>
         );
         await act(async () => {
@@ -93,7 +93,7 @@ describe("call history last updated status with invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus/>
+                    <CallHistoryLastUpdatedStatus />
                 </Router>
             );
         });

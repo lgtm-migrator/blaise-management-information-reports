@@ -59,7 +59,7 @@ defineFeature(feature, test => {
             const history = createMemoryHistory();
             render(
                 <Router history={history}>
-                    <App/>
+                    <App />
                 </Router>
             );
 

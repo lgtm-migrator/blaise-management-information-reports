@@ -57,6 +57,6 @@ export function AppointmentResults(props: Props): ReactElement {
                 :
                 <ONSPanel hidden={props.messageNoData === "" && true}>{props.messageNoData}</ONSPanel>
         }
-        <br/>
+        <br />
     </ErrorBoundary>;
 }

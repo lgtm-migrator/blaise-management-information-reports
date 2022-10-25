@@ -13,7 +13,7 @@ describe("ReportDetails", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <ReportDetails link=""title="" description="" />
+                <ReportDetails link="" title="" description="" />
             </Router>
         );
         await act(async () => {

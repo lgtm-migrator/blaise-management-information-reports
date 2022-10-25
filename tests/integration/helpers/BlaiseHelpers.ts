@@ -25,7 +25,7 @@ export async function setupTestUser(blaiseApiClient: BlaiseApiClient, serverPark
         return newUser;
     } catch (error) {
         console.error(`Failed to create user: ${error}`);
-        throw(error);
+        throw (error);
     }
 }
 
@@ -63,7 +63,7 @@ async function connectToRestApi(blaiseApiClient: BlaiseApiClient) {
         await blaiseApiClient.getDiagnostics();
     } catch (error) {
         console.error(`Failed to connect to the rest-api: ${error}`);
-        throw(error);
+        throw (error);
     }
 }
 
@@ -96,7 +96,7 @@ async function installQuestionnaire(blaiseApiClient: BlaiseApiClient, serverPark
         }
     } catch (error) {
         console.error(`Failed to install questionnaire: ${error}`);
-        throw(error);
+        throw (error);
     }
 }
 
@@ -117,7 +117,7 @@ async function addSurveyDays(blaiseApiClient: BlaiseApiClient, serverPark: strin
         await blaiseApiClient.addSurveyDays(serverPark, `${questionnaireName}`, [today.toISOString(), tomorrow.toISOString()]);
     } catch (error) {
         console.error(`Failed to add survey days: ${error}`);
-        throw(error);
+        throw (error);
     }
 }
 
@@ -129,6 +129,6 @@ async function addDaybatch(blaiseApiClient: BlaiseApiClient, serverPark: string,
         });
     } catch (error) {
         console.error(`Failed to add daybatch: ${error}`);
-        throw(error);
+        throw (error);
     }
 }

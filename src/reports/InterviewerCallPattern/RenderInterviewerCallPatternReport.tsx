@@ -25,7 +25,7 @@ function formatToFractionAndPercentage(numerator: number | undefined, denominato
         console.warn("Cannot divide by 0");
         return "0/0, 0%";
     }
-    return `${ numerator }/${ denominator }, ${ (numerator / denominator * 100).toFixed(2) }%`;
+    return `${numerator}/${denominator}, ${(numerator / denominator * 100).toFixed(2)}%`;
 }
 
 function callTimeSection(callPatternReport: InterviewerCallPatternReport): Group {
@@ -34,7 +34,7 @@ function callTimeSection(callPatternReport: InterviewerCallPatternReport): Group
         records: {
             hours_worked: callPatternReport.hours_worked,
             call_time: callPatternReport.call_time,
-            hours_on_calls_percentage: `${ (callPatternReport.hours_on_calls_percentage || 0).toFixed(2) }%`,
+            hours_on_calls_percentage: `${(callPatternReport.hours_on_calls_percentage || 0).toFixed(2)}%`,
             average_calls_per_hour: callPatternReport.average_calls_per_hour
         }
     };
@@ -95,7 +95,7 @@ function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElem
     if (!invalidFields.records.discounted_invalid_cases) {
         return <></>;
     }
-    const total = `${ invalidFields.records.discounted_invalid_cases }/${ invalidFields.records.total_records }`;
+    const total = `${invalidFields.records.discounted_invalid_cases}/${invalidFields.records.total_records}`;
     const percentage = invalidFields.records.discounted_invalid_cases / invalidFields.records.total_records * 100;
 
     return (
@@ -115,9 +115,9 @@ function DownloadCSVLink(
 
     return (
         <CSVLink
-            data={ groupedSummary.csv() }
+            data={groupedSummary.csv()}
             target="_blank"
-            filename={ filename }>
+            filename={filename}>
             Export report as Comma-Separated Values (CSV) file
         </CSVLink>
     );
@@ -138,7 +138,7 @@ function ReportData(
         <>
             <div className="summary u-mt-m">
                 <div className="summary__group" id="report-table">
-                    <SummaryGroupTable groupedSummary={ groupedSummary }/>
+                    <SummaryGroupTable groupedSummary={groupedSummary} />
                 </div>
             </div>
         </>
@@ -183,10 +183,10 @@ function RenderInterviewerCallPatternReport({
         ([state, groupedSummary, invalidFields]: [SummaryState, GroupedSummary, Group]): ReactNode => (
             <>
                 <DownloadCSVLink
-                    groupedSummary={ groupedSummary }
-                    filename={ `interviewer-call-pattern-${ interviewerFilterQuery.interviewer }.csv` }/>
-                <InvalidCaseInfo invalidFields={ invalidFields }/>
-                <ReportData groupedSummary={ groupedSummary } summaryState={ state }/>
+                    groupedSummary={groupedSummary}
+                    filename={`interviewer-call-pattern-${interviewerFilterQuery.interviewer}.csv`} />
+                <InvalidCaseInfo invalidFields={invalidFields} />
+                <ReportData groupedSummary={groupedSummary} summaryState={state} />
             </>
         ),
         []
@@ -194,21 +194,21 @@ function RenderInterviewerCallPatternReport({
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={ [
+            <Breadcrumbs BreadcrumbList={[
                 { link: "/", title: "Reports" },
                 { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
                 { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
-            ] }/>
+            ]} />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
                 <FilterSummary
-                    interviewer={ interviewerFilterQuery.interviewer }
-                    startDate={ interviewerFilterQuery.startDate }
-                    endDate={ interviewerFilterQuery.endDate }
-                    questionnaires={ questionnaires }
+                    interviewer={interviewerFilterQuery.interviewer}
+                    startDate={interviewerFilterQuery.startDate}
+                    endDate={interviewerFilterQuery.endDate}
+                    questionnaires={questionnaires}
                 />
-                <ReportErrorPanel error={ reportFailed }/>
-                <CallHistoryLastUpdatedStatus/>
+                <ReportErrorPanel error={reportFailed} />
+                <CallHistoryLastUpdatedStatus />
                 <div className="u-mb-m">
                     <ONSPanel>
                         <p>
@@ -223,12 +223,12 @@ function RenderInterviewerCallPatternReport({
                         </p>
                     </ONSPanel>
                 </div>
-                <br/>
+                <br />
                 <LoadData
-                    dataPromise={ runInterviewerCallPatternReport() }
-                    onError={() => setReportFailed(true) }
-                    errorMessage={ false }>{ displayReport }</LoadData>
-                <br/>
+                    dataPromise={runInterviewerCallPatternReport()}
+                    onError={() => setReportFailed(true)}
+                    errorMessage={false}>{ displayReport }</LoadData>
+                <br />
             </main>
         </>
     );

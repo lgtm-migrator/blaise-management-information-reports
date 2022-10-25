@@ -13,8 +13,8 @@ function isEmpty(reportData: any): boolean {
     return !(reportData && reportData.length > 0);
 }
 
-export default function callHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement{
-    if(isEmpty(reportData)){
+export default function callHistoryReportTable({ reportData, messageNoData }: CallHistoryReportTableProps): ReactElement {
+    if (isEmpty(reportData)) {
         return <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>;
     }
 

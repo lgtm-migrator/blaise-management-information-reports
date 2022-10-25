@@ -35,9 +35,9 @@ describe("QuestionnaireSelector tests", () => {
         return render(
             <QuestionnaireSelector
                 questionnaires={questionnairesReturned}
-                selectedQuestionnaires={ ["LMS2101_AA1"] }
-                setSelectedQuestionnaires={ setSelectedQuestionnaires }
-                onSubmit={ submit }/>
+                selectedQuestionnaires={["LMS2101_AA1"]}
+                setSelectedQuestionnaires={setSelectedQuestionnaires}
+                onSubmit={submit} />
         );
     }
 
@@ -122,4 +122,3 @@ describe("QuestionnaireSelector tests", () => {
         });
     });
 });
-

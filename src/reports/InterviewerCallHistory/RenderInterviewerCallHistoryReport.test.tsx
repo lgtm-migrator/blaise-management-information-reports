@@ -38,12 +38,12 @@ describe("RenderInterviewerCallHistoryReport", () => {
         };
 
         return render(
-            <Router history={ history }>
+            <Router history={history}>
                 <RenderInterviewerCallHistoryReport
                     interviewerFilterQuery={interviewerFilterQuery}
-                    questionnaires={ ["LMS1111", "LMS2222"] }
-                    navigateBack={ navigateBack }
-                    navigateBackTwoSteps={ navigateBackTwoSteps }
+                    questionnaires={["LMS1111", "LMS2222"]}
+                    navigateBack={navigateBack}
+                    navigateBackTwoSteps={navigateBackTwoSteps}
                 />
             </Router>
         );

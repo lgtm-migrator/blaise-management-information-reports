@@ -2,7 +2,7 @@ import { ONSPanel } from "blaise-design-system-react-components";
 import React, { ReactElement } from "react";
 
 const AppointmentResourceDaybatchWarning = (): ReactElement => {
-   
+
     return (
         <>
             <ONSPanel>

@@ -36,7 +36,7 @@ describe("the interviewer details page renders correctly", () => {
     beforeEach(() => {
         mockAdapter
             .onGet("/api/reports/call-history-status")
-            //.reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            // .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
             .reply(200, { last_updated: subtractYears(1) });
         history = createMemoryHistory();
         setQuestionnaires = jest.fn();
@@ -49,7 +49,7 @@ describe("the interviewer details page renders correctly", () => {
 
     function renderComponent() {
         return render(
-            <Router history={ history }>
+            <Router history={history}>
                 <AppointmentQuestionnaireFilter
                     reportDate={new Date("2022-01-21")}
                     surveyTla="LMS"

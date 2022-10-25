@@ -30,11 +30,11 @@ describe("the interviewer details page renders correctly", () => {
         };
 
         view = render(
-            <Router history={ history }>
+            <Router history={history}>
                 <InterviewerFilter
                     title=""
-                    query={ initialQuery }
-                    onSubmit={ submitFunction }/>
+                    query={initialQuery}
+                    onSubmit={submitFunction} />
             </Router>
         );
     });

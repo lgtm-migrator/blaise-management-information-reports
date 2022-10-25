@@ -24,21 +24,21 @@ function InterviewerCallHistory(): ReactElement {
         case Step.InterviewerFilter:
             return (<InterviewerFilter
                 title="call history"
-                query={ interviewerFilterQuery }
-                onSubmit={ _handleInterviewerFilterSubmit }/>);
+                query={interviewerFilterQuery}
+                onSubmit={_handleInterviewerFilterSubmit} />);
         case Step.QuestionnaireFilter:
             return (<QuestionnaireFilter
                 interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={ questionnaires } setQuestionnaires={ setQuestionnaires }
-                onSubmit={ _handleQuestionnaireFilterSubmit }
-                navigateBack={ _navigateBack }/>);
+                questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
+                onSubmit={_handleQuestionnaireFilterSubmit}
+                navigateBack={_navigateBack} />);
         case Step.RenderReport:
-            console.log(`Steps questionnaires ${ questionnaires }`);
+            console.log(`Steps questionnaires ${questionnaires}`);
             return (<RenderInterviewerCallHistoryReport
                 interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={ questionnaires }
-                navigateBack={ _navigateBack }
-                navigateBackTwoSteps={ _navigateBackTwoSteps }/>);
+                questionnaires={questionnaires}
+                navigateBack={_navigateBack}
+                navigateBackTwoSteps={_navigateBackTwoSteps} />);
         }
     }
 

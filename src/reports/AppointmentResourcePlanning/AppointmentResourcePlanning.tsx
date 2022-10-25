@@ -21,20 +21,20 @@ function AppointmentResourcePlanning(): ReactElement {
             return (<AppointmentFilter title="appointment resource planning"
                 reportDate={reportDate} setReportDate={setReportDate}
                 surveyTla={surveyTla} setSurveyTla={setSurveyTla}
-                submitFunction={_handleSubmit}/>);
+                submitFunction={_handleSubmit} />);
         case Step.QuestionnaireFilter:
             return (<AppointmentQuestionnaireFilter reportDate={reportDate}
                 surveyTla={surveyTla}
                 questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
                 submitFunction={_handleSubmit}
-                navigateBack={_navigateBack}/>);
+                navigateBack={_navigateBack} />);
         case Step.RenderReport:
             console.log(`Steps questionnaires ${questionnaires}`);
             return (<RenderAppointmentResourcePlanningReport reportDate={reportDate}
                 surveyTla={surveyTla}
                 questionnaires={questionnaires}
                 navigateBack={_navigateBack}
-                navigateBackTwoSteps={_navigateBackTwoSteps}/>);
+                navigateBackTwoSteps={_navigateBackTwoSteps} />);
         }
 
     }

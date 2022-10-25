@@ -30,7 +30,7 @@ function App(): ReactElement {
         if (loaded && loggedIn) {
             return <></>;
         }
-        return <LoginForm authManager={authManager} setLoggedIn={setLoggedIn}/>;
+        return <LoginForm authManager={authManager} setLoggedIn={setLoggedIn} />;
     }
 
     function signOut(): void {
@@ -42,7 +42,7 @@ function App(): ReactElement {
         if (loaded) {
             return <></>;
         }
-        return <ONSLoadingPanel/>;
+        return <ONSLoadingPanel />;
     }
 
     function app(): ReactElement | undefined {
@@ -50,13 +50,13 @@ function App(): ReactElement {
             return (<DefaultErrorBoundary>
                 <Switch>
                     <Route path="/interviewer-call-history">
-                        <InterviewerCallHistory/>
+                        <InterviewerCallHistory />
                     </Route>
                     <Route path="/interviewer-call-pattern">
-                        <InterviewerCallPattern/>
+                        <InterviewerCallPattern />
                     </Route>
                     <Route path="/appointment-resource-planning">
-                        <AppointmentResourcePlanning/>
+                        <AppointmentResourcePlanning />
                     </Route>
                     <Route path="/">
                         <main id="main-content" className="page__main u-mt-no">
@@ -64,13 +64,13 @@ function App(): ReactElement {
                             <div className="grid grid--column@xxs@s u-mt-m">
                                 <ReportDetails link="/interviewer-call-history"
                                     title="Interviewer call history"
-                                    description="Generate report to see an interviewers call history over a given date range."/>
+                                    description="Generate report to see an interviewers call history over a given date range." />
                                 <ReportDetails link="/interviewer-call-pattern"
                                     title="Interviewer call pattern"
-                                    description="Generate report to analyse productivity of an interviewer over a given date range."/>
+                                    description="Generate report to analyse productivity of an interviewer over a given date range." />
                                 <ReportDetails link="/appointment-resource-planning"
                                     title="Appointment resource planning"
-                                    description="Generate report to view the number of interview appointments scheduled for a given date."/>
+                                    description="Generate report to view the number of interview appointments scheduled for a given date." />
                             </div>
                         </main>
                     </Route>
@@ -84,15 +84,15 @@ function App(): ReactElement {
     return (
         <>
             <a className="skip__link" href="#main-content">Skip to main content</a>
-            <BetaBanner/>
+            <BetaBanner />
             <Header title={"Management Information Reports"} signOutButton={loggedIn} noSave={true}
-                signOutFunction={signOut}/>
+                signOutFunction={signOut} />
             <div style={divStyle} className="page__container container">
                 {loading()}
                 {loginPage()}
                 {app()}
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 }

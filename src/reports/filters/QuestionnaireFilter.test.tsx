@@ -37,7 +37,7 @@ describe("the interviewer details page renders correctly", () => {
     beforeEach(() => {
         mockAdapter
             .onGet("/api/reports/call-history-status")
-            //.reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            // .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
             .reply(200, { last_updated: subtractYears(1) });
         history = createMemoryHistory();
         setQuestionnaires = jest.fn();
@@ -57,14 +57,14 @@ describe("the interviewer details page renders correctly", () => {
         };
 
         return render(
-            <Router history={ history }>
+            <Router history={history}>
                 <QuestionnaireFilter
-                    interviewerFilterQuery={ interviewerFilterQuery }
-                    questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
-                    onSubmit={ submit }
-                    navigateBack={ () => {
+                    interviewerFilterQuery={interviewerFilterQuery}
+                    questionnaires={["LMS2101_AA1"]} setQuestionnaires={setQuestionnaires}
+                    onSubmit={submit}
+                    navigateBack={() => {
                         return;
-                    } }
+                    }}
                 />
             </Router>
         );

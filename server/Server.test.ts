@@ -30,7 +30,7 @@ const mockAuthProvider : BlaiseIapNodeProvider = {
     CLIENT_ID: undefined,
     token: undefined,
     getAuthHeader: async function (): Promise<{ Authorization: string; }> {
-        return { Authorization : "example token" };
+        return { Authorization: "example token" };
     },
     isValidToken: undefined
 } as unknown as BlaiseIapNodeProvider;

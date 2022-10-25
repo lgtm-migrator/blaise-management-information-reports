@@ -15,7 +15,7 @@ function InterviewerCallPattern(): ReactElement {
         interviewer: "",
         startDate: new Date(),
         endDate: new Date(),
-        surveyTla:  "",
+        surveyTla: "",
     });
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
@@ -25,20 +25,20 @@ function InterviewerCallPattern(): ReactElement {
             return (<InterviewerFilter
                 title="call pattern"
                 query={interviewerFilterQuery}
-                onSubmit={_handleInterviewerFilterSubmit}/>);
+                onSubmit={_handleInterviewerFilterSubmit} />);
         case Step.QuestionnaireFilter:
             return (<QuestionnaireFilter
                 interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
                 onSubmit={_handleQuestionnaireFilterSubmit}
-                navigateBack={_navigateBack}/>);
+                navigateBack={_navigateBack} />);
         case Step.RenderReport:
             console.log(`Steps questionnaires ${questionnaires}`);
             return (<RenderInterviewerCallPatternReport
                 interviewerFilterQuery={interviewerFilterQuery}
                 questionnaires={questionnaires}
                 navigateBack={_navigateBack}
-                navigateBackTwoSteps={_navigateBackTwoSteps}/>);
+                navigateBackTwoSteps={_navigateBackTwoSteps} />);
         }
     }
 

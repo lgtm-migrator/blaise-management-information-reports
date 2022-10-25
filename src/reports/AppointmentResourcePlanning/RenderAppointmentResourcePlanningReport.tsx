@@ -68,7 +68,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
             setReportFailed(true);
             return;
         } finally {
-            //setSubmitting(false);
+            // setSubmitting(false);
         }
 
         if (planningReport.length === 0) {
@@ -98,21 +98,21 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 link: "#",
                 onClickFunction: navigateBackTwoSteps,
                 title: "Appointment details"
-            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}/>
+            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]} />
             <main id="main-content" className="page__main u-mt-s">
 
                 <h1 className="u-mb-m">
                     Appointment Resource Planning Report
                 </h1>
                 <h3 className="u-mb-m">
-                    Date: {formatDate(reportDate)}<br/>
+                    Date: {formatDate(reportDate)}<br />
                     Questionnaire{questionnaires.length > 1 ? ("s:") : ":"} {formatList(questionnaires)}{" "}
                 </h3>
-                <AppointmentResourceDaybatchWarning/>
+                <AppointmentResourceDaybatchWarning />
 
-                <ReportErrorPanel error={reportFailed}/>
+                <ReportErrorPanel error={reportFailed} />
 
-                <AppointmentSummary data={summaryData} failed={summaryFailed}/>
+                <AppointmentSummary data={summaryData} failed={summaryFailed} />
                 <div className=" u-mt-m">
                     <CSVLink hidden={reportData === null || reportData.length === 0}
                         data={reportData}
@@ -122,7 +122,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                         Export report as Comma-Separated Values (CSV) file
                     </CSVLink>
                 </div>
-                <AppointmentResults reportData={reportData} messageNoData={messageNoData}/>
+                <AppointmentResults reportData={reportData} messageNoData={messageNoData} />
             </main>
         </>
     );

@@ -11,8 +11,8 @@ describe("LoadData", () => {
         it("displays the loading spinner", () => {
             render(
                 <LoadData
-                    dataPromise={ new Promise(() => {
-                    }) as Promise<ReactNode> }
+                    dataPromise={new Promise(() => {
+                    }) as Promise<ReactNode>}
                 >{ display }</LoadData>
             );
 
@@ -24,7 +24,7 @@ describe("LoadData", () => {
         it("displays the loaded data", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.resolve("Hello world!") }
+                    dataPromise={Promise.resolve("Hello world!")}
                 >{ display }</LoadData>
             );
             expect(await screen.findByRole("heading", { name: "Hello world!" })).toBeVisible();
@@ -33,7 +33,7 @@ describe("LoadData", () => {
         it("does not display the loading spinner", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.resolve("Hello world!") }
+                    dataPromise={Promise.resolve("Hello world!")}
                 >{ display }</LoadData>
             );
             await screen.findByRole("heading", { name: "Hello world!" });
@@ -45,7 +45,7 @@ describe("LoadData", () => {
         it("does not display the loading spinner", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
+                    dataPromise={Promise.reject("There was an error")}
                 >{ display }</LoadData>
             );
             expect(await screen.findByText("There was an error")).toBeVisible();
@@ -54,7 +54,7 @@ describe("LoadData", () => {
         it("displays the errorMessage if provided", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
+                    dataPromise={Promise.reject("There was an error")}
                     errorMessage="Custom error message"
                 >{ display }</LoadData>
             );
@@ -64,8 +64,8 @@ describe("LoadData", () => {
         it("displays formatted errorMessage if provided", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
-                    errorMessage={ (error) => `ERROR: ${ error }` }
+                    dataPromise={Promise.reject("There was an error")}
+                    errorMessage={(error) => `ERROR: ${error}`}
                 >{ display }</LoadData>
             );
             expect(await screen.findByText("ERROR: There was an error")).toBeVisible();
@@ -74,8 +74,8 @@ describe("LoadData", () => {
         it("displays a dynamic JSX errorMessage if provided", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
-                    errorMessage={ (error) => <strong>HTML ERROR: {error.toString()} </strong> }
+                    dataPromise={Promise.reject("There was an error")}
+                    errorMessage={(error) => <strong>HTML ERROR: {error.toString()} </strong>}
                 >{ display }</LoadData>
             );
             expect(await screen.findByText("HTML ERROR: There was an error")).toBeVisible();
@@ -84,8 +84,8 @@ describe("LoadData", () => {
         it("displays turns off the error message if given false", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
-                    errorMessage={ false }
+                    dataPromise={Promise.reject("There was an error")}
+                    errorMessage={false}
                 >{ display }</LoadData>
             );
             await waitFor(() => { expect(screen.queryByText("Loading")).not.toBeInTheDocument(); });
@@ -95,7 +95,7 @@ describe("LoadData", () => {
         it("does not display the loading spinner", async () => {
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
+                    dataPromise={Promise.reject("There was an error")}
                 >{ display }</LoadData>
             );
             await screen.findByText("There was an error");
@@ -106,7 +106,7 @@ describe("LoadData", () => {
             const onError = jest.fn();
             render(
                 <LoadData
-                    dataPromise={ Promise.reject("There was an error") }
+                    dataPromise={Promise.reject("There was an error")}
                     onError={onError}
                 >{ display }</LoadData>
             );
@@ -121,7 +121,7 @@ describe("LoadData", () => {
         beforeEach(async () => {
             const view = render(
                 <LoadData
-                    dataPromise={ Promise.resolve("Old content") }
+                    dataPromise={Promise.resolve("Old content")}
                 >{ display }</LoadData>
             );
             rerender = view.rerender;
@@ -131,8 +131,8 @@ describe("LoadData", () => {
         it("displays the loading spinner when the dataPromise prop changes", async () => {
             rerender(
                 <LoadData
-                    dataPromise={ new Promise(() => {
-                    }) as Promise<ReactNode> }
+                    dataPromise={new Promise(() => {
+                    }) as Promise<ReactNode>}
                 >{ display }</LoadData>
             );
 
@@ -142,7 +142,7 @@ describe("LoadData", () => {
         it("displays the new data when the dataPromise prop changes", async () => {
             rerender(
                 <LoadData
-                    dataPromise={ Promise.resolve("New content") }
+                    dataPromise={Promise.resolve("New content")}
                 >{ display }</LoadData>
             );
 

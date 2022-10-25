@@ -40,7 +40,7 @@ function QuestionnaireSelector({
             },
         ];
 
-        return <StyledForm fields={ fields } submitLabel="Run report" onSubmitFunction={ handleSubmit }/>;
+        return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit} />;
     }
 
     return (
