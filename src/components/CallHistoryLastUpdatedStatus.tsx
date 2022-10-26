@@ -4,7 +4,7 @@ import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
 import { formatDateAndTime } from "../utilities/DateFormatter";
 
-const CallHistoryLastUpdatedStatus = (): ReactElement => {
+function CallHistoryLastUpdatedStatus(): ReactElement {
     const [reportLastUpdatedDate, setReportLastUpdatedDate] = useState<Date | "">("");
     const [reportStatusFailed, setReportStatusFailed] = useState<boolean>(false);
 
@@ -26,7 +26,7 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         return ` (${date})`;
     };
 
-    const ReportStatusText = () => {
+    function ReportStatusText() {
         if (reportStatusFailed) {
             return (<>Unknown</>);
         }
@@ -37,7 +37,7 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
                 {reportLastUpdatedDate ? DisplayResult() : "Loading"}
             </>
         );
-    };
+    }
 
     return (
         <>
@@ -51,6 +51,6 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
             </p>
         </>
     );
-};
+}
 
 export default CallHistoryLastUpdatedStatus;

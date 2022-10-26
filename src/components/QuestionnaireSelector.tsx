@@ -28,8 +28,11 @@ function QuestionnaireSelector({
             {
                 name: "questionnaires",
                 type: "checkbox",
-                initial_value: selectedQuestionnaires,
-                validate: (values: string[]) => (values.length > 0 ? undefined : "At least one questionnaire must be selected"),
+                // The following types for initial_value and validate are incorrect, the value
+                // should be string[] but the design system library currently only supports string.
+                // Once the design system library is fixed, these should be fixed.
+                initial_value: selectedQuestionnaires as unknown as string,
+                validate: (values: string) => (values.length > 0 ? undefined : "At least one questionnaire must be selected"),
                 checkboxOptions: items.map((name) => ({
                     id: name,
                     value: name,

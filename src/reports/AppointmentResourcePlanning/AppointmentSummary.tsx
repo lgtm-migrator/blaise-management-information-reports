@@ -7,7 +7,7 @@ interface Props {
     failed: boolean;
 }
 
-const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
+function AppointmentSummary({ data, failed }: Props): ReactElement {
     if (failed) {
         return <ONSPanel status="error"><p>Failed to get appointment language summary</p></ONSPanel>;
     }
@@ -52,6 +52,6 @@ const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
             </div>
         </div>
     );
-};
+}
 
 export default AppointmentSummary;

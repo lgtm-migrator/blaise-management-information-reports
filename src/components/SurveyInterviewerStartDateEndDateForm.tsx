@@ -12,13 +12,13 @@ interface Props {
     onSubmit: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
-const SurveyInterviewerStartDateEndDateForm = ({
+function SurveyInterviewerStartDateEndDateForm({
     interviewer,
     surveyTLA,
     startDate,
     endDate,
     onSubmit,
-}: Props): ReactElement => {
+}: Props): ReactElement {
     const fields = [
         SurveyField(surveyTLA),
         InterviewerField(interviewer),
@@ -29,6 +29,6 @@ const SurveyInterviewerStartDateEndDateForm = ({
     return (
         <><StyledForm fields={fields} onSubmitFunction={onSubmit} submitLabel="Next" /></>
     );
-};
+}
 
 export default SurveyInterviewerStartDateEndDateForm;

@@ -39,5 +39,5 @@ export default function createLogger(options: any = { autoLogging: false }): Pin
     if (process.env.NODE_ENV === "production") {
         pinoConfig = defaultPinoConf;
     }
-    return logger(Object.assign({}, options, pinoConfig));
+    return logger({ ...options, ...pinoConfig });
 }

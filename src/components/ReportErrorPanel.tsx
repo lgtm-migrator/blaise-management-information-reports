@@ -5,7 +5,7 @@ interface Props {
     error: boolean;
 }
 
-const ReportErrorPanel = ({ error }: Props): ReactElement => {
+function ReportErrorPanel({ error }: Props): ReactElement {
     let errorFocus: HTMLDivElement | null;
 
     useEffect(() => {
@@ -26,6 +26,6 @@ const ReportErrorPanel = ({ error }: Props): ReactElement => {
     }
 
     return (<></>);
-};
+}
 
 export default ReportErrorPanel;

@@ -6,7 +6,7 @@ interface Props {
     onSubmitFunction: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
-const SurveyDateForm = ({ onSubmitFunction }: Props): ReactElement => {
+function SurveyDateForm({ onSubmitFunction }: Props): ReactElement {
     const fields = [
         SurveyField("undefined"),
         DateField(),
@@ -17,6 +17,6 @@ const SurveyDateForm = ({ onSubmitFunction }: Props): ReactElement => {
             <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel="Run" />
         </>
     );
-};
+}
 
 export default SurveyDateForm;
