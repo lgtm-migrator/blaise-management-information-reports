@@ -150,7 +150,7 @@ function ReportData(
     );
 }
 
-type SummaryState = "no_data" | "all_invalid_fields" | "loaded"
+type SummaryState = "no_data" | "all_invalid_fields" | "loaded";
 
 function RenderInterviewerCallPatternReport({
     interviewerFilterQuery,

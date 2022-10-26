@@ -41,7 +41,7 @@ async function getQuestionnaireList(surveyTla: string, reportDate: Date): Promis
     formData.append("survey_tla", surveyTla);
     formData.append("date", formatISODate(reportDate));
 
-    let response: AxiosResponse<string[]|0>;
+    let response: AxiosResponse<string[] | 0>;
 
     try {
         response = await axios.post(url, formData, axiosConfig());

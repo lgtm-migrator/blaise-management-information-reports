@@ -23,7 +23,7 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
     } = props;
 
     async function submitAppointmentFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
-        setReportDate(formValues["Date"]);
+        setReportDate(formValues.Date);
         setSurveyTla(formValues["Survey TLA"]);
         setSubmitting(true);
         submitFunction();

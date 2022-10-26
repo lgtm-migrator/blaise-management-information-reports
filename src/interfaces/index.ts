@@ -3,12 +3,12 @@ export type AppointmentResourcePlanningReportData = {
     appointment_time: string
     appointment_language: string
     total: number
-}
+};
 
 export type AppointmentResourcePlanningSummaryReportData = {
     language: string
     total: number
-}
+};
 
 export type InterviewerCallPatternReport = {
     total_valid_cases?: number,
@@ -30,11 +30,11 @@ export type InterviewerCallPatternReport = {
     total_records?: number
     discounted_invalid_cases: number,
     invalid_fields: string,
-}
+};
 
 export type CallHistoryStatus = {
     last_updated: string
-}
+};
 
 export type InterviewerCallHistoryReport = {
     appointment_info?: string,
@@ -54,4 +54,4 @@ export type InterviewerCallHistoryReport = {
     questionnaire_name: string,
     serial_number: string,
     call_start_time: string
-}
+};

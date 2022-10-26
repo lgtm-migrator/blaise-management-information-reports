@@ -3,7 +3,7 @@ import React, {
     ReactElement, ReactNode, useEffect, useState,
 } from "react";
 
-export type DataRenderer<T> = (data: T) => ReactNode
+export type DataRenderer<T> = (data: T) => ReactNode;
 
 interface LoaderProps<T> {
     dataPromise: Promise<T>;
@@ -22,7 +22,7 @@ class ErroredState {
     constructor(public readonly error: Error) {}
 }
 
-type LoadState<T> = LoadingState | LoadedState<T> | ErroredState
+type LoadState<T> = LoadingState | LoadedState<T> | ErroredState;
 
 export function LoadData<T>({
     children, dataPromise, errorMessage, onError,
@@ -51,8 +51,7 @@ export function LoadData<T>({
             return <p>{errorMessage}</p>;
         }
 
-        if (errorMessage === false)
-        {
+        if (errorMessage === false) {
             return null;
         }
 

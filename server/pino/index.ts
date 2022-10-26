@@ -17,7 +17,7 @@ const defaultPinoConf = {
             return {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                severity: PinoLevelToSeverityLookup[label] || PinoLevelToSeverityLookup["info"],
+                severity: PinoLevelToSeverityLookup[label] || PinoLevelToSeverityLookup.info,
                 level: number,
             };
         },
