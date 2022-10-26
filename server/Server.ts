@@ -136,7 +136,7 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         const authHeader = await authProvider.getAuthHeader();
         const { date, survey_tla } = req.body;
         const dateFormatted = formatISODate(date);
-        console.log("dateFormatted is : " + dateFormatted);
+        console.log(`dateFormatted is : ${dateFormatted}`);
         const url = `${config.BertUrl}/api/appointment-resource-planning/${dateFormatted}/questionnaires?survey-tla=${survey_tla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);

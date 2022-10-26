@@ -6,7 +6,7 @@ import { newServer } from "./Server";
 import { loadConfigFromEnv } from "./Config";
 
 if (process.env.NODE_ENV !== "production") {
-    dotenv.config({ path: __dirname + "/../.env" });
+    dotenv.config({ path: `${__dirname}/../.env` });
 }
 
 const config = loadConfigFromEnv();
@@ -21,4 +21,4 @@ const port: string = process.env.PORT || "5004";
 
 app.listen(port);
 
-console.log("App is listening on port " + port);
+console.log(`App is listening on port ${port}`);

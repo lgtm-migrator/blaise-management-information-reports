@@ -21,34 +21,34 @@ function InterviewerCallHistory(): ReactElement {
 
     function _renderStepContent(step: number) {
         switch (step) {
-        case Step.InterviewerFilter:
-            return (
-                <InterviewerFilter
-                    title="call history"
-                    query={interviewerFilterQuery}
-                    onSubmit={_handleInterviewerFilterSubmit}
-                />
-            );
-        case Step.QuestionnaireFilter:
-            return (
-                <QuestionnaireFilter
-                    interviewerFilterQuery={interviewerFilterQuery}
-                    questionnaires={questionnaires}
-                    setQuestionnaires={setQuestionnaires}
-                    onSubmit={_handleQuestionnaireFilterSubmit}
-                    navigateBack={_navigateBack}
-                />
-            );
-        case Step.RenderReport:
-            console.log(`Steps questionnaires ${questionnaires}`);
-            return (
-                <RenderInterviewerCallHistoryReport
-                    interviewerFilterQuery={interviewerFilterQuery}
-                    questionnaires={questionnaires}
-                    navigateBack={_navigateBack}
-                    navigateBackTwoSteps={_navigateBackTwoSteps}
-                />
-            );
+            case Step.InterviewerFilter:
+                return (
+                    <InterviewerFilter
+                        title="call history"
+                        query={interviewerFilterQuery}
+                        onSubmit={_handleInterviewerFilterSubmit}
+                    />
+                );
+            case Step.QuestionnaireFilter:
+                return (
+                    <QuestionnaireFilter
+                        interviewerFilterQuery={interviewerFilterQuery}
+                        questionnaires={questionnaires}
+                        setQuestionnaires={setQuestionnaires}
+                        onSubmit={_handleQuestionnaireFilterSubmit}
+                        navigateBack={_navigateBack}
+                    />
+                );
+            case Step.RenderReport:
+                console.log(`Steps questionnaires ${questionnaires}`);
+                return (
+                    <RenderInterviewerCallHistoryReport
+                        interviewerFilterQuery={interviewerFilterQuery}
+                        questionnaires={questionnaires}
+                        navigateBack={_navigateBack}
+                        navigateBackTwoSteps={_navigateBackTwoSteps}
+                    />
+                );
         }
     }
 

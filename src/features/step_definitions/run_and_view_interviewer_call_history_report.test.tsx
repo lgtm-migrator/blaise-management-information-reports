@@ -46,7 +46,7 @@ defineFeature(feature, (test) => {
         mockAdapter.onPost("/api/reports/interviewer-call-history").reply(200, reportDataReturned);
         mockAdapter.onGet("/api/reports/call-history-status").reply(
             200,
-            { "last_updated": "Fri, 28 May 2021 10:00:00 GMT" },
+            { last_updated: "Fri, 28 May 2021 10:00:00 GMT" },
         );
     });
 
@@ -76,7 +76,6 @@ defineFeature(feature, (test) => {
             userEvent.click(screen.getByText("LMS"));
 
             userEvent.type(screen.getByLabelText(/Interviewer ID/i), "ricer");
-
         });
 
         when("I click next to retrieve a list of questionnaires", async () => {
@@ -94,7 +93,6 @@ defineFeature(feature, (test) => {
             await act(async () => {
                 await flushPromises();
             });
-
         });
 
         then("I will receive a list of the following information relating to that interviewer for each call worked on, during the time period specified:", async () => {

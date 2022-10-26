@@ -23,7 +23,7 @@ describe("call history last updated status with data", () => {
     beforeEach(() => {
         mockAdapter.onGet("/api/reports/call-history-status").reply(
             200,
-            { "last_updated": dateOneYearAgo },
+            { last_updated: dateOneYearAgo },
         );
     });
 

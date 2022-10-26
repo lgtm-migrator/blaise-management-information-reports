@@ -28,7 +28,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
         navigateBackTwoSteps = jest.fn();
 
         http.onGet("/api/reports/call-history-status")
-            .reply(200, { "last_updated": "Tue, 04 Oct 2022 00:00:06 GMT" });
+            .reply(200, { last_updated: "Tue, 04 Oct 2022 00:00:06 GMT" });
     });
 
     function renderComponent(): RenderResult {

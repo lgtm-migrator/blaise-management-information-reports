@@ -136,5 +136,4 @@ defineFeature(feature, (test) => {
             expect(screen.getByText("10:00")).toBeInTheDocument();
         });
     });
-
 });

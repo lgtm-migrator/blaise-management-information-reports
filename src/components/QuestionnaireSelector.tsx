@@ -14,7 +14,6 @@ function QuestionnaireSelector({
     setSelectedQuestionnaires,
     onSubmit,
 }: QuestionnaireSelectorProps): ReactElement {
-
     function handleSubmit(values: any) {
         setSelectedQuestionnaires(values["questionnaires"]);
         onSubmit();

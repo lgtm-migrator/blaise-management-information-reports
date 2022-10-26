@@ -12,7 +12,6 @@ import userEvent from "@testing-library/user-event";
 import InterviewerFilter, { InterviewerFilterQuery } from "./InterviewerFilter";
 
 describe("the interviewer details page renders correctly", () => {
-
     let submitFunction: () => void;
 
     let view: RenderResult;

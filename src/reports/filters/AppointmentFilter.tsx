@@ -43,7 +43,7 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
                 <main id="main-content" className="page__main u-mt-s">
                     <h1 className="u-mb-m">Run {title} report</h1>
                     <AppointmentResourceDaybatchWarning />
-                    <br></br>
+                    <br />
                     <StyledForm fields={fields} onSubmitFunction={submitAppointmentFilters} submitLabel="Next" />
                 </main>
             </div>

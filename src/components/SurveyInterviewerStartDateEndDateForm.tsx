@@ -19,7 +19,6 @@ const SurveyInterviewerStartDateEndDateForm = ({
     endDate,
     onSubmit,
 }: Props): ReactElement => {
-
     const fields = [
         SurveyField(surveyTLA),
         InterviewerField(interviewer),

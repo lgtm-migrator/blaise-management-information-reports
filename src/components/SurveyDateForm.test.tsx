@@ -56,6 +56,5 @@ describe("form - survey, date", () => {
         expect(screen.queryByText("Opinions and Lifestyle Survey")).toBeVisible();
         expect(screen.queryByText("Date")).toBeVisible();
         expect(screen.queryByText("Run")).toBeVisible();
-
     });
 });

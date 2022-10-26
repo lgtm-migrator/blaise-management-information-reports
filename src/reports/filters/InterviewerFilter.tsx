@@ -23,7 +23,6 @@ function InterviewerFilter({
     onSubmit,
     title,
 }: InterviewerFilterPageProps): ReactElement {
-
     async function submitInterviewerFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
         setSubmitting(true);
         onSubmit({
