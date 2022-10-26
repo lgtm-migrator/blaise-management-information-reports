@@ -19,7 +19,6 @@ import { render } from "@testing-library/react";
 import { Router } from "react-router";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import flushPromises from "../../tests/utilities";
 import { screen } from "@testing-library/dom";
 
 const mockAdapter = new MockAdapter(axios);
