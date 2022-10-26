@@ -27,7 +27,7 @@ function SurveyInterviewerStartDateEndDateForm({
     ];
 
     return (
-        <><StyledForm fields={fields} onSubmitFunction={onSubmit} submitLabel="Next" /></>
+        <StyledForm fields={fields} onSubmitFunction={onSubmit} submitLabel="Next" />
     );
 }
 

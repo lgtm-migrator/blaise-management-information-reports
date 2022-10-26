@@ -35,19 +35,17 @@ function AppointmentFilter(props: AppointmentFilterPageProps): ReactElement {
     ];
 
     return (
-        <>
-            <div>
-                <Breadcrumbs
-                    BreadcrumbList={[{ link: "/", title: "Reports" }]}
-                />
-                <main id="main-content" className="page__main u-mt-s">
-                    <h1 className="u-mb-m">Run {title} report</h1>
-                    <AppointmentResourceDaybatchWarning />
-                    <br />
-                    <StyledForm fields={fields} onSubmitFunction={submitAppointmentFilters} submitLabel="Next" />
-                </main>
-            </div>
-        </>
+        <div>
+            <Breadcrumbs
+                BreadcrumbList={[{ link: "/", title: "Reports" }]}
+            />
+            <main id="main-content" className="page__main u-mt-s">
+                <h1 className="u-mb-m">Run {title} report</h1>
+                <AppointmentResourceDaybatchWarning />
+                <br />
+                <StyledForm fields={fields} onSubmitFunction={submitAppointmentFilters} submitLabel="Next" />
+            </main>
+        </div>
     );
 }
 

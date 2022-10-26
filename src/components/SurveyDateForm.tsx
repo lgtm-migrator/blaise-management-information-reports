@@ -13,9 +13,7 @@ function SurveyDateForm({ onSubmitFunction }: Props): ReactElement {
     ];
 
     return (
-        <>
-            <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel="Run" />
-        </>
+        <StyledForm fields={fields} onSubmitFunction={onSubmitFunction} submitLabel="Run" />
     );
 }
 

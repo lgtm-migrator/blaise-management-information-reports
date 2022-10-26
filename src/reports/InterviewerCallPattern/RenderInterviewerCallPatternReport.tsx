@@ -140,13 +140,11 @@ function ReportData(
     }
 
     return (
-        <>
-            <div className="summary u-mt-m">
-                <div className="summary__group" id="report-table">
-                    <SummaryGroupTable groupedSummary={groupedSummary} />
-                </div>
+        <div className="summary u-mt-m">
+            <div className="summary__group" id="report-table">
+                <SummaryGroupTable groupedSummary={groupedSummary} />
             </div>
-        </>
+        </div>
     );
 }
 
