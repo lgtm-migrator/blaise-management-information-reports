@@ -18,6 +18,7 @@ export default function callHistoryReportTable({ reportData, messageNoData }: Ca
         return <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>;
     }
 
+    /* eslint-disable react/no-array-index-key */
     return (
         <table id="report-table" className="table u-mt-s">
             <thead className="table__head u-mt-m">

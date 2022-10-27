@@ -5,7 +5,7 @@ import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSumma
 import { getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport } from "../../utilities/HTTP";
 import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWarning";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
-import { AppointmentResults } from "./AppointmentResults";
+import AppointmentResults from "./AppointmentResults";
 import AppointmentSummary from "./AppointmentSummary";
 import { formatDate } from "../../utilities/DateFormatter";
 

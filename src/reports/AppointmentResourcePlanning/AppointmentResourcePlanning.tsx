@@ -6,6 +6,7 @@ import AppointmentQuestionnaireFilter from "../filters/AppointmentQuestionnaireF
 import RenderAppointmentResourcePlanningReport from "./RenderAppointmentResourcePlanningReport";
 
 enum Step {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     AppointmentFilter,
     QuestionnaireFilter,
     RenderReport,
@@ -17,7 +18,7 @@ function AppointmentResourcePlanning(): ReactElement {
     const [surveyTla, setSurveyTla] = useState<string>("");
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
-    const _handleSubmit = useCallback(async () => {
+    const handleSubmit = useCallback(async () => {
         switch (activeStep) {
             case Step.AppointmentFilter:
                 setActiveStep(Step.QuestionnaireFilter);
@@ -30,15 +31,17 @@ function AppointmentResourcePlanning(): ReactElement {
         }
     }, [setActiveStep, activeStep]);
 
-    const _navigateBack = useCallback(() => {
+    const navigateBack = useCallback(() => {
         setActiveStep((current) => current - 1);
     }, [setActiveStep]);
 
-    const _navigateBackTwoSteps = useCallback(() => {
+    const navigateBackTwoSteps = useCallback(() => {
         setActiveStep((current) => current - 2);
     }, [setActiveStep]);
 
+    // eslint-disable-next-line consistent-return
     const currentStep = useMemo(() => {
+        // eslint-disable-next-line default-case
         switch (activeStep) {
             case Step.AppointmentFilter:
                 return (
@@ -48,7 +51,7 @@ function AppointmentResourcePlanning(): ReactElement {
                         setReportDate={setReportDate}
                         surveyTla={surveyTla}
                         setSurveyTla={setSurveyTla}
-                        submitFunction={_handleSubmit}
+                        submitFunction={handleSubmit}
                     />
                 );
             case Step.QuestionnaireFilter:
@@ -58,8 +61,8 @@ function AppointmentResourcePlanning(): ReactElement {
                         surveyTla={surveyTla}
                         questionnaires={questionnaires}
                         setQuestionnaires={setQuestionnaires}
-                        submitFunction={_handleSubmit}
-                        navigateBack={_navigateBack}
+                        submitFunction={handleSubmit}
+                        navigateBack={navigateBack}
                     />
                 );
             case Step.RenderReport:
@@ -69,12 +72,12 @@ function AppointmentResourcePlanning(): ReactElement {
                         reportDate={reportDate}
                         surveyTla={surveyTla}
                         questionnaires={questionnaires}
-                        navigateBack={_navigateBack}
-                        navigateBackTwoSteps={_navigateBackTwoSteps}
+                        navigateBack={navigateBack}
+                        navigateBackTwoSteps={navigateBackTwoSteps}
                     />
                 );
         }
-    }, [activeStep, reportDate, surveyTla, _handleSubmit, questionnaires, _navigateBack, _navigateBackTwoSteps]);
+    }, [activeStep, reportDate, surveyTla, handleSubmit, questionnaires, navigateBack, navigateBackTwoSteps]);
 
     return (
         <div>

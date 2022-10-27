@@ -6,7 +6,9 @@ import QuestionnaireFilter from "../filters/QuestionnaireFilter";
 import RenderInterviewerCallPatternReport from "./RenderInterviewerCallPatternReport";
 
 enum Step {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     InterviewerFilter,
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     QuestionnaireFilter,
     RenderReport,
 }
@@ -21,31 +23,33 @@ function InterviewerCallPattern(): ReactElement {
     });
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
-    const _handleInterviewerFilterSubmit = useCallback((query: InterviewerFilterQuery) => {
+    const handleInterviewerFilterSubmit = useCallback((query: InterviewerFilterQuery) => {
         setInterviewerFilterQuery(query);
         setActiveStep(Step.QuestionnaireFilter);
     }, [setInterviewerFilterQuery, setActiveStep]);
 
-    const _handleQuestionnaireFilterSubmit = useCallback(() => {
+    const handleQuestionnaireFilterSubmit = useCallback(() => {
         setActiveStep(Step.RenderReport);
     }, [setActiveStep]);
 
-    const _navigateBack = useCallback(() => {
+    const navigateBack = useCallback(() => {
         setActiveStep((current) => current - 1);
     }, [setActiveStep]);
 
-    const _navigateBackTwoSteps = useCallback(() => {
+    const navigateBackTwoSteps = useCallback(() => {
         setActiveStep((current) => current - 2);
     }, [setActiveStep]);
 
+    // eslint-disable-next-line consistent-return
     const currentStep = useMemo(() => {
+        // eslint-disable-next-line default-case
         switch (activeStep) {
             case Step.InterviewerFilter:
                 return (
                     <InterviewerFilter
                         title="call pattern"
                         query={interviewerFilterQuery}
-                        onSubmit={_handleInterviewerFilterSubmit}
+                        onSubmit={handleInterviewerFilterSubmit}
                     />
                 );
             case Step.QuestionnaireFilter:
@@ -54,8 +58,8 @@ function InterviewerCallPattern(): ReactElement {
                         interviewerFilterQuery={interviewerFilterQuery}
                         questionnaires={questionnaires}
                         setQuestionnaires={setQuestionnaires}
-                        onSubmit={_handleQuestionnaireFilterSubmit}
-                        navigateBack={_navigateBack}
+                        onSubmit={handleQuestionnaireFilterSubmit}
+                        navigateBack={navigateBack}
                     />
                 );
             case Step.RenderReport:
@@ -64,12 +68,12 @@ function InterviewerCallPattern(): ReactElement {
                     <RenderInterviewerCallPatternReport
                         interviewerFilterQuery={interviewerFilterQuery}
                         questionnaires={questionnaires}
-                        navigateBack={_navigateBack}
-                        navigateBackTwoSteps={_navigateBackTwoSteps}
+                        navigateBack={navigateBack}
+                        navigateBackTwoSteps={navigateBackTwoSteps}
                     />
                 );
         }
-    }, [_handleInterviewerFilterSubmit, _handleQuestionnaireFilterSubmit, _navigateBack, _navigateBackTwoSteps, activeStep, interviewerFilterQuery, questionnaires]);
+    }, [handleInterviewerFilterSubmit, handleQuestionnaireFilterSubmit, navigateBack, navigateBackTwoSteps, activeStep, interviewerFilterQuery, questionnaires]);
 
     return (
         <div>

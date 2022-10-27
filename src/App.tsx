@@ -1,5 +1,5 @@
 import React, {
-    ReactElement, useCallback, useEffect, useMemo, useState,
+    ReactElement, ReactNode, useCallback, useEffect, useMemo, useState,
 } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import {
@@ -34,9 +34,9 @@ function App(): ReactElement {
         });
     });
 
-    function loginPage(): ReactElement {
+    function loginPage(): ReactNode {
         if (loaded && loggedIn) {
-            return <></>;
+            return null;
         }
         return <LoginForm authManager={authManager} setLoggedIn={setLoggedIn} />;
     }
@@ -46,9 +46,9 @@ function App(): ReactElement {
         setLoggedIn(false);
     }, [authManager, setLoggedIn]);
 
-    function loading(): ReactElement {
+    function loading(): ReactNode {
         if (loaded) {
-            return <></>;
+            return null;
         }
         return <ONSLoadingPanel />;
     }

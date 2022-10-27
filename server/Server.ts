@@ -9,7 +9,7 @@ import BlaiseApiClient from "blaise-api-node-client";
 import { newLoginHandler, Auth } from "blaise-login-react-server";
 import PinoHttp from "pino-http";
 import { Config } from "./Config";
-import { SendAPIRequest } from "./SendRequest";
+import SendAPIRequest from "./SendRequest";
 import createLogger from "./pino";
 import { formatISODate } from "../src/utilities/DateFormatter";
 
@@ -34,6 +34,7 @@ class RequestLogger {
     }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, auth: Auth, blaiseApiClient: BlaiseApiClient): Express {
     const upload = multer();
     const server = express();
@@ -73,11 +74,11 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         console.log("questionnaire endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const {
-            interviewer, start_date, end_date, survey_tla,
+            interviewer, start_date: startDate, end_date: endDate, survey_tla: surveyTla,
         } = req.body;
-        const startDateFormatted = formatISODate(start_date);
-        const endDateFormatted = formatISODate(end_date);
-        const url = `${config.BertUrl}/api/${interviewer}/questionnaires?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}`;
+        const startDateFormatted = formatISODate(startDate);
+        const endDateFormatted = formatISODate(endDate);
+        const url = `${config.BertUrl}/api/${interviewer}/questionnaires?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${surveyTla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -88,13 +89,13 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         console.log("interviewer-call-history endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const {
-            interviewer, start_date, end_date, survey_tla, questionnaires,
+            interviewer, start_date: startDate, end_date: endDate, survey_tla: surveyTla, questionnaires,
         } = req.body;
-        const startDateFormatted = formatISODate(start_date);
-        const endDateFormatted = formatISODate(end_date);
+        const startDateFormatted = formatISODate(startDate);
+        const endDateFormatted = formatISODate(endDate);
         console.log(`questionnaires ${questionnaires}`);
         const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
-        const url = `${config.BertUrl}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}${questionnairesQuery}`;
+        const url = `${config.BertUrl}/api/reports/call-history/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${surveyTla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -105,13 +106,13 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
         console.log("interviewer-call-pattern endpoint called");
         const authHeader = await authProvider.getAuthHeader();
         const {
-            interviewer, start_date, end_date, survey_tla, questionnaires,
+            interviewer, start_date: startDate, end_date: endDate, survey_tla: surveyTla, questionnaires,
         } = req.body;
-        const startDateFormatted = formatISODate(start_date);
-        const endDateFormatted = formatISODate(end_date);
+        const startDateFormatted = formatISODate(startDate);
+        const endDateFormatted = formatISODate(endDate);
         console.log(`questionnaires ${questionnaires}`);
         const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
-        const url = `${config.BertUrl}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${survey_tla}${questionnairesQuery}`;
+        const url = `${config.BertUrl}/api/reports/call-pattern/${interviewer}?start-date=${startDateFormatted}&end-date=${endDateFormatted}&survey-tla=${surveyTla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -121,10 +122,10 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/appointment-resource-planning", auth.Middleware, async (req: Request, res: Response) => {
         console.log("appointment-resource-planning endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { date, survey_tla, questionnaires } = req.body;
+        const { date, survey_tla: surveyTla, questionnaires } = req.body;
         const dateFormatted = formatISODate(date);
         const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
-        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}?survey-tla=${survey_tla}${questionnairesQuery}`;
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning/${dateFormatted}?survey-tla=${surveyTla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -134,10 +135,10 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/appointments/questionnaires", auth.Middleware, async (req: Request, res: Response) => {
         console.log("appointment-resource-planning-questionnaires endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { date, survey_tla } = req.body;
+        const { date, survey_tla: surveyTla } = req.body;
         const dateFormatted = formatISODate(date);
         console.log(`dateFormatted is : ${dateFormatted}`);
-        const url = `${config.BertUrl}/api/appointment-resource-planning/${dateFormatted}/questionnaires?survey-tla=${survey_tla}`;
+        const url = `${config.BertUrl}/api/appointment-resource-planning/${dateFormatted}/questionnaires?survey-tla=${surveyTla}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);
@@ -147,10 +148,10 @@ export function newServer(config: Config, authProvider: BlaiseIapNodeProvider, a
     server.post("/api/reports/appointment-resource-planning-summary", auth.Middleware, async (req: Request, res: Response) => {
         console.log("appointment-resource-planning-summary endpoint called");
         const authHeader = await authProvider.getAuthHeader();
-        const { date, survey_tla, questionnaires } = req.body;
+        const { date, survey_tla: surveyTla, questionnaires } = req.body;
         const dateFormatted = formatISODate(date);
         const questionnairesQuery = questionnaires.length > 0 ? `&questionnaires=${questionnaires}` : "";
-        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}?survey-tla=${survey_tla}${questionnairesQuery}`;
+        const url = `${config.BertUrl}/api/reports/appointment-resource-planning-summary/${dateFormatted}?survey-tla=${surveyTla}${questionnairesQuery}`;
         console.log(url);
         const [status, result] = await SendAPIRequest(logger, req, res, url, "GET", null, authHeader);
         res.status(status).json(result);

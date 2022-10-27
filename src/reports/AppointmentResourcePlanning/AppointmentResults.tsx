@@ -7,11 +7,14 @@ interface Props {
     messageNoData: string
 }
 
-export function AppointmentResults(props: Props): ReactElement {
+export default function AppointmentResults({
+    messageNoData,
+    reportData,
+}: Props): ReactElement {
     return (
         <ErrorBoundary errorMessageText="Failed to load">
             {
-                props.reportData && props.reportData.length > 0
+                reportData && reportData.length > 0
                     ? (
                         <table id="report-table" className="table elementToFadeIn u-mt-s">
                             <thead className="table__head u-mt-m">
@@ -32,7 +35,7 @@ export function AppointmentResults(props: Props): ReactElement {
                             </thead>
                             <tbody className="table__body">
                                 {
-                                    props.reportData.map((data: AppointmentResourcePlanningReportData) => (
+                                    reportData.map((data: AppointmentResourcePlanningReportData) => (
                                         <tr
                                             className="table__row"
                                             key={`${data.questionnaire_name}-${data.appointment_time}-${data.appointment_language}`}
@@ -56,7 +59,7 @@ export function AppointmentResults(props: Props): ReactElement {
                             </tbody>
                         </table>
                     )
-                    : <ONSPanel hidden={props.messageNoData === "" && true}>{props.messageNoData}</ONSPanel>
+                    : <ONSPanel hidden={messageNoData === "" && true}>{messageNoData}</ONSPanel>
             }
             <br />
         </ErrorBoundary>

@@ -60,7 +60,8 @@ async function getQuestionnaireList(surveyTla: string, reportDate: Date): Promis
         return response.data;
     }
 
-    throw ("Response was not 200");
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw "Response was not 200";
 }
 
 function AppointmentQuestionnaireFilter({

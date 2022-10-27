@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { ONSLoadingPanel, ONSPanel } from "blaise-design-system-react-components";
 import React, {
     ReactElement, ReactNode, useEffect, useState,
