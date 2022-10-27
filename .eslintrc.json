@@ -59,7 +59,6 @@
     "no-underscore-dangle":  "off",
     "no-use-before-define":  "off",
     "prefer-object-spread":  "off",
-    "prefer-promise-reject-errors": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-no-useless-fragment": "off",
     "react/jsx-closing-tag-location": "off",
