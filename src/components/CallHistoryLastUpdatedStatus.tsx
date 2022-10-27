@@ -4,6 +4,32 @@ import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
 import { formatDateAndTime } from "../utilities/DateFormatter";
 
+function displayResult(reportLastUpdatedDate: Date | "") {
+    const date = formatDateAndTime(reportLastUpdatedDate);
+
+    if (date === "Invalid Date") {
+        return "Invalid Date";
+    }
+
+    return ` (${date})`;
+}
+
+function ReportStatusText({
+    reportStatusFailed,
+    reportLastUpdatedDate,
+}: { reportStatusFailed: boolean, reportLastUpdatedDate: Date | "" }) {
+    if (reportStatusFailed) {
+        return (<>Unknown</>);
+    }
+
+    return (
+        <>
+            <TimeAgo live={false} date={reportLastUpdatedDate} />
+            { reportLastUpdatedDate ? displayResult(reportLastUpdatedDate) : "Loading" }
+        </>
+    );
+}
+
 function CallHistoryLastUpdatedStatus(): ReactElement {
     const [reportLastUpdatedDate, setReportLastUpdatedDate] = useState<Date | "">("");
     const [reportStatusFailed, setReportStatusFailed] = useState<boolean>(false);
@@ -18,32 +44,11 @@ function CallHistoryLastUpdatedStatus(): ReactElement {
         });
     }, []);
 
-    const DisplayResult = () => {
-        const date = formatDateAndTime(reportLastUpdatedDate);
-        if (date === "Invalid Date") {
-            return "Invalid Date";
-        }
-        return ` (${date})`;
-    };
-
-    function ReportStatusText() {
-        if (reportStatusFailed) {
-            return (<>Unknown</>);
-        }
-
-        return (
-            <>
-                <TimeAgo live={false} date={reportLastUpdatedDate} />
-                {reportLastUpdatedDate ? DisplayResult() : "Loading"}
-            </>
-        );
-    }
-
     return (
         <>
             <p className="u-fs-s u-mt-s" aria-live="polite">
                 Data in this report was last updated: <b>
-                    <ReportStatusText />
+                    <ReportStatusText reportStatusFailed={reportStatusFailed} reportLastUpdatedDate={reportLastUpdatedDate} />
                 </b>
             </p>
             <p className="u-fs-s">

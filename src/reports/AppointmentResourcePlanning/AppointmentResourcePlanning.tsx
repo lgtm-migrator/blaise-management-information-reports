@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import AppointmentFilter from "../filters/AppointmentFilter";
 import AppointmentQuestionnaireFilter from "../filters/AppointmentQuestionnaireFilter";
 import RenderAppointmentResourcePlanningReport from "./RenderAppointmentResourcePlanningReport";
@@ -15,8 +15,8 @@ function AppointmentResourcePlanning(): ReactElement {
     const [surveyTla, setSurveyTla] = useState<string>("");
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
-    function _renderStepContent(step: number) {
-        switch (step) {
+    const currentStep = useMemo(() => {
+        switch (activeStep) {
             case Step.AppointmentFilter:
                 return (
                     <AppointmentFilter
@@ -51,7 +51,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     />
                 );
         }
-    }
+    }, [activeStep]);
 
     async function _handleSubmit() {
         switch (activeStep) {
@@ -77,7 +77,7 @@ function AppointmentResourcePlanning(): ReactElement {
     return (
         <div>
             <div className="u-mt-m">
-                {_renderStepContent(activeStep)}
+                {currentStep}
             </div>
         </div>
     );

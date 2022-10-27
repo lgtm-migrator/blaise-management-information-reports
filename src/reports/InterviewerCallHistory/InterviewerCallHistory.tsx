@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import InterviewerFilter, { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 import QuestionnaireFilter from "../filters/QuestionnaireFilter";
 import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
@@ -19,8 +19,8 @@ function InterviewerCallHistory(): ReactElement {
     });
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
-    function _renderStepContent(step: number) {
-        switch (step) {
+    const currentStep = useMemo(() => {
+        switch (activeStep) {
             case Step.InterviewerFilter:
                 return (
                     <InterviewerFilter
@@ -50,7 +50,7 @@ function InterviewerCallHistory(): ReactElement {
                     />
                 );
         }
-    }
+    }, [activeStep]);
 
     function _handleInterviewerFilterSubmit(query: InterviewerFilterQuery) {
         setInterviewerFilterQuery(query);
@@ -72,7 +72,7 @@ function InterviewerCallHistory(): ReactElement {
     return (
         <div>
             <div className="u-mt-m">
-                { _renderStepContent(activeStep) }
+                { currentStep }
             </div>
         </div>
     );
