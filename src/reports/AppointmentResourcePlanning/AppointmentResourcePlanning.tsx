@@ -1,4 +1,6 @@
-import React, { ReactElement, useMemo, useState } from "react";
+import React, {
+    ReactElement, useCallback, useMemo, useState,
+} from "react";
 import AppointmentFilter from "../filters/AppointmentFilter";
 import AppointmentQuestionnaireFilter from "../filters/AppointmentQuestionnaireFilter";
 import RenderAppointmentResourcePlanningReport from "./RenderAppointmentResourcePlanningReport";
@@ -14,6 +16,27 @@ function AppointmentResourcePlanning(): ReactElement {
     const [reportDate, setReportDate] = useState<Date>(new Date());
     const [surveyTla, setSurveyTla] = useState<string>("");
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
+
+    const _handleSubmit = useCallback(async () => {
+        switch (activeStep) {
+            case Step.AppointmentFilter:
+                setActiveStep(Step.QuestionnaireFilter);
+                break;
+            case Step.QuestionnaireFilter:
+                setActiveStep(Step.RenderReport);
+                break;
+            default:
+                setActiveStep(Step.AppointmentFilter);
+        }
+    }, [setActiveStep, activeStep]);
+
+    const _navigateBack = useCallback(() => {
+        setActiveStep((current) => current - 1);
+    }, [setActiveStep]);
+
+    const _navigateBackTwoSteps = useCallback(() => {
+        setActiveStep((current) => current - 2);
+    }, [setActiveStep]);
 
     const currentStep = useMemo(() => {
         switch (activeStep) {
@@ -51,28 +74,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     />
                 );
         }
-    }, [activeStep]);
-
-    async function _handleSubmit() {
-        switch (activeStep) {
-            case Step.AppointmentFilter:
-                setActiveStep(Step.QuestionnaireFilter);
-                break;
-            case Step.QuestionnaireFilter:
-                setActiveStep(Step.RenderReport);
-                break;
-            default:
-                setActiveStep(Step.AppointmentFilter);
-        }
-    }
-
-    function _navigateBack() {
-        setActiveStep(activeStep - 1);
-    }
-
-    function _navigateBackTwoSteps() {
-        setActiveStep(activeStep - 2);
-    }
+    }, [activeStep, reportDate, surveyTla, questionnaires, _navigateBack, _navigateBackTwoSteps]);
 
     return (
         <div>

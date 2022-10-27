@@ -19,6 +19,17 @@ describe("QuestionnaireSelector tests", () => {
     let submit: () => void;
     let view: RenderResult;
 
+    function renderComponent() {
+        return render(
+            <QuestionnaireSelector
+                questionnaires={questionnairesReturned}
+                selectedQuestionnaires={["LMS2101_AA1"]}
+                setSelectedQuestionnaires={setSelectedQuestionnaires}
+                onSubmit={submit}
+            />,
+        );
+    }
+
     beforeEach(async () => {
         setSelectedQuestionnaires = jest.fn();
         submit = jest.fn();
@@ -30,17 +41,6 @@ describe("QuestionnaireSelector tests", () => {
     afterEach(() => {
         mockAdapter.reset();
     });
-
-    function renderComponent() {
-        return render(
-            <QuestionnaireSelector
-                questionnaires={questionnairesReturned}
-                selectedQuestionnaires={["LMS2101_AA1"]}
-                setSelectedQuestionnaires={setSelectedQuestionnaires}
-                onSubmit={submit}
-            />,
-        );
-    }
 
     it("matches snapshot", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnairesReturned);

@@ -44,7 +44,6 @@
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-shadow":"off",
     "@typescript-eslint/no-throw-literal": "off",
-    "@typescript-eslint/no-use-before-define":"off",
     "@typescript-eslint/space-before-blocks": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",

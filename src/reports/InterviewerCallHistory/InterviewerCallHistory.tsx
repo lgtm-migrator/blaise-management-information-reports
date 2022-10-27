@@ -1,4 +1,6 @@
-import React, { ReactElement, useMemo, useState } from "react";
+import React, {
+    ReactElement, useCallback, useMemo, useState,
+} from "react";
 import InterviewerFilter, { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 import QuestionnaireFilter from "../filters/QuestionnaireFilter";
 import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
@@ -18,6 +20,23 @@ function InterviewerCallHistory(): ReactElement {
         surveyTla: "",
     });
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
+
+    const _handleInterviewerFilterSubmit = useCallback((query: InterviewerFilterQuery) => {
+        setInterviewerFilterQuery(query);
+        setActiveStep(Step.QuestionnaireFilter);
+    }, [setInterviewerFilterQuery, setActiveStep]);
+
+    const _handleQuestionnaireFilterSubmit = useCallback(() => {
+        setActiveStep(Step.RenderReport);
+    }, [setActiveStep]);
+
+    const _navigateBack = useCallback(() => {
+        setActiveStep(activeStep - 1);
+    }, [setActiveStep]);
+
+    const _navigateBackTwoSteps = useCallback(() => {
+        setActiveStep(activeStep - 2);
+    }, [setActiveStep]);
 
     const currentStep = useMemo(() => {
         switch (activeStep) {
@@ -51,23 +70,6 @@ function InterviewerCallHistory(): ReactElement {
                 );
         }
     }, [activeStep]);
-
-    function _handleInterviewerFilterSubmit(query: InterviewerFilterQuery) {
-        setInterviewerFilterQuery(query);
-        setActiveStep(Step.QuestionnaireFilter);
-    }
-
-    function _handleQuestionnaireFilterSubmit() {
-        setActiveStep(Step.RenderReport);
-    }
-
-    function _navigateBack() {
-        setActiveStep(activeStep - 1);
-    }
-
-    function _navigateBackTwoSteps() {
-        setActiveStep(activeStep - 2);
-    }
 
     return (
         <div>

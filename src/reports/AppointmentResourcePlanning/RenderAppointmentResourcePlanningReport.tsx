@@ -46,14 +46,6 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
         { label: "Total", key: "total" },
     ];
 
-    useEffect(() => {
-        runAppointmentResourcePlanningReport();
-    }, []);
-
-    useEffect(() => {
-        runAppointmentSummary();
-    }, []);
-
     async function runAppointmentResourcePlanningReport(): Promise<void> {
         setMessageNoData("");
         setReportFailed(false);
@@ -89,6 +81,14 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
                 setSummaryFailed(true);
             });
     }
+
+    useEffect(() => {
+        runAppointmentResourcePlanningReport();
+    }, []);
+
+    useEffect(() => {
+        runAppointmentSummary();
+    }, []);
 
     return (
         <>
