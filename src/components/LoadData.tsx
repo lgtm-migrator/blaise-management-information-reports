@@ -29,22 +29,22 @@ export function LoadData<T>({
 }: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
 
-    async function loadData() {
-        setLoadState(new LoadedState(await dataPromise));
-    }
-
-    function setErroredState(error: Error): void {
-        if (onError) {
-            onError(error);
-        }
-        setLoadState(new ErroredState(error));
-    }
-
     useEffect(() => {
+        async function loadData() {
+            setLoadState(new LoadedState(await dataPromise));
+        }
+
+        function setErroredState(error: Error): void {
+            if (onError) {
+                onError(error);
+            }
+            setLoadState(new ErroredState(error));
+        }
+
         setLoadState(new LoadingState());
 
         loadData().catch(setErroredState);
-    }, [dataPromise]);
+    }, [dataPromise, onError]);
 
     function getErrorMessage(error: Error): ReactNode {
         if (typeof (errorMessage) === "string") {

@@ -6,11 +6,11 @@ interface Props {
 }
 
 function ReportErrorPanel({ error }: Props): ReactElement {
-    let errorFocus: HTMLDivElement | null;
+    let errorFocus: HTMLDivElement | null = null;
 
     useEffect(() => {
         errorFocus?.focus();
-    }, [error]);
+    }, [error, errorFocus]);
 
     if (error) {
         return (

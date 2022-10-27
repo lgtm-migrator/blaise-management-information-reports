@@ -74,7 +74,7 @@ function AppointmentResourcePlanning(): ReactElement {
                     />
                 );
         }
-    }, [activeStep, reportDate, surveyTla, questionnaires, _navigateBack, _navigateBackTwoSteps]);
+    }, [activeStep, reportDate, surveyTla, _handleSubmit, questionnaires, _navigateBack, _navigateBackTwoSteps]);
 
     return (
         <div>

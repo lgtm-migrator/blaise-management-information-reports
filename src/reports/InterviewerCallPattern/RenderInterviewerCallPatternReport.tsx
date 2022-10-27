@@ -193,7 +193,7 @@ function RenderInterviewerCallPatternReport({
                 <ReportData groupedSummary={groupedSummary} summaryState={state} />
             </>
         ),
-        [],
+        [interviewerFilterQuery.interviewer],
     );
 
     return (

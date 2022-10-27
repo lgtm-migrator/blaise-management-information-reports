@@ -1,5 +1,5 @@
 import React, {
-    ReactElement, useCallback, useEffect, useState,
+    ReactElement, useCallback, useEffect, useMemo, useState,
 } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import {
@@ -21,7 +21,7 @@ const divStyle = {
 };
 
 function App(): ReactElement {
-    const authManager = new AuthManager();
+    const authManager = useMemo(() => new AuthManager(), []);
     const location = useLocation();
     const [loaded, setLoaded] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);

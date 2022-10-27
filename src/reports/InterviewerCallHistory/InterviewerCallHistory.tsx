@@ -31,11 +31,11 @@ function InterviewerCallHistory(): ReactElement {
     }, [setActiveStep]);
 
     const _navigateBack = useCallback(() => {
-        setActiveStep(activeStep - 1);
+        setActiveStep((current) => current - 1);
     }, [setActiveStep]);
 
     const _navigateBackTwoSteps = useCallback(() => {
-        setActiveStep(activeStep - 2);
+        setActiveStep((current) => current - 2);
     }, [setActiveStep]);
 
     const currentStep = useMemo(() => {
@@ -69,7 +69,7 @@ function InterviewerCallHistory(): ReactElement {
                     />
                 );
         }
-    }, [activeStep]);
+    }, [_handleInterviewerFilterSubmit, _handleQuestionnaireFilterSubmit, _navigateBack, _navigateBackTwoSteps, activeStep, interviewerFilterQuery, questionnaires]);
 
     return (
         <div>
