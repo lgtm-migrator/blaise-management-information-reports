@@ -34,6 +34,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "react/require-default-props": "off",
     "@typescript-eslint/indent": ["error", 4],
     "@typescript-eslint/quotes": ["error", "double"],
     "react/jsx-filename-extension":  ["error", { "extensions": [".tsx", ".jsx"] }],
@@ -69,8 +70,8 @@
     "react/jsx-one-expression-per-line": "off",
     "react/no-array-index-key":  "off",
     "react/no-unstable-nested-components": "off",
-    "react/no-unused-prop-types":  "off",
-    "react/require-default-props": "off"
+    "react/no-unused-prop-types":  "off"
+
   },
   "overrides": [
     {

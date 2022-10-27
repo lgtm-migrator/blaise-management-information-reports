@@ -25,7 +25,7 @@ class ErroredState {
 type LoadState<T> = LoadingState | LoadedState<T> | ErroredState;
 
 export function LoadData<T>({
-    children, dataPromise, errorMessage, onError,
+    children, dataPromise, errorMessage = undefined, onError = undefined,
 }: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
 
