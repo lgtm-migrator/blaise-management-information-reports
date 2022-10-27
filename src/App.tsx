@@ -1,4 +1,6 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, {
+    ReactElement, useCallback, useEffect, useState,
+} from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import {
     BetaBanner,
@@ -39,10 +41,10 @@ function App(): ReactElement {
         return <LoginForm authManager={authManager} setLoggedIn={setLoggedIn} />;
     }
 
-    function signOut(): void {
+    const signOut = useCallback((): void => {
         authManager.clearToken();
         setLoggedIn(false);
-    }
+    }, [authManager, setLoggedIn]);
 
     function loading(): ReactElement {
         if (loaded) {
