@@ -1,15 +1,15 @@
 import React, { ReactElement } from "react";
-import { AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
 import { ONSPanel } from "blaise-design-system-react-components";
+import { AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
 
 interface Props {
     data: AppointmentResourcePlanningSummaryReportData[];
     failed: boolean;
 }
 
-const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
+function AppointmentSummary({ data, failed }: Props): ReactElement {
     if (failed) {
-        return <ONSPanel status={"error"}><p>Failed to get appointment language summary</p></ONSPanel>;
+        return <ONSPanel status="error"><p>Failed to get appointment language summary</p></ONSPanel>;
     }
 
     if (data.length === 0) {
@@ -29,29 +29,29 @@ const AppointmentSummary = ({ data, failed }: Props): ReactElement => {
                             </tr>
                         </thead>
                         {
-                            data.map(({ language, total }: AppointmentResourcePlanningSummaryReportData) => {
-                                return (
-                                    <tbody className="summary__item" key={language}>
-                                        <tr className="summary__row summary__row--has-values"
-                                            data-testid={"summary-table-row"}>
-                                            <td className="summary__item-title">
-                                                <div className="summary__item--text">
-                                                    {language}
-                                                </div>
-                                            </td>
-                                            <td className="summary__values">
-                                                {total}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                );
-                            })
+                            data.map(({ language, total }: AppointmentResourcePlanningSummaryReportData) => (
+                                <tbody className="summary__item" key={language}>
+                                    <tr
+                                        className="summary__row summary__row--has-values"
+                                        data-testid="summary-table-row"
+                                    >
+                                        <td className="summary__item-title">
+                                            <div className="summary__item--text">
+                                                {language}
+                                            </div>
+                                        </td>
+                                        <td className="summary__values">
+                                            {total}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            ))
                         }
                     </table>
                 </div>
             </div>
         </div>
     );
-};
+}
 
 export default AppointmentSummary;

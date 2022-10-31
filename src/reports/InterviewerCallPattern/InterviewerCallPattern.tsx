@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import InterviewerFilter, { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 import QuestionnaireFilter from "../filters/QuestionnaireFilter";
-import RenderInterviewerCallPatternReport from "../InterviewerCallPattern/RenderInterviewerCallPatternReport";
+import RenderInterviewerCallPatternReport from "./RenderInterviewerCallPatternReport";
 
 enum Step {
     InterviewerFilter,
@@ -15,30 +15,40 @@ function InterviewerCallPattern(): ReactElement {
         interviewer: "",
         startDate: new Date(),
         endDate: new Date(),
-        surveyTla:  "",
+        surveyTla: "",
     });
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
     function _renderStepContent(step: number) {
         switch (step) {
-        case Step.InterviewerFilter:
-            return (<InterviewerFilter
-                title="call pattern"
-                query={interviewerFilterQuery}
-                onSubmit={_handleInterviewerFilterSubmit}/>);
-        case Step.QuestionnaireFilter:
-            return (<QuestionnaireFilter
-                interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={questionnaires} setQuestionnaires={setQuestionnaires}
-                onSubmit={_handleQuestionnaireFilterSubmit}
-                navigateBack={_navigateBack}/>);
-        case Step.RenderReport:
-            console.log(`Steps questionnaires ${questionnaires}`);
-            return (<RenderInterviewerCallPatternReport
-                interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={questionnaires}
-                navigateBack={_navigateBack}
-                navigateBackTwoSteps={_navigateBackTwoSteps}/>);
+            case Step.InterviewerFilter:
+                return (
+                    <InterviewerFilter
+                        title="call pattern"
+                        query={interviewerFilterQuery}
+                        onSubmit={_handleInterviewerFilterSubmit}
+                    />
+                );
+            case Step.QuestionnaireFilter:
+                return (
+                    <QuestionnaireFilter
+                        interviewerFilterQuery={interviewerFilterQuery}
+                        questionnaires={questionnaires}
+                        setQuestionnaires={setQuestionnaires}
+                        onSubmit={_handleQuestionnaireFilterSubmit}
+                        navigateBack={_navigateBack}
+                    />
+                );
+            case Step.RenderReport:
+                console.log(`Steps questionnaires ${questionnaires}`);
+                return (
+                    <RenderInterviewerCallPatternReport
+                        interviewerFilterQuery={interviewerFilterQuery}
+                        questionnaires={questionnaires}
+                        navigateBack={_navigateBack}
+                        navigateBackTwoSteps={_navigateBackTwoSteps}
+                    />
+                );
         }
     }
 

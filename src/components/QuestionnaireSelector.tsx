@@ -14,9 +14,8 @@ function QuestionnaireSelector({
     setSelectedQuestionnaires,
     onSubmit,
 }: QuestionnaireSelectorProps): ReactElement {
-
     function handleSubmit(values: any) {
-        setSelectedQuestionnaires(values["questionnaires"]);
+        setSelectedQuestionnaires(values.questionnaires);
         onSubmit();
     }
 
@@ -29,18 +28,21 @@ function QuestionnaireSelector({
             {
                 name: "questionnaires",
                 type: "checkbox",
-                initial_value: selectedQuestionnaires,
-                validate: (values: string[]) => values.length > 0 ? undefined : "At least one questionnaire must be selected",
-                checkboxOptions: items.map(name => ({
+                // The following types for initial_value and validate are incorrect, the value
+                // should be string[] but the design system library currently only supports string.
+                // Once the design system library is fixed, these should be fixed.
+                initial_value: selectedQuestionnaires as unknown as string,
+                validate: (values: string) => (values.length > 0 ? undefined : "At least one questionnaire must be selected"),
+                checkboxOptions: items.map((name) => ({
                     id: name,
                     value: name,
                     label: name,
-                    testid: name
+                    testid: name,
                 })),
             },
         ];
 
-        return <StyledForm fields={ fields } submitLabel="Run report" onSubmitFunction={ handleSubmit }/>;
+        return <StyledForm fields={fields} submitLabel="Run report" onSubmitFunction={handleSubmit} />;
     }
 
     return (

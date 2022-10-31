@@ -5,7 +5,7 @@ interface Props {
     error: boolean;
 }
 
-const ReportErrorPanel = ({ error }: Props): ReactElement => {
+function ReportErrorPanel({ error }: Props): ReactElement {
     let errorFocus: HTMLDivElement | null;
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const ReportErrorPanel = ({ error }: Props): ReactElement => {
 
     if (error) {
         return (
-            <div role="alert" ref={input => errorFocus = input} tabIndex={-1}>
+            <div role="alert" ref={(input) => errorFocus = input} tabIndex={-1}>
                 <ONSPanel status="error">
                     <h2>Failed to run the report</h2>
                     <p>Try again later.</p>
@@ -26,6 +26,6 @@ const ReportErrorPanel = ({ error }: Props): ReactElement => {
     }
 
     return (<></>);
-};
+}
 
 export default ReportErrorPanel;

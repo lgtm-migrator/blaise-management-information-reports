@@ -47,9 +47,10 @@ describe("FilterSummary tests", () => {
 function renderComponent(questionnaires: string[]) {
     return render(
         <FilterSummary
-            startDate={ new Date("2022-05-04") }
-            endDate={ new Date("2022-05-05") }
+            startDate={new Date("2022-05-04")}
+            endDate={new Date("2022-05-05")}
             interviewer="Cal"
-            questionnaires={ questionnaires }/>
+            questionnaires={questionnaires}
+        />,
     );
 }

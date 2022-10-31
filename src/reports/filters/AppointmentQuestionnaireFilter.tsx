@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback } from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { AuthManager } from "blaise-login-react-client";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import AppointmentResourceDaybatchWarning from "../AppointmentResourcePlanning/AppointmentResourceDaybatchWarning";
 import { formatDate, formatISODate } from "../../utilities/DateFormatter";
 import { LoadData } from "../../components/LoadData";
@@ -19,7 +19,7 @@ interface AppointmentQuestionnaireFilterPageProps {
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
     return {
-        headers: authManager.authHeader()
+        headers: authManager.authHeader(),
     };
 }
 
@@ -41,16 +41,16 @@ async function getQuestionnaireList(surveyTla: string, reportDate: Date): Promis
     formData.append("survey_tla", surveyTla);
     formData.append("date", formatISODate(reportDate));
 
-    let response: AxiosResponse<string[]|0>;
+    let response: AxiosResponse<string[] | 0>;
 
     try {
         response = await axios.post(url, formData, axiosConfig());
     } catch (error) {
-        console.error(`Response: Error ${ error } - URL: ${ url }`);
+        console.error(`Response: Error ${error} - URL: ${url}`);
         throw error;
     }
 
-    console.log(`Response: Status ${ response.status }, data ${ response.data }`);
+    console.log(`Response: Status ${response.status}, data ${response.data}`);
 
     if (response.data === 0) {
         return [];
@@ -69,36 +69,39 @@ function AppointmentQuestionnaireFilter({
     reportDate,
     setQuestionnaires,
     submitFunction,
-    surveyTla
+    surveyTla,
 }: AppointmentQuestionnaireFilterPageProps): ReactElement {
-    const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
+    const errorMessage = useCallback(() => <FetchQuestionnairesError />, []);
 
     return (
         <div>
             <Breadcrumbs
-                BreadcrumbList={ [{ link: "/", title: "Reports" }, {
+                BreadcrumbList={[{ link: "/", title: "Reports" }, {
                     link: "#",
                     onClickFunction: navigateBack,
-                    title: "Appointment Details"
-                }] }/>
+                    title: "Appointment Details",
+                }]}
+            />
 
             <main id="main-content" className="page__main u-mt-s">
                 <h1 className="u-mb-m">Select questionnaires for </h1>
                 <h3 className="u-mb-m">
                     Date: { formatDate(reportDate) }
                 </h3>
-                <AppointmentResourceDaybatchWarning/>
-                <br/>
+                <AppointmentResourceDaybatchWarning />
+                <br />
                 <LoadData
-                    dataPromise={ getQuestionnaireList(surveyTla, reportDate) }
-                    errorMessage={ errorMessage }
+                    dataPromise={getQuestionnaireList(surveyTla, reportDate)}
+                    errorMessage={errorMessage}
                 >
-                    { loadedQuestionnaires => <QuestionnaireSelector
-                        questionnaires={ loadedQuestionnaires }
-                        selectedQuestionnaires={ questionnaires }
-                        setSelectedQuestionnaires={ setQuestionnaires }
-                        onSubmit={ submitFunction }
-                    /> }
+                    { (loadedQuestionnaires) => (
+                        <QuestionnaireSelector
+                            questionnaires={loadedQuestionnaires}
+                            selectedQuestionnaires={questionnaires}
+                            setSelectedQuestionnaires={setQuestionnaires}
+                            onSubmit={submitFunction}
+                        />
+                    ) }
                 </LoadData>
             </main>
         </div>

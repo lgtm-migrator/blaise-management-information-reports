@@ -3,13 +3,13 @@
  */
 
 import "@testing-library/jest-dom";
-import QuestionnaireSelector from "./QuestionnaireSelector";
 import React from "react";
 import { render, RenderResult, waitFor } from "@testing-library/react";
 import { fireEvent, screen } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import QuestionnaireSelector from "./QuestionnaireSelector";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -35,9 +35,10 @@ describe("QuestionnaireSelector tests", () => {
         return render(
             <QuestionnaireSelector
                 questionnaires={questionnairesReturned}
-                selectedQuestionnaires={ ["LMS2101_AA1"] }
-                setSelectedQuestionnaires={ setSelectedQuestionnaires }
-                onSubmit={ submit }/>
+                selectedQuestionnaires={["LMS2101_AA1"]}
+                setSelectedQuestionnaires={setSelectedQuestionnaires}
+                onSubmit={submit}
+            />,
         );
     }
 
@@ -122,4 +123,3 @@ describe("QuestionnaireSelector tests", () => {
         });
     });
 });
-

@@ -5,14 +5,14 @@ import {
     AppointmentResourcePlanningSummaryReportData,
     CallHistoryStatus,
     InterviewerCallHistoryReport,
-    InterviewerCallPatternReport
+    InterviewerCallPatternReport,
 } from "../../interfaces";
 import { formatISODate } from "../DateFormatter";
 
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
     return {
-        headers: authManager.authHeader()
+        headers: authManager.authHeader(),
     };
 }
 
@@ -147,5 +147,5 @@ export {
     getInterviewerCallHistoryReport,
     getInterviewerCallPatternReport,
     getAppointmentResourcePlanningReport,
-    getAppointmentResourcePlanningSummaryReport
+    getAppointmentResourcePlanningSummaryReport,
 };

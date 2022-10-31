@@ -3,14 +3,6 @@
  */
 
 import "@testing-library/jest-dom";
-import InterviewerCallPattern, {
-    callStatusSection,
-    formatToFractionAndPercentage,
-    invalidFieldsGroup,
-    isAllInvalid,
-    noContactBreakdownSection
-} from "./RenderInterviewerCallPatternReport";
-import { InterviewerCallPatternReport } from "../../interfaces";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import MockDate from "mockdate";
@@ -20,6 +12,14 @@ import { Router } from "react-router";
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
+import { InterviewerCallPatternReport } from "../../interfaces";
+import InterviewerCallPattern, {
+    callStatusSection,
+    formatToFractionAndPercentage,
+    invalidFieldsGroup,
+    isAllInvalid,
+    noContactBreakdownSection,
+} from "./RenderInterviewerCallPatternReport";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -47,7 +47,7 @@ const mockDataWithInvalidCases: InterviewerCallPatternReport = {
 
 const mockDataWithOnlyInvalidCases: InterviewerCallPatternReport = {
     discounted_invalid_cases: 100,
-    invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data"
+    invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data",
 };
 
 const mockData: InterviewerCallPatternReport = {
@@ -100,15 +100,15 @@ describe("function callStatusSection()", () => {
     it("should return the relevant section from data", () => {
         const callSection = callStatusSection(mockDataWithInvalidCases);
         expect(callSection).toEqual({
-            "records": {
-                "refusals": "4/133, 3.01%",
-                "completed_successfully": "0/133, 0.00%",
-                "appointments_for_contacts": "81/133, 60.90%",
-                "web_nudge": "5/133, 3.76%",
-                "no_contacts": "11/133, 8.27%",
-                "discounted_invalid_cases": "29/162, 17.90%",
+            records: {
+                refusals: "4/133, 3.01%",
+                completed_successfully: "0/133, 0.00%",
+                appointments_for_contacts: "81/133, 60.90%",
+                web_nudge: "5/133, 3.76%",
+                no_contacts: "11/133, 8.27%",
+                discounted_invalid_cases: "29/162, 17.90%",
             },
-            "title": "Call status",
+            title: "Call status",
         });
     });
 });
@@ -117,15 +117,15 @@ describe("function callStatusSection()", () => {
     it("should return the relevant section from data", () => {
         const callSection = callStatusSection(mockDataWithInvalidCases);
         expect(callSection).toEqual({
-            "records": {
-                "refusals": "4/133, 3.01%",
-                "completed_successfully": "0/133, 0.00%",
-                "appointments_for_contacts": "81/133, 60.90%",
-                "web_nudge": "5/133, 3.76%",
-                "no_contacts": "11/133, 8.27%",
-                "discounted_invalid_cases": "29/162, 17.90%",
+            records: {
+                refusals: "4/133, 3.01%",
+                completed_successfully: "0/133, 0.00%",
+                appointments_for_contacts: "81/133, 60.90%",
+                web_nudge: "5/133, 3.76%",
+                no_contacts: "11/133, 8.27%",
+                discounted_invalid_cases: "29/162, 17.90%",
             },
-            "title": "Call status",
+            title: "Call status",
         });
     });
 });
@@ -134,15 +134,15 @@ describe("function noContactBreakdownSection()", () => {
     it("should return the relevant section from data", () => {
         const callSection = noContactBreakdownSection(mockDataWithInvalidCases);
         expect(callSection).toEqual({
-            "records": {
-                "answer_service": "4/11, 36.36%",
-                "busy": "1/11, 9.09%",
-                "disconnect": "2/11, 18.18%",
-                "no_answer": "3/11, 27.27%",
-                "invalid_telephone_number": "5/11, 45.45%",
-                "other": "4/11, 36.36%",
+            records: {
+                answer_service: "4/11, 36.36%",
+                busy: "1/11, 9.09%",
+                disconnect: "2/11, 18.18%",
+                no_answer: "3/11, 27.27%",
+                invalid_telephone_number: "5/11, 45.45%",
+                other: "4/11, 36.36%",
             },
-            "title": "Breakdown of No Contact calls",
+            title: "Breakdown of No Contact calls",
         });
     });
 });
@@ -151,12 +151,12 @@ describe("function invalidFieldsGroup()", () => {
     it("should return the required information to display in an information panel", () => {
         const invalidPanel = invalidFieldsGroup(mockDataWithInvalidCases);
         expect(invalidPanel).toEqual({
-            "records": {
-                "invalid_fields": "'status' column had timed out call status,'call_end_time' column had missing data",
-                "discounted_invalid_cases": 29,
-                "total_records": (mockDataWithInvalidCases.total_valid_cases || 0) + mockDataWithInvalidCases.discounted_invalid_cases,
+            records: {
+                invalid_fields: "'status' column had timed out call status,'call_end_time' column had missing data",
+                discounted_invalid_cases: 29,
+                total_records: (mockDataWithInvalidCases.total_valid_cases || 0) + mockDataWithInvalidCases.discounted_invalid_cases,
             },
-            "title": "Invalid Fields",
+            title: "Invalid Fields",
         });
     });
 });
@@ -175,12 +175,8 @@ describe("function isAllInvalid()", () => {
 
 describe("function InterviewerCallPattern() with happy data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, mockData
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, mockData);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { last_updated: "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -194,8 +190,8 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern { ... mockProps }/>
-            </Router>
+                <InterviewerCallPattern {... mockProps} />
+            </Router>,
         );
 
         await screen.findByText("Questionnaires");
@@ -207,8 +203,8 @@ describe("function InterviewerCallPattern() with happy data", () => {
         const history = createMemoryHistory();
         render(
             <Router history={history}>
-                <InterviewerCallPattern {...mockProps}/>
-            </Router>
+                <InterviewerCallPattern {...mockProps} />
+            </Router>,
         );
 
         expect(await screen.findByText("Reports")).toBeVisible();
@@ -265,12 +261,8 @@ describe("function InterviewerCallPattern() with happy data", () => {
 
 describe("function InterviewerCallPattern() with data and invalid data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, mockDataWithInvalidCases
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, mockDataWithInvalidCases);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { last_updated: "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -284,8 +276,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern {...mockProps}/>
-            </Router>
+                <InterviewerCallPattern {...mockProps} />
+            </Router>,
         );
 
         await screen.findByText("Questionnaires");
@@ -299,8 +291,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern {...mockProps}/>
-                </Router>
+                    <InterviewerCallPattern {...mockProps} />
+                </Router>,
             );
         });
 
@@ -362,12 +354,8 @@ describe("function InterviewerCallPattern() with data and invalid data", () => {
 
 describe("function InterviewerCallPattern() without data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, {}
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, {}
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, {});
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, {});
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -381,9 +369,8 @@ describe("function InterviewerCallPattern() without data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern {...mockProps}
-                />
-            </Router>
+                <InterviewerCallPattern {...mockProps} />
+            </Router>,
         );
 
         await screen.findByText("Questionnaires");
@@ -397,8 +384,8 @@ describe("function InterviewerCallPattern() without data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern {...mockProps}/>
-                </Router>
+                    <InterviewerCallPattern {...mockProps} />
+                </Router>,
             );
         });
 
@@ -412,12 +399,8 @@ describe("function InterviewerCallPattern() without data", () => {
 
 describe("function InterviewerCallPattern() with only invalid data", () => {
     beforeEach(() => {
-        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
-            200, mockDataWithOnlyInvalidCases
-        );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
-        );
+        mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(200, mockDataWithOnlyInvalidCases);
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { last_updated: "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -431,8 +414,8 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern {...mockProps}/>
-            </Router>
+                <InterviewerCallPattern {...mockProps} />
+            </Router>,
         );
 
         expect(await screen.findByText("Reports")).toBeVisible();
@@ -446,8 +429,8 @@ describe("function InterviewerCallPattern() with only invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern {...mockProps}/>
-                </Router>
+                    <InterviewerCallPattern {...mockProps} />
+                </Router>,
             );
         });
 
@@ -475,11 +458,9 @@ describe("function InterviewerCallPattern() with request error", () => {
         mockAdapter.onPost("/api/reports/interviewer-call-pattern").reply(
             () => {
                 throw new Error("Request failed");
-            }
+            },
         );
-        mockAdapter.onGet("/api/reports/call-history-status").reply(
-            200, { "last_updated": "Tue, 01 Jan 2000 10:00:00 GMT" }
-        );
+        mockAdapter.onGet("/api/reports/call-history-status").reply(200, { last_updated: "Tue, 01 Jan 2000 10:00:00 GMT" });
         MockDate.set(new Date(threeDaysFromTheNewMillennium));
     });
 
@@ -493,8 +474,8 @@ describe("function InterviewerCallPattern() with request error", () => {
 
         const wrapper = render(
             <Router history={history}>
-                <InterviewerCallPattern {...mockProps}/>
-            </Router>
+                <InterviewerCallPattern {...mockProps} />
+            </Router>,
         );
 
         await screen.findByRole("heading", { name: "Failed to run the report" });
@@ -508,8 +489,8 @@ describe("function InterviewerCallPattern() with request error", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <InterviewerCallPattern {...mockProps}/>
-                </Router>
+                    <InterviewerCallPattern {...mockProps} />
+                </Router>,
             );
         });
 

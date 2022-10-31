@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import { InterviewerCallHistoryReport } from "../../interfaces";
 import { getInterviewerCallHistoryReport } from "../../utilities/HTTP";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
@@ -22,7 +22,7 @@ function RenderInterviewerCallHistoryReport({
     interviewerFilterQuery,
     navigateBack,
     navigateBackTwoSteps,
-    questionnaires
+    questionnaires,
 }: RenderInterviewerCallHistoryReportPageProps): ReactElement {
     const [reportFailed, setReportFailed] = useState(false);
 
@@ -32,7 +32,7 @@ function RenderInterviewerCallHistoryReport({
         { label: "Serial Number", key: "serial_number" },
         { label: "Call Start Time", key: "call_start_time" },
         { label: "Call Length (Seconds)", key: "dial_secs" },
-        { label: "Call Result", key: "call_result" }
+        { label: "Call Result", key: "call_result" },
     ];
 
     async function runInterviewerCallHistoryReport(): Promise<InterviewerCallHistoryReport[]> {
@@ -51,39 +51,42 @@ function RenderInterviewerCallHistoryReport({
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={ [
+            <Breadcrumbs BreadcrumbList={[
                 { link: "/", title: "Reports" },
                 { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
-                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
-            ] }/>
+                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" },
+            ]}
+            />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call History Report</h1>
-                <FilterSummary { ...interviewerFilterQuery } questionnaires={questionnaires}/>
-                <ReportErrorPanel error={ reportFailed }/>
-                <CallHistoryLastUpdatedStatus/>
-                <br/>
+                <FilterSummary {...interviewerFilterQuery} questionnaires={questionnaires} />
+                <ReportErrorPanel error={reportFailed} />
+                <CallHistoryLastUpdatedStatus />
+                <br />
                 <LoadData
-                    dataPromise={ runInterviewerCallHistoryReport() }
-                    onError={() => setReportFailed(true) }
-                    errorMessage={ false }
+                    dataPromise={runInterviewerCallHistoryReport()}
+                    onError={() => setReportFailed(true)}
+                    errorMessage={false}
                 >
                     { (reportData) => (
                         <>
                             <CSVLink
-                                hidden={ reportData === null || reportData.length === 0 }
+                                hidden={reportData === null || reportData.length === 0}
                                 data={
-                                    reportData?.map(row => (
+                                    reportData?.map((row) => (
                                         { ...row, call_start_time: formatDateAndTime(row.call_start_time) }
                                     ))
                                 }
-                                headers={ reportExportHeaders }
+                                headers={reportExportHeaders}
                                 target="_blank"
-                                filename={ `interviewer-call-history-${ interviewerFilterQuery.interviewer }.csv` }>
+                                filename={`interviewer-call-history-${interviewerFilterQuery.interviewer}.csv`}
+                            >
                                 Export report as Comma-Separated Values (CSV) file
                             </CSVLink>
                             <CallHistoryReportTable
                                 messageNoData="No data found for parameters given."
-                                reportData={ reportData }/>
+                                reportData={reportData}
+                            />
                         </>
                     ) }
                 </LoadData>

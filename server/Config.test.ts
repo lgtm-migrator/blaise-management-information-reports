@@ -7,7 +7,7 @@ describe("Config setup", () => {
             BERT_URL: "mock-bert-url",
             BERT_CLIENT_ID: "mock-bert-client-id",
             BLAISE_API_URL: "mock-blaise-api-url",
-            ROLES: "foo,bar,fwibble"
+            ROLES: "foo,bar,fwibble",
         });
 
         const config = loadConfigFromEnv();
@@ -25,7 +25,7 @@ describe("Config setup", () => {
             BERT_URL: undefined,
             BERT_CLIENT_ID: undefined,
             BLAISE_API_URL: undefined,
-            ROLES: undefined
+            ROLES: undefined,
         });
 
         const config = loadConfigFromEnv();

@@ -9,7 +9,9 @@ export interface Config extends AuthConfig {
 }
 
 export function loadConfigFromEnv(): Config {
-    let { PROJECT_ID, BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL, SESSION_TIMEOUT } = process.env;
+    let {
+        PROJECT_ID, BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL, SESSION_TIMEOUT,
+    } = process.env;
     const { ROLES, SESSION_SECRET } = process.env;
 
     if (PROJECT_ID === undefined) {
@@ -44,7 +46,7 @@ export function loadConfigFromEnv(): Config {
         BlaiseApiUrl: BLAISE_API_URL,
         Roles: loadRoles(ROLES),
         SessionTimeout: SESSION_TIMEOUT,
-        SessionSecret: sessionSecret(SESSION_SECRET)
+        SessionSecret: sessionSecret(SESSION_SECRET),
     };
 }
 

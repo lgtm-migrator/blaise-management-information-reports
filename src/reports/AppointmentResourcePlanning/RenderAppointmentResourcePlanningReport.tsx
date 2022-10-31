@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
 import { CSVLink } from "react-csv";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSummaryReportData } from "../../interfaces";
 import { getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport } from "../../utilities/HTTP";
 import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWarning";
@@ -21,7 +21,7 @@ function formatList(listOfQuestionnaires: string[]): string {
     if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
     const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
     const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
-    return firsts.join(", ") + " and " + last;
+    return `${firsts.join(", ")} and ${last}`;
 }
 
 function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourcePlanningReportPageProps): ReactElement {
@@ -43,18 +43,16 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
         { label: "Questionnaire", key: "questionnaire_name" },
         { label: "Appointment Time", key: "appointment_time" },
         { label: "Appointment Language", key: "appointment_language" },
-        { label: "Total", key: "total" }
+        { label: "Total", key: "total" },
     ];
 
     useEffect(() => {
         runAppointmentResourcePlanningReport();
-    }, []
-    );
+    }, []);
 
     useEffect(() => {
         runAppointmentSummary();
-    }, []
-    );
+    }, []);
 
     async function runAppointmentResourcePlanningReport(): Promise<void> {
         setMessageNoData("");
@@ -68,7 +66,7 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
             setReportFailed(true);
             return;
         } finally {
-            //setSubmitting(false);
+            // setSubmitting(false);
         }
 
         if (planningReport.length === 0) {
@@ -97,32 +95,35 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
             <Breadcrumbs BreadcrumbList={[{ link: "/", title: "Reports" }, {
                 link: "#",
                 onClickFunction: navigateBackTwoSteps,
-                title: "Appointment details"
-            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}/>
+                title: "Appointment details",
+            }, { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }]}
+            />
             <main id="main-content" className="page__main u-mt-s">
 
                 <h1 className="u-mb-m">
                     Appointment Resource Planning Report
                 </h1>
                 <h3 className="u-mb-m">
-                    Date: {formatDate(reportDate)}<br/>
+                    Date: {formatDate(reportDate)}<br />
                     Questionnaire{questionnaires.length > 1 ? ("s:") : ":"} {formatList(questionnaires)}{" "}
                 </h3>
-                <AppointmentResourceDaybatchWarning/>
+                <AppointmentResourceDaybatchWarning />
 
-                <ReportErrorPanel error={reportFailed}/>
+                <ReportErrorPanel error={reportFailed} />
 
-                <AppointmentSummary data={summaryData} failed={summaryFailed}/>
+                <AppointmentSummary data={summaryData} failed={summaryFailed} />
                 <div className=" u-mt-m">
-                    <CSVLink hidden={reportData === null || reportData.length === 0}
+                    <CSVLink
+                        hidden={reportData === null || reportData.length === 0}
                         data={reportData}
                         headers={reportExportHeaders}
                         target="_blank"
-                        filename={`appointment-resource-planning-report-${reportDate}.csv`}>
+                        filename={`appointment-resource-planning-report-${reportDate}.csv`}
+                    >
                         Export report as Comma-Separated Values (CSV) file
                     </CSVLink>
                 </div>
-                <AppointmentResults reportData={reportData} messageNoData={messageNoData}/>
+                <AppointmentResults reportData={reportData} messageNoData={messageNoData} />
             </main>
         </>
     );

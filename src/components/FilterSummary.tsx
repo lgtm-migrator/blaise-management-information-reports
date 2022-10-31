@@ -8,20 +8,20 @@ interface FilterSummaryProps{
     questionnaires: string[]
 }
 
-function FilterSummary({ interviewer, startDate, endDate, questionnaires }: FilterSummaryProps): ReactElement {
+function FilterSummary({
+    interviewer, startDate, endDate, questionnaires,
+}: FilterSummaryProps): ReactElement {
     let questionaires: ReactNode = null;
     if (questionnaires.length > 0) {
-        const questionnaireHeading = `Questionnaire${ questionnaires.length > 1 ? "s" : "" }:`;
+        const questionnaireHeading = `Questionnaire${questionnaires.length > 1 ? "s" : ""}:`;
         questionaires = <>{questionnaireHeading} {formatList(questionnaires)}</>;
     }
     return (
-        <>
-            <h3 className="u-mb-m">
-                Interviewer: {interviewer}<br/>
-                Period: {formatDate(startDate)}–{formatDate(endDate)}<br/>
-                {questionaires}
-            </h3>
-        </>
+        <h3 className="u-mb-m">
+            Interviewer: {interviewer}<br />
+            Period: {formatDate(startDate)}–{formatDate(endDate)}<br />
+            {questionaires}
+        </h3>
     );
 }
 
@@ -29,7 +29,7 @@ function formatList(listOfQuestionnaires: string[]): string {
     if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
     const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
     const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
-    return firsts.join(", ") + " and " + last;
+    return `${firsts.join(", ")} and ${last}`;
 }
 
 export default FilterSummary;

@@ -4,7 +4,7 @@ import { getInterviewerCallHistoryStatus } from "../utilities/HTTP";
 import { CallHistoryStatus } from "../interfaces";
 import { formatDateAndTime } from "../utilities/DateFormatter";
 
-const CallHistoryLastUpdatedStatus = (): ReactElement => {
+function CallHistoryLastUpdatedStatus(): ReactElement {
     const [reportLastUpdatedDate, setReportLastUpdatedDate] = useState<Date | "">("");
     const [reportStatusFailed, setReportStatusFailed] = useState<boolean>(false);
 
@@ -26,24 +26,24 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
         return ` (${date})`;
     };
 
-    const ReportStatusText = () => {
+    function ReportStatusText() {
         if (reportStatusFailed) {
             return (<>Unknown</>);
         }
 
         return (
             <>
-                {<TimeAgo live={false} date={reportLastUpdatedDate}/>}
+                <TimeAgo live={false} date={reportLastUpdatedDate} />
                 {reportLastUpdatedDate ? DisplayResult() : "Loading"}
             </>
         );
-    };
+    }
 
     return (
         <>
             <p className="u-fs-s u-mt-s" aria-live="polite">
                 Data in this report was last updated: <b>
-                    <ReportStatusText/>
+                    <ReportStatusText />
                 </b>
             </p>
             <p className="u-fs-s">
@@ -51,6 +51,6 @@ const CallHistoryLastUpdatedStatus = (): ReactElement => {
             </p>
         </>
     );
-};
+}
 
 export default CallHistoryLastUpdatedStatus;

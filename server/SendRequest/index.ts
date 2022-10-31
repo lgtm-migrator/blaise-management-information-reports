@@ -10,11 +10,11 @@ export function SendAPIRequest(logger: PinoHttp.HttpLogger, req: Request, res: R
 
     return new Promise((resolve: (object: PromiseResponse) => void) => {
         axios({
-            url: url,
-            method: method,
-            data: data,
+            url,
+            method,
+            data,
             headers,
-            validateStatus: function (status) {
+            validateStatus(status) {
                 return status >= 200;
             },
         }).then((response) => {

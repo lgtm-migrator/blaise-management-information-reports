@@ -6,7 +6,7 @@ const CATI_URL = process.env.CATI_URL;
 export async function setupAppointment(page: Page, questionnaireName: string, userCredentials: NewUser): Promise<void> {
     console.log(`Attempting to set up an appointment for questionnaire ${questionnaireName}`);
 
-    await new Promise(f => setTimeout(f, 20000));
+    await new Promise((f) => setTimeout(f, 20000));
 
     await loginCATI(page, userCredentials);
     await page.click(".nav li:has-text('Case Info')");
@@ -36,7 +36,7 @@ export async function clearCATIData(page: Page, questionnaireName: string, userC
     try {
         console.log(`Attempting to clear down CATI data for questionnaire ${questionnaireName}`);
 
-        await new Promise(f => setTimeout(f, 20000));
+        await new Promise((f) => setTimeout(f, 20000));
         await loginCATI(page, userCredentials);
         await page.click(".nav li:has-text('Surveys')");
         await filterCATIQuestionnaire(page, questionnaireName);
