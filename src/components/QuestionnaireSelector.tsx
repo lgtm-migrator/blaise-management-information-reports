@@ -1,5 +1,5 @@
 import { ONSPanel, StyledForm } from "blaise-design-system-react-components";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback } from "react";
 
 interface QuestionnaireSelectorProps {
     questionnaires: string[];
@@ -14,10 +14,13 @@ function QuestionnaireSelector({
     setSelectedQuestionnaires,
     onSubmit,
 }: QuestionnaireSelectorProps): ReactElement {
-    function handleSubmit(values: any) {
-        setSelectedQuestionnaires(values.questionnaires);
-        onSubmit();
-    }
+    const handleSubmit = useCallback(
+        (values: any) => {
+            setSelectedQuestionnaires(values.questionnaires);
+            onSubmit();
+        },
+        [setSelectedQuestionnaires, onSubmit],
+    );
 
     function displayCheckboxes(items: string[]) {
         if (items.length === 0) {

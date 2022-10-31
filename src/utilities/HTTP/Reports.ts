@@ -115,6 +115,7 @@ async function getAppointmentResourcePlanningReport(date: Date, survey_tla: stri
         if (response.status === 200) {
             return response.data;
         }
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw "Response was not 200";
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);
@@ -134,6 +135,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tl
         if (response.status === 200) {
             return response.data;
         }
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw "Response was not 200";
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);

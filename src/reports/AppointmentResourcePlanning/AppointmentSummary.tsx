@@ -13,6 +13,7 @@ function AppointmentSummary({ data, failed }: Props): ReactElement {
     }
 
     if (data.length === 0) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
 

@@ -23,6 +23,7 @@ interface RenderInterviewerCallPatternReportPageProps {
 
 function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
     if (!numerator) {
+        // eslint-disable-next-line no-param-reassign
         numerator = 0;
     }
     if (denominator === 0 || denominator === undefined) {
@@ -97,6 +98,7 @@ function groupData(callPatternReport: InterviewerCallPatternReport) {
 function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElement {
     console.log(invalidFields);
     if (!invalidFields.records.discounted_invalid_cases) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
     const total = `${invalidFields.records.discounted_invalid_cases}/${invalidFields.records.total_records}`;
@@ -114,6 +116,7 @@ function DownloadCSVLink(
     { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string },
 ): ReactElement {
     if (groupedSummary.groups.length === 0) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
 
@@ -136,6 +139,7 @@ function ReportData(
     }
 
     if (groupedSummary.groups.length === 0) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
 
@@ -193,7 +197,7 @@ function RenderInterviewerCallPatternReport({
                 <ReportData groupedSummary={groupedSummary} summaryState={state} />
             </>
         ),
-        [],
+        [interviewerFilterQuery.interviewer],
     );
 
     return (

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback } from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
 import SurveyInterviewerStartDateEndDateForm from "../../components/SurveyInterviewerStartDateEndDateForm";
@@ -23,15 +23,18 @@ function InterviewerFilter({
     onSubmit,
     title,
 }: InterviewerFilterPageProps): ReactElement {
-    async function submitInterviewerFilters(formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> {
-        setSubmitting(true);
-        onSubmit({
-            interviewer: formValues["Interviewer ID"],
-            startDate: new Date(formValues["Start date"]),
-            endDate: new Date(formValues["End date"]),
-            surveyTla: formValues["Survey TLA"],
-        });
-    }
+    const submitInterviewerFilters = useCallback(
+        async (formValues: Record<string, any>, setSubmitting: (isSubmitting: boolean) => void): Promise<void> => {
+            setSubmitting(true);
+            onSubmit({
+                interviewer: formValues["Interviewer ID"],
+                startDate: new Date(formValues["Start date"]),
+                endDate: new Date(formValues["End date"]),
+                surveyTla: formValues["Survey TLA"],
+            });
+        },
+        [onSubmit],
+    );
 
     return (
         <div>

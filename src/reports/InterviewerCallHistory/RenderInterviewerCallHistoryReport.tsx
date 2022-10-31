@@ -59,7 +59,12 @@ function RenderInterviewerCallHistoryReport({
             />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call History Report</h1>
-                <FilterSummary {...interviewerFilterQuery} questionnaires={questionnaires} />
+                <FilterSummary
+                    interviewer={interviewerFilterQuery.interviewer}
+                    startDate={interviewerFilterQuery.startDate}
+                    endDate={interviewerFilterQuery.endDate}
+                    questionnaires={questionnaires}
+                />
                 <ReportErrorPanel error={reportFailed} />
                 <CallHistoryLastUpdatedStatus />
                 <br />

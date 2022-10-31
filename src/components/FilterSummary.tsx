@@ -8,6 +8,13 @@ interface FilterSummaryProps{
     questionnaires: string[]
 }
 
+function formatList(listOfQuestionnaires: string[]): string {
+    if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
+    const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
+    const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
+    return `${firsts.join(", ")} and ${last}`;
+}
+
 function FilterSummary({
     interviewer, startDate, endDate, questionnaires,
 }: FilterSummaryProps): ReactElement {
@@ -23,13 +30,6 @@ function FilterSummary({
             {questionaires}
         </h3>
     );
-}
-
-function formatList(listOfQuestionnaires: string[]): string {
-    if (listOfQuestionnaires.length === 1) return listOfQuestionnaires[0];
-    const firsts = listOfQuestionnaires.slice(0, listOfQuestionnaires.length - 1);
-    const last = listOfQuestionnaires[listOfQuestionnaires.length - 1];
-    return `${firsts.join(", ")} and ${last}`;
 }
 
 export default FilterSummary;

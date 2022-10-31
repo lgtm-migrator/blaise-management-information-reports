@@ -45,7 +45,12 @@ function QuestionnaireFilter({
             />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Select questionnaires for</h1>
-                <FilterSummary {...interviewerFilterQuery} questionnaires={questionnaires} />
+                <FilterSummary
+                    interviewer={interviewerFilterQuery.interviewer}
+                    startDate={interviewerFilterQuery.startDate}
+                    endDate={interviewerFilterQuery.endDate}
+                    questionnaires={questionnaires}
+                />
                 <CallHistoryLastUpdatedStatus />
                 <LoadData
                     dataPromise={getQuestionnaireList(

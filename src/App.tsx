@@ -1,4 +1,6 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, {
+    ReactElement, ReactNode, useCallback, useEffect, useMemo, useState,
+} from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import {
     BetaBanner,
@@ -19,7 +21,7 @@ const divStyle = {
 };
 
 function App(): ReactElement {
-    const authManager = new AuthManager();
+    const authManager = useMemo(() => new AuthManager(), []);
     const location = useLocation();
     const [loaded, setLoaded] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
@@ -32,21 +34,21 @@ function App(): ReactElement {
         });
     });
 
-    function loginPage(): ReactElement {
+    function loginPage(): ReactNode {
         if (loaded && loggedIn) {
-            return <></>;
+            return null;
         }
         return <LoginForm authManager={authManager} setLoggedIn={setLoggedIn} />;
     }
 
-    function signOut(): void {
+    const signOut = useCallback((): void => {
         authManager.clearToken();
         setLoggedIn(false);
-    }
+    }, [authManager, setLoggedIn]);
 
-    function loading(): ReactElement {
+    function loading(): ReactNode {
         if (loaded) {
-            return <></>;
+            return null;
         }
         return <ONSLoadingPanel />;
     }

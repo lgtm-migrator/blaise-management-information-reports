@@ -5,7 +5,7 @@ import { AppointmentResourcePlanningReportData, AppointmentResourcePlanningSumma
 import { getAppointmentResourcePlanningReport, getAppointmentResourcePlanningSummaryReport } from "../../utilities/HTTP";
 import AppointmentResourceDaybatchWarning from "./AppointmentResourceDaybatchWarning";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
-import { AppointmentResults } from "./AppointmentResults";
+import AppointmentResults from "./AppointmentResults";
 import AppointmentSummary from "./AppointmentSummary";
 import { formatDate } from "../../utilities/DateFormatter";
 
@@ -47,48 +47,48 @@ function RenderAppointmentResourcePlanningReport(props: RenderAppointmentResourc
     ];
 
     useEffect(() => {
+        async function runAppointmentResourcePlanningReport(): Promise<void> {
+            setMessageNoData("");
+            setReportFailed(false);
+            setReportData([]);
+
+            let planningReport: AppointmentResourcePlanningReportData[];
+            try {
+                planningReport = await getAppointmentResourcePlanningReport(reportDate, surveyTla, questionnaires);
+            } catch {
+                setReportFailed(true);
+                return;
+            } finally {
+                // setSubmitting(false);
+            }
+
+            if (planningReport.length === 0) {
+                setMessageNoData("No data found for parameters given.");
+                return;
+            }
+
+            console.log(planningReport);
+            setReportData(planningReport);
+        }
+
         runAppointmentResourcePlanningReport();
-    }, []);
+    }, [questionnaires, reportDate, surveyTla]);
 
     useEffect(() => {
+        async function runAppointmentSummary(): Promise<void> {
+            setSummaryData([]);
+            setSummaryFailed(false);
+            getAppointmentResourcePlanningSummaryReport(reportDate, surveyTla, questionnaires)
+                .then((summaryReport: AppointmentResourcePlanningSummaryReportData[]) => {
+                    console.log(summaryReport);
+                    setSummaryData(summaryReport);
+                }).catch(() => {
+                    setSummaryFailed(true);
+                });
+        }
+
         runAppointmentSummary();
-    }, []);
-
-    async function runAppointmentResourcePlanningReport(): Promise<void> {
-        setMessageNoData("");
-        setReportFailed(false);
-        setReportData([]);
-
-        let planningReport: AppointmentResourcePlanningReportData[];
-        try {
-            planningReport = await getAppointmentResourcePlanningReport(reportDate, surveyTla, questionnaires);
-        } catch {
-            setReportFailed(true);
-            return;
-        } finally {
-            // setSubmitting(false);
-        }
-
-        if (planningReport.length === 0) {
-            setMessageNoData("No data found for parameters given.");
-            return;
-        }
-
-        console.log(planningReport);
-        setReportData(planningReport);
-    }
-
-    async function runAppointmentSummary(): Promise<void> {
-        setSummaryData([]);
-        setSummaryFailed(false);
-        getAppointmentResourcePlanningSummaryReport(reportDate, surveyTla, questionnaires)
-            .then((summaryReport: AppointmentResourcePlanningSummaryReportData[]) => {
-                console.log(summaryReport);
-                setSummaryData(summaryReport);
-            }).catch(() => {
-                setSummaryFailed(true);
-            });
-    }
+    }, [questionnaires, reportDate, surveyTla]);
 
     return (
         <>

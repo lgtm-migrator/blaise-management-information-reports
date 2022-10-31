@@ -45,16 +45,16 @@ describe("LoadData", () => {
         it("does not display the loading spinner", async () => {
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                 >{ display }</LoadData>,
             );
-            expect(await screen.findByText("There was an error")).toBeVisible();
+            expect(await screen.findByText("Error: There was an error")).toBeVisible();
         });
 
         it("displays the errorMessage if provided", async () => {
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                     errorMessage="Custom error message"
                 >{ display }</LoadData>,
             );
@@ -64,41 +64,41 @@ describe("LoadData", () => {
         it("displays formatted errorMessage if provided", async () => {
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                     errorMessage={(error) => `ERROR: ${error}`}
                 >{ display }</LoadData>,
             );
-            expect(await screen.findByText("ERROR: There was an error")).toBeVisible();
+            expect(await screen.findByText("ERROR: Error: There was an error")).toBeVisible();
         });
 
         it("displays a dynamic JSX errorMessage if provided", async () => {
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                     errorMessage={(error) => <strong>HTML ERROR: {error.toString()} </strong>}
                 >{ display }</LoadData>,
             );
-            expect(await screen.findByText("HTML ERROR: There was an error")).toBeVisible();
+            expect(await screen.findByText("HTML ERROR: Error: There was an error")).toBeVisible();
         });
 
         it("displays turns off the error message if given false", async () => {
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                     errorMessage={false}
                 >{ display }</LoadData>,
             );
             await waitFor(() => { expect(screen.queryByText("Loading")).not.toBeInTheDocument(); });
-            expect(screen.queryByText("There was an error")).not.toBeInTheDocument();
+            expect(screen.queryByText(/There was an error/)).not.toBeInTheDocument();
         });
 
         it("does not display the loading spinner", async () => {
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                 >{ display }</LoadData>,
             );
-            await screen.findByText("There was an error");
+            await screen.findByText("Error: There was an error");
             expect(screen.queryByText("Loading")).not.toBeInTheDocument();
         });
 
@@ -106,12 +106,12 @@ describe("LoadData", () => {
             const onError = jest.fn();
             render(
                 <LoadData
-                    dataPromise={Promise.reject("There was an error")}
+                    dataPromise={Promise.reject(new Error("There was an error"))}
                     onError={onError}
                 >{ display }</LoadData>,
             );
-            await screen.findByText("There was an error");
-            expect(onError).toHaveBeenCalledWith("There was an error");
+            await screen.findByText("Error: There was an error");
+            expect(onError).toHaveBeenCalledWith(new Error("There was an error"));
         });
     });
 

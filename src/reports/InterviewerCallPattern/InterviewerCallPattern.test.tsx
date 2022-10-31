@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 import "@testing-library/jest-dom";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
