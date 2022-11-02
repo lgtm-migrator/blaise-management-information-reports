@@ -7,20 +7,22 @@ interface ReportDetailsProps {
     description: string
 }
 
-function ReportDetails(ReportDetailsProps: ReportDetailsProps): ReactElement {
+function ReportDetails({
+    description,
+    link,
+    title,
+}: ReportDetailsProps): ReactElement {
     return (
-        <>
-            <div className="grid__col col-6@m">
-                <div className="card" aria-labelledby={ReportDetailsProps.link} aria-describedby={`${ReportDetailsProps.link}-text`}>
-                    <h2 className="u-fs-m" id={ReportDetailsProps.link}>
-                        <Link to={ReportDetailsProps.link}>
-                            {ReportDetailsProps.title}
-                        </Link>
-                    </h2>
-                    <p id="interviewer-call-history-text">{ReportDetailsProps.description}</p>
-                </div>
+        <div className="grid__col col-6@m">
+            <div className="card" aria-labelledby={link} aria-describedby={`${link}-text`}>
+                <h2 className="u-fs-m" id={link}>
+                    <Link to={link}>
+                        {title}
+                    </Link>
+                </h2>
+                <p id="interviewer-call-history-text">{description}</p>
             </div>
-        </>
+        </div>
     );
 }
 

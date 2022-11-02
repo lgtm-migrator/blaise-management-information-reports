@@ -3,13 +3,13 @@
  */
 
 import "@testing-library/jest-dom";
-import QuestionnaireSelector from "./QuestionnaireSelector";
 import React from "react";
 import { render, RenderResult, waitFor } from "@testing-library/react";
 import { fireEvent, screen } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import QuestionnaireSelector from "./QuestionnaireSelector";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -18,6 +18,17 @@ describe("QuestionnaireSelector tests", () => {
     let setSelectedQuestionnaires: (questionnaires: string[]) => void;
     let submit: () => void;
     let view: RenderResult;
+
+    function renderComponent() {
+        return render(
+            <QuestionnaireSelector
+                questionnaires={questionnairesReturned}
+                selectedQuestionnaires={["LMS2101_AA1"]}
+                setSelectedQuestionnaires={setSelectedQuestionnaires}
+                onSubmit={submit}
+            />,
+        );
+    }
 
     beforeEach(async () => {
         setSelectedQuestionnaires = jest.fn();
@@ -30,16 +41,6 @@ describe("QuestionnaireSelector tests", () => {
     afterEach(() => {
         mockAdapter.reset();
     });
-
-    function renderComponent() {
-        return render(
-            <QuestionnaireSelector
-                questionnaires={questionnairesReturned}
-                selectedQuestionnaires={ ["LMS2101_AA1"] }
-                setSelectedQuestionnaires={ setSelectedQuestionnaires }
-                onSubmit={ submit }/>
-        );
-    }
 
     it("matches snapshot", async () => {
         mockAdapter.onPost("/api/questionnaires").reply(200, questionnairesReturned);
@@ -122,4 +123,3 @@ describe("QuestionnaireSelector tests", () => {
         });
     });
 });
-

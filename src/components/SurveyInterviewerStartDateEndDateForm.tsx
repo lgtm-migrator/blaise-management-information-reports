@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 import { StyledForm } from "blaise-design-system-react-components";
-import { EndDateField, InterviewerField, StartDateField, SurveyField } from "./FormFields";
+import {
+    EndDateField, InterviewerField, StartDateField, SurveyField,
+} from "./FormFields";
 
 interface Props {
     interviewer: string | undefined
@@ -10,14 +12,13 @@ interface Props {
     onSubmit: (values: any, setSubmitting: (isSubmitting: boolean) => void) => void;
 }
 
-const SurveyInterviewerStartDateEndDateForm = ({
+function SurveyInterviewerStartDateEndDateForm({
     interviewer,
     surveyTLA,
     startDate,
     endDate,
-    onSubmit
-}: Props): ReactElement => {
-
+    onSubmit,
+}: Props): ReactElement {
     const fields = [
         SurveyField(surveyTLA),
         InterviewerField(interviewer),
@@ -26,8 +27,8 @@ const SurveyInterviewerStartDateEndDateForm = ({
     ];
 
     return (
-        <><StyledForm fields={fields} onSubmitFunction={onSubmit} submitLabel={"Next"}/></>
+        <StyledForm fields={fields} onSubmitFunction={onSubmit} submitLabel="Next" />
     );
-};
+}
 
 export default SurveyInterviewerStartDateEndDateForm;

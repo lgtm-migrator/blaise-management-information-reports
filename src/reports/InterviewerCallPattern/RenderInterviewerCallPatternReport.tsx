@@ -1,8 +1,12 @@
-import React, { ReactElement, ReactNode, useCallback, useState } from "react";
+import React, {
+    ReactElement, ReactNode, useCallback, useState,
+} from "react";
+import {
+    Group, GroupedSummary, ONSPanel, SummaryGroupTable,
+} from "blaise-design-system-react-components";
+import { CSVLink } from "react-csv";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CallHistoryLastUpdatedStatus from "../../components/CallHistoryLastUpdatedStatus";
-import { Group, GroupedSummary, ONSPanel, SummaryGroupTable } from "blaise-design-system-react-components";
-import { CSVLink } from "react-csv";
 import ReportErrorPanel from "../../components/ReportErrorPanel";
 import { InterviewerCallPatternReport } from "../../interfaces";
 import { getInterviewerCallPatternReport } from "../../utilities/HTTP";
@@ -19,13 +23,14 @@ interface RenderInterviewerCallPatternReportPageProps {
 
 function formatToFractionAndPercentage(numerator: number | undefined, denominator: number | undefined): string {
     if (!numerator) {
+        // eslint-disable-next-line no-param-reassign
         numerator = 0;
     }
     if (denominator === 0 || denominator === undefined) {
         console.warn("Cannot divide by 0");
         return "0/0, 0%";
     }
-    return `${ numerator }/${ denominator }, ${ (numerator / denominator * 100).toFixed(2) }%`;
+    return `${numerator}/${denominator}, ${(numerator / denominator * 100).toFixed(2)}%`;
 }
 
 function callTimeSection(callPatternReport: InterviewerCallPatternReport): Group {
@@ -34,9 +39,9 @@ function callTimeSection(callPatternReport: InterviewerCallPatternReport): Group
         records: {
             hours_worked: callPatternReport.hours_worked,
             call_time: callPatternReport.call_time,
-            hours_on_calls_percentage: `${ (callPatternReport.hours_on_calls_percentage || 0).toFixed(2) }%`,
-            average_calls_per_hour: callPatternReport.average_calls_per_hour
-        }
+            hours_on_calls_percentage: `${(callPatternReport.hours_on_calls_percentage || 0).toFixed(2)}%`,
+            average_calls_per_hour: callPatternReport.average_calls_per_hour,
+        },
     };
 }
 
@@ -50,7 +55,7 @@ function callStatusSection(callPatternReport: InterviewerCallPatternReport): Gro
             web_nudge: formatToFractionAndPercentage(callPatternReport.web_nudge, callPatternReport.total_valid_cases),
             no_contacts: formatToFractionAndPercentage(callPatternReport.no_contacts, callPatternReport.total_valid_cases),
             discounted_invalid_cases: formatToFractionAndPercentage(callPatternReport.discounted_invalid_cases, callPatternReport.total_records),
-        }
+        },
     };
 }
 
@@ -64,7 +69,7 @@ function noContactBreakdownSection(callPatternReport: InterviewerCallPatternRepo
             no_answer: formatToFractionAndPercentage(callPatternReport.no_contact_no_answer, callPatternReport.no_contacts),
             invalid_telephone_number: formatToFractionAndPercentage(callPatternReport.no_contact_invalid_telephone_number, callPatternReport.no_contacts),
             other: formatToFractionAndPercentage(callPatternReport.no_contact_other, callPatternReport.no_contacts),
-        }
+        },
     };
 }
 
@@ -74,8 +79,8 @@ function invalidFieldsGroup(callPatternReport: InterviewerCallPatternReport): Gr
         records: {
             invalid_fields: callPatternReport.invalid_fields,
             discounted_invalid_cases: callPatternReport.discounted_invalid_cases,
-            total_records: callPatternReport.total_records
-        }
+            total_records: callPatternReport.total_records,
+        },
     };
 }
 
@@ -93,9 +98,10 @@ function groupData(callPatternReport: InterviewerCallPatternReport) {
 function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElement {
     console.log(invalidFields);
     if (!invalidFields.records.discounted_invalid_cases) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
-    const total = `${ invalidFields.records.discounted_invalid_cases }/${ invalidFields.records.total_records }`;
+    const total = `${invalidFields.records.discounted_invalid_cases}/${invalidFields.records.total_records}`;
     const percentage = invalidFields.records.discounted_invalid_cases / invalidFields.records.total_records * 100;
 
     return (
@@ -107,45 +113,46 @@ function InvalidCaseInfo({ invalidFields }: { invalidFields: Group }): ReactElem
 }
 
 function DownloadCSVLink(
-    { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string }
+    { groupedSummary, filename }: { groupedSummary: GroupedSummary, filename: string },
 ): ReactElement {
     if (groupedSummary.groups.length === 0) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
 
     return (
         <CSVLink
-            data={ groupedSummary.csv() }
+            data={groupedSummary.csv()}
             target="_blank"
-            filename={ filename }>
+            filename={filename}
+        >
             Export report as Comma-Separated Values (CSV) file
         </CSVLink>
     );
 }
 
 function ReportData(
-    { groupedSummary, summaryState }: { groupedSummary: GroupedSummary, summaryState: SummaryState }
+    { groupedSummary, summaryState }: { groupedSummary: GroupedSummary, summaryState: SummaryState },
 ): ReactElement {
     if (summaryState === "no_data") {
         return <ONSPanel>No data found for parameters given.</ONSPanel>;
     }
 
     if (groupedSummary.groups.length === 0) {
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
 
     return (
-        <>
-            <div className="summary u-mt-m">
-                <div className="summary__group" id="report-table">
-                    <SummaryGroupTable groupedSummary={ groupedSummary }/>
-                </div>
+        <div className="summary u-mt-m">
+            <div className="summary__group" id="report-table">
+                <SummaryGroupTable groupedSummary={groupedSummary} />
             </div>
-        </>
+        </div>
     );
 }
 
-type SummaryState = "no_data" | "all_invalid_fields" | "loaded"
+type SummaryState = "no_data" | "all_invalid_fields" | "loaded";
 
 function RenderInterviewerCallPatternReport({
     interviewerFilterQuery,
@@ -183,32 +190,34 @@ function RenderInterviewerCallPatternReport({
         ([state, groupedSummary, invalidFields]: [SummaryState, GroupedSummary, Group]): ReactNode => (
             <>
                 <DownloadCSVLink
-                    groupedSummary={ groupedSummary }
-                    filename={ `interviewer-call-pattern-${ interviewerFilterQuery.interviewer }.csv` }/>
-                <InvalidCaseInfo invalidFields={ invalidFields }/>
-                <ReportData groupedSummary={ groupedSummary } summaryState={ state }/>
+                    groupedSummary={groupedSummary}
+                    filename={`interviewer-call-pattern-${interviewerFilterQuery.interviewer}.csv`}
+                />
+                <InvalidCaseInfo invalidFields={invalidFields} />
+                <ReportData groupedSummary={groupedSummary} summaryState={state} />
             </>
         ),
-        []
+        [interviewerFilterQuery.interviewer],
     );
 
     return (
         <>
-            <Breadcrumbs BreadcrumbList={ [
+            <Breadcrumbs BreadcrumbList={[
                 { link: "/", title: "Reports" },
                 { link: "#", onClickFunction: navigateBackTwoSteps, title: "Interviewer details" },
-                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" }
-            ] }/>
+                { link: "#", onClickFunction: navigateBack, title: "Questionnaires" },
+            ]}
+            />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Call Pattern Report</h1>
                 <FilterSummary
-                    interviewer={ interviewerFilterQuery.interviewer }
-                    startDate={ interviewerFilterQuery.startDate }
-                    endDate={ interviewerFilterQuery.endDate }
-                    questionnaires={ questionnaires }
+                    interviewer={interviewerFilterQuery.interviewer}
+                    startDate={interviewerFilterQuery.startDate}
+                    endDate={interviewerFilterQuery.endDate}
+                    questionnaires={questionnaires}
                 />
-                <ReportErrorPanel error={ reportFailed }/>
-                <CallHistoryLastUpdatedStatus/>
+                <ReportErrorPanel error={reportFailed} />
+                <CallHistoryLastUpdatedStatus />
                 <div className="u-mb-m">
                     <ONSPanel>
                         <p>
@@ -223,12 +232,13 @@ function RenderInterviewerCallPatternReport({
                         </p>
                     </ONSPanel>
                 </div>
-                <br/>
+                <br />
                 <LoadData
-                    dataPromise={ runInterviewerCallPatternReport() }
-                    onError={() => setReportFailed(true) }
-                    errorMessage={ false }>{ displayReport }</LoadData>
-                <br/>
+                    dataPromise={runInterviewerCallPatternReport()}
+                    onError={() => setReportFailed(true)}
+                    errorMessage={false}
+                >{ displayReport }</LoadData>
+                <br />
             </main>
         </>
     );
@@ -239,6 +249,6 @@ export {
     callStatusSection,
     noContactBreakdownSection,
     invalidFieldsGroup,
-    isAllInvalid
+    isAllInvalid,
 };
 export default RenderInterviewerCallPatternReport;

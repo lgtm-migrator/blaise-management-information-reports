@@ -8,11 +8,10 @@ import { render, RenderResult, waitFor } from "@testing-library/react";
 import { Router } from "react-router";
 import { screen } from "@testing-library/dom";
 import React from "react";
-import InterviewerFilter, { InterviewerFilterQuery } from "./InterviewerFilter";
 import userEvent from "@testing-library/user-event";
+import InterviewerFilter, { InterviewerFilterQuery } from "./InterviewerFilter";
 
 describe("the interviewer details page renders correctly", () => {
-
     let submitFunction: () => void;
 
     let view: RenderResult;
@@ -30,12 +29,13 @@ describe("the interviewer details page renders correctly", () => {
         };
 
         view = render(
-            <Router history={ history }>
+            <Router history={history}>
                 <InterviewerFilter
                     title=""
-                    query={ initialQuery }
-                    onSubmit={ submitFunction }/>
-            </Router>
+                    query={initialQuery}
+                    onSubmit={submitFunction}
+                />
+            </Router>,
         );
     });
 

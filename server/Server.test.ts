@@ -1,6 +1,4 @@
-import { newServer } from "./Server";
 import supertest from "supertest";
-import { Config } from "./Config";
 import BlaiseIapNodeProvider from "blaise-iap-node-provider";
 import BlaiseApiClient from "blaise-api-node-client";
 import { Auth } from "blaise-login-react-server";
@@ -11,6 +9,8 @@ import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { Config } from "./Config";
+import { newServer } from "./Server";
 
 dateFormatter.extend(customParseFormat);
 dateFormatter.extend(utc);
@@ -23,16 +23,16 @@ const config : Config = {
     BlaiseApiUrl: "",
     SessionSecret: "",
     SessionTimeout: "",
-    Roles: []
+    Roles: [],
 };
 
 const mockAuthProvider : BlaiseIapNodeProvider = {
     CLIENT_ID: undefined,
     token: undefined,
     getAuthHeader: async function (): Promise<{ Authorization: string; }> {
-        return { Authorization : "example token" };
+        return { Authorization: "example token" };
     },
-    isValidToken: undefined
+    isValidToken: undefined,
 } as unknown as BlaiseIapNodeProvider;
 
 const blaiseApiClient = new BlaiseApiClient(config.BlaiseApiUrl);
@@ -41,7 +41,7 @@ const mockAuth: Auth = {
         SessionSecret: "",
         SessionTimeout: "",
         Roles: [],
-        BlaiseApiUrl: ""
+        BlaiseApiUrl: "",
     },
     SignToken: function (): string {
         throw new Error("Function not implemented.");
@@ -54,7 +54,7 @@ const mockAuth: Auth = {
     },
     Middleware: async function (request: Request, response: Response, next: NextFunction): Promise<void | Response> {
         next();
-    }
+    },
 };
 
 const app = newServer(config, mockAuthProvider, mockAuth, blaiseApiClient);

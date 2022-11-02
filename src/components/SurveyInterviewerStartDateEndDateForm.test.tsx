@@ -3,15 +3,15 @@
  */
 
 import "@testing-library/jest-dom";
-import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import SurveyInterviewerStartDateEndDateForm from "./SurveyInterviewerStartDateEndDateForm";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
+import SurveyInterviewerStartDateEndDateForm from "./SurveyInterviewerStartDateEndDateForm";
+import flushPromises from "../tests/utilities";
 
 const christmasEve97 = "1997-12-24";
 
@@ -29,12 +29,13 @@ describe("form - survey, interviewer, start date, end date", () => {
         const wrapper = render(
             <Router history={history}>
                 <SurveyInterviewerStartDateEndDateForm
-                    interviewer={""}
-                    surveyTLA={""}
+                    interviewer=""
+                    surveyTLA=""
                     startDate={new Date()}
                     endDate={new Date()}
-                    onSubmit={() => {return true;}} />
-            </Router>
+                    onSubmit={() => true}
+                />
+            </Router>,
         );
 
         await act(async () => {
@@ -50,12 +51,13 @@ describe("form - survey, interviewer, start date, end date", () => {
             render(
                 <Router history={history}>
                     <SurveyInterviewerStartDateEndDateForm
-                        interviewer={""}
-                        surveyTLA={""}
+                        interviewer=""
+                        surveyTLA=""
                         startDate={new Date()}
                         endDate={new Date()}
-                        onSubmit={() => {return true;}} />
-                </Router>
+                        onSubmit={() => true}
+                    />
+                </Router>,
             );
         });
         expect(screen.queryByText("Select survey")).toBeVisible();
@@ -68,6 +70,5 @@ describe("form - survey, interviewer, start date, end date", () => {
         expect(screen.queryByText("Start date")).toBeVisible();
         expect(screen.queryByText("End date")).toBeVisible();
         expect(screen.queryByText("Next")).toBeVisible();
-
     });
 });

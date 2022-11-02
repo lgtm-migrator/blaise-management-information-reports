@@ -6,28 +6,26 @@ import { defineFeature, loadFeature } from "jest-cucumber";
 import { createMemoryHistory } from "history";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Router } from "react-router-dom";
-import App from "../../App";
 import React from "react";
 import { fireEvent } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
-import flushPromises from "../../tests/utilities";
-import { AppointmentResourcePlanningReportData } from "../../interfaces";
 import { AuthManager } from "blaise-login-react-client";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
+import { AppointmentResourcePlanningReportData } from "../../interfaces";
+import flushPromises from "../../tests/utilities";
+import App from "../../App";
 import "@testing-library/jest-dom";
 
 const mockAdapter = new MockAdapter(axios);
 
 jest.mock("blaise-login-react-client");
-AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
-    return Promise.resolve(true);
-});
+AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => Promise.resolve(true));
 
 const feature = loadFeature(
     "./src/features/run_and_view_appointment_resource_planning_report.feature",
-    { tagFilter: "not @server and not @integration" }
+    { tagFilter: "not @server and not @integration" },
 );
 
 const reportDataReturned: AppointmentResourcePlanningReportData[] = [
@@ -35,20 +33,20 @@ const reportDataReturned: AppointmentResourcePlanningReportData[] = [
         questionnaire_name: "LMS2101_AA1",
         appointment_time: "10:00",
         appointment_language: "English",
-        total: 42
+        total: 42,
     },
     {
         questionnaire_name: "LMS2101_BB1",
         appointment_time: "12:30",
         appointment_language: "Welsh",
-        total: 1908
+        total: 1908,
     },
     {
         questionnaire_name: "LMS2101_CC1",
         appointment_time: "15:15",
         appointment_language: "Other",
-        total: 408
-    }
+        total: 408,
+    },
 ];
 
 const ReportSummary = [
@@ -59,7 +57,7 @@ const ReportSummary = [
 
 const questionnairesReturned = ["LMS2101_AA1", "LMS2101_BB1", "LMS2101_CC1"];
 
-defineFeature(feature, test => {
+defineFeature(feature, (test) => {
     beforeEach(() => {
         mockAdapter.onPost("/api/reports/appointment-resource-planning-summary").reply(200, ReportSummary);
         mockAdapter.onPost("/api/reports/appointment-resource-planning/").reply(200, reportDataReturned);
@@ -70,13 +68,15 @@ defineFeature(feature, test => {
         mockAdapter.reset();
     });
 
-    test("Run and view appointment resource planning report", ({ given, when, then, and }) => {
+    test("Run and view appointment resource planning report", ({
+        given, when, then, and,
+    }) => {
         given("A survey tla and date has been specified", async () => {
             const history = createMemoryHistory();
             render(
                 <Router history={history}>
                     <App />
-                </Router>
+                </Router>,
             );
 
             await act(async () => {
@@ -97,8 +97,8 @@ defineFeature(feature, test => {
 
             fireEvent.input(screen.getByLabelText(/Date/i), {
                 target: {
-                    value: "2021-01-01"
-                }
+                    value: "2021-01-01",
+                },
             });
         });
 
@@ -136,5 +136,4 @@ defineFeature(feature, test => {
             expect(screen.getByText("10:00")).toBeInTheDocument();
         });
     });
-
 });

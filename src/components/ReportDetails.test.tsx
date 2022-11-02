@@ -3,18 +3,18 @@ import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import ReportDetails from "./ReportDetails";
 import { act } from "react-dom/test-utils";
-import flushPromises from "../tests/utilities";
 import { screen } from "@testing-library/dom";
+import ReportDetails from "./ReportDetails";
+import flushPromises from "../tests/utilities";
 
 describe("ReportDetails", () => {
     it("matches snapshot", async () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <ReportDetails link=""title="" description="" />
-            </Router>
+                <ReportDetails link="" title="" description="" />
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -28,7 +28,7 @@ describe("ReportDetails", () => {
             render(
                 <Router history={history}>
                     <ReportDetails link="blah-link" title="blah-title" description="blah-description" />
-                </Router>
+                </Router>,
             );
         });
         expect(screen.queryByText("blah-title")).toBeVisible();

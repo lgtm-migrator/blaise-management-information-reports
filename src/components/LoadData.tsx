@@ -1,7 +1,10 @@
+// eslint-disable-next-line max-classes-per-file
 import { ONSLoadingPanel, ONSPanel } from "blaise-design-system-react-components";
-import React, { ReactElement, ReactNode, useEffect, useState } from "react";
+import React, {
+    ReactElement, ReactNode, useEffect, useState,
+} from "react";
 
-export type DataRenderer<T> = (data: T) => ReactNode
+export type DataRenderer<T> = (data: T) => ReactNode;
 
 interface LoaderProps<T> {
     dataPromise: Promise<T>;
@@ -20,35 +23,36 @@ class ErroredState {
     constructor(public readonly error: Error) {}
 }
 
-type LoadState<T> = LoadingState | LoadedState<T> | ErroredState
+type LoadState<T> = LoadingState | LoadedState<T> | ErroredState;
 
-export function LoadData<T>({ children, dataPromise, errorMessage, onError }: LoaderProps<T>): ReactElement {
+export function LoadData<T>({
+    children, dataPromise, errorMessage = undefined, onError = undefined,
+}: LoaderProps<T>): ReactElement {
     const [loadState, setLoadState] = useState<LoadState<T>>(new LoadingState());
 
-    async function loadData() {
-        setLoadState(new LoadedState(await dataPromise));
-    }
-
-    function setErroredState(error: Error): void {
-        if (onError) {
-            onError(error);
-        }
-        setLoadState(new ErroredState(error));
-    }
-
     useEffect(() => {
+        async function loadData() {
+            setLoadState(new LoadedState(await dataPromise));
+        }
+
+        function setErroredState(error: Error): void {
+            if (onError) {
+                onError(error);
+            }
+            setLoadState(new ErroredState(error));
+        }
+
         setLoadState(new LoadingState());
 
         loadData().catch(setErroredState);
-    }, [dataPromise]);
+    }, [dataPromise, onError]);
 
     function getErrorMessage(error: Error): ReactNode {
-        if (typeof(errorMessage) === "string") {
+        if (typeof (errorMessage) === "string") {
             return <p>{errorMessage}</p>;
         }
 
-        if (errorMessage === false)
-        {
+        if (errorMessage === false) {
             return null;
         }
 
@@ -65,7 +69,7 @@ export function LoadData<T>({ children, dataPromise, errorMessage, onError }: Lo
         }
 
         if (!(loadState instanceof ErroredState)) {
-            return <ONSLoadingPanel/>;
+            return <ONSLoadingPanel />;
         }
 
         if (errorMessage === false) {

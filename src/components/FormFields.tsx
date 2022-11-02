@@ -29,9 +29,13 @@ function SurveyField(surveyTLA: string | undefined): any {
         initial_value: surveyTLA,
         radioOptions: [
             { id: "all", value: "", label: "Show all surveys" },
-            { id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey" },
-            { id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey" }
-        ]
+            {
+                id: "lms", value: "lms", label: "LMS", description: "Labour Market Survey",
+            },
+            {
+                id: "opn", value: "opn", label: "OPN", description: "Opinions and Lifestyle Survey",
+            },
+        ],
     };
 }
 
@@ -40,7 +44,7 @@ function InterviewerField(interviewer: string | undefined): any {
         name: "Interviewer ID",
         type: "text",
         initial_value: interviewer,
-        validate: validateInterviewer
+        validate: validateInterviewer,
     };
 }
 
@@ -49,7 +53,7 @@ function StartDateField(startDate: string | Date): any {
         name: "Start date",
         type: "date",
         initial_value: formatISODate(startDate),
-        validate: validateDate
+        validate: validateDate,
     };
 }
 
@@ -58,7 +62,7 @@ function EndDateField(endDate: string | Date): any {
         name: "End date",
         type: "date",
         initial_value: formatISODate(endDate),
-        validate: validateDate
+        validate: validateDate,
     };
 }
 
@@ -67,8 +71,10 @@ function DateField(): any {
         name: "Date",
         type: "date",
         initial_value: formatISODate(new Date()),
-        validate: validateDate
+        validate: validateDate,
     };
 }
 
-export { SurveyField, InterviewerField, StartDateField, EndDateField, DateField };
+export {
+    SurveyField, InterviewerField, StartDateField, EndDateField, DateField,
+};

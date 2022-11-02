@@ -1,10 +1,14 @@
-import React, { ReactElement, useState } from "react";
+import React, {
+    ReactElement, useCallback, useMemo, useState,
+} from "react";
 import InterviewerFilter, { InterviewerFilterQuery } from "../filters/InterviewerFilter";
 import QuestionnaireFilter from "../filters/QuestionnaireFilter";
 import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
 
 enum Step {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     InterviewerFilter,
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     QuestionnaireFilter,
     RenderReport,
 }
@@ -19,50 +23,62 @@ function InterviewerCallHistory(): ReactElement {
     });
     const [questionnaires, setQuestionnaires] = useState<string[]>([]);
 
-    function _renderStepContent(step: number) {
-        switch (step) {
-        case Step.InterviewerFilter:
-            return (<InterviewerFilter
-                title="call history"
-                query={ interviewerFilterQuery }
-                onSubmit={ _handleInterviewerFilterSubmit }/>);
-        case Step.QuestionnaireFilter:
-            return (<QuestionnaireFilter
-                interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={ questionnaires } setQuestionnaires={ setQuestionnaires }
-                onSubmit={ _handleQuestionnaireFilterSubmit }
-                navigateBack={ _navigateBack }/>);
-        case Step.RenderReport:
-            console.log(`Steps questionnaires ${ questionnaires }`);
-            return (<RenderInterviewerCallHistoryReport
-                interviewerFilterQuery={interviewerFilterQuery}
-                questionnaires={ questionnaires }
-                navigateBack={ _navigateBack }
-                navigateBackTwoSteps={ _navigateBackTwoSteps }/>);
-        }
-    }
-
-    function _handleInterviewerFilterSubmit(query: InterviewerFilterQuery) {
+    const handleInterviewerFilterSubmit = useCallback((query: InterviewerFilterQuery) => {
         setInterviewerFilterQuery(query);
         setActiveStep(Step.QuestionnaireFilter);
-    }
+    }, [setInterviewerFilterQuery, setActiveStep]);
 
-    function _handleQuestionnaireFilterSubmit() {
+    const handleQuestionnaireFilterSubmit = useCallback(() => {
         setActiveStep(Step.RenderReport);
-    }
+    }, [setActiveStep]);
 
-    function _navigateBack() {
-        setActiveStep(activeStep - 1);
-    }
+    const navigateBack = useCallback(() => {
+        setActiveStep((current) => current - 1);
+    }, [setActiveStep]);
 
-    function _navigateBackTwoSteps() {
-        setActiveStep(activeStep - 2);
-    }
+    const navigateBackTwoSteps = useCallback(() => {
+        setActiveStep((current) => current - 2);
+    }, [setActiveStep]);
+
+    // eslint-disable-next-line consistent-return
+    const currentStep = useMemo(() => {
+        // eslint-disable-next-line default-case
+        switch (activeStep) {
+            case Step.InterviewerFilter:
+                return (
+                    <InterviewerFilter
+                        title="call history"
+                        query={interviewerFilterQuery}
+                        onSubmit={handleInterviewerFilterSubmit}
+                    />
+                );
+            case Step.QuestionnaireFilter:
+                return (
+                    <QuestionnaireFilter
+                        interviewerFilterQuery={interviewerFilterQuery}
+                        questionnaires={questionnaires}
+                        setQuestionnaires={setQuestionnaires}
+                        onSubmit={handleQuestionnaireFilterSubmit}
+                        navigateBack={navigateBack}
+                    />
+                );
+            case Step.RenderReport:
+                console.log(`Steps questionnaires ${questionnaires}`);
+                return (
+                    <RenderInterviewerCallHistoryReport
+                        interviewerFilterQuery={interviewerFilterQuery}
+                        questionnaires={questionnaires}
+                        navigateBack={navigateBack}
+                        navigateBackTwoSteps={navigateBackTwoSteps}
+                    />
+                );
+        }
+    }, [handleInterviewerFilterSubmit, handleQuestionnaireFilterSubmit, navigateBack, navigateBackTwoSteps, activeStep, interviewerFilterQuery, questionnaires]);
 
     return (
         <div>
             <div className="u-mt-m">
-                { _renderStepContent(activeStep) }
+                { currentStep }
             </div>
         </div>
     );

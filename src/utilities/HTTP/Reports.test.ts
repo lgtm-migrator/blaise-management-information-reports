@@ -21,8 +21,8 @@ describe("getQuestionnaireList", () => {
                     expect(formData.get("start_date")).toBe("2022-01-02");
                     expect(formData.get("end_date")).toBe("2022-02-05");
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, []);
 
         await getQuestionnaireList("DST", "James", new Date("2022-01-02"), new Date("2022-02-05"));
@@ -34,7 +34,7 @@ describe("getQuestionnaireList", () => {
             "DST",
             "James",
             new Date("2022-01-02"),
-            new Date("2022-02-05")
+            new Date("2022-02-05"),
         )).toEqual(["INST_01", "INST_02"]);
     });
 
@@ -46,7 +46,7 @@ describe("getQuestionnaireList", () => {
                 "DST",
                 "James",
                 new Date("2022-01-02"),
-                new Date("2022-02-05")
+                new Date("2022-02-05"),
             );
         } catch (e) {
             expect(e.message).toBe("Request failed with status code 500");
@@ -61,7 +61,7 @@ describe("getQuestionnaireList", () => {
                 "DST",
                 "James",
                 new Date("2022-01-02"),
-                new Date("2022-02-05")
+                new Date("2022-02-05"),
             );
         } catch (e) {
             expect(e.message).toBe("Response was not 200");
@@ -102,8 +102,8 @@ describe("getInterviewerCallHistoryReport", () => {
                     expect(formData.get("end_date")).toBe("2022-02-05");
                     expect(formData.get("questionnaires")).toBe("INST1,INST2");
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, []);
 
         await getInterviewerCallHistoryReport(testFormParameters);
@@ -123,8 +123,8 @@ describe("getInterviewerCallHistoryReport", () => {
                     expect(formData.get("end_date")).toBe("undefined");
                     expect(formData.get("questionnaires")).toBe("undefined");
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, []);
 
         await getInterviewerCallHistoryReport({});

@@ -3,16 +3,16 @@
  */
 
 import "@testing-library/jest-dom";
-import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import CallHistoryLastUpdatedStatus from "./CallHistoryLastUpdatedStatus";
+import flushPromises from "../tests/utilities";
 import subtractYears, { formatDateAndTime } from "../utilities/DateFormatter";
 
 const mockAdapter = new MockAdapter(axios);
@@ -21,8 +21,10 @@ const dateOneYearAgo = subtractYears(1);
 
 describe("call history last updated status with data", () => {
     beforeEach(() => {
-        mockAdapter.onGet("/api/reports/call-history-status").reply(200,
-            { "last_updated": dateOneYearAgo });
+        mockAdapter.onGet("/api/reports/call-history-status").reply(
+            200,
+            { last_updated: dateOneYearAgo },
+        );
     });
 
     afterEach(() => {
@@ -37,8 +39,8 @@ describe("call history last updated status with data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus/>
-            </Router>
+                <CallHistoryLastUpdatedStatus />
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -52,8 +54,8 @@ describe("call history last updated status with data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus/>
-                </Router>
+                    <CallHistoryLastUpdatedStatus />
+                </Router>,
             );
         });
         expect(screen.queryByText("Data in this report was last updated:")).toBeVisible();
@@ -78,8 +80,8 @@ describe("call history last updated status with invalid data", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <CallHistoryLastUpdatedStatus/>
-            </Router>
+                <CallHistoryLastUpdatedStatus />
+            </Router>,
         );
         await act(async () => {
             await flushPromises();
@@ -93,8 +95,8 @@ describe("call history last updated status with invalid data", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <CallHistoryLastUpdatedStatus/>
-                </Router>
+                    <CallHistoryLastUpdatedStatus />
+                </Router>,
             );
         });
         expect(screen.queryByText("Data in this report was last updated:")).toBeVisible();

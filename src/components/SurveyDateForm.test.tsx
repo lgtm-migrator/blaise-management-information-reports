@@ -3,15 +3,15 @@
  */
 
 import "@testing-library/jest-dom";
-import flushPromises from "../tests/utilities";
 import { createMemoryHistory } from "history";
 import { render } from "@testing-library/react";
 import { Router } from "react-router";
-import SurveyDateForm from "./SurveyDateForm";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
 import MockDate from "mockdate";
+import SurveyDateForm from "./SurveyDateForm";
+import flushPromises from "../tests/utilities";
 
 const christmasEve97 = "1997-12-24";
 
@@ -28,8 +28,8 @@ describe("form - survey, date", () => {
         const history = createMemoryHistory();
         const wrapper = render(
             <Router history={history}>
-                <SurveyDateForm onSubmitFunction={() => {return true;}} />
-            </Router>
+                <SurveyDateForm onSubmitFunction={() => true} />
+            </Router>,
         );
 
         await act(async () => {
@@ -44,8 +44,8 @@ describe("form - survey, date", () => {
         await act(async () => {
             render(
                 <Router history={history}>
-                    <SurveyDateForm onSubmitFunction={() => {return true;}} />
-                </Router>
+                    <SurveyDateForm onSubmitFunction={() => true} />
+                </Router>,
             );
         });
         expect(screen.queryByText("Select survey")).toBeVisible();
@@ -56,6 +56,5 @@ describe("form - survey, date", () => {
         expect(screen.queryByText("Opinions and Lifestyle Survey")).toBeVisible();
         expect(screen.queryByText("Date")).toBeVisible();
         expect(screen.queryByText("Run")).toBeVisible();
-
     });
 });
