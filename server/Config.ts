@@ -8,8 +8,24 @@ export interface Config extends AuthConfig {
     BlaiseApiUrl: string
 }
 
+function loadRoles(roles: string | undefined): string[] {
+    if (!roles || roles === "" || roles === "_ROLES") {
+        return ["DST", "BDSS", "TO Manager"];
+    }
+    return roles.split(",");
+}
+
+function sessionSecret(secret: string | undefined): string {
+    if (!secret || secret === "" || secret === "_SESSION_SECRET") {
+        return crypto.randomBytes(20).toString("hex");
+    }
+    return secret;
+}
+
 export function loadConfigFromEnv(): Config {
-    let { PROJECT_ID, BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL, SESSION_TIMEOUT } = process.env;
+    let {
+        PROJECT_ID, BERT_URL, BERT_CLIENT_ID, BLAISE_API_URL, SESSION_TIMEOUT,
+    } = process.env;
     const { ROLES, SESSION_SECRET } = process.env;
 
     if (PROJECT_ID === undefined) {
@@ -44,20 +60,6 @@ export function loadConfigFromEnv(): Config {
         BlaiseApiUrl: BLAISE_API_URL,
         Roles: loadRoles(ROLES),
         SessionTimeout: SESSION_TIMEOUT,
-        SessionSecret: sessionSecret(SESSION_SECRET)
+        SessionSecret: sessionSecret(SESSION_SECRET),
     };
-}
-
-function loadRoles(roles: string | undefined): string[] {
-    if (!roles || roles === "" || roles === "_ROLES") {
-        return ["DST", "BDSS", "TO Manager"];
-    }
-    return roles.split(",");
-}
-
-function sessionSecret(secret: string | undefined): string {
-    if (!secret || secret === "" || secret === "_SESSION_SECRET") {
-        return crypto.randomBytes(20).toString("hex");
-    }
-    return secret;
 }

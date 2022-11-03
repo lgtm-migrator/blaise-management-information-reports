@@ -1,12 +1,14 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
-import { render, RenderResult, screen, within } from "@testing-library/react";
+import {
+    render, RenderResult, screen, within,
+} from "@testing-library/react";
 import { createMemoryHistory, History } from "history";
 import { Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import RenderInterviewerCallHistoryReport from "./RenderInterviewerCallHistoryReport";
 import { InterviewerCallHistoryReport } from "../../interfaces";
 
 const http = new MockAdapter(axios);
@@ -26,7 +28,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
         navigateBackTwoSteps = jest.fn();
 
         http.onGet("/api/reports/call-history-status")
-            .reply(200, { "last_updated": "Tue, 04 Oct 2022 00:00:06 GMT" });
+            .reply(200, { last_updated: "Tue, 04 Oct 2022 00:00:06 GMT" });
     });
 
     function renderComponent(): RenderResult {
@@ -34,18 +36,18 @@ describe("RenderInterviewerCallHistoryReport", () => {
             interviewer: "rich",
             startDate: new Date("September 18, 2022 01:23:00"),
             endDate: new Date("October 17, 2022 04:56:00"),
-            surveyTla: "LMS"
+            surveyTla: "LMS",
         };
 
         return render(
-            <Router history={ history }>
+            <Router history={history}>
                 <RenderInterviewerCallHistoryReport
                     interviewerFilterQuery={interviewerFilterQuery}
-                    questionnaires={ ["LMS1111", "LMS2222"] }
-                    navigateBack={ navigateBack }
-                    navigateBackTwoSteps={ navigateBackTwoSteps }
+                    questionnaires={["LMS1111", "LMS2222"]}
+                    navigateBack={navigateBack}
+                    navigateBackTwoSteps={navigateBackTwoSteps}
                 />
-            </Router>
+            </Router>,
         );
     }
 
@@ -58,8 +60,8 @@ describe("RenderInterviewerCallHistoryReport", () => {
                 asymmetricMatch: (fd: FormData) => {
                     formData = fd;
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, []);
         renderComponent();
         await screen.findByText(/No data found for parameters given/);
@@ -156,7 +158,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
                     call_start_time: "Mon, 01 Aug 2022 01:02:03 GMT",
                     dial_secs: 83,
                     call_result: "Appointment",
-                    outcome_code: "320"
+                    outcome_code: "320",
                 },
                 {
                     questionnaire_name: "DST2111Z",
@@ -164,7 +166,7 @@ describe("RenderInterviewerCallHistoryReport", () => {
                     call_start_time: "Thu, 06 Jan 2022 04:05:06 GMT",
                     dial_secs: 3,
                     call_result: "Busy",
-                    outcome_code: ""
+                    outcome_code: "",
                 },
             ];
             http.onPost("/api/reports/interviewer-call-history").reply(200, results);

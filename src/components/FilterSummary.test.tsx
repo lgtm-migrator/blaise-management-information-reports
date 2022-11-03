@@ -3,6 +3,17 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import FilterSummary from "./FilterSummary";
 
+function renderComponent(questionnaires: string[]) {
+    return render(
+        <FilterSummary
+            startDate={new Date("2022-05-04")}
+            endDate={new Date("2022-05-05")}
+            interviewer="Cal"
+            questionnaires={questionnaires}
+        />,
+    );
+}
+
 describe("FilterSummary tests", () => {
     const multipleQuestionnaires: string[] = ["LMS", "OPN"];
     const singleQuestionnaire: string[] = ["LMS"];
@@ -43,13 +54,3 @@ describe("FilterSummary tests", () => {
         });
     });
 });
-
-function renderComponent(questionnaires: string[]) {
-    return render(
-        <FilterSummary
-            startDate={ new Date("2022-05-04") }
-            endDate={ new Date("2022-05-05") }
-            interviewer="Cal"
-            questionnaires={ questionnaires }/>
-    );
-}

@@ -17,7 +17,7 @@ const defaultPinoConf = {
             return {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                severity: PinoLevelToSeverityLookup[label] || PinoLevelToSeverityLookup["info"],
+                severity: PinoLevelToSeverityLookup[label] || PinoLevelToSeverityLookup.info,
                 level: number,
             };
         },
@@ -29,7 +29,7 @@ const defaultPinoConf = {
         req: (req: any) => ({
             method: req.method,
             url: req.url,
-            user: req.raw.user
+            user: req.raw.user,
         }),
     },
 };
@@ -39,5 +39,5 @@ export default function createLogger(options: any = { autoLogging: false }): Pin
     if (process.env.NODE_ENV === "production") {
         pinoConfig = defaultPinoConf;
     }
-    return logger(Object.assign({}, options, pinoConfig));
+    return logger({ ...options, ...pinoConfig });
 }

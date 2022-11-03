@@ -4,18 +4,16 @@
 
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "./App";
+import { AuthManager } from "blaise-login-react-client";
+import { Router } from "react-router";
 import "@testing-library/jest-dom";
-import flushPromises from "./tests/utilities";
 import { act } from "react-dom/test-utils";
 import { createMemoryHistory } from "history";
-import { Router } from "react-router";
-import { AuthManager } from "blaise-login-react-client";
+import App from "./App";
+import flushPromises from "./tests/utilities";
 
 jest.mock("blaise-login-react-client");
-AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => {
-    return Promise.resolve(true);
-});
+AuthManager.prototype.loggedIn = jest.fn().mockImplementation(() => Promise.resolve(true));
 
 describe("management information reports homepage", () => {
     it("matches snapshot", async () => {
@@ -23,7 +21,7 @@ describe("management information reports homepage", () => {
         const wrapper = render(
             <Router history={history}>
                 <App />
-            </Router>
+            </Router>,
         );
 
         await act(async () => {
@@ -38,7 +36,7 @@ describe("management information reports homepage", () => {
         const { queryByText } = render(
             <Router history={history}>
                 <App />
-            </Router>
+            </Router>,
         );
 
         await act(async () => {

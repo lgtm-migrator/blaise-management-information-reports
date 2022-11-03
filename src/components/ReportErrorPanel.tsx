@@ -5,16 +5,16 @@ interface Props {
     error: boolean;
 }
 
-const ReportErrorPanel = ({ error }: Props): ReactElement => {
-    let errorFocus: HTMLDivElement | null;
+function ReportErrorPanel({ error }: Props): ReactElement {
+    let errorFocus: HTMLDivElement | null = null;
 
     useEffect(() => {
         errorFocus?.focus();
-    }, [error]);
+    }, [error, errorFocus]);
 
     if (error) {
         return (
-            <div role="alert" ref={input => errorFocus = input} tabIndex={-1}>
+            <div role="alert" ref={(input) => { errorFocus = input; }} tabIndex={-1}>
                 <ONSPanel status="error">
                     <h2>Failed to run the report</h2>
                     <p>Try again later.</p>
@@ -25,7 +25,8 @@ const ReportErrorPanel = ({ error }: Props): ReactElement => {
         );
     }
 
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     return (<></>);
-};
+}
 
 export default ReportErrorPanel;

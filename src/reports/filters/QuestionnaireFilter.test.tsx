@@ -9,15 +9,15 @@ import { Router } from "react-router";
 import { act } from "react-dom/test-utils";
 import { screen } from "@testing-library/dom";
 import React from "react";
-import QuestionnaireFilter from "./QuestionnaireFilter";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import dateFormatter from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import userEvent from "@testing-library/user-event";
 import subtractYears from "../../utilities/DateFormatter";
 import { InterviewerFilterQuery } from "./InterviewerFilter";
-import userEvent from "@testing-library/user-event";
+import QuestionnaireFilter from "./QuestionnaireFilter";
 
 const mockAdapter = new MockAdapter(axios);
 
@@ -37,7 +37,7 @@ describe("the interviewer details page renders correctly", () => {
     beforeEach(() => {
         mockAdapter
             .onGet("/api/reports/call-history-status")
-            //.reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
+            // .reply(200, {last_updated: "Sat, 01 Jan 2000 10:00:00 GMT"});
             .reply(200, { last_updated: subtractYears(1) });
         history = createMemoryHistory();
         setQuestionnaires = jest.fn();
@@ -53,20 +53,19 @@ describe("the interviewer details page renders correctly", () => {
             interviewer: "James",
             startDate: new Date("2022-01-01"),
             endDate: new Date("2022-01-05"),
-            surveyTla: "LMS"
+            surveyTla: "LMS",
         };
 
         return render(
-            <Router history={ history }>
+            <Router history={history}>
                 <QuestionnaireFilter
-                    interviewerFilterQuery={ interviewerFilterQuery }
-                    questionnaires={ ["LMS2101_AA1"] } setQuestionnaires={ setQuestionnaires }
-                    onSubmit={ submit }
-                    navigateBack={ () => {
-                        return;
-                    } }
+                    interviewerFilterQuery={interviewerFilterQuery}
+                    questionnaires={["LMS2101_AA1"]}
+                    setQuestionnaires={setQuestionnaires}
+                    onSubmit={submit}
+                    navigateBack={() => {}}
                 />
-            </Router>
+            </Router>,
         );
     }
 
@@ -81,8 +80,8 @@ describe("the interviewer details page renders correctly", () => {
                     expect(formData.get("start_date")).toBe("2022-01-01");
                     expect(formData.get("end_date")).toBe("2022-01-05");
                     return true;
-                }
-            }
+                },
+            },
         ).reply(200, questionnaireDataReturned);
         renderComponent();
 

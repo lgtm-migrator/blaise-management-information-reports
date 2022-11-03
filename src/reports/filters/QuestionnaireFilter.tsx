@@ -31,36 +31,44 @@ function QuestionnaireFilter({
     navigateBack,
     questionnaires,
     setQuestionnaires,
-    onSubmit
+    onSubmit,
 }: QuestionnaireFilterPageProps): ReactElement {
-    const errorMessage = useCallback(() => <FetchQuestionnairesError/>, []);
+    const errorMessage = useCallback(() => <FetchQuestionnairesError />, []);
 
     return (
         <div>
             <Breadcrumbs
-                BreadcrumbList={ [
+                BreadcrumbList={[
                     { link: "/", title: "Reports" },
-                    { link: "#", onClickFunction: navigateBack, title: "Interviewer details" }
-                ] }/>
+                    { link: "#", onClickFunction: navigateBack, title: "Interviewer details" },
+                ]}
+            />
             <main id="main-content" className="page__main u-mt-s">
                 <h1>Select questionnaires for</h1>
-                <FilterSummary { ...interviewerFilterQuery } questionnaires={ questionnaires }/>
-                <CallHistoryLastUpdatedStatus/>
+                <FilterSummary
+                    interviewer={interviewerFilterQuery.interviewer}
+                    startDate={interviewerFilterQuery.startDate}
+                    endDate={interviewerFilterQuery.endDate}
+                    questionnaires={questionnaires}
+                />
+                <CallHistoryLastUpdatedStatus />
                 <LoadData
-                    dataPromise={ getQuestionnaireList(
+                    dataPromise={getQuestionnaireList(
                         interviewerFilterQuery.surveyTla,
                         interviewerFilterQuery.interviewer,
                         interviewerFilterQuery.startDate,
-                        interviewerFilterQuery.endDate
-                    ) }
-                    errorMessage={ errorMessage }
+                        interviewerFilterQuery.endDate,
+                    )}
+                    errorMessage={errorMessage}
                 >
-                    { loadedQuestionnaires => <QuestionnaireSelector
-                        questionnaires={ loadedQuestionnaires }
-                        selectedQuestionnaires={ questionnaires }
-                        setSelectedQuestionnaires={ setQuestionnaires }
-                        onSubmit={ onSubmit }
-                    /> }
+                    { (loadedQuestionnaires) => (
+                        <QuestionnaireSelector
+                            questionnaires={loadedQuestionnaires}
+                            selectedQuestionnaires={questionnaires}
+                            setSelectedQuestionnaires={setQuestionnaires}
+                            onSubmit={onSubmit}
+                        />
+                    ) }
                 </LoadData>
             </main>
         </div>

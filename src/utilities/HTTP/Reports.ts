@@ -5,14 +5,14 @@ import {
     AppointmentResourcePlanningSummaryReportData,
     CallHistoryStatus,
     InterviewerCallHistoryReport,
-    InterviewerCallPatternReport
+    InterviewerCallPatternReport,
 } from "../../interfaces";
 import { formatISODate } from "../DateFormatter";
 
 function axiosConfig(): AxiosRequestConfig {
     const authManager = new AuthManager();
     return {
-        headers: authManager.authHeader()
+        headers: authManager.authHeader(),
     };
 }
 
@@ -115,6 +115,7 @@ async function getAppointmentResourcePlanningReport(date: Date, survey_tla: stri
         if (response.status === 200) {
             return response.data;
         }
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw "Response was not 200";
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);
@@ -134,6 +135,7 @@ async function getAppointmentResourcePlanningSummaryReport(date: Date, survey_tl
         if (response.status === 200) {
             return response.data;
         }
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw "Response was not 200";
     }).catch((error: Error) => {
         console.error(`Response: Error ${error}`);
@@ -147,5 +149,5 @@ export {
     getInterviewerCallHistoryReport,
     getInterviewerCallPatternReport,
     getAppointmentResourcePlanningReport,
-    getAppointmentResourcePlanningSummaryReport
+    getAppointmentResourcePlanningSummaryReport,
 };
